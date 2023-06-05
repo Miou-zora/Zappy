@@ -5,7 +5,13 @@
 ## Makefile
 ##
 
-SRC			=
+SRC			=	parser/parse_args.c 			\
+				parser/get_freq.c 				\
+				parser/get_port.c 				\
+				parser/get_width.c 				\
+				parser/get_height.c 			\
+				parser/get_names.c 				\
+				parser/get_nb_client.c 			\
 
 OBJ			=	$(SRC:%.c=%.o)
 
