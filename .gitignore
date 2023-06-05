@@ -1,0 +1,8 @@
+__pycache__
+.vscode
+
+*.o
+GUI/build
+
+zappy_server
+zappy_gui
