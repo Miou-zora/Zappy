@@ -19,7 +19,13 @@ MAIN		=	main.c
 
 OBJ_MAIN	=	$(MAIN:%.c=%.o)
 
-TESTS		=
+TESTS		=	tests/parse/tests_get_port.c 			\
+				tests/parse/tests_get_freq.c 			\
+				tests/parse/tests_get_height.c 			\
+				tests/parse/tests_get_width.c 			\
+				tests/parse/tests_get_nb_client.c 		\
+				tests/parse/tests_get_names.c 			\
+				tests/parse/tests_parse_args.c 			\
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
