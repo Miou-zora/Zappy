@@ -8,10 +8,16 @@
 #ifndef SERVER_H_
     #define SERVER_H_
 
+    #define QUEUE_SIZE 10
+
     #include <stdbool.h>
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+    #include <sys/socket.h>
+    #include <arpa/inet.h>
+    #include <netinet/in.h>
+    #include <sys/select.h>
 
     /**
      * @brief Structure containing the server's arguments
@@ -36,11 +42,15 @@
      * @param args The server's arguments
      * @param socket The server's socket
      * @param game The game's data
+     * @param port The port the server will listen on
+     * @param interface The server's interface
      */
     typedef struct zappy_s {
         argv_t *args;
         int socket;
         void *game;
+        int port;
+        struct sockaddr_in interface;
     } zappy_t;
 
     /**
@@ -107,5 +117,14 @@
      * @return char** the names of the teams
      */
     char **get_names(int ac, char **av);
+
+    /**
+     * @brief Builds the server
+     *
+     * @param ac from the command line
+     * @param av from the command line
+     * @return ** zappy_t* the server or NULL if an error occured
+     */
+    zappy_t *build_server(int ac, char **av);
 
 #endif /* !SERVER_H_ */

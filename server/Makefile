@@ -12,6 +12,7 @@ SRC			=	parser/parse_args.c 			\
 				parser/get_height.c 			\
 				parser/get_names.c 				\
 				parser/get_nb_client.c 			\
+				build/build_server.c			\
 
 OBJ			=	$(SRC:%.c=%.o)
 
@@ -26,6 +27,7 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 				tests/parse/tests_get_nb_client.c 		\
 				tests/parse/tests_get_names.c 			\
 				tests/parse/tests_parse_args.c 			\
+				tests/tests_build_server.c				\
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
