@@ -119,6 +119,13 @@
     char **get_names(int ac, char **av);
 
     /**
+     * @brief Displays a log message
+     *
+     * @param format the format of the message
+     * @param ... the arguments of the message
+     */
+    void display_log(const char* format, ...);
+    /**
      * @brief Builds the server
      *
      * @param ac from the command line

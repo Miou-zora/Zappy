@@ -12,6 +12,7 @@ SRC			=	parser/parse_args.c 			\
 				parser/get_height.c 			\
 				parser/get_names.c 				\
 				parser/get_nb_client.c 			\
+				display_log.c 					\
 				build/build_server.c			\
 
 OBJ			=	$(SRC:%.c=%.o)
