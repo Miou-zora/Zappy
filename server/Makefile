@@ -12,8 +12,10 @@ SRC			=	parser/parse_args.c 			\
 				parser/get_height.c 			\
 				parser/get_names.c 				\
 				parser/get_nb_client.c 			\
+				initialize/initialize_trantorian.c\
 				display_log.c 					\
 				build/build_server.c			\
+				initialize/clan.c 				\
 
 OBJ			=	$(SRC:%.c=%.o)
 
@@ -32,7 +34,8 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
-INCLUDE		=	-I./include
+INCLUDE		=	-I./include \
+				-I../utils/
 
 CFLAGS		=	-Wall -Wextra -Werror -Wshadow
 
