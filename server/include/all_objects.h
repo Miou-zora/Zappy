@@ -28,4 +28,3 @@ enum {
 typedef struct object_s {
     int nb_of_objects[7];
 } object_t;
-

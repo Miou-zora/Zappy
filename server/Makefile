@@ -16,6 +16,7 @@ SRC			=	parser/parse_args.c 			\
 				display_log.c 					\
 				build/build_server.c			\
 				initialize/clan.c 				\
+				initialize/map.c			 	\
 
 OBJ			=	$(SRC:%.c=%.o)
 

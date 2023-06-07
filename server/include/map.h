@@ -24,4 +24,13 @@
         object_t **tile;
     } map_t;
 
+    /**
+     * @brief create a map
+     * @param width width of the map
+     * @param height height of the map
+     * @return map_t* the map
+     */
+
+    map_t *create_map(int width, int height);
+
 #endif /* !MAP_H_ */
