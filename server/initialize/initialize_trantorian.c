@@ -20,8 +20,8 @@ trantorian_t *initialize_trantorian(egg_t* egg)
     trantorian->level = 1;
     trantorian->inventory = calloc(1, sizeof(object_t));
     trantorian->life = 10;
-    trantorian->position.x = egg->pos_x;
-    trantorian->position.y = egg->pos_y;
+    trantorian->position.x = egg->pos.x;
+    trantorian->position.y = egg->pos.y;
     trantorian->direction = rand() % 4;
     return (trantorian);
 }
