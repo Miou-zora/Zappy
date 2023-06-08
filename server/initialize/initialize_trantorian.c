@@ -30,7 +30,6 @@ trantorian_t *initialize_trantorian(egg_t* egg)
  * @brief Initialize an empty trantorian
  * @return trantorian_t*
 */
-
 trantorian_t *initialize_empty_trantorian(void)
 {
     trantorian_t *trantorian = calloc(1, sizeof(trantorian_t));

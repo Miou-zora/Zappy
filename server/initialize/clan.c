@@ -28,13 +28,11 @@ clan_t *add_member_to_clan(clan_t *clan, clan_member_t *trantorian)
     return (clan);
 }
 
-
-
 clan_t *remove_member_from_clan(clan_t *clan, clan_member_t *trantorian)
 {
     clan_member_t *to_remove_trantorian = clan->clan_member;
 
-    while(clan->clan_member->next != NULL)
+    while (clan->clan_member->next != NULL)
         clan->clan_member = clan->clan_member->next;
     if (clan->clan_member == trantorian) {
         clan->clan_member = NULL;
