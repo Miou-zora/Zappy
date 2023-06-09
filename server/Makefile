@@ -20,6 +20,8 @@ SRC			=	parser/parse_args.c 			\
 				client/client.c		 			\
 				initialize/clan.c 				\
 				initialize/map.c			 	\
+				network/read.c					\
+				network/write.c					\
 
 OBJ			=	$(SRC:%.c=%.o)
 
@@ -35,7 +37,8 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 				tests/parse/tests_get_names.c 			\
 				tests/parse/tests_parse_args.c 			\
 				tests/tests_build_server.c				\
-				tests/server/tests.c					\
+				tests/server/network/tests_read.c		\
+				tests/server/network/tests_write.c 		\
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
