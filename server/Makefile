@@ -15,6 +15,9 @@ SRC			=	parser/parse_args.c 			\
 				initialize/initialize_trantorian.c\
 				display_log.c 					\
 				build/build_server.c			\
+				run/run.c 						\
+				run/handle_clients.c 			\
+				client/client.c		 			\
 				initialize/clan.c 				\
 				initialize/map.c			 	\
 
@@ -32,6 +35,7 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 				tests/parse/tests_get_names.c 			\
 				tests/parse/tests_parse_args.c 			\
 				tests/tests_build_server.c				\
+				tests/server/tests.c					\
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
@@ -78,7 +82,8 @@ clean:
 fclean:			clean
 		$(RM) $(NAME)
 		$(RM) $(TEST_BINARY)
-
+		$(RM) ./tests/*.gc*
+		$(RM) *.gc*
 tclean:
 		@find . -type f -name '*.gcda' -exec $(RM) {} \;
 		@find . -type f -name '*.gcno' -exec $(RM) {} \;

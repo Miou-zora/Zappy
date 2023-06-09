@@ -20,7 +20,7 @@ void display_log(const char* format, ...)
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", timeinfo);
+    printf("[%s]: ", buffer);
     vprintf(format, arglist);
-    printf("[%s] Log: ", buffer);
     va_end(arglist);
 }

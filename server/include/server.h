@@ -19,6 +19,8 @@
     #include <netinet/in.h>
     #include <sys/select.h>
 
+    #include "client.h"
+
     /**
      * @brief Structure containing the server's arguments
      * @param port The port the server will listen on
@@ -51,6 +53,9 @@
         void *game;
         int port;
         struct sockaddr_in interface;
+        fd_set readfds;
+        struct timeval timeout;
+        LIST_HEAD(client_list, client_s) clients;
     } zappy_t;
 
     /**
@@ -119,13 +124,6 @@
     char **get_names(int ac, char **av);
 
     /**
-     * @brief Displays a log message
-     *
-     * @param format the format of the message
-     * @param ... the arguments of the message
-     */
-    void display_log(const char* format, ...);
-    /**
      * @brief Builds the server
      *
      * @param ac from the command line
@@ -133,5 +131,57 @@
      * @return ** zappy_t* the server or NULL if an error occured
      */
     zappy_t *build_server(int ac, char **av);
+
+    /**
+     * @brief Displays a log message
+     *
+     * @param format the format of the message
+     * @param ... the arguments of the message
+     */
+    void display_log(const char* format, ...);
+
+    /**
+     * @brief Runs the server
+     *
+     * @param zappy the server
+     * @details The server will run until the running variable is set to false
+     * (by ctrl+c for example)
+     * during the run, the server will accept new clients and listen to the
+     * clients that are already connected
+     * it will create a queue of event for the game to handle
+     * finally, the server will free all the memory allocated
+        @return int 0 if the server ran successfully, 84 otherwise
+     */
+    int run(zappy_t *zappy);
+
+    /**
+     * @brief Handles the activity of the clients
+     * @details If a client is trying to connect, it will accept the connection
+     * and add the client to the list of clients
+     * If a client is already connected, it will read the data sent by the
+     * client and add it to the queue of events
+     * @param zappy the server
+     * @return int 0 if the activity was handled successfully, 84 otherwise
+     */
+    int handle_activity(zappy_t *zappy);
+
+    /**
+     * @brief Initializes the fd_set, and listens to the sockets
+     *
+     * @details The fd_set will contain the server's socket and the clients'
+     * sockets
+     * @param zappy the server
+     * @return ** int the number of sockets that are ready to be read
+     */
+    int listen_sockets(zappy_t *zappy);
+
+    /**
+     * @brief Initializes the fd_set, and prepares it to be used by select
+     *
+     * @param readfds the fd_set to initialize
+     * @param zappy the server
+     * @return ** void
+     */
+    void update_fd_set(fd_set *readfds, zappy_t *zappy);
 
 #endif /* !SERVER_H_ */
