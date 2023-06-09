@@ -5,22 +5,26 @@
 ## Makefile
 ##
 
-NAME	=	zappy_gui
+NAME			=	zappy_gui
+
+BINARY_NAME		=	unitTests
 
 all:
 		cmake -S . -B build
 		make -C build
 
-debug:		all
+debug:			all
 
-tests_run:	all
+tests_run:		all
+		./unitTests --verbose --full-stats
 
 clean:
 		rm -rf build/
 
-fclean: clean
+fclean: 		clean
 		rm -f $(NAME)
+		rm -f $(BINARY_NAME)
 
-re: 		fclean all
+re: 			fclean all
 
-.PHONY: 	all clean fclean re tests_run
+.PHONY: 		all clean fclean re tests_run
