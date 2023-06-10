@@ -9,6 +9,7 @@
 
 #include <string>
 #include "Client.hpp"
+#include "Management.hpp"
 
 namespace GUI {
     class Core {
@@ -66,5 +67,6 @@ namespace GUI {
             std::string _port;
             Network::Client _client;
             bool _running;
+            GUI::Graphic::Management _gui;
     };
 }

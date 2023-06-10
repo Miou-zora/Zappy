@@ -50,11 +50,13 @@ namespace GUI {
     void Core::load(void)
     {
         _client.connect(_ip, _port);
+        _gui.init();
     }
 
     void Core::run(void)
     {
         while (_running) {
+            _gui.pollEvent();
             std::string msg = _client.tryReceive();
             if (!msg.empty()) {
                 if (msg.back() == '\n')
@@ -64,6 +66,10 @@ namespace GUI {
                 std::printf("[%02d:%02d-%02d/%02d/%04d] %s\n",
                     ltm->tm_hour, ltm->tm_min, ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900, msg.c_str());
             }
+            _gui.update();
+            _gui.render();
+            if (!_gui.isRunning())
+                _running = false;
         }
     }
 
