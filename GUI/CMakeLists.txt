@@ -11,6 +11,7 @@ ${PROJECT_SOURCE_DIR}/src/network/sockaddrIn/
 ${PROJECT_SOURCE_DIR}/src/network/client/
 ${PROJECT_SOURCE_DIR}/src/errorManagement/
 ${PROJECT_SOURCE_DIR}/src/core/
+${PROJECT_SOURCE_DIR}/src/utils/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -21,6 +22,7 @@ set(SRC ${PROJECT_SOURCE_DIR}/src/network/socket/Socket.cpp
 ${PROJECT_SOURCE_DIR}/src/network/sockaddrIn/SockaddrIn.cpp
 ${PROJECT_SOURCE_DIR}/src/network/client/Client.cpp
 ${PROJECT_SOURCE_DIR}/src/core/Core.cpp
+${PROJECT_SOURCE_DIR}/src/utils/ObjLoader.cpp
 )
 
 set(MAIN "main.cpp")
