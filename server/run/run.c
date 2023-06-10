@@ -15,7 +15,7 @@ static int send_responses(zappy_t *zappy, response_t *response)
     client_t *tmp = NULL;
 
     LIST_FOREACH(tmp, &response->clients, next) {
-        if (send_client(zappy, tmp->fd, response->content) == 84) {
+        if (send_client(zappy, tmp, response->content) == 84) {
             display_log("Error while sending response to client %d\n", tmp->fd);
         }
     }

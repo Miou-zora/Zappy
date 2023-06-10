@@ -37,7 +37,7 @@
      * @param msg to send
      * @return int 0 if success, else 84
      */
-    int send_client(zappy_t *server, int fd, char *msg);
+    int send_client(zappy_t *server, client_t *client, char *msg);
 
     /**
      * @brief it will look for a '\n' in the buffer
@@ -51,7 +51,7 @@
      * @brief it will check if the socket is ready to be written
      * using select
      * @param fd to check
-     * @return ** int 1 if valid, else 0 if there is data to read, else -1 for 
+     * @return ** int 1 if valid, else 0 if there is data to read, else -1 for error
      */
     int is_socket_ready(int fd);
 #endif /* !NETWORK_H_ */

@@ -10,8 +10,7 @@
 #include <criterion/redirect.h>
 #include <signal.h>
 
-
-bool running = true; //this is for the run function
+extern bool running;
 
 void redirect_all_stdout(void)
 {

@@ -13,7 +13,6 @@ Test(create_response, fail_and_sucess)
     response_t *response = create_response("test");
 
     cr_assert_str_eq(response->content, "test");
-    cr_assert_null(response->next);
     destroy_response(response);
 }
 
