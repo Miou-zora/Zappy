@@ -21,6 +21,7 @@ SRC			=	parser/parse_args.c 			\
 				run/run.c 						\
 				run/handle_clients.c 			\
 				client/client.c		 			\
+				event/event.c 					\
 				network/read.c					\
 				network/write.c					\
 
@@ -38,6 +39,8 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 				tests/parse/tests_get_names.c 			\
 				tests/parse/tests_parse_args.c 			\
 				tests/tests_build_server.c				\
+				tests/server/tests.c					\
+				tests/event/tests_event.c				\
 				tests/tests_management_structure/tests_egg_structure.c 		  \
 				tests/tests_management_structure/tests_trantorian_structure.c \
 				tests/tests_management_structure/tests_clan_structure.c 	  \

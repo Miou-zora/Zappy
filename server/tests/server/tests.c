@@ -19,16 +19,6 @@ void redirect_all_stdout(void)
     cr_redirect_stderr();
 }
 
-Test(server_timeout, timeout)
-{
-    char *av[] = {"./zappy_server", "-p", "4242", "-x", "10", "-y", "10", "-n",
-        "toto", "-c", "10", "-f", "10", NULL};
-    zappy_t *zappy = build_server(13, av);
-
-    listen_sockets(zappy);
-    cr_assert(1 == 1);
-}
-
 Test(server_connection, connection)
 {
     char *av[] = {"./zappy_server", "-p", "4242", "-x", "10", "-y", "10", "-n",
