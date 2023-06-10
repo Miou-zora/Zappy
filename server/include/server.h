@@ -20,6 +20,7 @@
     #include <sys/select.h>
 
     #include "client.h"
+    #include "response.h"
 
     /**
      * @brief Structure containing the server's arguments
@@ -46,6 +47,9 @@
      * @param game The game's data
      * @param port The port the server will listen on
      * @param interface The server's interface
+     * @param readfds The fd_set used by select
+     * @param timeout The timeout used by select
+     * @param responses The queue of responses
      */
     typedef struct zappy_s {
         argv_t *args;
@@ -55,6 +59,7 @@
         struct sockaddr_in interface;
         fd_set readfds;
         struct timeval timeout;
+        LIST_HEAD(response_list, response_s) responses;
         LIST_HEAD(client_list, client_s) clients;
     } zappy_t;
 

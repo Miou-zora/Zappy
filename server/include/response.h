@@ -19,7 +19,7 @@
     typedef struct response_s {
         char *content;
         LIST_HEAD(, client_s) clients;
-        struct response_s *next;
+        LIST_ENTRY(response_s) next;
     } response_t;
 
     /**
