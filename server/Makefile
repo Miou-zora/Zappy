@@ -5,29 +5,37 @@
 ## Makefile
 ##
 
-SRC			=	parser/parse_args.c 			\
-				parser/get_freq.c 				\
-				parser/get_port.c 				\
-				parser/get_width.c 				\
-				parser/get_height.c 			\
-				parser/get_names.c 				\
-				parser/get_nb_client.c 			\
-				initialize/trantorian.c\
-				display_log.c 					\
-				build/build_server.c			\
-				initialize/egg.c 				\
-				initialize/map.c			 	\
-				initialize/clan.c 				\
-				run/run.c 						\
-				run/handle_clients.c 			\
-				client/client.c		 			\
-				event/event.c 					\
-				network/read.c					\
-				network/write.c					\
-				response/response.c				\
-				initialize/game_struct.c
+SRC_PARSER	=	parser_args/parse_args.c 				\
+				parser_args/get_freq.c 					\
+				parser_args/get_port.c 					\
+				parser_args/get_width.c 				\
+				parser_args/get_height.c 				\
+				parser_args/get_names.c 				\
+				parser_args/get_nb_client.c 			\
+
+SRC_DISPLAY = display/display_log.c 					\
+
+SRC_GAME 	=	game/initialize/trantorian.c    		\
+				game/initialize/egg.c 					\
+				game/initialize/map.c			 		\
+				game/initialize/clan.c 					\
+				game/initialize/game_struct.c 			\
+
+
+SRC_NETWORK =	network/build/build_server.c			\
+				network/run/run.c 						\
+				network/run/handle_clients.c 			\
+				network/client/client.c		 			\
+				network/event/event.c 					\
+				network/utils_network/read.c			\
+				network/utils_network/write.c			\
+				network/response/response.c				\
 
 OBJ			=	$(SRC:%.c=%.o)
+OBJ			+=	$(SRC_PARSER:%.c=%.o)
+OBJ			+=	$(SRC_DISPLAY:%.c=%.o)
+OBJ			+=	$(SRC_GAME:%.c=%.o)
+OBJ			+=	$(SRC_NETWORK:%.c=%.o)
 
 MAIN		=	main.c
 
@@ -53,7 +61,8 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
-INCLUDE		=	-I./include \
+INCLUDE		=	-I./include/game \
+				-I./include/network \
 				-I../utils/
 
 CFLAGS		=	-Wall -Wextra -Werror -Wshadow
@@ -80,7 +89,7 @@ debug:			CFLAGS += -g
 debug:			re
 
 tests_run:		$(TESTS_OBJ)
-		$(CC) -o $(TEST_BINARY) $(SRC) $(TESTS_OBJ) $(CFLAGS) $(TEST_FLAGS) \
+		$(CC) -o $(TEST_BINARY) $(SRC_PARSER) $(SRC_DISPLAY) $(SRC_GAME) $(SRC_NETWORK) $(TESTS_OBJ) $(CFLAGS) $(TEST_FLAGS) \
 		$(INCLUDE)
 		./$(TEST_BINARY)
 		gcovr -e tests

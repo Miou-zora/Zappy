@@ -10,7 +10,8 @@
 #include <criterion/redirect.h>
 #include <signal.h>
 
-extern bool running;
+
+bool runningtest = true; //this is for the run function
 
 void redirect_all_stdout(void)
 {
@@ -40,7 +41,7 @@ Test(server_connection, connection)
         cr_assert_eq(connect(fd, (struct sockaddr *)&addr, addr_len), 0);
         kill(pid, SIGINT);
         close(fd);
-        running = false;
+        runningtest = false;
     }
 }
 
@@ -68,7 +69,7 @@ Test(check_client_handling, simple_write)
         sleep(0.1);
         cr_assert_eq(connect(fd, (struct sockaddr *)&addr, addr_len), 0);
         close(fd);
-        running = false;
+        runningtest = false;
         kill(pid, SIGINT);
     }
 }
