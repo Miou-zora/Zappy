@@ -15,10 +15,10 @@
  * @brief Declarate a enum for direction
 */
 enum DIRECTION {
+    UP = 1,
     RIGHT,
-    UP,
-    LEFT,
-    DOWN
+    DOWN,
+    LEFT
 };
 
 /**
@@ -27,6 +27,7 @@ enum DIRECTION {
 typedef struct trantorian_s {
     int life;
     int level;
+    int id;
     vector_t position;
     enum DIRECTION direction;
     bool is_incanting;

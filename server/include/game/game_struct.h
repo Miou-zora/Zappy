@@ -21,6 +21,8 @@
 typedef struct game_struct_s {
     struct egg_head all_eggs;
     struct clan_head all_clans;
+    int nb_trantorians;
+    int nb_eggs;
     map_t *map;
     int time_unit;
 } game_struct_t;

@@ -8,7 +8,8 @@
 #include "server.h"
 #include "egg.h"
 
-egg_t *create_egg(int pos_x, int pos_y, char *team_name)
+//TODO when this function will be called increment the nb_eggs in game struct
+egg_t *create_egg(int pos_x, int pos_y, char *team_name, int id)
 {
     egg_t *egg = calloc(1, sizeof(egg_t));
 
@@ -17,6 +18,7 @@ egg_t *create_egg(int pos_x, int pos_y, char *team_name)
     egg->pos.x = pos_x;
     egg->pos.y = pos_y;
     egg->team_name = strdup(team_name);
+    egg->id = id;
     return (egg);
 }
 

@@ -7,6 +7,7 @@
 
 #include "trantorian.h"
 
+//TODO when this function will be called increment the nb of trantorian in game struct
 trantorian_t *create_trantorian(egg_t* egg)
 {
     trantorian_t *trantorian = calloc(1, sizeof(trantorian_t));
@@ -16,6 +17,7 @@ trantorian_t *create_trantorian(egg_t* egg)
     trantorian->life = 10;
     trantorian->position.x = egg->pos.x;
     trantorian->position.y = egg->pos.y;
+    trantorian->id = egg->id;
     trantorian->direction = rand() % 4;
     return (trantorian);
 }
