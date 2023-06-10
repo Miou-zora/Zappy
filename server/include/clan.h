@@ -18,13 +18,15 @@ typedef struct clan_member_s {
 
 /**
  * @brief Declarate clan structure
+ * @param name of clan
+ * @param struct clan_member_head
+ * @param List entry for next_clan
  */
 typedef struct clan_s {
     char *name;
     LIST_HEAD(clan_member_head, clan_member_s) all_members;
     LIST_ENTRY(clan_s) next_clan;
 } clan_t;
-
 
 LIST_HEAD(clan_head, clan_s);
 
@@ -61,5 +63,4 @@ struct clan_head create_clan_chained_list(void);
  * @return struct clan_head
  */
 struct clan_head create_clan_chained_list(void);
-
 

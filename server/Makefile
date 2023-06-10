@@ -24,7 +24,8 @@ SRC			=	parser/parse_args.c 			\
 				event/event.c 					\
 				network/read.c					\
 				network/write.c					\
-				response/response.c
+				response/response.c				\
+				initialize/game_struct.c
 
 OBJ			=	$(SRC:%.c=%.o)
 
@@ -45,6 +46,7 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 				tests/tests_management_structure/tests_egg_structure.c 		  \
 				tests/tests_management_structure/tests_trantorian_structure.c \
 				tests/tests_management_structure/tests_clan_structure.c 	  \
+				tests/tests_management_structure/tests_game_structure.c 	  \
 				tests/server/network/tests_read.c		\
 				tests/server/network/tests_write.c 		\
 				tests/server/network/tests_response.c

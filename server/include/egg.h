@@ -6,7 +6,6 @@
 */
 
 #pragma once
-
 #include "vector.h"
 #include "sys/queue.h"
 
@@ -23,6 +22,8 @@ typedef struct egg_s {
     LIST_ENTRY(egg_s) next_egg;
 } egg_t;
 
+LIST_HEAD(egg_head, egg_s);
+
 /**
  * @brief Add values to the egg
  *
@@ -33,7 +34,6 @@ typedef struct egg_s {
  */
 egg_t *create_egg(int pos_x, int pos_y, char *team_name);
 
-LIST_HEAD(egg_head, egg_s);
 /**
  * @brief Create a egg chained list with head object
  *
