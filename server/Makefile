@@ -12,14 +12,15 @@ SRC			=	parser/parse_args.c 			\
 				parser/get_height.c 			\
 				parser/get_names.c 				\
 				parser/get_nb_client.c 			\
-				initialize/initialize_trantorian.c\
+				initialize/trantorian.c\
 				display_log.c 					\
 				build/build_server.c			\
+				initialize/egg.c 				\
+				initialize/map.c			 	\
+				initialize/clan.c 				\
 				run/run.c 						\
 				run/handle_clients.c 			\
 				client/client.c		 			\
-				initialize/clan.c 				\
-				initialize/map.c			 	\
 				network/read.c					\
 				network/write.c					\
 
@@ -37,6 +38,9 @@ TESTS		=	tests/parse/tests_get_port.c 			\
 				tests/parse/tests_get_names.c 			\
 				tests/parse/tests_parse_args.c 			\
 				tests/tests_build_server.c				\
+				tests/tests_management_structure/tests_egg_structure.c 		  \
+				tests/tests_management_structure/tests_trantorian_structure.c \
+				tests/tests_management_structure/tests_clan_structure.c 	  \
 				tests/server/network/tests_read.c		\
 				tests/server/network/tests_write.c 		\
 

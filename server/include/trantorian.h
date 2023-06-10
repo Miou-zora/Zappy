@@ -33,7 +33,17 @@ typedef struct trantorian_s {
     bool is_dead;
     bool is_egging;
     object_t *inventory;
+    LIST_ENTRY(trantorian_s) next_trantorian;
 } trantorian_t;
 
-trantorian_t *initialize_trantorian(egg_t *egg);
-trantorian_t *initialize_empty_trantorian(void);
+/**
+ * @brief Initialize the trantorian
+ * @param egg_t
+*/
+trantorian_t *create_trantorian(egg_t *egg);
+
+LIST_HEAD(trantorian_head, trantorian_s);
+/**
+ * @brief Create a trantorian chained list with head object
+*/
+struct trantorian_head create_trantorian_chained_list(void);

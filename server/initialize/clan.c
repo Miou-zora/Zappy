@@ -7,47 +7,37 @@
 
 #include "clan.h"
 
+clan_member_t *create_clan_member(trantorian_t *trantorian)
+{
+    clan_member_t *clan_member = calloc(1, sizeof(clan_member_t));
+
+    if (clan_member == NULL)
+        return (NULL);
+    clan_member->trantorian = trantorian;
+    return (clan_member);
+}
+
+struct clan_member_head create_clan_members_chained_list()
+{
+    struct clan_member_head head;
+    LIST_INIT(&head);
+    return (head);
+}
+
 clan_t *create_clan(char *team_name)
 {
     clan_t *clan = calloc(1, sizeof(clan_t));
 
+    if (clan == NULL)
+        return (NULL);
     clan->name = strdup(team_name);
-    clan->clan_member = calloc(1, sizeof(clan_member_t));
-    clan->clan_member->trantorian = initialize_empty_trantorian();
-    clan->clan_member->is_first = true;
+    clan->all_members = create_clan_members_chained_list();
     return (clan);
 }
 
-clan_t *add_member_to_clan(clan_t *clan, clan_member_t *trantorian)
+struct clan_head create_clan_chained_list(void)
 {
-    while (clan->clan_member->next != NULL)
-        clan->clan_member = clan->clan_member->next;
-
-    clan->clan_member->next = trantorian;
-    clan->nb_of_members++;
-    return (clan);
-}
-
-clan_t *remove_member_from_clan(clan_t *clan, clan_member_t *trantorian)
-{
-    clan_member_t *to_remove_trantorian = clan->clan_member;
-
-    while (clan->clan_member->next != NULL)
-        clan->clan_member = clan->clan_member->next;
-    if (clan->clan_member == trantorian) {
-        clan->clan_member = NULL;
-        return (clan);
-    }
-
-    for (int i = 0; clan->clan_member->next != NULL; i++) {
-        if (clan->clan_member->next == trantorian) {
-            to_remove_trantorian = clan->clan_member->next;
-            clan->clan_member->next = clan->clan_member->next->next;
-            free(to_remove_trantorian);
-            clan->nb_of_members--;
-            return (clan);
-        }
-        clan->clan_member = clan->clan_member->next;
-    }
-    return (clan);
+    struct clan_head head;
+    LIST_INIT(&head);
+    return (head);
 }

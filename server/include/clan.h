@@ -13,8 +13,7 @@
  */
 typedef struct clan_member_s {
     trantorian_t *trantorian;
-    bool is_first;
-    struct clan_member_s *next;
+    LIST_ENTRY(clan_member_s) next_clan_member;
 } clan_member_t;
 
 /**
@@ -22,30 +21,45 @@ typedef struct clan_member_s {
  */
 typedef struct clan_s {
     char *name;
-    int nb_of_members;
-    clan_member_t *clan_member;
+    LIST_HEAD(clan_member_head, clan_member_s) all_members;
+    LIST_ENTRY(clan_s) next_clan;
 } clan_t;
+
+
+LIST_HEAD(clan_head, clan_s);
+
+/**
+ * @brief Create a clan member object
+ * @param trantorian
+ * @return clan_member_t*
+ */
+clan_member_t *create_clan_member(trantorian_t *trantorian);
+
+/**
+ * @brief Create a clan chained list with head object
+ * @return clan_t*
+ */
+struct clan_member_head create_clan_members_chained_list(void);
 
 /**
  * @brief Initialize the clan
  * @param team_name
  * @return clan_t*
  */
-
 clan_t *create_clan(char *name);
 
 /**
- * @brief Add a trantorian to the clan
- * @param clan
- * @param trantorian
- * @return clan_t *
+ * @brief Create a clan chained list object
+ *
+ * @return struct clan_head
  */
-clan_t *add_member_to_clan(clan_t *clan, clan_member_t *trantorian);
+struct clan_head create_clan_chained_list(void);
 
 /**
- * @brief Remove a trantorian from the clan
- * @param clan
- * @param trantorian
- * @return clan_t *
+ * @brief Create a clan chained list object
+ *
+ * @return struct clan_head
  */
-clan_t *remove_member_from_clan(clan_t *clan, clan_member_t *trantorian);
+struct clan_head create_clan_chained_list(void);
+
+

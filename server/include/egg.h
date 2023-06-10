@@ -5,32 +5,38 @@
 ** egg
 */
 
-#ifndef EGG_H_
-    #define EGG_H_
+#pragma once
 
-    #include "vector.h"
+#include "vector.h"
+#include "sys/queue.h"
 
-    /**
-     * @brief egg structure
-     * @param pos_x x position of the egg
-     * @param pos_y y position of the egg
-     * @param team_name team name of the egg
-     */
+/**
+ * @brief egg structure
+ * @param pos_x x position of the egg
+ * @param pos_y y position of the egg
+ * @param team_name team name of the egg
+ */
 
-    typedef struct egg_s {
-        vector_t pos;
-        char *team_name;
-    } egg_t;
+typedef struct egg_s {
+    vector_t pos;
+    char *team_name;
+    LIST_ENTRY(egg_s) next_egg;
+} egg_t;
 
-    /**
-     * @brief Add values to the egg
-     *
-     * @param egg egg structure
-     * @param pos_x x position of the egg
-     * @param pos_y y position of the egg
-     * @param team_name name of the team
-     * @return void
-     */
-    void add_egg(egg_t *egg, int pos_x, int pos_y, char *team_name);
+/**
+ * @brief Add values to the egg
+ *
+ * @param pos_x x position of the egg
+ * @param pos_y y position of the egg
+ * @param team_name name of the team
+ * @return void
+ */
+egg_t *create_egg(int pos_x, int pos_y, char *team_name);
 
-#endif /* !EGG_H_ */
+LIST_HEAD(egg_head, egg_s);
+/**
+ * @brief Create a egg chained list with head object
+ *
+ * @return egg_t*
+ */
+struct egg_head create_egg_chained_list(void);
