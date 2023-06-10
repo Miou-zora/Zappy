@@ -47,9 +47,11 @@
      * @param game The game's data
      * @param port The port the server will listen on
      * @param interface The server's interface
-     * @param readfds The fd_set used by select
-     * @param timeout The timeout used by select
-     * @param responses The queue of responses
+     * @param readfds The fd_set containing the sockets to listen to
+     * @param timeout The timeout for the select function
+     * @param clients The list of clients
+     * @param events The list of events
+     * @param running The boolean that indicates if the server is running
      */
     typedef struct zappy_s {
         argv_t *args;
@@ -61,6 +63,7 @@
         struct timeval timeout;
         LIST_HEAD(response_list, response_s) responses;
         LIST_HEAD(client_list, client_s) clients;
+        LIST_HEAD(event_list, event_s) events;
     } zappy_t;
 
     /**

@@ -8,6 +8,7 @@
 #ifndef EVENT_H_
     #define EVENT_H_
     #include "client.h"
+    #include "server.h"
 
     /**
      * @brief Event struct
@@ -19,6 +20,7 @@
     typedef struct event_s {
         char *request;
         client_t *client;
+        LIST_ENTRY(event_s) next;
     } event_t;
 
     /**

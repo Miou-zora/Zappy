@@ -6,24 +6,28 @@
 */
 
 #include "server.h"
+#include "network.h"
+#include "event.h"
 
 static int handle_client_activity(zappy_t *zappy, client_t *client)
 {
     char buffer[1024] = {0};
-    int ret = 0;
-    (void)zappy;
+    char *request = read_client(client->fd);
+    event_t *event_client = create_event(request, client);
 
-    ret = read(client->fd, buffer, 1024);
-    if (ret < 0)
-        return (84);
-    if (ret == 0) {
+    if (request == NULL) {
         close(client->fd);
         LIST_REMOVE(client, next);
         free(client);
         return (0);
     }
     display_log("Received from client %d: %s\n", client->fd, buffer);
-    write(client->fd, "OK\n", 3);
+    if (event_client)
+        LIST_INSERT_HEAD(&zappy->events, event_client, next);
+    else {
+        display_log("Error while creating event\n");
+        return (84);
+    }
     return (0);
 }
 
