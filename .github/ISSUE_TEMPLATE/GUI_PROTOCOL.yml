@@ -8,12 +8,10 @@ body:
     attributes:
       label: GUI_Protocol Description
       description: Describe the GUI_Protocol you are requesting
-      placeholder: Describe the GUI_Protocol you are requesting
-      <!-- Add text by default -->
-      **placeholder**: |
-        the server responds:
-        The client send:
-        
+      placeholder: |
+        the server responds:\"Your Text\"
+        The client send:\"Your Text\"
+
         ```c
         typedef struct game_struct_s {
           struct egg_head all_eggs;
