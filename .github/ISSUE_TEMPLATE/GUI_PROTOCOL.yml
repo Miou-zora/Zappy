@@ -8,9 +8,27 @@ body:
     attributes:
       label: GUI_Protocol Description
       description: Describe the GUI_Protocol you are requesting
-      placeholder: |
-        {{default "Describe the GUI_Protocol you are requesting\n\nThe server responds:\nThe client sends:\n\n```c\ntypedef struct game_struct_s {\n  struct egg_head all_eggs;\n  struct clan_head all_clans;\n  int nb_trantorians;\n  int nb_eggs;\n  map_t *map;\n  int time_unit;\n} game_struct_t;\n```" feature-description}}
+      placeholder: Exemple
+      value: |
+        the server responds: \"Your Text\"
+        The client send: \"Your Text\"
       render: markdown
+  - type: textarea
+    id: exemple-structure-game
+    attributes:
+      label: Exemple of structure game
+      placeholder: structure
+      value: |
+        ```c
+        typedef struct game_struct_s {
+          struct egg_head all_eggs;
+          struct clan_head all_clans;
+          int nb_trantorians;
+          int nb_eggs;
+          map_t *map;
+          int time_unit;
+        } game_struct_t;
+        ```
     validations:
       required: true
   - type: dropdown
