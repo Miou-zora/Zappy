@@ -24,9 +24,24 @@ namespace GUI::Graphic {
             Program(const std::string &vertexShaderPath = "", const std::string &fragmentShaderPath = "");
 
             /**
+             * @brief Copy constructor of program
+             *
+             * @param program program to copy
+             */
+            Program(const Program &program);
+
+            /**
              * @brief Destroy the Program object
              */
             ~Program(void);
+
+            /**
+             * @brief Copy operator of Program
+             *
+             * @param program program to copy
+             * @return Program& program
+             */
+            Program &operator=(const Program &program);
 
             /**
              * @brief Load the program

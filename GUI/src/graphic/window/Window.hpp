@@ -77,5 +77,6 @@ namespace GUI::Graphic {
             float _height;
             std::string _title;
             GLFWwindow *_window;
+            unsigned int _vertexArrayID;
     };
 }

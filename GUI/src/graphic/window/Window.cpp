@@ -49,9 +49,8 @@ namespace GUI::Graphic {
         glDepthFunc(GL_LESS);
         glfwSetInputMode(_window, GLFW_STICKY_KEYS, GL_TRUE);
 
-        GLuint VertexArrayID; //! This is maybe the Big Array of Vertexes of OpenGL
-        glGenVertexArrays(1, &VertexArrayID);
-        glBindVertexArray(VertexArrayID);
+        glGenVertexArrays(1, &_vertexArrayID); //! This is maybe the Big Array of Vertexes of OpenGL
+        glBindVertexArray(_vertexArrayID);
 
         _open = true;
     }
@@ -61,6 +60,7 @@ namespace GUI::Graphic {
         if (glfwGetKey(_window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(_window) != 0) {
             _open = false;
         }
+        glfwPollEvents();
     }
 
     void Window::clear(void)
@@ -71,7 +71,6 @@ namespace GUI::Graphic {
     void Window::display(void)
     {
         glfwSwapBuffers(_window);
-        glfwPollEvents();
     }
 
     bool Window::isOpen(void)

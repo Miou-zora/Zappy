@@ -60,9 +60,30 @@ namespace GUI::Graphic {
              */
             bool isRunning(void);
 
+            /**
+             * @brief Get the Camera object
+             *
+             * @return std::shared_ptr<Camera> camera
+             */
+            std::shared_ptr<GUI::Graphic::Object::Camera> getCamera(void) const;
+
+            /**
+             * @brief Get the Window object
+             *
+             * @return std::shared_ptr<Window> window
+             */
+            std::shared_ptr<Window> getWindow(void) const;
+
+            /**
+             * @brief Get the Model list
+             *
+             * @return std::shared_ptr<std::vector<std::shared_ptr<Model>>> models
+             */
+            std::shared_ptr<std::vector<std::shared_ptr<GUI::Graphic::Object::Model>>> getModels(void) const;
+
         private:
-            Window _window;
-            GUI::Graphic::Object::Camera _camera;
-            std::vector<GUI::Graphic::Object::Model> _models;
+            std::shared_ptr<Window> _window;
+            std::shared_ptr<GUI::Graphic::Object::Camera> _camera;
+            std::shared_ptr<std::vector<std::shared_ptr<GUI::Graphic::Object::Model>>> _models;
     };
 }

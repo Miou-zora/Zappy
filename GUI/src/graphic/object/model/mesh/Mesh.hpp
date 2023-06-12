@@ -8,6 +8,7 @@
 #pragma once
 #include <vector>
 #include "Program.hpp"
+#include <memory>
 
 namespace GUI::Graphic::Object {
     /**
@@ -50,7 +51,7 @@ namespace GUI::Graphic::Object {
              *
              * @param program program to load
              */
-            void loadProgram(Program &program);
+            void loadProgram(std::shared_ptr<Program> program);
 
             /**
              * @brief render the mesha using the program and the mvp
@@ -134,6 +135,6 @@ namespace GUI::Graphic::Object {
             unsigned int _vertexBuffer;
             unsigned int _normalBuffer;
             unsigned int _uvBuffer;
-            Program _program;
+            std::shared_ptr<Program> _program;
     };
 }

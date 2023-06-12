@@ -23,6 +23,10 @@ namespace GUI::Graphic::Object {
         setVertices(other.getVertices());
         setNormals(other.getNormals());
         setUVs(other.getUVs());
+        this->_vertexBuffer = other._vertexBuffer;
+        this->_normalBuffer = other._normalBuffer;
+        this->_uvBuffer = other._uvBuffer;
+        this->_program = other._program;
     }
 
     Mesh &Mesh::operator=(const Mesh &other)
@@ -30,6 +34,10 @@ namespace GUI::Graphic::Object {
         setVertices(other.getVertices());
         setNormals(other.getNormals());
         setUVs(other.getUVs());
+        this->_vertexBuffer = other._vertexBuffer;
+        this->_normalBuffer = other._normalBuffer;
+        this->_uvBuffer = other._uvBuffer;
+        this->_program = other._program;
         return *this;
     }
 
@@ -90,18 +98,18 @@ namespace GUI::Graphic::Object {
     {
         glGenBuffers(1, &_vertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(&_vertices[0]), &_vertices[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(_vertices[0]) * _vertices.size(), &_vertices[0], GL_STATIC_DRAW);
 
         glGenBuffers(1, &_normalBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(&_normals[0]), &_normals[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(_normals[0]) * _normals.size(), &_normals[0], GL_STATIC_DRAW);
 
         glGenBuffers(1, &_uvBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(&_uvs[0]), &_uvs[0], GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(_uvs[0]) * _uvs.size(), &_uvs[0], GL_STATIC_DRAW);
     }
 
-    void Mesh::loadProgram(Program &program)
+    void Mesh::loadProgram(std::shared_ptr<Program> program)
     {
         _program = program;
     }
@@ -109,12 +117,9 @@ namespace GUI::Graphic::Object {
     void Mesh::render(float *mvp) const
     {
         GLuint matrixID = 0;
-        if (_program.getID() == 0) {
-            std::cerr << "Trying to render a mesh without a program" << std::endl;
-        }
 
-        glUseProgram(_program.getID());                                     //! Shader link of the object
-        matrixID = glGetUniformLocation(_program.getID(), "MVP");    //! Get id of the program to make modification
+        glUseProgram(_program->getID());                                     //! Shader link of the object
+        matrixID = glGetUniformLocation(_program->getID(), "MVP");    //! Get id of the program to make modification
         glUniformMatrix4fv(matrixID, 1, GL_FALSE, mvp);                     //! Load mvp matrix into shader
 
         glEnableVertexAttribArray(0);                   //! Say that we use layout(location = 0) variable in shader, for exemple this is for vertices

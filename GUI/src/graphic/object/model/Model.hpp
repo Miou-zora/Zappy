@@ -12,6 +12,7 @@
 #include "Camera.hpp"
 #include <vector>
 #include <string>
+#include <memory>
 
 namespace GUI::Graphic::Object {
     /**
@@ -27,9 +28,9 @@ namespace GUI::Graphic::Object {
             /**
              * @brief Construct a new Model object
              *
-             * @param program program to load
+             * @param std::shared_ptr<Program> program to load
              */
-            Model(Program &program);
+            Model(std::shared_ptr<Program>program);
 
             /**
              * @brief Copy constructor of Model
@@ -56,14 +57,14 @@ namespace GUI::Graphic::Object {
              *
              * @param program program to set
              */
-            void setProgram(Program &program);
+            void setProgram(std::shared_ptr<Program> program);
 
             /**
              * @brief get the program of the model
              *
-             * @return Program& reference of the program
+             * @return std::shared_ptr<Program> reference of the program
              */
-            const Program &getProgram(void) const;
+            std::shared_ptr<Program> getProgram(void) const;
 
             /**
              * @brief load the model
@@ -85,7 +86,7 @@ namespace GUI::Graphic::Object {
              *
              * @param camera camera to draw
              */
-            void draw(const Camera &camera);
+            void draw(std::shared_ptr<Camera> camera);
 
             /**
              * @brief unload the model
@@ -97,7 +98,7 @@ namespace GUI::Graphic::Object {
              *
              * @param mesh mesh to add
              */
-            void addMesh(Mesh mesh);
+            void addMesh(std::shared_ptr<Mesh> mesh);
 
             /**
              * @brief add a mesh to the model
@@ -112,18 +113,10 @@ namespace GUI::Graphic::Object {
              * @param index index of the mesh
              * @return Mesh& reference of the mesh
              */
-            const Mesh &getMesh(int index) const;
-
-            /**
-             * @brief get the mesh of the model
-             *
-             * @param index index of the mesh
-             * @return Mesh& reference of the mesh
-             */
-            Mesh &getMesh(int index);
+            std::shared_ptr<Mesh> getMesh(int index) const;
 
         private:
-            std::vector<Mesh> _meshes;
-            Program _program;
+            std::vector<std::shared_ptr<Mesh>> _meshes;
+            std::shared_ptr<Program> _program;
     };
 }

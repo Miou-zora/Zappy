@@ -9,6 +9,8 @@ NAME			=	zappy_gui
 
 BINARY_NAME		=	unitTests
 
+FTCUBE_NAME		=	ftCube
+
 all:
 		cmake -S . -B build
 		make -C build
@@ -24,6 +26,7 @@ clean:
 fclean: 		clean
 		rm -f $(NAME)
 		rm -f $(BINARY_NAME)
+		rm -f $(FTCUBE_NAME)
 
 re: 			fclean all
 

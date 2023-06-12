@@ -8,6 +8,8 @@
 #include "Model.hpp"
 #include "ObjLoader.hpp"
 #include "ErrorManagement.hpp"
+#include <glm/gtx/string_cast.hpp>
+
 
 namespace GUI::Graphic::Object {
     Model::Model()
@@ -15,7 +17,7 @@ namespace GUI::Graphic::Object {
 
     }
 
-    Model::Model(Program &program)
+    Model::Model(std::shared_ptr<Program> program)
     {
         _program = program;
     }
@@ -26,12 +28,12 @@ namespace GUI::Graphic::Object {
             _meshes.push_back(mesh);
     }
 
-    void Model::setProgram(Program &program)
+    void Model::setProgram(std::shared_ptr<Program> program)
     {
         _program = program;
     }
 
-    const Program &Model::getProgram(void) const
+    std::shared_ptr<Program> Model::getProgram(void) const
     {
         return _program;
     }
@@ -45,32 +47,32 @@ namespace GUI::Graphic::Object {
 
     void Model::loadProgram()
     {
-        if (!_program.isLoaded()) {
+        if (!_program->isLoaded()) {
 
         }
         for (auto mesh : _meshes)
-            mesh.loadProgram(_program);
+            mesh->loadProgram(_program);
     }
 
     void Model::load(void)
     {
         for (auto mesh : _meshes)
-            mesh.load();
+            mesh->load();
     }
 
     void Model::update(void)
     {
-
+        Object::update();
     }
 
-    void Model::draw(const Camera &camera)
+    void Model::draw(std::shared_ptr<Camera> camera)
     {
         glm::mat4 model = getModelMatrix();
-        glm::mat4 view = camera.getViewMatrix();
-        glm::mat4 projection = camera.getProjectionMatrix();
+        glm::mat4 view = camera->getViewMatrix();
+        glm::mat4 projection = camera->getProjectionMatrix();
         glm::mat4 mvp = projection * view * model;
         for (auto mesh : _meshes)
-            mesh.render(&mvp[0][0]);
+            mesh->render(&mvp[0][0]);
     }
 
     void Model::unload(void)
@@ -78,7 +80,7 @@ namespace GUI::Graphic::Object {
 
     }
 
-    void Model::addMesh(Mesh mesh)
+    void Model::addMesh(std::shared_ptr<Mesh> mesh)
     {
         _meshes.push_back(mesh);
     }
@@ -108,12 +110,7 @@ namespace GUI::Graphic::Object {
         }
     }
 
-    const Mesh &Model::getMesh(int index) const
-    {
-        return _meshes[index];
-    }
-
-    Mesh &Model::getMesh(int index)
+    std::shared_ptr<Mesh> Model::getMesh(int index) const
     {
         return _meshes[index];
     }

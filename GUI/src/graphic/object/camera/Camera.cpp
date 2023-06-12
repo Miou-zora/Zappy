@@ -17,8 +17,7 @@ namespace GUI::Graphic::Object {
         _near = near;
         _far = far;
 
-        _updateViewMatrix();
-        _updateProjectionMatrix();
+        update();
     }
 
     Camera::Camera(const Camera &other): Object(other)
@@ -29,8 +28,7 @@ namespace GUI::Graphic::Object {
         _near = other._near;
         _far = other._far;
 
-        _updateViewMatrix();
-        _updateProjectionMatrix();
+        update();
     }
 
     Camera &Camera::operator=(const Camera &other)
@@ -50,7 +48,7 @@ namespace GUI::Graphic::Object {
 
     void Camera::_updateViewMatrix(void)
     {
-        _viewMatrix = glm::lookAt(getPos(), getPos() + glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+        _viewMatrix = glm::lookAt(getPos(), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     }
 
     void Camera::_updateProjectionMatrix(void)

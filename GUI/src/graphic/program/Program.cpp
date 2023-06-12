@@ -24,9 +24,26 @@ namespace GUI::Graphic {
 
     }
 
+    Program::Program(const Program &program)
+    {
+        this->_fragmentShaderPath = program._fragmentShaderPath;
+        this->_vertexShaderPath = program._fragmentShaderPath;
+        this->_loaded = program._loaded;
+        this->_id = program._id;
+    }
+
     Program::~Program()
     {
 
+    }
+
+    Program &Program::operator=(const Program &program)
+    {
+        this->_fragmentShaderPath = program._fragmentShaderPath;
+        this->_vertexShaderPath = program._fragmentShaderPath;
+        this->_loaded = program._loaded;
+        this->_id = program._id;
+        return *this;
     }
 
     void Program::load(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
