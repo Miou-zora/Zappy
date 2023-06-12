@@ -49,8 +49,10 @@ void update_fd_set(fd_set *readfds, zappy_t *zappy)
 int listen_sockets(zappy_t *zappy)
 {
     update_fd_set(&zappy->readfds, zappy);
-    zappy->timeout.tv_sec = 0;
-    zappy->timeout.tv_usec = 1000000 / zappy->args->freq;
+    if (zappy->timeout.tv_sec == 0 && zappy->timeout.tv_usec == 0) {
+        zappy->timeout.tv_sec = 0;
+        zappy->timeout.tv_usec = 1000000 / zappy->args->freq;
+    }
     return (select(FD_SETSIZE, &zappy->readfds, NULL, NULL, &zappy->timeout));
 }
 
