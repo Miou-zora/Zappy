@@ -10,6 +10,7 @@ all:
 debug:
 
 tests_run:
+	python3 -m unittest discover -s tests
 
 clean:
 		find . | grep -E "(__pycache__|\.pyc|\.pyo)" | xargs rm -rf

@@ -1,6 +1,13 @@
+##
+## EPITECH PROJECT, 2023
+## Zappy-Mirror
+## File description:
+## main
+##
+
 import sys
 import argparse
-from AI.client import Client
+from AI.src.core import Core
 
 def help():
     print("USAGE: \t./zappy_ai -p port -n name -h machine\n"
@@ -14,11 +21,10 @@ def main():
         return 0
 
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("-p", help="port number", type=int, required=True)
-    parser.add_argument("-n", help="name of the team", type=str, required=True)
-    parser.add_argument("-h", help="name of the machine", type=str, required=False, default="localhost")
+    parser.add_argument("-p", help="port number", dest="port", type=int, required=True)
+    parser.add_argument("-n", help="name of the team", dest="name", type=str, required=True)
+    parser.add_argument("-h", help="name of the machine", dest="machine", type=str, required=False, default="localhost")
     args = parser.parse_args()
 
-    client = Client(args)
-    client.connect()
-    client.server_loop()
+    core = Core(args.machine, args.port, args.name)
+    core.run()
