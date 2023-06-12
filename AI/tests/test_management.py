@@ -6,9 +6,9 @@
 ##
 
 import unittest
+from io import StringIO
+from unittest.mock import patch
 from src.management import Management
-
-# write tests to test the management class
 
 class TestManagementClass(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
@@ -30,4 +30,9 @@ class TestManagementClass(unittest.TestCase):
     def test_message(self):
         self.management.message("message 1,2,3", None)
         self.assertEqual(self.management.output, "")
+
+    @patch('sys.stdout', new_callable = StringIO)
+    def test_death(self, stdout):
+        self.management.death("dead", None)
+        self.assertEqual(stdout.getvalue(), "End of connection\n")
 

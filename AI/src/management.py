@@ -27,7 +27,8 @@ class Management:
         self.fonctions: dict = {
             "message": self.message,
             "WELCOME": self.welcome,
-            "other": self.other
+            "other": self.other,
+            "dead": self.death
         }
         self.name: str = name
         self.output: str = ""
@@ -37,6 +38,16 @@ class Management:
             this function is called when the server send a welcome message
         """
         self.output = self.name + "\n"
+
+    def message(self, message: str, client: Client):
+        """message function
+            this function is called when the server send a message with broadcast
+        Args:
+            message (str): message
+        """
+        message = message.split(",")
+        k: int = int(message[0].split()[1])
+        message: str = message[1]
 
     def other(self, message: str, client: Client):
         """other function
@@ -51,15 +62,13 @@ class Management:
             x = int(words[0])
             y = int(words[1])
 
-    def message(self, message: str, client: Client):
-        """message function
-            this function is called when the server send a message with broadcast
+    def death(self, message: str, client: Client):
+        """ death function
+            this function is called when the server send a death message
         Args:
             message (str): message
         """
-        message = message.split(",")
-        k: int = int(message[0].split()[1])
-        message: str = message[1]
+        print("End of connection")
 
     def execute_functions(self, message: str, client: Client):
         """execute_functions function
