@@ -14,7 +14,8 @@ event_t *create_event(char *request, client_t *client)
 
     if (!event)
         return (NULL);
-    event->request = strdup(request);
+    if (request)
+        event->request = strdup(request);
     if (!event->request)
         return (NULL);
     event->client = client;

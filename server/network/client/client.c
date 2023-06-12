@@ -20,7 +20,6 @@ client_t *create_client(struct sockaddr_in info, int fd)
     client->is_connected = true;
     client->is_logged = false;
     client->is_graphic = false;
-    write(client->fd, "WELCOME\n", 8);
     return (client);
 }
 

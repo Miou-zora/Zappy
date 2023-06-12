@@ -10,3 +10,4 @@ zappy_gui
 unitTests
 *.ignore
 */ftCube
+.build

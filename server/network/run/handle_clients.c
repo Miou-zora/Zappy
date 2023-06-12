@@ -43,15 +43,14 @@ static int handle_new_connection(zappy_t *zappy)
         &client_addr_len);
     if (client_fd < 0) {
         display_log("Error while accepting new connection\n");
-        destroy_client(client);
         return (84);
     }
     client = create_client(client_addr, client_fd);
     if (!client) {
         display_log("Error while creating client\n");
-        destroy_client(client);
         return (84);
     }
+    display_log("New connection from %s:%d\n", client->ip, client->port);
     LIST_INSERT_HEAD(&zappy->clients, client, next);
     return (0);
 }
