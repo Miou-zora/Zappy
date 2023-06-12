@@ -118,9 +118,9 @@ jobs:
         if: env.FAIL_TASK == 'true'
         run: exit 1
 
-      # - name: Starts tests
-      #   run: make tests_run
-      #   timeout-minutes: 2
+      - name: Starts tests
+        run: make tests_run
+        timeout-minutes: 3
 
   push_to_mirror:
     name: Pushes the current repository files to a given mirror repository

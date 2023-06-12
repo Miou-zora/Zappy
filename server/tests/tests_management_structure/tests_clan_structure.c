@@ -46,7 +46,8 @@ Test(create_clan_structure, test_remove_clan_from_chained_list)
 
 Test(create_clan_structure, test_create_clan_member_structure)
 {
-    trantorian_t *trantorian = create_trantorian(create_egg(0,0,"equipe"));
+    trantorian_t *trantorian = create_trantorian(
+        create_egg(0, 0, "equipe", 1));
     clan_member_t *clan_member = create_clan_member(trantorian);
 
     cr_assert_eq(clan_member->trantorian, trantorian);
@@ -63,7 +64,7 @@ Test(create_clan_structure, test_add_clan_member_to_clan)
 {
     clan_t *clan = create_clan("equipe");
     clan_member_t *clan_member = create_clan_member(create_trantorian(
-        create_egg(0,0,"equipe")));
+        create_egg(0, 0, "equipe", 1)));
 
     LIST_INSERT_HEAD(&clan->all_members, clan_member, next_clan_member);
     cr_assert_eq(LIST_EMPTY(&clan->all_members), 0);
@@ -74,7 +75,7 @@ Test(create_clan_structure, test_remove_clan_member_from_clan)
 {
     clan_t *clan = create_clan("equipe");
     clan_member_t *clan_member = create_clan_member(create_trantorian(
-        create_egg(0,0,"equipe")));
+        create_egg(0, 0, "equipe", 1)));
 
     LIST_INSERT_HEAD(&clan->all_members, clan_member, next_clan_member);
     LIST_REMOVE(clan_member, next_clan_member);

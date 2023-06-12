@@ -21,7 +21,7 @@ void redirect_all_stdout(void)
 
 Test(server_connection, connection)
 {
-    char *av[] = {"./zappy_server", "-p", "4242", "-x", "10", "-y", "10", "-n",
+    char *av[] = {"./zappy_server", "-p", "12347", "-x", "10", "-y", "10", "-n",
         "toto", "-c", "10", "-f", "10", NULL};
     zappy_t *zappy = build_server(13, av);
     int fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -30,7 +30,7 @@ Test(server_connection, connection)
 
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    addr.sin_port = htons(4242);
+    addr.sin_port = htons(12347);
 
     int pid = fork();
 
@@ -47,7 +47,7 @@ Test(server_connection, connection)
 
 Test(check_client_handling, simple_write)
 {
-    char *av[] = {"./zappy_server", "-p", "4242", "-x", "10", "-y", "10", "-n",
+    char *av[] = {"./zappy_server", "-p", "12346", "-x", "10", "-y", "10", "-n",
         "toto", "-c", "10", "-f", "10", NULL};
     zappy_t *zappy = build_server(13, av);
     int fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -56,7 +56,7 @@ Test(check_client_handling, simple_write)
 
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    addr.sin_port = htons(4242);
+    addr.sin_port = htons(12346);
 
     int pid = fork();
 
@@ -69,7 +69,9 @@ Test(check_client_handling, simple_write)
         sleep(0.1);
         cr_assert_eq(connect(fd, (struct sockaddr *)&addr, addr_len), 0);
         close(fd);
+        
         runningtest = false;
         kill(pid, SIGINT);
     }
+
 }

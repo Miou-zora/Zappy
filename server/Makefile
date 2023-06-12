@@ -90,27 +90,25 @@ debug:			CFLAGS += -g
 debug:			re
 
 tests_run:		$(TESTS_OBJ)
-		$(CC) -o $(TEST_BINARY) $(SRC_PARSER) $(SRC_DISPLAY) $(SRC_GAME) $(SRC_NETWORK) $(TESTS_OBJ) $(CFLAGS) $(TEST_FLAGS) \
-		$(INCLUDE)
+		$(CC) -o $(TEST_BINARY) $(SRC_PARSER) $(SRC_DISPLAY) $(SRC_GAME) \
+		$(SRC_NETWORK) $(TESTS_OBJ) $(CFLAGS) $(TEST_FLAGS) $(INCLUDE)
 		./$(TEST_BINARY)
-		gcovr -e tests
-		gcovr -e tests -bu
 		find . -type f -name '*.gcda' -exec $(MV) {} ./tests/ \;
 		find . -type f -name '*.gcno' -exec $(MV) {} ./tests/ \;
+		gcovr -e tests
+		gcovr -e tests -bu
 
 clean:
 		$(RM) $(OBJ)
 		$(RM) $(TESTS_OBJ)
 		$(RM) $(OBJ_MAIN)
 
-fclean:			clean
+fclean:			tclean clean
 		$(RM) $(NAME)
 		$(RM) $(TEST_BINARY)
-		$(RM) ./tests/*.gc*
-		$(RM) *.gc*
 tclean:
-		@find . -type f -name '*.gcda' -exec $(RM) {} \;
-		@find . -type f -name '*.gcno' -exec $(RM) {} \;
+		find . -type f -name '*.gcda' -exec $(RM) {} \;
+		find . -type f -name '*.gcno' -exec $(RM) {} \;
 		$(RM) $(TEST_BINARY)
 
 re:				fclean all

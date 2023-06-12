@@ -11,7 +11,7 @@
 
 Test(trantorian, create_trantorian)
 {
-    egg_t *egg = create_egg(1, 1, "test");
+    egg_t *egg = create_egg(1, 1, "test", 1);
     trantorian_t *trantorian = create_trantorian(egg);
 
     cr_assert_eq(trantorian->level, 1);
