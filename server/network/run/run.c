@@ -63,7 +63,7 @@ int run(zappy_t *zappy)
     while (running) {
         listen_ret = listen_sockets(zappy);
         if (listen_ret < 0) {
-            display_log("Error while listening sockets\nFatal error\n");
+            display_log("Error while listening sockets\n");
             return (84);
         } else {
             handle_activity(zappy);
