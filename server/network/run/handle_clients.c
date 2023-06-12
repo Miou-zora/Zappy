@@ -11,7 +11,6 @@
 
 static int handle_client_activity(zappy_t *zappy, client_t *client)
 {
-    char buffer[1024] = {0};
     char *request = read_client(client->fd);
     event_t *event_client = create_event(request, client);
 
@@ -21,7 +20,7 @@ static int handle_client_activity(zappy_t *zappy, client_t *client)
         free(client);
         return (0);
     }
-    display_log("Received from client %d: %s\n", client->fd, buffer);
+    display_log("Received from client %d: %s\n", client->fd, request);
     if (event_client)
         LIST_INSERT_HEAD(&zappy->events, event_client, next);
     else {
