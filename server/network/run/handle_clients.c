@@ -26,6 +26,7 @@ static int handle_client_activity(zappy_t *zappy, client_t *client)
         LIST_INSERT_HEAD(&zappy->events, event_client, next);
     else {
         display_log("Error while creating event\n");
+        destroy_event(event_client);
         return (84);
     }
     return (0);
@@ -42,11 +43,13 @@ static int handle_new_connection(zappy_t *zappy)
         &client_addr_len);
     if (client_fd < 0) {
         display_log("Error while accepting new connection\n");
+        destroy_client(client);
         return (84);
     }
     client = create_client(client_addr, client_fd);
     if (!client) {
         display_log("Error while creating client\n");
+        destroy_client(client);
         return (84);
     }
     LIST_INSERT_HEAD(&zappy->clients, client, next);

@@ -21,6 +21,7 @@
 
     #include "client.h"
     #include "response.h"
+    #include "event.h"
 
     /**
      * @brief Structure containing the server's arguments
@@ -191,5 +192,16 @@
      * @return ** void
      */
     void update_fd_set(fd_set *readfds, zappy_t *zappy);
+
+    /**
+     * @brief Accepts a new client
+     *
+     * @param zappy the server
+     * @param response the response to send to the client
+     * @param events the list of events
+     * @param clients the list of clients
+     * @return void
+     */
+    void destroy_zappy(zappy_t *zappy);
 
 #endif /* !SERVER_H_ */

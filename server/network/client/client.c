@@ -26,7 +26,6 @@ client_t *create_client(struct sockaddr_in info, int fd)
 
 void destroy_client(client_t *client)
 {
-    if (!client)
-        return;
+    free(client->ip);
     free(client);
 }

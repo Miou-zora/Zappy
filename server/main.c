@@ -47,6 +47,10 @@ int main(int ac, char **av)
         return (84);
     }
     signal(SIGINT, sigint_handler);
-    run(zappy);
+    if (run(zappy) == 84) {
+        display_log("Failed to run server\n");
+        destroy_zappy(zappy);
+        return (84);
+    }
     return (0);
 }

@@ -29,6 +29,7 @@ SRC_NETWORK =	network/build/build_server.c			\
 				network/event/event.c 					\
 				network/utils_network/read.c			\
 				network/utils_network/write.c			\
+				network/utils_network/destroy_zappy.c 	\
 				network/response/response.c				\
 
 OBJ			=	$(SRC:%.c=%.o)
