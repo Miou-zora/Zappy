@@ -22,7 +22,7 @@ static int init_server_socket(zappy_t *server)
     server->interface.sin_port = htons(server->args->port);
     if (clean_bind(server->socket, &server->interface) < 0)
         return (-1);
-    if (listen(server->socket, 3) < 0)
+    if (listen(server->socket, 40) < 0)
         return (-1);
     return (0);
 }
