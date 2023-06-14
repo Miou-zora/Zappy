@@ -15,9 +15,7 @@ int main(int ac, char **av)
     (void)ac;
     (void)av;
     GUI::Graphic::Management management;
-    std::cout << "update" << std::endl;
     std::shared_ptr<GUI::Graphic::Program> program = std::make_shared<GUI::Graphic::Program>();
-    std::cout << "update" << std::endl;
 
     management.init();
     program->load("tests/ftScene/vertexShader.vertexshader", "tests/ftScene/fragmentShader.fragmentshader");
@@ -35,6 +33,9 @@ int main(int ac, char **av)
     }
     management.getScene()->getCamera()->setPos(glm::vec3(-2, -3, -3));
     management.getScene()->getCamera()->setRot(glm::vec3(0, - M_PI / 4, 0));
+
+    // if you want test the point_at target type, uncomment this line, it will set the target of the camera to the center of the scene
+    // management.getScene()->getCamera()->setTargetType(GUI::Graphic::Object::Camera::TARGET_TYPE::POINT_AT);
 
     while (management.isRunning()) {
         management.pollEvent();

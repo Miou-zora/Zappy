@@ -15,6 +15,14 @@ namespace GUI::Graphic::Object {
     class Camera : virtual public GUI::Graphic::Object::Object {
         public:
             /**
+             * @brief Enum of the target of the camera
+             */
+            enum TARGET_TYPE {
+                FORWARD,
+                POINT_AT
+            };
+
+            /**
              * @brief Construct a new Camera object
              *
              * @param ratio ratio of the camera
@@ -36,6 +44,27 @@ namespace GUI::Graphic::Object {
              * @brief Destroy the Camera object
              */
             ~Camera(void) = default;
+
+            /**
+             * @brief set the target of the camera
+             *
+             * @param target target of the camera
+             */
+            void setTargetType(TARGET_TYPE targetType);
+
+            /**
+             * @brief get the target of the camera
+             *
+             * @return target of the camera
+             */
+            TARGET_TYPE getTargetType(void);
+
+            /**
+             * @brief set the target of the camera
+             *
+             * @param target target of the camera
+             */
+            void pointAt(const glm::vec3 &target);
 
             /**
              * @brief Copy operator of Camera
@@ -127,5 +156,8 @@ namespace GUI::Graphic::Object {
 
             glm::mat4 _viewMatrix;
             glm::mat4 _projectionMatrix;
+
+            TARGET_TYPE _targetType;
+            glm::vec3 _target;
     };
 }

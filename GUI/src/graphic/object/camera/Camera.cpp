@@ -12,14 +12,18 @@
 #include <iostream>
 
 namespace GUI::Graphic::Object {
-    Camera::Camera(float ratio, const glm::vec3 &pos, float fov, float near, float far)
+    Camera::Camera(float ratio, const glm::vec3 &pos, float fov, float near, float far):
+        Object(),
+        _fov(fov),
+        _near(near),
+        _far(far),
+        _ratio(ratio),
+        _targetType(Camera::TARGET_TYPE::FORWARD),
+        _target(glm::vec3(0, 0, 0))
     {
-        _ratio = ratio;
         setPos(pos);
-        _fov = fov;
-        _near = near;
-        _far = far;
 
+        Object::update();
         update();
     }
 
@@ -31,6 +35,7 @@ namespace GUI::Graphic::Object {
         _near = other._near;
         _far = other._far;
 
+        Object::update();
         update();
     }
 
@@ -51,12 +56,16 @@ namespace GUI::Graphic::Object {
 
     void Camera::_updateViewMatrix(void)
     {
-        glm::vec3 center = glm::vec3(getPos().x, getPos().y, getPos().z) + glm::vec3(0, 0, 1);
-        glm::mat4 rot = glm::mat4(1);
-        rot = glm::rotate(rot, getRot().x, glm::vec3(1, 0, 0));
-        rot = glm::rotate(rot, getRot().y, glm::vec3(0, 1, 0));
-        rot = glm::rotate(rot, getRot().z, glm::vec3(0, 0, 1));
-        _viewMatrix = rot * glm::lookAt(getPos(), center, glm::vec3(0, 1, 0));
+        if (_targetType == Camera::TARGET_TYPE::FORWARD) {
+            glm::vec3 center = glm::vec3(getPos().x, getPos().y, getPos().z) + glm::vec3(0, 0, 1);
+            glm::mat4 rot = glm::mat4(1);
+            rot = glm::rotate(rot, getRot().x, glm::vec3(1, 0, 0));
+            rot = glm::rotate(rot, getRot().y, glm::vec3(0, 1, 0));
+            rot = glm::rotate(rot, getRot().z, glm::vec3(0, 0, 1));
+            _viewMatrix = rot * glm::lookAt(getPos(), center, glm::vec3(0, 1, 0));
+        } else if (_targetType == Camera::TARGET_TYPE::POINT_AT) {
+            _viewMatrix = glm::lookAt(getPos(), _target, glm::vec3(0, 1, 0));
+        }
     }
 
     void Camera::_updateProjectionMatrix(void)
@@ -119,5 +128,20 @@ namespace GUI::Graphic::Object {
     void Camera::unload(void)
     {
 
+    }
+
+    void Camera::setTargetType(Camera::TARGET_TYPE targetType)
+    {
+        _targetType = targetType;
+    }
+
+    Camera::TARGET_TYPE Camera::getTargetType(void)
+    {
+        return _targetType;
+    }
+
+    void Camera::pointAt(const glm::vec3 &target)
+    {
+        _target = target;
     }
 }
