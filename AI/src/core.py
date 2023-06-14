@@ -5,24 +5,22 @@
 ## core
 ##
 
-import os
+from typing import Any
 
-if "AI" in os.getcwd():
-  from src.client import Client
-  from src.management import Management
-else:
-  from AI.src.client import Client
-  from AI.src.management import Management
+from .client import Client
+from .AI import AI
+from .management import Management
 
 class Core:
     """ Core class
     Attributes:
         client (Client): client
-        management (Management): management
         _is_running (bool): is running
         inputs (list): inputs
         outputs (list): outputs
         received_data (str): received data
+        management (Management): management class
+        ai (AI): ai class
     """
     def __init__(self, machine: str, port: int, name: str):
         """__init__ function
@@ -32,11 +30,13 @@ class Core:
             name (str): name
         """
         self.client: Client = Client(machine, port)
+        self.ai: AI = AI()
         self.management: Management = Management(name)
         self._is_running: bool = True
         self.inputs: list = [self.client.server_sock]
         self.outputs: list = []
         self.received_data: str = ""
+        self.data_dict: dict[str, Any] = {}
 
     def run(self):
         """run function
@@ -61,7 +61,7 @@ class Core:
         data = self.received_data
         while "\n" in data:
             message, data = data.split("\n", 1)
-            self.management.execute_functions(message, self.client)
+            self.data_dict.update(self.management.execute_functions(message))
         return data
 
     def receive_data_from_server(self, readable: list) -> bool:
@@ -95,15 +95,20 @@ class Core:
         """
         for sock in writable:
             if sock is self.client.server_sock:
-                self.client.send_data(sock, self.management.output)
-                self.outputs.remove(sock)
-                self.management.output = ""
-            else:
-                pass
+                if not self.ai.output:
+                    self.client.send_data(sock, self.ai.output)
+                    self.outputs.remove(sock)
+                    self.ai.output = ""
 
     def loop(self):
+        """loop function
+            this function is the main loop of the AI
+        """
         while self._is_running:
             readable, writable = self.client.select(self.inputs, self.outputs)
             if (self.receive_data_from_server(readable) == False):
                 return
+            if self.data_dict:
+                self.ai.deserialize_data(self.data_dict)
+            self.ai.choose_action()
             self.send_data_to_server(writable)

@@ -16,23 +16,39 @@ class TestManagementClass(unittest.TestCase):
         self.management = Management("test")
 
     def test_welcome(self):
-        self.management.welcome("WELCOME", None)
-        self.assertEqual(self.management.output, "test\n")
+        self.management.welcome("WELCOME")
+        self.assertEqual(self.management.welcome("WELCOME"), {"WELCOME": "test\n"})
 
     def test_other(self):
-        self.management.other("1", None)
-        self.assertEqual(self.management.output, "")
+        self.management.other("1")
+        self.assertEqual(self.management.other("1"), {"client_num": 1})
 
     def test_other_with_two_words(self):
-        self.management.other("1 2", None)
-        self.assertEqual(self.management.output, "")
+        self.assertEqual(self.management.other("1 2"), {"map_size": (1, 2)})
 
     def test_message(self):
-        self.management.message("message 1,2,3", None)
-        self.assertEqual(self.management.output, "")
+        self.assertEqual(self.management.message("message 1,2,3"), {})
+
+    def test_message_with_no_comma(self):
+        self.assertEqual(self.management.message("message 1"), {})
+
+    def test_message_with_no_space(self):
+        self.assertEqual(self.management.message("message1"), {})
+
+    def test_message_with_no_space_and_comma(self):
+        self.assertEqual(self.management.message("message1,2"), {})
+
+    def test_message_negative(self):
+        self.assertEqual(self.management.message("message -1,2"), {})
 
     @patch('sys.stdout', new_callable = StringIO)
     def test_death(self, stdout):
-        self.management.death("dead", None)
+        self.assertEqual(self.management.death("dead"), {})
         self.assertEqual(stdout.getvalue(), "End of connection\n")
 
+    def test_execute_functions(self):
+        self.assertEqual(self.management.execute_functions("WELCOME"), {"WELCOME": "test\n"})
+        self.assertEqual(self.management.execute_functions("1"), {"client_num": 1})
+        self.assertEqual(self.management.execute_functions("1 2"), {"map_size": (1, 2)})
+        self.assertEqual(self.management.execute_functions("dead"), {})
+        self.assertEqual(self.management.execute_functions("ehjafjjeafhjea"), {})
