@@ -19,7 +19,7 @@ int main(int ac, char **av)
     std::shared_ptr<GUI::Graphic::Program> program = std::make_shared<GUI::Graphic::Program>();
 
     management.init();
-    management.getCamera()->setPos(glm::vec3(3.0f, 2.0f, 3.0f));
+    management.getScene()->getCamera()->setPos(glm::vec3(-2, 3, -3));
 
     cubeModel = GUI::Graphic::Object::CreateCubeModel();
     cubeModel2 = GUI::Graphic::Object::CreateCubeModel();
@@ -31,8 +31,8 @@ int main(int ac, char **av)
     cubeModel2->setProgram(program);
     cubeModel->getMesh(0)->loadProgram(program);
     cubeModel2->getMesh(0)->loadProgram(program);
-    management.getModels()->push_back(cubeModel);
-    management.getModels()->push_back(cubeModel2);
+    management.getScene()->addModel(cubeModel);
+    management.getScene()->addModel(cubeModel2);
     while (management.isRunning()) {
         management.pollEvent();
         management.update();

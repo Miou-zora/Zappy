@@ -10,4 +10,5 @@ zappy_gui
 unitTests
 *.ignore
 */ftCube
+*/ftScene
 .build

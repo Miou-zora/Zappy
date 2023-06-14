@@ -7,8 +7,9 @@
 
 #pragma once
 #include "Window.hpp"
-#include "Model.hpp"
+#include "Scene.hpp"
 #include "Camera.hpp"
+
 namespace GUI::Graphic {
     /**
      * @brief Management class that handle the graphic management
@@ -61,13 +62,6 @@ namespace GUI::Graphic {
             bool isRunning(void);
 
             /**
-             * @brief Get the Camera object
-             *
-             * @return std::shared_ptr<Camera> camera
-             */
-            std::shared_ptr<GUI::Graphic::Object::Camera> getCamera(void) const;
-
-            /**
              * @brief Get the Window object
              *
              * @return std::shared_ptr<Window> window
@@ -75,15 +69,14 @@ namespace GUI::Graphic {
             std::shared_ptr<Window> getWindow(void) const;
 
             /**
-             * @brief Get the Model list
+             * @brief Get the Scene object
              *
-             * @return std::shared_ptr<std::vector<std::shared_ptr<Model>>> models
+             * @return std::shared_ptr<GUI::Graphic::Scene> scene
              */
-            std::shared_ptr<std::vector<std::shared_ptr<GUI::Graphic::Object::Model>>> getModels(void) const;
+            std::shared_ptr<GUI::Graphic::Scene> getScene(void) const;
 
         private:
             std::shared_ptr<Window> _window;
-            std::shared_ptr<GUI::Graphic::Object::Camera> _camera;
-            std::shared_ptr<std::vector<std::shared_ptr<GUI::Graphic::Object::Model>>> _models;
+            std::shared_ptr<GUI::Graphic::Scene> _scene;
     };
 }

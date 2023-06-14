@@ -21,6 +21,7 @@ ${PROJECT_SOURCE_DIR}/src/graphic/object/model/
 ${PROJECT_SOURCE_DIR}/src/graphic/object/model/mesh/
 ${PROJECT_SOURCE_DIR}/src/graphic/window/
 ${PROJECT_SOURCE_DIR}/src/graphic/object/cube/
+${PROJECT_SOURCE_DIR}/src/graphic/scene/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -39,6 +40,7 @@ ${PROJECT_SOURCE_DIR}/src/graphic/object/model/mesh/Mesh.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/window/Window.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/management/Management.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/object/cube/Cube.cpp
+${PROJECT_SOURCE_DIR}/src/graphic/scene/Scene.cpp
 )
 
 set(MAIN "main.cpp")
@@ -47,3 +49,4 @@ add_executable(zappy_gui ${MAIN} ${SRC})
 
 add_subdirectory(tests)
 add_subdirectory(tests/ftCube)
+add_subdirectory(tests/ftScene)

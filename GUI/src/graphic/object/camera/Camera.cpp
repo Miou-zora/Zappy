@@ -7,6 +7,9 @@
 
 #include "Camera.hpp"
 #include <glm/gtx/transform.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
+#include <iostream>
 
 namespace GUI::Graphic::Object {
     Camera::Camera(float ratio, const glm::vec3 &pos, float fov, float near, float far)
@@ -48,7 +51,12 @@ namespace GUI::Graphic::Object {
 
     void Camera::_updateViewMatrix(void)
     {
-        _viewMatrix = glm::lookAt(getPos(), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+        glm::vec3 center = glm::vec3(getPos().x, getPos().y, getPos().z) + glm::vec3(0, 0, 1);
+        glm::mat4 rot = glm::mat4(1);
+        rot = glm::rotate(rot, getRot().x, glm::vec3(1, 0, 0));
+        rot = glm::rotate(rot, getRot().y, glm::vec3(0, 1, 0));
+        rot = glm::rotate(rot, getRot().z, glm::vec3(0, 0, 1));
+        _viewMatrix = rot * glm::lookAt(getPos(), center, glm::vec3(0, 1, 0));
     }
 
     void Camera::_updateProjectionMatrix(void)
