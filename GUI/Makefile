@@ -5,11 +5,15 @@
 ## Makefile
 ##
 
-NAME			=	zappy_gui
+NAME					=	zappy_gui
 
-BINARY_NAME		=	unitTests
+BINARY_NAME				=	unitTests
 
-FTCUBE_NAME		=	ftCube
+FTCUBE_NAME				=	ftCube
+
+FTSCENE_NAME			=	ftScene
+
+FTOBJLOADER_NAME		=	ftObjLoader
 
 all:
 		cmake -S . -B build
@@ -27,6 +31,8 @@ fclean: 		clean
 		rm -f $(NAME)
 		rm -f $(BINARY_NAME)
 		rm -f $(FTCUBE_NAME)
+		rm -f $(FTSCENE_NAME)
+		rm -f $(FTOBJLOADER_NAME)
 
 re: 			fclean all
 

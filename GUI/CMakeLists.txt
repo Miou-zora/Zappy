@@ -49,4 +49,5 @@ add_executable(zappy_gui ${MAIN} ${SRC})
 
 add_subdirectory(tests)
 add_subdirectory(tests/ftCube)
+add_subdirectory(tests/ftObjLoader)
 add_subdirectory(tests/ftScene)
