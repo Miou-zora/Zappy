@@ -17,7 +17,7 @@ FTOBJLOADER_NAME		=	ftObjLoader
 
 all:
 		cmake -S . -B build
-		make -C build
+		make -j -C build
 
 debug:			all
 
