@@ -11,6 +11,8 @@
 #include "clan.h"
 #include "map.h"
 
+#define NUMBER_OF_DIFFERENT_ELEMENTS 7
+
 /**
  * @brief Declarate game_struct
  * @param struct egg_head
@@ -40,3 +42,22 @@ game_struct_t *init_game_struct(argv_t *args);
  * @param game_struct
  */
 void free_game_struct(game_struct_t *game_struct);
+
+extern const int ELEMENTS_DENSITIES[];
+
+/**
+ * @brief fill map with objects
+ *
+ * @param map_struct
+ */
+void fill_map(map_t *map);
+
+/**
+ * @brief add object at tile
+ *
+ * @param map
+ * @param object
+ * @param x
+ * @param y
+ */
+bool add_object_at_tile(map_t *map, enum ELEMENTS type, size_t x, size_t y);

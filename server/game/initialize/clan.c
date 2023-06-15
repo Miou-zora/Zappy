@@ -17,7 +17,7 @@ clan_member_t *create_clan_member(trantorian_t *trantorian)
     return (clan_member);
 }
 
-struct clan_member_head create_clan_members_chained_list()
+struct clan_member_head create_clan_members_chained_list(void)
 {
     struct clan_member_head head;
     LIST_INIT(&head);

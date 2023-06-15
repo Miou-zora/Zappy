@@ -63,4 +63,3 @@ struct clan_head create_clan_chained_list(void);
  * @return struct clan_head
  */
 struct clan_head create_clan_chained_list(void);
-
