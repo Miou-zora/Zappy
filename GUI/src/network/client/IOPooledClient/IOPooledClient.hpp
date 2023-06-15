@@ -1,16 +1,16 @@
 /*
 ** EPITECH PROJECT, 2023
-** Zappy-Mirror
+** GUI
 ** File description:
-** Client
+** IOPooledClient
 */
 
 #pragma once
-
-#include "Socket.hpp"
+#include "IClient.hpp"
+#include "IOPooledSocket.hpp"
 
 namespace GUI::Network {
-    class Client {
+    class IOPooledClient : virtual public IClient {
         /**
          * @brief Client class that handle the client side of the GUI and the communication with the server
          */
@@ -20,12 +20,12 @@ namespace GUI::Network {
              *
              * @param host hostname of the Client
              */
-            Client(const std::string &host = "localhost");
+            IOPooledClient(const std::string &host = "localhost");
 
             /**
              * @brief Destroy the Client object
              */
-            ~Client() = default;
+            ~IOPooledClient() = default;
 
             /**
              * @brief Connect the Client to the server
@@ -41,25 +41,30 @@ namespace GUI::Network {
             void disconnect(void);
 
             /**
-             * @brief Send a message to the server
+             * @brief add request to send to the server, it will be sent on the next update
              *
-             * @param msg message to send
+             * @param request request to send
              */
-            void send(const std::string &msg) const;
+            void addRequest(std::shared_ptr<GUI::Network::IRequest> request);
 
             /**
-             * @brief Try to receive a message from the server
-             *
-             * @return std::string message received, empty string otherwise
+             * @brief update the Client, send the requests and receive the responses
              */
-            std::string tryReceive(void) const;
+            void update(void);
+
+            /**
+             * @brief get the response received from the server, if there is no response it will return nullptr
+             *
+             * @return std::shared_ptr<GUI::Network::Response> response received from the server
+             */
+            std::shared_ptr<GUI::Network::Response> getResponse(void);
 
             /**
              * @brief Get the Socket object
              *
              * @return const Socket& socket of the Client
              */
-            const Socket &getSocket(void) { return _socket; };
+            const std::shared_ptr<IOPooledSocket> &getSocket(void) { return _socket; };
 
             /**
              * @brief Get the Ip object
@@ -76,7 +81,7 @@ namespace GUI::Network {
             void setIp(const std::string &host) { _host = host; };
 
         private:
-            Socket _socket;
+            std::shared_ptr<IOPooledSocket> _socket;
             std::string _host;
     };
 }

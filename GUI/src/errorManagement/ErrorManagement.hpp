@@ -199,4 +199,31 @@ namespace GUI {
         private:
             std::string _message;
     };
+
+    class IOPoolBufferOverflowException : public std::exception {
+        /**
+         * @brief IOPoolBufferOverflowException class that handle the IOPool buffer overflow exceptions
+         * @param message message to display
+         */
+        public:
+            /**
+             * @brief Construct a new IOPool Buffer Overflow Exception object
+             *
+             * @param message message to display
+             */
+            IOPoolBufferOverflowException(const std::string &message) : _message(message) {};
+            /**
+             * @brief Destroy the IOPool Buffer Overflow Exception object
+             */
+            ~IOPoolBufferOverflowException() throw() {}
+            /**
+             * @brief Get the message object
+             *
+             * @return const char* message to display
+             */
+            const char *what() const throw() { return _message.c_str(); };
+
+        private:
+            std::string _message;
+    };
 }

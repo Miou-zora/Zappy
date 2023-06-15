@@ -7,8 +7,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
 set(INCLUDE_SRC ${PROJECT_SOURCE_DIR}/src/network/socket/
+${PROJECT_SOURCE_DIR}/src/network/socket/IOPooledSocket/
 ${PROJECT_SOURCE_DIR}/src/network/sockaddrIn/
 ${PROJECT_SOURCE_DIR}/src/network/client/
+${PROJECT_SOURCE_DIR}/src/network/client/client/
+${PROJECT_SOURCE_DIR}/src/network/client/IOPooledClient/
+${PROJECT_SOURCE_DIR}/src/network/IOPool/
+${PROJECT_SOURCE_DIR}/src/network/IOPool/response/
+${PROJECT_SOURCE_DIR}/src/network/IOPool/request/
+${PROJECT_SOURCE_DIR}/src/network/IOPool/request/request/
 ${PROJECT_SOURCE_DIR}/src/errorManagement/
 ${PROJECT_SOURCE_DIR}/src/utils/
 ${PROJECT_SOURCE_DIR}/src/core/
@@ -29,8 +36,12 @@ include_directories(${INCLUDE_SRC})
 project(zappy_gui)
 
 set(SRC ${PROJECT_SOURCE_DIR}/src/network/socket/Socket.cpp
+${PROJECT_SOURCE_DIR}/src/network/socket/IOPooledSocket/IOPooledSocket.cpp
 ${PROJECT_SOURCE_DIR}/src/network/sockaddrIn/SockaddrIn.cpp
-${PROJECT_SOURCE_DIR}/src/network/client/Client.cpp
+${PROJECT_SOURCE_DIR}/src/network/client/client/Client.cpp
+${PROJECT_SOURCE_DIR}/src/network/client/IOPooledClient/IOPooledClient.cpp
+${PROJECT_SOURCE_DIR}/src/network/IOPool/IOPool.cpp
+${PROJECT_SOURCE_DIR}/src/network/IOPool/response/Response.cpp
 ${PROJECT_SOURCE_DIR}/src/core/Core.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/program/Program.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/object/Object.cpp

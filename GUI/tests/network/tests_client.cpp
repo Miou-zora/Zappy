@@ -49,7 +49,7 @@ Test(Client, invalidConnectPort) {
 Test(Client, invalidConnectNoServer) {
     GUI::Network::Client client("localhost");
     try {
-        client.connect("127.0.0.2", "4242");
+        client.connect("127.0.0.10", "16969");
         cr_assert_fail();
     } catch (GUI::NetworkException &e) {
         cr_assert_str_eq(e.what(), "Error: socket connect failed");

@@ -8,7 +8,7 @@
 #pragma once
 
 #include <string>
-#include "Client.hpp"
+#include "IOPooledClient.hpp"
 #include "Management.hpp"
 
 namespace GUI {
@@ -65,7 +65,7 @@ namespace GUI {
 
             std::string _ip;
             std::string _port;
-            Network::Client _client;
+            Network::IOPooledClient _client;
             bool _running;
             GUI::Graphic::Management _gui;
     };

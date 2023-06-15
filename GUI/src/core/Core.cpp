@@ -8,6 +8,7 @@
 #include "Core.hpp"
 #include "ErrorManagement.hpp"
 #include <iostream>
+#include "Request.hpp"
 
 namespace GUI {
     Core::Core(int ac, char **av)
@@ -55,16 +56,25 @@ namespace GUI {
 
     void Core::run(void)
     {
+        std::string msg = "";
+        std::shared_ptr<GUI::Network::Response> response = nullptr;
+
         while (_running) {
             _gui.pollEvent();
-            std::string msg = _client.tryReceive();
-            if (!msg.empty()) {
+            _client.update();
+            response = _client.getResponse();
+            while (response != nullptr) {
+                msg = response->get();
                 if (msg.back() == '\n')
                     msg.pop_back();
                 time_t now = time(0);
                 tm *ltm = localtime(&now);
                 std::printf("[%02d:%02d-%02d/%02d/%04d] %s\n",
                     ltm->tm_hour, ltm->tm_min, ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900, msg.c_str());
+                if (msg == "WELCOME") {
+                    _client.addRequest(std::make_shared<GUI::Network::Request>("GRAPHIC"));
+                }
+                response = _client.getResponse();
             }
             _gui.update();
             _gui.render();
