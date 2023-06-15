@@ -16,6 +16,7 @@ class AI:
         """__init__ function
         """
         self.output: str = ""
+        self.need_response: str = ""
         self.map_size: tuple[int, int] = (0, 0)
         self.client_num: int = 0
         self.k: int = 0
@@ -43,4 +44,3 @@ class AI:
         """choose_action function
             this function choose the action to do
         """
-        pass

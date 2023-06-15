@@ -18,13 +18,22 @@ class TestManagementClass(unittest.TestCase):
     def test_welcome(self):
         self.management.welcome("WELCOME")
         self.assertEqual(self.management.welcome("WELCOME"), {"WELCOME": "test\n"})
+        self.assertEqual(self.management.need_response, "CLIENT_NUM")
 
     def test_other(self):
-        self.management.other("1")
+        self.management.need_response = "CLIENT_NUM"
         self.assertEqual(self.management.other("1"), {"client_num": 1})
+        self.assertEqual(self.management.need_response, "MAP_SIZE")
 
     def test_other_with_two_words(self):
-        self.assertEqual(self.management.other("1 2"), {"map_size": (1, 2)})
+        self.management.need_response = "MAP_SIZE"
+        self.assertEqual(self.management.other("1 2\n"), {"map_size": (1, 2)})
+        self.assertEqual(self.management.need_response, "")
+
+    def test_other_with_response(self):
+        self.management.need_response = "Forward"
+        self.assertEqual(self.management.other("ok\n"), {})
+        self.assertEqual(self.management.need_response, "")
 
     def test_message(self):
         self.assertEqual(self.management.message("message 1,2,3"), {})

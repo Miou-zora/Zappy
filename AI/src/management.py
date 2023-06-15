@@ -5,6 +5,8 @@
 ## management
 ##
 
+import re
+
 class Management:
     """Management class
     Attributes:
@@ -23,11 +25,18 @@ class Management:
             "dead": self.death
         }
         self.name: str = name
+        self.responses: dict[str, str] = {
+            "Forward": "ok\n?",
+            "CLIENT_NUM": "[0-9]+\n?",
+            "MAP_SIZE": "[0-9]+ [0-9]+\n?"
+        }
+        self.need_response: str = ""
 
     def welcome(self, message: str) -> dict:
         """welcome function
             this function is called when the server send a welcome message
         """
+        self.need_response = "CLIENT_NUM"
         return {"WELCOME": f"{self.name}\n"}
 
     def message(self, message: str) -> dict:
@@ -52,12 +61,16 @@ class Management:
         """
         words = message.split()
         dict = {}
-        if (len(words) == 1 and words[0].isnumeric()):
-            client_num = int(words[0])
-            dict["client_num"] = client_num
-        elif (len(words) == 2 and words[0].isnumeric() and words[1].isnumeric()):
-            map_size = (int(words[0]), int(words[1]))
-            dict["map_size"] = map_size
+        if (self.need_response == "CLIENT_NUM"):
+            dict["client_num"] = int(words[0])
+            self.need_response = "MAP_SIZE"
+            return dict
+        elif (self.need_response == "MAP_SIZE"):
+            dict["map_size"] = (int(words[0]), int(words[1]))
+            self.need_response = ""
+            return dict
+        if (self.need_response in self.responses.keys() and re.match(self.responses[self.need_response], message)):
+            self.need_response = ""
         return dict
 
     def death(self, message: str) -> dict:

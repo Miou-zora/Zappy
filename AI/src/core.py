@@ -95,7 +95,7 @@ class Core:
         """
         for sock in writable:
             if sock is self.client.server_sock:
-                if not self.ai.output:
+                if self.ai.output:
                     self.client.send_data(sock, self.ai.output)
                     self.outputs.remove(sock)
                     self.ai.output = ""
@@ -111,4 +111,7 @@ class Core:
             if self.data_dict:
                 self.ai.deserialize_data(self.data_dict)
             self.ai.choose_action()
+            if self.ai.need_response:
+                self.management.need_response = self.ai.need_response
+                self.ai.need_response = ""
             self.send_data_to_server(writable)
