@@ -35,6 +35,11 @@ class TestManagementClass(unittest.TestCase):
         self.assertEqual(self.management.other("ok\n"), {})
         self.assertEqual(self.management.need_response, "")
 
+    def test_other_with_response_right(self):
+        self.management.need_response = "Right"
+        self.assertEqual(self.management.other("ok\n"), {})
+        self.assertEqual(self.management.need_response, "")
+
     def test_other_with_response_left(self):
         self.management.need_response = "Left"
         self.assertEqual(self.management.other("ok\n"), {})

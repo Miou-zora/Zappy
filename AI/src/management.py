@@ -27,6 +27,7 @@ class Management:
         self.name: str = name
         self.responses: dict[str, str] = {
             "Forward": "ok\n?",
+            "Right": "ok\n?",
             "Left": "ok\n?",
             "CLIENT_NUM": "[0-9]+\n?",
             "MAP_SIZE": "[0-9]+ [0-9]+\n?"
