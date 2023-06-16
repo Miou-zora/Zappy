@@ -30,7 +30,8 @@ class Management:
             "Right": "ok\n?",
             "Left": "ok\n?",
             "CLIENT_NUM": "[0-9]+\n?",
-            "MAP_SIZE": "[0-9]+ [0-9]+\n?"
+            "MAP_SIZE": "[0-9]+ [0-9]+\n?",
+            "CONNECT_NBR": "[0-9]+\n?"
         }
         self.need_response: str = ""
 
@@ -69,6 +70,10 @@ class Management:
             return dict
         elif (self.need_response == "MAP_SIZE"):
             dict["map_size"] = (int(words[0]), int(words[1]))
+            self.need_response = ""
+            return dict
+        elif (self.need_response == "CONNECT_NBR"):
+            dict["connect_nbr"] = int(words[0])
             self.need_response = ""
             return dict
         if (self.need_response in self.responses.keys() and re.match(self.responses[self.need_response], message)):
