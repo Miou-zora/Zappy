@@ -26,12 +26,13 @@ class Management:
         }
         self.name: str = name
         self.responses: dict[str, str] = {
-            "Forward": "ok\n?",
-            "Right": "ok\n?",
-            "Left": "ok\n?",
-            "CLIENT_NUM": "[0-9]+\n?",
-            "MAP_SIZE": "[0-9]+ [0-9]+\n?",
-            "CONNECT_NBR": "[0-9]+\n?"
+            "Forward": "ok",
+            "Right": "ok",
+            "Left": "ok",
+            "CLIENT_NUM": "[0-9]+",
+            "MAP_SIZE": "[0-9]+ [0-9]+",
+            "CONNECT_NBR": "[0-9]+",
+            "BROADCAST": "ok"
         }
         self.need_response: str = ""
 

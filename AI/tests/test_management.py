@@ -27,27 +27,32 @@ class TestManagementClass(unittest.TestCase):
 
     def test_other_with_two_words(self):
         self.management.need_response = "MAP_SIZE"
-        self.assertEqual(self.management.other("1 2\n"), {"map_size": (1, 2)})
+        self.assertEqual(self.management.other("1 2"), {"map_size": (1, 2)})
         self.assertEqual(self.management.need_response, "")
 
     def test_other_with_response_forward(self):
         self.management.need_response = "Forward"
-        self.assertEqual(self.management.other("ok\n"), {})
+        self.assertEqual(self.management.other("ok"), {})
+        self.assertEqual(self.management.need_response, "")
+
+    def test_other_with_response_broadcast(self):
+        self.management.need_response = "BROADCAST"
+        self.assertEqual(self.management.other("ok"), {})
         self.assertEqual(self.management.need_response, "")
 
     def test_other_with_response_connect_nbr(self):
         self.management.need_response = "CONNECT_NBR"
-        self.assertEqual(self.management.other("1\n"), {"connect_nbr": 1})
+        self.assertEqual(self.management.other("1"), {"connect_nbr": 1})
         self.assertEqual(self.management.need_response, "")
 
     def test_other_with_response_right(self):
         self.management.need_response = "Right"
-        self.assertEqual(self.management.other("ok\n"), {})
+        self.assertEqual(self.management.other("ok"), {})
         self.assertEqual(self.management.need_response, "")
 
     def test_other_with_response_left(self):
         self.management.need_response = "Left"
-        self.assertEqual(self.management.other("ok\n"), {})
+        self.assertEqual(self.management.other("ok"), {})
         self.assertEqual(self.management.need_response, "")
 
     def test_message(self):
