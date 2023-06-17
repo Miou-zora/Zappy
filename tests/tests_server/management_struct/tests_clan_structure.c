@@ -10,9 +10,10 @@
 
 Test(create_clan_structure, test_create_clan_structure)
 {
-    clan_t *clan = create_clan("equipe");
+    clan_t *clan = create_clan(2, "equipe");
 
     cr_assert_eq(strcmp(clan->name, "equipe"),0);
+    cr_assert_eq(clan->max_nb_of_members, 2);
     cr_assert_eq(LIST_EMPTY(&clan->all_members), 1);
 }
 
@@ -26,22 +27,24 @@ Test(create_clan_structure, test_create_clan_chained_list)
 Test(create_clan_structure, test_add_clan_to_chained_list)
 {
     struct clan_head head = create_clan_chained_list();
-    clan_t *clan = create_clan("equipe");
+    clan_t *clan = create_clan(3, "equipe");
 
     LIST_INSERT_HEAD(&head, clan, next_clan);
     cr_assert_eq(LIST_EMPTY(&head), 0);
     cr_assert_eq(LIST_FIRST(&head), clan);
     cr_assert_eq(strcmp(clan->name, "equipe"), 0);
+    cr_assert_eq(clan->max_nb_of_members, 3);
 }
 
 Test(create_clan_structure, test_remove_clan_from_chained_list)
 {
     struct clan_head head = create_clan_chained_list();
-    clan_t *clan = create_clan("equipe");
+    clan_t *clan = create_clan(1, "equipe");
 
     LIST_INSERT_HEAD(&head, clan, next_clan);
     LIST_REMOVE(clan, next_clan);
     cr_assert_eq(LIST_EMPTY(&head), 1);
+    cr_assert_eq(clan->max_nb_of_members, 1);
 }
 
 Test(create_clan_structure, test_create_clan_member_structure)
@@ -62,7 +65,7 @@ Test(create_clan_structure, test_create_clan_member_chained_list)
 
 Test(create_clan_structure, test_add_clan_member_to_clan)
 {
-    clan_t *clan = create_clan("equipe");
+    clan_t *clan = create_clan(1, "equipe");
     clan_member_t *clan_member = create_clan_member(create_trantorian(
         create_egg(0, 0, "equipe", 1)));
 
@@ -73,7 +76,7 @@ Test(create_clan_structure, test_add_clan_member_to_clan)
 
 Test(create_clan_structure, test_remove_clan_member_from_clan)
 {
-    clan_t *clan = create_clan("equipe");
+    clan_t *clan = create_clan(1, "equipe");
     clan_member_t *clan_member = create_clan_member(create_trantorian(
         create_egg(0, 0, "equipe", 1)));
 

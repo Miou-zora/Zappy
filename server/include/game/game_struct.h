@@ -11,7 +11,6 @@
 #include "clan.h"
 #include "map.h"
 
-#define NUMBER_OF_DIFFERENT_ELEMENTS 7
 
 /**
  * @brief Declarate game_struct
@@ -61,3 +60,10 @@ void fill_map(map_t *map);
  * @param y
  */
 bool add_object_at_tile(map_t *map, enum ELEMENTS type, size_t x, size_t y);
+
+/**
+ * @brief generate eggs on map
+ *
+ * @param game_struct
+ */
+void generate_spawn_eggs(game_struct_t *game_struct);

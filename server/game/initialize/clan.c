@@ -24,13 +24,14 @@ struct clan_member_head create_clan_members_chained_list(void)
     return (head);
 }
 
-clan_t *create_clan(char *team_name)
+clan_t *create_clan(size_t max_members, char *team_name)
 {
     clan_t *clan = calloc(1, sizeof(clan_t));
 
     if (clan == NULL)
         return (NULL);
     clan->name = strdup(team_name);
+    clan->max_nb_of_members = max_members;
     clan->all_members = create_clan_members_chained_list();
     return (clan);
 }

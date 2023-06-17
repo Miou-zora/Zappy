@@ -53,3 +53,24 @@ bool add_object_at_tile(map_t *map, enum ELEMENTS type, size_t x, size_t y)
     map->tile[pos]->nb_of_objects[type] += 1;
     return (true);
 }
+
+void generate_spawn_eggs(game_struct_t *game_struct)
+{
+    clan_t *clan = NULL;
+    size_t pos_x = 0;
+    size_t pos_y = 0;
+    egg_t *egg = NULL;
+
+    LIST_FOREACH(clan, &(game_struct->all_clans), next_clan) {
+        pos_x = rand() % game_struct->map->width;
+        pos_y = rand() % game_struct->map->height;
+        for (size_t i = 0; i < (size_t)clan->max_nb_of_members; i++) {
+            egg = create_egg(pos_x, pos_y, clan->name,
+                game_struct->nb_eggs + 1);
+            game_struct->nb_eggs += 1;
+            LIST_INSERT_HEAD(&(game_struct->all_eggs), egg, next_egg);
+            pos_x = rand() % game_struct->map->width;
+            pos_y = rand() % game_struct->map->height;
+        }
+    }
+}

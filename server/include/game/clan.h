@@ -24,6 +24,7 @@ typedef struct clan_member_s {
  */
 typedef struct clan_s {
     char *name;
+    size_t max_nb_of_members;
     LIST_HEAD(clan_member_head, clan_member_s) all_members;
     LIST_ENTRY(clan_s) next_clan;
 } clan_t;
@@ -48,7 +49,7 @@ struct clan_member_head create_clan_members_chained_list(void);
  * @param team_name
  * @return clan_t*
  */
-clan_t *create_clan(char *name);
+clan_t *create_clan(size_t max_members, char *name);
 
 /**
  * @brief Create a clan chained list object

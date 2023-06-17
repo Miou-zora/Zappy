@@ -7,6 +7,8 @@
 
 #pragma once
 
+#define NUMBER_OF_DIFFERENT_ELEMENTS 7
+#include <stdio.h>
 
 /**
  * @brief Create a enum for all objects
@@ -35,5 +37,5 @@ enum ELEMENTS_DENSITY {
  * @brief Create a struct for all objects
  */
 typedef struct object_s {
-    int nb_of_objects[7];
+    size_t nb_of_objects[NUMBER_OF_DIFFERENT_ELEMENTS];
 } object_t;
