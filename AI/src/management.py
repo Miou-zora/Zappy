@@ -34,7 +34,8 @@ class Management:
             "CONNECT_NBR": "[0-9]+",
             "BROADCAST": "ok",
             "INVENTORY": "\[(([a-zA-Z]+ [0-9]+(, )){6}[a-zA-Z]+ [0-9]+)\]",
-            "LOOK": "\[(([a-zA-Z]*)( ?,?)*)*\]"
+            "LOOK": "\[(([a-zA-Z]*)( ?,?)*)*\]",
+            "TAKE": "ok|ko",
         }
         self.need_response: str = ""
 
@@ -79,6 +80,11 @@ class Management:
             dict["look"] = message[1:-1].split(",")
         elif (self.need_response == "INVENTORY"):
             dict["inventory"] = message[1:-1].split(", ")
+        elif (self.need_response == "TAKE"):
+            if (words[0] == "ok"):
+               dict["take"] = True
+            else:
+                dict["take"] = False
         self.need_response = ""
         return dict
 
