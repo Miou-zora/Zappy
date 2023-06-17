@@ -22,6 +22,7 @@ class AI:
         self.k: int = 0
         self.message: str = ""
         self.connect_nbr: int = 0
+        self.look: list[str] = []
 
     def deserialize_data(self, data_dict: dict[str, Any]):
         """save_data function
@@ -35,7 +36,8 @@ class AI:
             "client_num": 'client_num',
             "k": 'k',
             "message": 'message',
-            "connect_nbr": "connect_nbr"
+            "connect_nbr": 'connect_nbr',
+            "look": 'look'
         }
         for key, value in list(data_dict.items()):
             if (deserialization_map.get(key)):

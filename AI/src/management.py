@@ -32,7 +32,8 @@ class Management:
             "CLIENT_NUM": "[0-9]+",
             "MAP_SIZE": "[0-9]+ [0-9]+",
             "CONNECT_NBR": "[0-9]+",
-            "BROADCAST": "ok"
+            "BROADCAST": "ok",
+            "LOOK": "\[(([a-zA-Z]*)( ?,?)*)*\]"
         }
         self.need_response: str = ""
 
@@ -65,19 +66,23 @@ class Management:
         """
         words = message.split()
         dict = {}
-        if (self.need_response == "CLIENT_NUM"):
-            dict["client_num"] = int(words[0])
-            self.need_response = "MAP_SIZE"
-            return dict
-        elif (self.need_response == "MAP_SIZE"):
-            dict["map_size"] = (int(words[0]), int(words[1]))
-            self.need_response = ""
-            return dict
-        elif (self.need_response == "CONNECT_NBR"):
-            dict["connect_nbr"] = int(words[0])
-            self.need_response = ""
-            return dict
-        if (self.need_response in self.responses.keys() and re.match(self.responses[self.need_response], message)):
+        if (self.need_response in self.responses.keys()) and (re.match(self.responses[self.need_response], message)):
+            if (self.need_response == "CLIENT_NUM"):
+                dict["client_num"] = int(words[0])
+                self.need_response = "MAP_SIZE"
+                return dict
+            elif (self.need_response == "MAP_SIZE"):
+                dict["map_size"] = (int(words[0]), int(words[1]))
+                self.need_response = ""
+                return dict
+            elif (self.need_response == "CONNECT_NBR"):
+                dict["connect_nbr"] = int(words[0])
+                self.need_response = ""
+                return dict
+            elif (self.need_response == "LOOK"):
+                dict["look"] = message[1:-1].split(",")
+                self.need_response = ""
+                return dict
             self.need_response = ""
         return dict
 

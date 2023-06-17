@@ -51,3 +51,7 @@ class TestManagementClass(unittest.TestCase):
     def test_deserialize_data_with_client_nbr(self):
         self.ai.deserialize_data({"connect_nbr": 1})
         self.assertEqual(self.ai.connect_nbr, 1)
+
+    def test_deserialize_data_with_look(self):
+        self.ai.deserialize_data({"look": ["test", "message"]})
+        self.assertEqual(self.ai.look, ["test", "message"])

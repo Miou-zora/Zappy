@@ -55,6 +55,11 @@ class TestManagementClass(unittest.TestCase):
         self.assertEqual(self.management.other("ok"), {})
         self.assertEqual(self.management.need_response, "")
 
+    def test_other_with_response_look(self):
+        self.management.need_response = "LOOK"
+        self.assertEqual(self.management.other("[test, , allo]"), {"look": ["test", " ", " allo"]})
+        self.assertEqual(self.management.need_response, "")
+
     def test_message(self):
         self.assertEqual(self.management.message("message 1,2,3"), {})
 
