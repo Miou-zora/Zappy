@@ -70,7 +70,6 @@ int run(zappy_t *zappy)
         } else {
             handle_activity(zappy);
         }
-        ///Game loop will update here
         send_responses_clients(zappy);
     }
     return (0);

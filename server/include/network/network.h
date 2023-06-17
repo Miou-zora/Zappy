@@ -51,7 +51,8 @@
      * @brief it will check if the socket is ready to be written
      * using select
      * @param fd to check
-     * @return ** int 1 if valid, else 0 if there is data to read, else -1 for error
+     * @return ** int 1 if valid, else 0 if there is data to read, else -1
+     * for error
      */
     int is_socket_ready(int fd);
 #endif /* !NETWORK_H_ */

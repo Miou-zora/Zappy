@@ -42,23 +42,25 @@ MAIN		=	main.c
 
 OBJ_MAIN	=	$(MAIN:%.c=%.o)
 
-TESTS		=	tests/parse/tests_get_port.c 			\
-				tests/parse/tests_get_freq.c 			\
-				tests/parse/tests_get_height.c 			\
-				tests/parse/tests_get_width.c 			\
-				tests/parse/tests_get_nb_client.c 		\
-				tests/parse/tests_get_names.c 			\
-				tests/parse/tests_parse_args.c 			\
-				tests/tests_build_server.c				\
-				tests/server/tests.c					\
-				tests/event/tests_event.c				\
-				tests/tests_management_structure/tests_egg_structure.c 		  \
-				tests/tests_management_structure/tests_trantorian_structure.c \
-				tests/tests_management_structure/tests_clan_structure.c 	  \
-				tests/tests_management_structure/tests_game_structure.c 	  \
-				tests/server/network/tests_read.c		\
-				tests/server/network/tests_write.c 		\
-				tests/server/network/tests_response.c
+TESTS_M 	= tests_management_structure
+
+TESTS		=	../tests/tests_server/parse/tests_get_port.c 			\
+				../tests/tests_server/parse/tests_get_freq.c 			\
+				../tests/tests_server/parse/tests_get_height.c 			\
+				../tests/tests_server/parse/tests_get_width.c 			\
+				../tests/tests_server/parse/tests_get_nb_client.c 		\
+				../tests/tests_server/parse/tests_get_names.c 			\
+				../tests/tests_server/parse/tests_parse_args.c 			\
+				../tests/tests_server/tests_build_server.c				\
+				../tests/tests_server/server/tests.c					\
+				../tests/tests_server/event/tests_event.c				\
+				../tests/tests_server/$(TESTS_M)/tests_egg_structure.c 		 \
+				../tests/tests_server/$(TESTS_M)/tests_trantorian_structure.c\
+				../tests/tests_server/$(TESTS_M)/tests_clan_structure.c 	 \
+				../tests/tests_server/$(TESTS_M)/tests_game_structure.c 	 \
+				../tests/tests_server/server/network/tests_read.c		\
+				../tests/tests_server/server/network/tests_write.c 		\
+				../tests/tests_server/server/network/tests_response.c
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 

@@ -42,6 +42,6 @@ zappy_t *build_server(int ac, char **av)
     zappy->game = NULL;
     zappy->port = zappy->args->port;
     zappy->timeout.tv_sec = 0;
-	zappy->timeout.tv_usec = 1000000 / zappy->args->freq;
+    zappy->timeout.tv_usec = 1000000 / zappy->args->freq;
     return (zappy);
 }

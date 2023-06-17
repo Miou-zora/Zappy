@@ -7,7 +7,8 @@
 
 #include "trantorian.h"
 
-//TODO when this function will be called increment the nb of trantorian in game struct
+//TODO when this function will be called increment the nb of trantorian
+//in game struct
 trantorian_t *create_trantorian(egg_t* egg)
 {
     trantorian_t *trantorian = calloc(1, sizeof(trantorian_t));

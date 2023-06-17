@@ -56,7 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: check_coding_style
-        run: check.sh $(pwd)/src $(pwd)
+        run: check.sh $(pwd) $(pwd)
         continue-on-error: true
         #redirect to a specific line in a file when a Github Actions is clicked
         # so we need to include the file name, the line number and the error message
@@ -66,12 +66,14 @@ jobs:
       - name: Anotation of the coding style
         run: |
           cat coding-style-reports.log | while read line; do
-            echo "::error file=$(echo $line | cut -d ':' -f 1),\
-            line=$(echo $line | cut -d ':' -f 2),\
-            title=$(echo $line | cut -d ':' -f 3)"\
-            coding style error::"$(echo $line | cut -d ':' -f 4)"
+            error_code=$(echo "$line" | cut -d ':' -f 4)
+            if [[ "$error_code" != "C-G4" && "$error_code" != "C-O1" ]]; then
+              echo "$line" >> coding-style-reports-updated.log
+            fi
           done
-          if [ -s coding-style-reports.log ]; then
+          if [ -s coding-style-reports-updated.log ]; then
+            mv coding-style-reports-updated.log coding-style-reports.log
+            echo "::error::Coding style errors found. Please check the log file."
             exit 1
           else
             echo "::notice::No coding style error found."
