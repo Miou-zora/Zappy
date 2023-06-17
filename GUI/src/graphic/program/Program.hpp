@@ -18,10 +18,10 @@ namespace GUI::Graphic {
             /**
              * @brief Construct a new Program object
              *
-             * @param vertexShaderPath path to the vertex shader
-             * @param fragmentShaderPath path to the fragment shader
+             * @param vertexShaderCode path to the vertex shader
+             * @param fragmentShaderCode path to the fragment shader
              */
-            Program(const std::string &vertexShaderPath = "", const std::string &fragmentShaderPath = "");
+            Program(const std::string &vertexShaderCode = DEFAULT_VERTEX_SHADER, const std::string &fragmentShaderCode = DEFAULT_FRAGMENT_SHADER);
 
             /**
              * @brief Copy constructor of program
@@ -46,10 +46,10 @@ namespace GUI::Graphic {
             /**
              * @brief Load the program
              *
-             * @param vertexShaderPath path to the vertex shader
-             * @param fragmentShaderPath path to the fragment shader
+             * @param vertexShaderCode path to the vertex shader
+             * @param fragmentShaderCode path to the fragment shader
              */
-            void load(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
+            void load(const std::string &vertexShaderCode, const std::string &fragmentShaderCode);
 
             /**
              * @brief Load the program
@@ -84,12 +84,31 @@ namespace GUI::Graphic {
 
         private:
 
-            void _compileShader(const std::string &shaderPath, unsigned int shaderID, int &result);
+            void _compileShader(const std::string &shaderCode, unsigned int shaderID, int &result);
             void _linkProgram(int &result, unsigned int VertexShaderID, unsigned int FragmentShaderID);
 
-            std::string _vertexShaderPath;
-            std::string _fragmentShaderPath;
+            std::string _vertexShaderCode;
+            std::string _fragmentShaderCode;
             unsigned int _id;
             bool _loaded;
+
+            static constexpr char DEFAULT_FRAGMENT_SHADER[] = "#version 330 core\n"
+                "in vec3 fragmentColor;\n"
+                "out vec3 color;\n"
+                "\n"
+                "void main() {\n"
+                "    color = fragmentColor;\n"
+                "}\n";
+
+            static constexpr char DEFAULT_VERTEX_SHADER[] = "#version 330 core\n"
+                "layout(location = 0) in vec3 vertexPosition_modelspace;\n"
+                "layout(location = 1) in vec3 vertexColor;\n"
+                "uniform mat4 MVP;\n"
+                "out vec3 fragmentColor;\n"
+                "\n"
+                "void main(){\n"
+                "    gl_Position = MVP * vec4(vertexPosition_modelspace,1);\n"
+                "    fragmentColor = vertexColor;\n"
+                "}\n";
     };
 }

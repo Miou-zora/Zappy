@@ -26,7 +26,7 @@ int main(int ac, char **av)
     cubeModel2->setPos(glm::vec3(0.0f, 2.0f, 0.0f));
     cubeModel2->setRot(glm::vec3(-45.0f, 0.0f, -45.0f));
     cubeModel2->setScale(glm::vec3(0.5f, 0.5f, 0.5f));
-    program->load("tests/ftCube/vertexShader.vertexshader", "tests/ftCube/fragmentShader.fragmentshader");
+    program->load();
     cubeModel->setProgram(program);
     cubeModel2->setProgram(program);
     cubeModel->getMesh(0)->loadProgram(program);

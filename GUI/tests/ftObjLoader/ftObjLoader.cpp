@@ -20,7 +20,7 @@ int main(int ac, char **av)
 
     management.init();
     management.getScene()->getCamera()->setPos(glm::vec3(0.0f, -70.0f, -50.0f));
-    program->load("tests/ftObjLoader/vertexShader.vertexshader", "tests/ftObjLoader/fragmentShader.fragmentshader");
+    program->load();
 
     std::cout << "Loading model..." << std::endl;
     model = GUI::Utils::ObjLoader::createModelFromObjFilePath("tests/ftObjLoader/test.obj");

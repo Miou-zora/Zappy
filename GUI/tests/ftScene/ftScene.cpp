@@ -18,7 +18,7 @@ int main(int ac, char **av)
     std::shared_ptr<GUI::Graphic::Program> program = std::make_shared<GUI::Graphic::Program>();
 
     management.init();
-    program->load("tests/ftScene/vertexShader.vertexshader", "tests/ftScene/fragmentShader.fragmentshader");
+    program->load();
 
     for (size_t y = 0; y < 10; y++) {
         for (size_t x = 0; x < 10; x++) {

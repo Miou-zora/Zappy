@@ -16,8 +16,8 @@
 
 namespace GUI::Graphic {
     Program::Program(const std::string &vertexShaderPath, const std::string &fragmentShaderPath):
-        _vertexShaderPath(vertexShaderPath),
-        _fragmentShaderPath(fragmentShaderPath),
+        _vertexShaderCode(vertexShaderPath),
+        _fragmentShaderCode(fragmentShaderPath),
         _id(0),
         _loaded(false)
     {
@@ -26,10 +26,10 @@ namespace GUI::Graphic {
 
     Program::Program(const Program &program)
     {
-        this->_fragmentShaderPath = program._fragmentShaderPath;
-        this->_vertexShaderPath = program._fragmentShaderPath;
-        this->_loaded = program._loaded;
-        this->_id = program._id;
+        _vertexShaderCode = program._vertexShaderCode;
+        _fragmentShaderCode = program._fragmentShaderCode;
+        _loaded = program._loaded;
+        _id = program._id;
     }
 
     Program::~Program()
@@ -39,17 +39,17 @@ namespace GUI::Graphic {
 
     Program &Program::operator=(const Program &program)
     {
-        this->_fragmentShaderPath = program._fragmentShaderPath;
-        this->_vertexShaderPath = program._fragmentShaderPath;
-        this->_loaded = program._loaded;
-        this->_id = program._id;
+        _vertexShaderCode = program._vertexShaderCode;
+        _fragmentShaderCode = program._fragmentShaderCode;
+        _loaded = program._loaded;
+        _id = program._id;
         return *this;
     }
 
-    void Program::load(const std::string &vertexShaderPath, const std::string &fragmentShaderPath)
+    void Program::load(const std::string &vertexShaderCode, const std::string &fragmentShaderCode)
     {
-        _vertexShaderPath = vertexShaderPath;
-        _fragmentShaderPath = fragmentShaderPath;
+        _vertexShaderCode = vertexShaderCode;
+        _fragmentShaderCode = fragmentShaderCode;
         load();
     }
 
@@ -92,28 +92,19 @@ namespace GUI::Graphic {
 
     void Program::load(void)
     {
-        if (_loaded || _vertexShaderPath.empty() || _fragmentShaderPath.empty()) {
-            std::cerr << "Program already loaded or no shader path given" << std::endl;
+        if (_loaded || _vertexShaderCode.empty() || _fragmentShaderCode.empty()) {
+            std::cerr << "Program already loaded or no shader code given" << std::endl;
             return;
         }
 
         GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
         GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-        std::string VertexShaderCode;
-        std::string FragmentShaderCode;
         GLint result = GL_FALSE;
 
-        VertexShaderCode = GUI::Utils::FileUtils::loadFile(_vertexShaderPath);
-        FragmentShaderCode = GUI::Utils::FileUtils::loadFile(_fragmentShaderPath);
+        _compileShader(_vertexShaderCode, VertexShaderID, result);
 
+        _compileShader(_fragmentShaderCode, FragmentShaderID, result);
 
-        std::cout << "Compiling shader: " << _vertexShaderPath << std::endl;
-        _compileShader(VertexShaderCode, VertexShaderID, result);
-
-        std::cout << "Compiling shader: " << _fragmentShaderPath << std::endl;
-        _compileShader(FragmentShaderCode, FragmentShaderID, result);
-
-        std::cout << "Linking program" << std::endl;
         _linkProgram(result, VertexShaderID, FragmentShaderID);
 
         glDetachShader(_id, VertexShaderID);
