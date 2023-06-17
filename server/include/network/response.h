@@ -7,8 +7,12 @@
 
 #ifndef RESPONSE_H_
     #define RESPONSE_H_
+    #include <stdlib.h>
+    #include <stddef.h>
+    #include <sys/queue.h>
+    #include <string.h>
 
-    #include "server.h"
+    typedef struct client_s client_t;
 
     /**
      * @brief Response object

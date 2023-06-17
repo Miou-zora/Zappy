@@ -204,4 +204,31 @@
      */
     void destroy_zappy(zappy_t *zappy);
 
+    /**
+     * @brief Accepts a new client
+     *
+     * @param zappy the server
+     * @param response the response to send to the client
+     * @param events the list of events
+     * @param clients the list of clients
+     * @return void
+     */
+    void cmd_forward(event_t *event, zappy_t *zappy_s);
+
+    /**
+     * @brief Add a response to the response list
+     *
+     * @param response **response_t
+     * @param zappy_s **zappy_t
+     */
+    void add_response_to_list(response_t *response, zappy_t *zappy_s);
+
+    /**
+     * @brief Add a client to a response
+     *
+     * @param response **response_t
+     * @param client **client_t
+     */
+    void gameloop(zappy_t *zappy_s);
+
 #endif /* !SERVER_H_ */

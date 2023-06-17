@@ -20,11 +20,14 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/initialize/map.c			 		\
 				game/initialize/clan.c 					\
 				game/initialize/game_struct.c 			\
+				game/gameloop.c 						\
+				game/command/forward.c 					\
 
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
 				network/run/handle_clients.c 			\
+				network/run/run_manage.c				\
 				network/client/client.c		 			\
 				network/event/event.c 					\
 				network/utils_network/read.c			\

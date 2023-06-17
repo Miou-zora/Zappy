@@ -7,6 +7,7 @@
 
 #include "response.h"
 #include <criterion/criterion.h>
+#include "client.h"
 
 Test(create_response, fail_and_sucess)
 {

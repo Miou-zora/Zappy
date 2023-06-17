@@ -16,6 +16,8 @@
     #include <sys/queue.h>
     #include <stdlib.h>
 
+    typedef struct trantorian_s trantorian_t;
+
     /**
      * @brief Structure containing the client's data
      * @param ip The client's ip
@@ -35,6 +37,7 @@
         bool is_connected;
         bool is_logged;
         bool is_graphic;
+        trantorian_t *trantorian;
         LIST_ENTRY(client_s) next; //this is for the linked list
     } client_t;
 

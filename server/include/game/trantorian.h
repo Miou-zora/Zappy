@@ -10,6 +10,7 @@
 #include "server.h"
 #include "egg.h"
 #include "vector.h"
+#include "client.h"
 
 /**
  * @brief Declarate a enum for direction
@@ -33,6 +34,7 @@ typedef struct trantorian_s {
     bool is_dead;
     bool is_egging;
     object_t *inventory;
+    client_t *client;
     LIST_ENTRY(trantorian_s) next_trantorian;
 } trantorian_t;
 

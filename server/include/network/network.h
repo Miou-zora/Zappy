@@ -55,4 +55,14 @@
      * for error
      */
     int is_socket_ready(int fd);
+
+    /**
+     * @brief it will append the message to the queue of events
+     * @param server
+     * @param fd to append
+     * @param msg to append
+     * @return int 0 if success, else 84
+     */
+    bool manage_run(zappy_t *zappy, int listen_ret);
+
 #endif /* !NETWORK_H_ */
