@@ -5,7 +5,14 @@
 ## Makefile
 ##
 
+is_fedora := $(shell lsb_release -si 2>/dev/null)
+
 all: 		zappy_gui zappy_server
+
+install:
+	    @which dnf > /dev/null 2>&1 || \
+		(echo "DNF package manager not found"; exit 1)
+		dnf install -y glew-devel glfw-devel glm-devel
 
 zappy_server:
 		make -C server/

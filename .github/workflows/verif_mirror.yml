@@ -92,8 +92,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install dependencies
-        run: |
-          sudo dnf install -y glew-devel glfw-devel glm-devel
+        run: sudo make install
 
       - run: make
         timeout-minutes: 3
