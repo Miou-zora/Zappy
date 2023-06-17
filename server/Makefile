@@ -42,25 +42,25 @@ MAIN		=	main.c
 
 OBJ_MAIN	=	$(MAIN:%.c=%.o)
 
-TESTS_M 	= tests_management_structure
+TESTS_FOLDER=	../tests/tests_server/
 
-TESTS		=	../tests/tests_server/parse/tests_get_port.c 			\
-				../tests/tests_server/parse/tests_get_freq.c 			\
-				../tests/tests_server/parse/tests_get_height.c 			\
-				../tests/tests_server/parse/tests_get_width.c 			\
-				../tests/tests_server/parse/tests_get_nb_client.c 		\
-				../tests/tests_server/parse/tests_get_names.c 			\
-				../tests/tests_server/parse/tests_parse_args.c 			\
-				../tests/tests_server/tests_build_server.c				\
-				../tests/tests_server/server/tests.c					\
-				../tests/tests_server/event/tests_event.c				\
-				../tests/tests_server/$(TESTS_M)/tests_egg_structure.c 		 \
-				../tests/tests_server/$(TESTS_M)/tests_trantorian_structure.c\
-				../tests/tests_server/$(TESTS_M)/tests_clan_structure.c 	 \
-				../tests/tests_server/$(TESTS_M)/tests_game_structure.c 	 \
-				../tests/tests_server/server/network/tests_read.c		\
-				../tests/tests_server/server/network/tests_write.c 		\
-				../tests/tests_server/server/network/tests_response.c
+TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
+				$(TESTS_FOLDER)parse/tests_get_freq.c 				 		 \
+				$(TESTS_FOLDER)parse/tests_get_height.c 				 	 \
+				$(TESTS_FOLDER)parse/tests_get_width.c 				   		 \
+				$(TESTS_FOLDER)parse/tests_get_nb_client.c 			 		 \
+				$(TESTS_FOLDER)parse/tests_get_names.c 			   	 		 \
+				$(TESTS_FOLDER)parse/tests_parse_args.c 				 	 \
+				$(TESTS_FOLDER)tests_build_server.c					 		 \
+				$(TESTS_FOLDER)server/tests.c						   	     \
+				$(TESTS_FOLDER)event/tests_event.c					 		 \
+				$(TESTS_FOLDER)management_struct/tests_egg_structure.c 		 \
+				$(TESTS_FOLDER)management_struct/tests_trantorian_structure.c\
+				$(TESTS_FOLDER)management_struct/tests_clan_structure.c 	 \
+				$(TESTS_FOLDER)management_struct/tests_game_structure.c 	 \
+				$(TESTS_FOLDER)server/network/tests_read.c			 		 \
+				$(TESTS_FOLDER)server/network/tests_write.c 			 	 \
+				$(TESTS_FOLDER)server/network/tests_response.c
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
