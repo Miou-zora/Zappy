@@ -33,6 +33,7 @@ class Management:
             "MAP_SIZE": "[0-9]+ [0-9]+",
             "CONNECT_NBR": "[0-9]+",
             "BROADCAST": "ok",
+            "INVENTORY": "\[(([a-zA-Z]+ [0-9]+(, )){6}[a-zA-Z]+ [0-9]+)\]",
             "LOOK": "\[(([a-zA-Z]*)( ?,?)*)*\]"
         }
         self.need_response: str = ""
@@ -58,33 +59,40 @@ class Management:
         dict["message"] = message[1]
         return dict
 
+    def get_rigtht_response(self, message: str) -> dict:
+        """get_rigtht_response function
+            this function is called when the server send a message
+        Args:
+            message (str): message
+        """
+        words = message.split()
+        dict = {}
+        if (self.need_response == "CLIENT_NUM"):
+            dict["client_num"] = int(words[0])
+            self.need_response = "MAP_SIZE"
+            return dict
+        elif (self.need_response == "MAP_SIZE"):
+            dict["map_size"] = (int(words[0]), int(words[1]))
+        elif (self.need_response == "CONNECT_NBR"):
+            dict["connect_nbr"] = int(words[0])
+        elif (self.need_response == "LOOK"):
+            dict["look"] = message[1:-1].split(",")
+        elif (self.need_response == "INVENTORY"):
+            dict["inventory"] = message[1:-1].split(", ")
+        self.need_response = ""
+        return dict
+
     def other(self, message: str) -> dict:
         """other function
             this function is called when the server send a message with no indication
         Args:
             message (str): message
         """
-        words = message.split()
-        dict = {}
-        if (self.need_response in self.responses.keys()) and (re.match(self.responses[self.need_response], message)):
-            if (self.need_response == "CLIENT_NUM"):
-                dict["client_num"] = int(words[0])
-                self.need_response = "MAP_SIZE"
-                return dict
-            elif (self.need_response == "MAP_SIZE"):
-                dict["map_size"] = (int(words[0]), int(words[1]))
-                self.need_response = ""
-                return dict
-            elif (self.need_response == "CONNECT_NBR"):
-                dict["connect_nbr"] = int(words[0])
-                self.need_response = ""
-                return dict
-            elif (self.need_response == "LOOK"):
-                dict["look"] = message[1:-1].split(",")
-                self.need_response = ""
-                return dict
-            self.need_response = ""
-        return dict
+        if (self.need_response in self.responses.keys()):
+            pattern = self.responses[self.need_response]
+            if (re.match(pattern, message)):
+                return self.get_rigtht_response(message)
+        return {}
 
     def death(self, message: str) -> dict:
         """ death function

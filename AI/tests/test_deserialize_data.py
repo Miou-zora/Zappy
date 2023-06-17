@@ -52,6 +52,10 @@ class TestManagementClass(unittest.TestCase):
         self.ai.deserialize_data({"connect_nbr": 1})
         self.assertEqual(self.ai.connect_nbr, 1)
 
+    def test_deserialize_data_with_inventory(self):
+        self.ai.deserialize_data({"inventory": ["food 1", "linemate 2"]})
+        self.assertEqual(self.ai.inventory, ['food 1', 'linemate 2'])
+
     def test_deserialize_data_with_look(self):
         self.ai.deserialize_data({"look": ["test", "message"]})
         self.assertEqual(self.ai.look, ["test", "message"])

@@ -55,6 +55,11 @@ class TestManagementClass(unittest.TestCase):
         self.assertEqual(self.management.other("ok"), {})
         self.assertEqual(self.management.need_response, "")
 
+    def test_other_with_response_inventory(self):
+        self.management.need_response = "INVENTORY"
+        self.assertEqual(self.management.other("[tesf 1, sfghe 2, test 3, test 4, test 5, test 6, test 7]"), {"inventory": ['tesf 1', 'sfghe 2', 'test 3', 'test 4', 'test 5', 'test 6', 'test 7']})
+        self.assertEqual(self.management.need_response, "")
+
     def test_other_with_response_look(self):
         self.management.need_response = "LOOK"
         self.assertEqual(self.management.other("[test, , allo]"), {"look": ["test", " ", " allo"]})
