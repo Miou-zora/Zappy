@@ -15,13 +15,12 @@ Test(trantorian, create_trantorian)
     trantorian_t *trantorian = create_trantorian(egg);
 
     cr_assert_eq(trantorian->level, 1);
-    cr_assert_eq(trantorian->life, 10);
     cr_assert_eq(trantorian->position.x, 1);
     cr_assert_eq(trantorian->position.y, 1);
     cr_assert_eq(trantorian->is_incanting, false);
     cr_assert_eq(trantorian->is_dead, false);
     cr_assert_eq(trantorian->is_egging, false);
-    cr_assert_eq(trantorian->inventory->nb_of_objects[FOOD], 0);
+    cr_assert_eq(trantorian->inventory->nb_of_objects[FOOD], 1260);
     cr_assert_eq(trantorian->inventory->nb_of_objects[LINEMATE], 0);
     cr_assert_eq(trantorian->inventory->nb_of_objects[DERAUMERE], 0);
     cr_assert_eq(trantorian->inventory->nb_of_objects[SIBUR], 0);

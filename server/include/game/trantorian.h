@@ -25,7 +25,6 @@ enum DIRECTION {
  * @brief Declarate a struct for trantorian
  */
 typedef struct trantorian_s {
-    int life;
     int level;
     int id;
     vector_t position;
