@@ -226,4 +226,31 @@ namespace GUI {
         private:
             std::string _message;
     };
+
+    class GameException : public std::exception {
+        /**
+         * @brief GameException class that handle the game core exceptions
+         * @param message message to display
+         */
+        public:
+            /**
+             * @brief Construct a new Game Core Exception object
+             *
+             * @param message message to display
+             */
+            GameException(const std::string &message) : _message(message) {};
+            /**
+             * @brief Destroy the Game Core Exception object
+             */
+            ~GameException() throw() {}
+            /**
+             * @brief Get the message object
+             *
+             * @return const char* message to display
+             */
+            const char *what() const throw() { return _message.c_str(); };
+
+        private:
+            std::string _message;
+    };
 }

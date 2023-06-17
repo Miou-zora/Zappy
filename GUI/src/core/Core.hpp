@@ -10,6 +10,7 @@
 #include <string>
 #include "IOPooledClient.hpp"
 #include "Management.hpp"
+#include "GameCore.hpp"
 
 namespace GUI {
     class Core {
@@ -65,8 +66,9 @@ namespace GUI {
 
             std::string _ip;
             std::string _port;
-            Network::IOPooledClient _client;
             bool _running;
-            GUI::Graphic::Management _gui;
+            std::shared_ptr<Network::IOPooledClient> _client;
+            std::shared_ptr<GUI::Graphic::Management> _gui;
+            std::shared_ptr<GUI::Game::GameCore> _game;
     };
 }

@@ -6,7 +6,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
-set(INCLUDE_SRC ${PROJECT_SOURCE_DIR}/src/network/socket/
+set(INCLUDE_SRC
+${PROJECT_SOURCE_DIR}/src/network/socket/
 ${PROJECT_SOURCE_DIR}/src/network/socket/IOPooledSocket/
 ${PROJECT_SOURCE_DIR}/src/network/sockaddrIn/
 ${PROJECT_SOURCE_DIR}/src/network/client/
@@ -29,13 +30,16 @@ ${PROJECT_SOURCE_DIR}/src/graphic/object/model/mesh/
 ${PROJECT_SOURCE_DIR}/src/graphic/window/
 ${PROJECT_SOURCE_DIR}/src/graphic/object/cube/
 ${PROJECT_SOURCE_DIR}/src/graphic/scene/
+${PROJECT_SOURCE_DIR}/src/game/gameCore/
+${PROJECT_SOURCE_DIR}/src/game/IUpdate
 )
 
 include_directories(${INCLUDE_SRC})
 
 project(zappy_gui)
 
-set(SRC ${PROJECT_SOURCE_DIR}/src/network/socket/Socket.cpp
+set(SRC
+${PROJECT_SOURCE_DIR}/src/network/socket/Socket.cpp
 ${PROJECT_SOURCE_DIR}/src/network/socket/IOPooledSocket/IOPooledSocket.cpp
 ${PROJECT_SOURCE_DIR}/src/network/sockaddrIn/SockaddrIn.cpp
 ${PROJECT_SOURCE_DIR}/src/network/client/client/Client.cpp
@@ -52,6 +56,7 @@ ${PROJECT_SOURCE_DIR}/src/graphic/window/Window.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/management/Management.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/object/cube/Cube.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/scene/Scene.cpp
+${PROJECT_SOURCE_DIR}/src/game/gameCore/GameCore.cpp
 )
 
 set(MAIN "main.cpp")

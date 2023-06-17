@@ -11,7 +11,10 @@
 #include "Request.hpp"
 
 namespace GUI {
-    Core::Core(int ac, char **av)
+    Core::Core(int ac, char **av):
+        _client(std::make_shared<GUI::Network::IOPooledClient>()),
+        _gui(std::make_shared<GUI::Graphic::Management>()),
+        _game(std::make_shared<GUI::Game::GameCore>(_gui->getScene(), _client))
     {
         int portFlag = 0;
         int ipFlag = 0;
@@ -36,6 +39,8 @@ namespace GUI {
         }
         _ip = av[ipFlag + 1];
         _port = av[portFlag + 1];
+        _game->setClient(_client);
+        _game->setScene(_gui->getScene());
     }
 
 
@@ -50,8 +55,9 @@ namespace GUI {
 
     void Core::load(void)
     {
-        _client.connect(_ip, _port);
-        _gui.init();
+        _client->connect(_ip, _port);
+        _gui->init();
+        _running = true;
     }
 
     void Core::run(void)
@@ -60,25 +66,12 @@ namespace GUI {
         std::shared_ptr<GUI::Network::Response> response = nullptr;
 
         while (_running) {
-            _gui.pollEvent();
-            _client.update();
-            response = _client.getResponse();
-            while (response != nullptr) {
-                msg = response->get();
-                if (msg.back() == '\n')
-                    msg.pop_back();
-                time_t now = time(0);
-                tm *ltm = localtime(&now);
-                std::printf("[%02d:%02d-%02d/%02d/%04d] %s\n",
-                    ltm->tm_hour, ltm->tm_min, ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900, msg.c_str());
-                if (msg == "WELCOME") {
-                    _client.addRequest(std::make_shared<GUI::Network::Request>("GRAPHIC"));
-                }
-                response = _client.getResponse();
-            }
-            _gui.update();
-            _gui.render();
-            if (!_gui.isRunning())
+            _gui->pollEvent();
+            _client->update();
+            _game->update(0);
+            _gui->update();
+            _gui->render();
+            if (!_gui->isRunning())
                 _running = false;
         }
     }
