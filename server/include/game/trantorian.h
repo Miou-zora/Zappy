@@ -22,6 +22,22 @@ enum DIRECTION {
     LEFT
 };
 
+enum COMMAND {
+    NONE = 0,
+    FORWARD,
+    TURN_RIGHT,
+    TURN_LEFT,
+    LOOK,
+    INVENTORY,
+    BROADCAST,
+    CONNECT_NBR,
+    FORK,
+    EJECT,
+    TAKE,
+    SET,
+    INCANTATION
+};
+
 /**
  * @brief Declarate a struct for trantorian
  */
@@ -35,6 +51,8 @@ typedef struct trantorian_s {
     bool is_egging;
     object_t *inventory;
     client_t *client;
+    size_t timer;
+    enum COMMAND current_command;
     LIST_ENTRY(trantorian_s) next_trantorian;
 } trantorian_t;
 

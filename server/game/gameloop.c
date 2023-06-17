@@ -46,6 +46,23 @@ static bool check_if_player_dead(event_t *event)
     return (false);
 }
 
+static void update_players(zappy_t *zappy)
+{
+    client_t *client = NULL;
+    void (*list_cmd[1]) (trantorian_t *trantorian, zappy_t *zappy_s) = {};
+
+    for (client = LIST_FIRST(&zappy->clients); client != NULL;
+    client = LIST_NEXT(client, next)) {
+        if (client->trantorian->timer == 0 &&
+        client->trantorian->current_command != NONE) {
+            list_cmd[client->trantorian->current_command]
+            (client->trantorian, zappy);
+        }
+        if (client->trantorian->timer > 0)
+            client->trantorian->timer -= 1;
+    }
+}
+
 void gameloop(zappy_t *zappy_s)
 {
     event_t *event = NULL;
@@ -61,4 +78,5 @@ void gameloop(zappy_t *zappy_s)
         LIST_REMOVE(event, next);
         free(event);
     }
+    update_players(zappy_s);
 }
