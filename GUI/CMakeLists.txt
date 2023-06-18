@@ -37,6 +37,7 @@ ${PROJECT_SOURCE_DIR}/src/game/map/
 ${PROJECT_SOURCE_DIR}/src/game/map/tile/
 ${PROJECT_SOURCE_DIR}/src/game/player/
 ${PROJECT_SOURCE_DIR}/src/game/container/
+${PROJECT_SOURCE_DIR}/src/game/container/foodContainer/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -67,6 +68,7 @@ ${PROJECT_SOURCE_DIR}/src/game/map/tile/Tile.cpp
 ${PROJECT_SOURCE_DIR}/src/game/gameState/GameState.cpp
 ${PROJECT_SOURCE_DIR}/src/game/player/Player.cpp
 ${PROJECT_SOURCE_DIR}/src/game/container/Container.cpp
+${PROJECT_SOURCE_DIR}/src/game/container/foodContainer/FoodContainer.cpp
 )
 
 set(MAIN "main.cpp")
