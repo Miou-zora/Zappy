@@ -7,6 +7,7 @@
 
 #include <criterion/criterion.h>
 #include "game_struct.h"
+#include "server.h"
 
 Test(create_egg_structure, test_create_egg_structure)
 {

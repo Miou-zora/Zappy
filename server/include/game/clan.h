@@ -9,7 +9,7 @@
 #include "trantorian.h"
 
 /**
- * @brief Declarate caln_member structure
+ * @brief Declarate clan_member structure
  */
 typedef struct clan_member_s {
     trantorian_t *trantorian;
@@ -37,6 +37,15 @@ LIST_HEAD(clan_head, clan_s);
  * @return clan_member_t*
  */
 clan_member_t *create_clan_member(trantorian_t *trantorian);
+
+
+/**
+ * @brief Insert trantorian in his team
+ * @param game_struct_t
+ * @return trantorian_t
+ */
+void add_trantorian_team(game_struct_t *game_struct, trantorian_t *trantorian,
+    char *team_name);
 
 /**
  * @brief Create a clan chained list with head object

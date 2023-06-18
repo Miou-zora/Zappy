@@ -7,10 +7,12 @@
 
 #pragma once
 #include "all_objects.h"
-#include "server.h"
 #include "egg.h"
 #include "vector.h"
 #include "client.h"
+
+typedef struct game_struct_s game_struct_t;
+typedef struct zappy_s zappy_t;
 
 /**
  * @brief Declarate a enum for direction
@@ -44,6 +46,7 @@ enum COMMAND {
 typedef struct trantorian_s {
     int level;
     int id;
+    char *team_name;
     vector_t position;
     enum DIRECTION direction;
     bool is_incanting;
@@ -61,6 +64,14 @@ typedef struct trantorian_s {
  * @param egg_t
 */
 trantorian_t *create_trantorian(egg_t *egg);
+
+/**
+ * @brief Create trantorian from event
+ * @param char team_name
+ * @param zappy_t server
+*/
+trantorian_t *create_trantorian_from_event(char *team_name, zappy_t *server);
+
 
 LIST_HEAD(trantorian_head, trantorian_s);
 /**

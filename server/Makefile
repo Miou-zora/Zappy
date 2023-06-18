@@ -21,7 +21,9 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/initialize/clan.c 					\
 				game/initialize/game_struct.c 			\
 				game/gameloop.c 						\
+				game/gameloop_check_special_event.c 	\
 				game/command/forward.c 					\
+				game/command/connection.c 				\
 
 
 SRC_NETWORK =	network/build/build_server.c			\

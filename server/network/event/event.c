@@ -14,10 +14,11 @@ event_t *create_event(char *request, client_t *client)
 
     if (!event)
         return (NULL);
-    if (request)
+    if (request) {
         event->request = strdup(request);
-    if (!event->request)
-        return (NULL);
+        if (!event->request)
+            return (NULL);
+    }
     event->client = client;
     return (event);
 }

@@ -19,6 +19,9 @@ static void bad_command(zappy_t *zappy_s)
 
 bool handle_event(event_t *event, zappy_t *zappy_s)
 {
+    if (special_event(event, zappy_s)) {
+        return (true);
+    }
     void (*list_cmd[1]) (event_t *event, zappy_t *zappy_s) = {
         cmd_forward,
     };
@@ -27,7 +30,8 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
     };
 
     for (int i = 0; i < 1; i++) {
-        if (strncmp(event->request, commands[i], strlen(commands[i])) == 0) {
+        if (strncmp(event->request, commands[i],
+        strlen(commands[i])) == 0) {
             list_cmd[i](event, zappy_s);
             return (true);
         }

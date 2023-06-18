@@ -22,6 +22,7 @@
     #include "client.h"
     #include "response.h"
     #include "event.h"
+    #include "game_struct.h"
 
     /**
      * @brief Structure containing the server's arguments
@@ -62,6 +63,7 @@
         struct sockaddr_in interface;
         fd_set readfds;
         struct timeval timeout;
+        game_struct_t *game_struct;
         LIST_HEAD(response_list, response_s) responses;
         LIST_HEAD(client_list, client_s) clients;
         LIST_HEAD(event_list, event_s) events;
@@ -216,6 +218,16 @@
     void cmd_forward(event_t *event, zappy_t *zappy_s);
 
     /**
+     * @brief determinate what type of client it is
+     *
+     * @param zappy the server
+     * @param events one event
+     * @return void
+     */
+    void connection(event_t *event, zappy_t *zappy_s);
+
+
+    /**
      * @brief Add a response to the response list
      *
      * @param response **response_t
@@ -230,6 +242,14 @@
      * @param client **client_t
      */
     void gameloop(zappy_t *zappy_s);
+
+    /**
+     * @brief Add a client to a response
+     *
+     * @param event *event_t
+     * @param zappy_s *zappy_t
+     */
+    bool special_event(event_t *event, zappy_t *zappy_s);
 
     /**
      * @brief disconnect all clients wich are not connected anymore

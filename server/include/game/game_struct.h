@@ -6,11 +6,11 @@
 */
 
 #pragma once
-#include "server.h"
 #include "egg.h"
 #include "clan.h"
 #include "map.h"
 
+typedef struct argv_s argv_t;
 
 /**
  * @brief Declarate game_struct

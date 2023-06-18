@@ -6,6 +6,8 @@
 */
 
 #include "clan.h"
+#include "game_struct.h"
+#include <string.h>
 
 clan_member_t *create_clan_member(trantorian_t *trantorian)
 {
@@ -15,6 +17,20 @@ clan_member_t *create_clan_member(trantorian_t *trantorian)
         return (NULL);
     clan_member->trantorian = trantorian;
     return (clan_member);
+}
+
+void add_trantorian_team(game_struct_t *game_struct, trantorian_t *trantorian,
+    char *team_name)
+{
+    clan_t *temp = NULL;
+
+    LIST_FOREACH(temp, &game_struct->all_clans, next_clan) {
+        if (strcmp(temp->name, team_name) == 0) {
+            LIST_INSERT_HEAD(&temp->all_members,
+            create_clan_member(trantorian), next_clan_member);
+            return;
+        }
+    }
 }
 
 struct clan_member_head create_clan_members_chained_list(void)
