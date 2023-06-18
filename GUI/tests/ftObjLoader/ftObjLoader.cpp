@@ -33,6 +33,7 @@ int main(int ac, char **av)
     while (management.isRunning()) {
         management.pollEvent();
         management.update();
+        management.getWindow()->clear();
         management.render();
     }
 

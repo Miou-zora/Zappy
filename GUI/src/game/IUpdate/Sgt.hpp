@@ -17,15 +17,13 @@ namespace GUI::Game {
      */
     class Sgt : public GUI::Game::IUpdate {
         public:
-            Sgt(std::shared_ptr<GUI::Game::GameSettings> setting,
+            Sgt(std::shared_ptr<GUI::Game::GameState> gameState,
                 std::shared_ptr<GUI::Network::IOPooledClient> client,
-                std::shared_ptr<GUI::Graphic::Scene> scene,
                 std::string command)
             {
-                _settings = setting;
+                _gameState = gameState;
                 _client = client;
                 _command = command;
-                _scene = scene;
             }
 
             ~Sgt(void) = default;
@@ -38,7 +36,7 @@ namespace GUI::Game {
             void update() override
             {
                 std::string time = _command.substr(4);
-                _settings->setTimeUnit(std::stoi(time));
+                _gameState->getSettings()->setTimeUnit(std::stoi(time));
             }
     };
 }

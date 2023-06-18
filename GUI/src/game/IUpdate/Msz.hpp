@@ -19,15 +19,13 @@ namespace GUI::Game {
      */
     class Msz : public GUI::Game::IUpdate {
         public:
-            Msz(std::shared_ptr<GUI::Game::GameSettings> settings,
-            std::shared_ptr<GUI::Network::IOPooledClient> client,
-            std::shared_ptr<GUI::Graphic::Scene> scene,
-            std::string command)
+            Msz(std::shared_ptr<GUI::Game::GameState> gameState,
+                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                std::string command)
             {
-                _settings = settings;
+                _gameState = gameState;
                 _client = client;
                 _command = command;
-                _scene = scene;
             }
 
             ~Msz(void) = default;
@@ -35,21 +33,14 @@ namespace GUI::Game {
             void update() override
             {
                 std::string size = _command.substr(4);
-                std::string x = "";
-                std::string y = "";
-                bool is_x = true;
+                std::stringstream ss(size);
+                unsigned int x = 0;
+                unsigned int y = 0;
 
-                for (std::size_t i = 0; i < size.size(); i++) {
-                    if (size[i] == ' ') {
-                        is_x = false;
-                        continue;
-                    }
-                    if (is_x)
-                        x += size[i];
-                    else
-                        y += size[i];
-                }
-                _settings->setMapSize(std::stoi(x), std::stoi(y));
+                ss >> x;
+                ss >> y;
+                _gameState->getSettings()->setMapSize(x, y);
+                _gameState->getMap()->resize(x, y);
             }
 
         private:

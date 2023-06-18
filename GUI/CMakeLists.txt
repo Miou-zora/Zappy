@@ -31,7 +31,11 @@ ${PROJECT_SOURCE_DIR}/src/graphic/window/
 ${PROJECT_SOURCE_DIR}/src/graphic/object/cube/
 ${PROJECT_SOURCE_DIR}/src/graphic/scene/
 ${PROJECT_SOURCE_DIR}/src/game/gameCore/
-${PROJECT_SOURCE_DIR}/src/game/IUpdate
+${PROJECT_SOURCE_DIR}/src/game/gameState/
+${PROJECT_SOURCE_DIR}/src/game/IUpdate/
+${PROJECT_SOURCE_DIR}/src/game/map/
+${PROJECT_SOURCE_DIR}/src/game/map/tile/
+${PROJECT_SOURCE_DIR}/src/game/player/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -57,6 +61,10 @@ ${PROJECT_SOURCE_DIR}/src/graphic/management/Management.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/object/cube/Cube.cpp
 ${PROJECT_SOURCE_DIR}/src/graphic/scene/Scene.cpp
 ${PROJECT_SOURCE_DIR}/src/game/gameCore/GameCore.cpp
+${PROJECT_SOURCE_DIR}/src/game/map/Map.cpp
+${PROJECT_SOURCE_DIR}/src/game/map/tile/Tile.cpp
+${PROJECT_SOURCE_DIR}/src/game/gameState/GameState.cpp
+${PROJECT_SOURCE_DIR}/src/game/player/Player.cpp
 )
 
 set(MAIN "main.cpp")

@@ -18,78 +18,100 @@ namespace GUI::Graphic::Object {
             glm::vec3(-1.0f,-1.0f,-1.0f),
             glm::vec3(-1.0f,-1.0f, 1.0f),
             glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
+
+            glm::vec3( 1.0f, 1.0f,-1.0f),
             glm::vec3(-1.0f,-1.0f,-1.0f),
             glm::vec3(-1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
+
+            glm::vec3( 1.0f,-1.0f, 1.0f),
             glm::vec3(-1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
+            glm::vec3( 1.0f,-1.0f,-1.0f),
+
+            glm::vec3( 1.0f, 1.0f,-1.0f),
+            glm::vec3( 1.0f,-1.0f,-1.0f),
             glm::vec3(-1.0f,-1.0f,-1.0f),
+
             glm::vec3(-1.0f,-1.0f,-1.0f),
             glm::vec3(-1.0f, 1.0f, 1.0f),
             glm::vec3(-1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
+
+            glm::vec3( 1.0f,-1.0f, 1.0f),
             glm::vec3(-1.0f,-1.0f, 1.0f),
             glm::vec3(-1.0f,-1.0f,-1.0f),
+
             glm::vec3(-1.0f, 1.0f, 1.0f),
             glm::vec3(-1.0f,-1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
+            glm::vec3( 1.0f,-1.0f, 1.0f),
+
+            glm::vec3( 1.0f, 1.0f, 1.0f),
+            glm::vec3( 1.0f,-1.0f,-1.0f),
+            glm::vec3( 1.0f, 1.0f,-1.0f),
+
+            glm::vec3( 1.0f,-1.0f,-1.0f),
+            glm::vec3( 1.0f, 1.0f, 1.0f),
+            glm::vec3( 1.0f,-1.0f, 1.0f),
+
+            glm::vec3( 1.0f, 1.0f, 1.0f),
+            glm::vec3( 1.0f, 1.0f,-1.0f),
             glm::vec3(-1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
+
+            glm::vec3( 1.0f, 1.0f, 1.0f),
             glm::vec3(-1.0f, 1.0f,-1.0f),
             glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
+
+            glm::vec3( 1.0f, 1.0f, 1.0f),
             glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f)
+            glm::vec3( 1.0f,-1.0f, 1.0f)
         };
 
         std::vector<glm::vec3> normals = {
-            glm::vec3(-1.0f,-1.0f,-1.0f),
-            glm::vec3(-1.0f,-1.0f, 1.0f),
-            glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
-            glm::vec3(-1.0f,-1.0f,-1.0f),
-            glm::vec3(-1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
-            glm::vec3(-1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
-            glm::vec3(-1.0f,-1.0f,-1.0f),
-            glm::vec3(-1.0f,-1.0f,-1.0f),
-            glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(-1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
-            glm::vec3(-1.0f,-1.0f, 1.0f),
-            glm::vec3(-1.0f,-1.0f,-1.0f),
-            glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(-1.0f,-1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f,-1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f,-1.0f),
-            glm::vec3(-1.0f, 1.0f,-1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(-1.0f, 1.0f,-1.0f),
-            glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f, 1.0f, 1.0f),
-            glm::vec3(-1.0f, 1.0f, 1.0f),
-            glm::vec3(1.0f,-1.0f, 1.0f)
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f),
+
+            glm::vec3(0.0f, 0.0f, 1.0f),
+            glm::vec3(0.0f, 0.0f, 1.0f),
+            glm::vec3(0.0f, 0.0f, 1.0f),
+
+            glm::vec3(0.0f, 1.0f, 0.0f),
+            glm::vec3(0.0f, 1.0f, 0.0f),
+            glm::vec3(0.0f, 1.0f, 0.0f),
+
+            glm::vec3(0.0f, 0.0f, 1.0f),
+            glm::vec3(0.0f, 0.0f, 1.0f),
+            glm::vec3(0.0f, 0.0f, 1.0f),
+
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f),
+
+            glm::vec3(0.0f, 1.0f, 0.0f),
+            glm::vec3(0.0f, 1.0f, 0.0f),
+            glm::vec3(0.0f, 1.0f, 0.0f),
+
+            glm::vec3(0.0f, 0.0f, -1.0f),
+            glm::vec3(0.0f, 0.0f, -1.0f),
+            glm::vec3(0.0f, 0.0f, -1.0f),
+
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+            glm::vec3(-1.0f, 0.0f, 0.0f),
+
+            glm::vec3(0.0f, -1.0f, 0.0f),
+            glm::vec3(0.0f, -1.0f, 0.0f),
+            glm::vec3(0.0f, -1.0f, 0.0f),
+
+            glm::vec3(0.0f, -1.0f, 0.0f),
+            glm::vec3(0.0f, -1.0f, 0.0f),
+            glm::vec3(0.0f, -1.0f, 0.0f),
+
+            glm::vec3(0.0f, 0.0f, -1.0f),
+            glm::vec3(0.0f, 0.0f, -1.0f),
+            glm::vec3(0.0f, 0.0f, -1.0f)
         };
 
         std::vector<glm::vec2> uvs = {
@@ -123,7 +145,6 @@ namespace GUI::Graphic::Object {
         }
         cubeModel->addMesh(cubeMesh);
         cubeModel->load();
-
         return cubeModel;
     }
 }

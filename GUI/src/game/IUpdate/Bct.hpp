@@ -19,15 +19,13 @@ namespace GUI::Game {
      */
     class Bct : public IUpdate{
         public:
-            Bct(std::shared_ptr<GUI::Game::GameSettings> settings,
+            Bct(std::shared_ptr<GUI::Game::GameState> gameState,
                 std::shared_ptr<GUI::Network::IOPooledClient> client,
-                std::shared_ptr<GUI::Graphic::Scene> scene,
                 std::string command)
             {
-                _settings = settings;
+                _gameState = gameState;
                 _client = client;
                 _command = command;
-                _scene = scene;
             }
             ~Bct() = default;
 
@@ -38,22 +36,26 @@ namespace GUI::Game {
              */
             void update()
             {
-                std::shared_ptr<GUI::Graphic::Object::Model> cubeModel;
-                std::shared_ptr<GUI::Graphic::Program> program = std::make_shared<GUI::Graphic::Program>();
+                std::shared_ptr<GUI::Game::Tile> tile = nullptr;
                 std::vector<std::string> args = GUI::Utils::StringUtils::split(_command, " ");
 
-                if (args.size() != 10)
+                if (args.size() != 10) {
+                    std::cerr << "Error: Bct: invalid number of arguments" << std::endl;
                     return;
-                std::size_t x = std::stoi(args[1]);
-                std::size_t y = std::stoi(args[2]);
-
-                cubeModel = GUI::Graphic::Object::CreateCubeModel();
-                cubeModel->setPos(glm::vec3(x, 0, y));
-                cubeModel->setScale(glm::vec3(0.5, 0.5, 0.5));
-                program->load("assets/shaders/vertexShader.vertexshader", "assets/shaders/fragmentShader.fragmentshader");
-                cubeModel->setProgram(program);
-                cubeModel->loadProgram();
-                _scene->addModel("tile_" + std::to_string(x) + "_" + std::to_string(y), cubeModel);
+                }
+                try {
+                    tile = _gameState->getMap()->getTile(std::stoi(args[1]), std::stoi(args[2]));
+                } catch (std::exception &e) {
+                    std::cerr << "Error: Bct: " << e.what() << std::endl;
+                    return;
+                }
+                tile->setFoodQuantity(std::stoi(args[3]));
+                tile->setLinemateQuantity(std::stoi(args[4]));
+                tile->setDeraumereQuantity(std::stoi(args[5]));
+                tile->setSiburQuantity(std::stoi(args[6]));
+                tile->setMendianeQuantity(std::stoi(args[7]));
+                tile->setPhirasQuantity(std::stoi(args[8]));
+                tile->setThystameQuantity(std::stoi(args[9]));
             }
 
         private:

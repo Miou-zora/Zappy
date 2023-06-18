@@ -17,15 +17,13 @@ namespace GUI::Game {
      */
     class Welcome : public GUI::Game::IUpdate {
         public:
-            Welcome(std::shared_ptr<GUI::Game::GameSettings> setting,
-                    std::shared_ptr<GUI::Network::IOPooledClient> client,
-                    std::shared_ptr<GUI::Graphic::Scene> scene,
-                    std::string command)
+            Welcome(std::shared_ptr<GUI::Game::GameState> gameState,
+                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                std::string command)
             {
-                _settings = setting;
+                _gameState = gameState;
                 _client = client;
                 _command = command;
-                _scene = scene;
             }
 
             ~Welcome(void) = default;

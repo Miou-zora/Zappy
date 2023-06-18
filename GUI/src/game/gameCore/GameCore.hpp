@@ -11,6 +11,8 @@
 #include "Factory.hpp"
 #include "IOPooledClient.hpp"
 #include <functional>
+#include "Map.hpp"
+#include "GameState.hpp"
 
 namespace GUI::Game {
     /**
@@ -20,8 +22,7 @@ namespace GUI::Game {
      */
     class GameCore {
         public:
-            GameCore(void);
-            GameCore(std::shared_ptr<GUI::Graphic::Scene> scene, std::shared_ptr<GUI::Network::IOPooledClient> client);
+            GameCore(std::shared_ptr<GUI::Graphic::Scene> scene = nullptr, std::shared_ptr<GUI::Network::IOPooledClient> client = nullptr);
             ~GameCore(void) = default;
 
             /**
@@ -32,11 +33,11 @@ namespace GUI::Game {
             void update(const double &timeElapsed);
 
             /**
-             * @brief Set the Scene object
-             *
-             * @param scene
+             * @brief Draw the game
              */
-            void setScene(std::shared_ptr<GUI::Graphic::Scene> scene) { _scene = scene; };
+            void render(void);
+
+            void init(void);
 
             /**
              * @brief Set the Client object
@@ -46,23 +47,29 @@ namespace GUI::Game {
             void setClient(std::shared_ptr<GUI::Network::IOPooledClient> client) { _client = client; };
 
             /**
-             * @brief Get the Scene object
-             *
-             * @return std::shared_ptr<GUI::Graphic::Scene>
-             */
-            std::shared_ptr<GUI::Graphic::Scene> getScene(void) const { return _scene; };
-            
-            /**
              * @brief Get the Client object
              *
              * @return std::shared_ptr<GUI::Network::IOPooledClient>
              */
             std::shared_ptr<GUI::Network::IOPooledClient> getClient(void) const { return _client; };
 
+            /**
+             * @brief Set the Scene object
+             *
+             * @param scene
+             */
+            void setGameState(std::shared_ptr<GUI::Game::GameState> gameState) { _gameState = gameState; };
+
+            /**
+             * @brief Get the Scene object
+             *
+             * @return std::shared_ptr<GUI::Graphic::Scene>
+             */
+            std::shared_ptr<GUI::Game::GameState> getGameState(void) const { return _gameState; };
+
         private:
-            std::shared_ptr<GUI::Graphic::Scene> _scene;
+            std::shared_ptr<GUI::Game::GameState> _gameState;
             std::shared_ptr<GUI::Network::IOPooledClient> _client;
-            std::shared_ptr<GUI::Game::GameSettings> _settings;
             GUI::Game::Factory _factory;
 
     };

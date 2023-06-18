@@ -40,7 +40,7 @@ namespace GUI {
         _ip = av[ipFlag + 1];
         _port = av[portFlag + 1];
         _game->setClient(_client);
-        _game->setScene(_gui->getScene());
+        _game->getGameState()->setScene(_gui->getScene());
     }
 
 
@@ -57,6 +57,7 @@ namespace GUI {
     {
         _client->connect(_ip, _port);
         _gui->init();
+        _game->init();
         _running = true;
     }
 
@@ -70,6 +71,8 @@ namespace GUI {
             _client->update();
             _game->update(0);
             _gui->update();
+            _gui->getWindow()->clear();
+            _game->render();
             _gui->render();
             if (!_gui->isRunning())
                 _running = false;

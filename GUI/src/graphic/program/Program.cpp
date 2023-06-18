@@ -96,7 +96,6 @@ namespace GUI::Graphic {
             std::cerr << "Program already loaded or no shader code given" << std::endl;
             return;
         }
-
         GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
         GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
         GLint result = GL_FALSE;

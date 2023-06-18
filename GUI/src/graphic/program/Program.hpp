@@ -93,22 +93,33 @@ namespace GUI::Graphic {
             bool _loaded;
 
             static constexpr char DEFAULT_FRAGMENT_SHADER[] = "#version 330 core\n"
-                "in vec3 fragmentColor;\n"
+                "in vec3 vNormal;\n"
+                "in vec3 vLightPos;\n"
                 "out vec3 color;\n"
                 "\n"
                 "void main() {\n"
-                "    color = fragmentColor;\n"
+                // "    float ambientStrength = 0.1;\n"
+                // "    vec3 ambient = ambientStrength * vec3(1, 1, 1);\n"
+                // "    vec3 norm = normalize(vNormal);\n"
+                // "    vec3 lightDir = normalize(vLightPos);\n"
+                // "    float diff = max(dot(norm, lightDir), 0.0);\n"
+                // "    vec3 diffuse = diff * vec3(1, 1, 1);\n"
+                // "    vec3 result = (ambient + diffuse) * vec3(1, 1, 1);\n"
+                "    color = vNormal;\n"
                 "}\n";
 
             static constexpr char DEFAULT_VERTEX_SHADER[] = "#version 330 core\n"
                 "layout(location = 0) in vec3 vertexPosition_modelspace;\n"
-                "layout(location = 1) in vec3 vertexColor;\n"
+                "layout(location = 1) in vec3 normal;\n"
                 "uniform mat4 MVP;\n"
-                "out vec3 fragmentColor;\n"
+                "uniform vec3 lightPos;\n"
+                "out vec3 vNormal;\n"
+                "out vec3 vLightPos;\n"
                 "\n"
                 "void main(){\n"
                 "    gl_Position = MVP * vec4(vertexPosition_modelspace,1);\n"
-                "    fragmentColor = vertexColor;\n"
+                "    vNormal = normal;\n"
+                "    vLightPos = lightPos;\n"
                 "}\n";
     };
 }

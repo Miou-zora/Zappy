@@ -122,6 +122,10 @@ namespace GUI::Graphic::Object {
         matrixID = glGetUniformLocation(_program->getID(), "MVP");    //! Get id of the program to make modification
         glUniformMatrix4fv(matrixID, 1, GL_FALSE, mvp);                     //! Load mvp matrix into shader
 
+        matrixID = glGetUniformLocation(_program->getID(), "lightPos");
+        glUniform3f(matrixID, 0, 4, 0);
+
+
         glEnableVertexAttribArray(0);                   //! Say that we use layout(location = 0) variable in shader, for exemple this is for vertices
         glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);   //! Binding _vertices attribut
         glVertexAttribPointer(  //! Setup Vertex Array

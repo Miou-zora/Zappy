@@ -32,7 +32,6 @@ namespace GUI::Graphic {
 
     void Management::render(void)
     {
-        _window->clear();
         _scene->draw();
         _window->display();
     }

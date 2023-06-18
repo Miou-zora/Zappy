@@ -14,8 +14,10 @@
 #include "Sgt.hpp"
 #include "Msz.hpp"
 #include "Bct.hpp"
-#include "Scene.hpp"
-#include "GameSettings.hpp"
+#include "Tna.hpp"
+#include "Pnw.hpp"
+#include "Pdi.hpp"
+#include "GameState.hpp"
 #include <map>
 #include <functional>
 #include <memory>
@@ -34,52 +36,60 @@ namespace GUI::Game {
             /**
              * @brief create the right update class depending on the command
              * 
-             * @param settings  GUI::Game::GameSettings
+             * @param settings  GUI::Game::GameState
              * @param client    GUI::Network::IOPooledClient
-             * @param scene     GUI::Graphic::Scene
              * @param command   std::string
              * @return ** std::shared_ptr<GUI::Game::IUpdate> 
              */
-            std::shared_ptr<GUI::Game::IUpdate> create(std::shared_ptr<GUI::Game::GameSettings> settings,
+            std::shared_ptr<GUI::Game::IUpdate> create(std::shared_ptr<GUI::Game::GameState> gameState,
                                                         std::shared_ptr<GUI::Network::IOPooledClient> client,
-                                                        std::shared_ptr<GUI::Graphic::Scene> scene,
                                                         std::string command)
             {
                 std::string command_key = GUI::Utils::StringUtils::try_split_command(command);
                 if (_map.find(command_key) == _map.end()) {
                     throw GUI::GameException("Error: command not found");
                 }
-                return _map[command_key](settings, client, scene, command);
+                return _map[command_key](gameState, client, command);
             }
 
         private:
-            std::map<std::string, std::function<std::shared_ptr<GUI::Game::IUpdate>(std::shared_ptr<GUI::Game::GameSettings>,
-                                                std::shared_ptr<GUI::Network::IOPooledClient>,
-                                                std::shared_ptr<GUI::Graphic::Scene>,
-                                                std::string)>> _map = {
-                {"WELCOME", [](std::shared_ptr<GUI::Game::GameSettings> settings,
+            std::map<std::string, std::function<std::shared_ptr<GUI::Game::IUpdate>(std::shared_ptr<GUI::Game::GameState>,
+                                                        std::shared_ptr<GUI::Network::IOPooledClient>,
+                                                        std::string)>> _map = {
+                {"WELCOME", [](std::shared_ptr<GUI::Game::GameState> gameState,
                                 std::shared_ptr<GUI::Network::IOPooledClient> client,
-                                std::shared_ptr<GUI::Graphic::Scene> scene,
                                 std::string command) {
-                    return std::make_shared<GUI::Game::Welcome>(settings, client, scene, command);
+                    return std::make_shared<GUI::Game::Welcome>(gameState, client, command);
                 }},
-                {"sgt", [](std::shared_ptr<GUI::Game::GameSettings> settings,
+                {"sgt", [](std::shared_ptr<GUI::Game::GameState> gameState,
                             std::shared_ptr<GUI::Network::IOPooledClient> client,
-                            std::shared_ptr<GUI::Graphic::Scene> scene,
                             std::string command) {
-                    return std::make_shared<GUI::Game::Sgt>(settings, client, scene, command);
+                    return std::make_shared<GUI::Game::Sgt>(gameState ,client, command);
                 }},
-                {"msz", [](std::shared_ptr<GUI::Game::GameSettings> settings,
-                            std::shared_ptr<GUI::Network::IOPooledClient> client,
-                            std::shared_ptr<GUI::Graphic::Scene> scene,
-                            std::string command) {
-                    return std::make_shared<GUI::Game::Msz>(settings, client, scene, command);
+                {"msz", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                                std::string command) {
+                    return std::make_shared<GUI::Game::Msz>(gameState ,client, command);
                 }},
-                {"bct", [](std::shared_ptr<GUI::Game::GameSettings> settings,
-                            std::shared_ptr<GUI::Network::IOPooledClient> client,
-                            std::shared_ptr<GUI::Graphic::Scene> scene,
-                            std::string command) {
-                    return std::make_shared<GUI::Game::Bct>(settings, client, scene, command);
+                {"bct", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                                std::string command) {
+                    return std::make_shared<GUI::Game::Bct>(gameState ,client, command);
+                }},
+                {"tna", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                                std::string command) {
+                    return std::make_shared<GUI::Game::Tna>(gameState ,client, command);
+                }},
+                {"pnw", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                                std::string command) {
+                    return std::make_shared<GUI::Game::Pnw>(gameState ,client, command);
+                }},
+                {"pdi", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                                std::string command) {
+                    return std::make_shared<GUI::Game::Pdi>(gameState ,client, command);
                 }},
             };
     };

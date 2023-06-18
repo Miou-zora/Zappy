@@ -87,7 +87,7 @@ namespace GUI::Network {
 
     void IOPooledSocket::_getMessageFromServer(void)
     {
-        char buffer[1024] = {0};
+        char buffer[1025] = {0};
 
         if (::recv(_fd, buffer, 1024, 0) < 0) {
             throw GUI::NetworkException("Error: recv failed: " + std::string(strerror(errno)));
