@@ -231,4 +231,11 @@
      */
     void gameloop(zappy_t *zappy_s);
 
+    /**
+     * @brief disconnect all clients wich are not connected anymore
+     *
+     * @param server **zappy_t
+     */
+    void disconnect_clients(zappy_t *server);
+
 #endif /* !SERVER_H_ */

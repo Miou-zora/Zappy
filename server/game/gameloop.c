@@ -38,9 +38,9 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
 
 static bool check_if_player_dead(event_t *event)
 {
+    if (!event->client->is_connected || event->client->trantorian == NULL)
+        return (true);
     if (event->client->trantorian->is_dead == true) {
-        LIST_REMOVE(event, next);
-        free(event);
         return (true);
     }
     return (false);
@@ -51,32 +51,33 @@ static void update_players(zappy_t *zappy)
     client_t *client = NULL;
     void (*list_cmd[1]) (trantorian_t *trantorian, zappy_t *zappy_s) = {};
 
-    for (client = LIST_FIRST(&zappy->clients); client != NULL;
-    client = LIST_NEXT(client, next)) {
-        if (client->trantorian->timer == 0 &&
-        client->trantorian->current_command != NONE) {
-            list_cmd[client->trantorian->current_command]
-            (client->trantorian, zappy);
+    LIST_FOREACH(client, &zappy->clients, next) {
+        if (client->trantorian != NULL) {
+            if (client->trantorian->timer == 0 &&
+            client->trantorian->current_command != NONE) {
+                list_cmd[client->trantorian->current_command]
+                (client->trantorian, zappy);
+            }
+            if (client->trantorian->timer > 0)
+                client->trantorian->timer -= 1;
         }
-        if (client->trantorian->timer > 0)
-            client->trantorian->timer -= 1;
     }
 }
 
 void gameloop(zappy_t *zappy_s)
 {
     event_t *event = NULL;
+    event_t *tmp = NULL;
 
     for (event = LIST_FIRST(&zappy_s->events); event != NULL;
     event = LIST_NEXT(event, next)) {
-        if (check_if_player_dead(event) == true) {
-            continue;
+        if (!check_if_player_dead(event)) {
+            handle_event(event, zappy_s);
         }
-        if (handle_event(event, zappy_s) == true) {
-            LIST_REMOVE(event, next);
-        }
+        if (tmp)
+            destroy_event(tmp);
+        tmp = event;
         LIST_REMOVE(event, next);
-        free(event);
     }
     update_players(zappy_s);
 }

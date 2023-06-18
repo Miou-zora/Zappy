@@ -40,7 +40,7 @@ class QuickFireRequest:
                 client = Client(self.ip, self.port, i)
                 client.send(data)
                 sys.exit(0)
-        sleep(2)
+        sleep(4)
 
 class AnalyseResult:
 

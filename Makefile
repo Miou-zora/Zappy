@@ -53,4 +53,8 @@ re:
 		cp ./server/zappy_server ./zappy_server
 		cp ./GUI/zappy_gui ./zappy_gui
 
-.PHONY:		all debug tests_run clean fclean re zappy_server zappy_gui zappy_ai
+funct_test:
+		./tests/tests_server/server/supervisor.sh 5555 100
+
+.PHONY:	all debug tests_run clean fclean re zappy_server zappy_gui zappy_ai \
+		funct_test

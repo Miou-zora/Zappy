@@ -33,16 +33,24 @@ int add_client_to_response(response_t *response, client_t *client)
 {
     if (response == NULL || client == NULL)
         return (84);
+    if (client->fd == -1 || !client->is_connected)
+        return (84);
     LIST_INSERT_HEAD(&response->clients, client, next);
     return (0);
 }
 
 int remove_client_from_response(response_t *response, client_t *client)
 {
+    client_t *tmp = NULL;
     if (response == NULL || client == NULL)
         return (84);
-    LIST_REMOVE(client, next);
-    return (0);
+    LIST_FOREACH(tmp, &response->clients, next) {
+        if (tmp == client) {
+            LIST_REMOVE(tmp, next);
+            return (0);
+        }
+    }
+    return (84);
 }
 
 int destroy_response(response_t *response)

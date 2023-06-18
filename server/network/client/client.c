@@ -6,10 +6,28 @@
 */
 
 #include "client.h"
+#include "server.h"
+#include <string.h>
+
+void disconnect_clients(zappy_t *server)
+{
+    client_t *tmp = NULL;
+    client_t *tmp2 = NULL;
+
+    LIST_FOREACH(tmp, &server->clients, next) {
+        if (tmp2)
+            destroy_client(tmp2);
+        if (!tmp->is_connected) {
+            LIST_REMOVE(tmp, next);
+            tmp2 = tmp;
+        }
+    }
+}
 
 client_t *create_client(struct sockaddr_in info, int fd)
 {
     client_t *client = calloc(1, sizeof(client_t));
+    memset(client, 0, sizeof(client_t));
 
     if (!client)
         return (NULL);
@@ -23,8 +41,16 @@ client_t *create_client(struct sockaddr_in info, int fd)
     return (client);
 }
 
+void remove_client(client_t *client)
+{
+    LIST_REMOVE(client, next);
+    destroy_client(client);
+}
+
 void destroy_client(client_t *client)
 {
-    free(client->ip);
+    if (client->fd != -1)
+        close(client->fd);
+    client->fd = -1;
     free(client);
 }

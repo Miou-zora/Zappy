@@ -24,7 +24,8 @@ fi
 printf "BUILD TESTS: \n"
 printf "Building the project... "
 
-make > temp.ignore
+make debug -C server  > temp.ignore
+mv server/zappy_server .
 if [ $? -eq 0 ]
 then
     printf "${GREEN}OK${NC}\n"
@@ -41,7 +42,7 @@ printf "####################################################################\n\n
 printf "${NC}"
 
 printf "Lauching server...\n"
-./zappy_server -p $1 -x 10 -y 10 -n bigT bigG -c 10 -f 4 > serverlog.ignore &
+valgrind ./zappy_server -p $1 -x 10 -y 10 -n bigT bigG -c 10 -f 4 > serverlog.ignore 2> valgrindlog.ignore &
 server_pid=$!
 sleep 1
 ps -a | grep $server_pid |
@@ -50,16 +51,27 @@ printf "####################################################################\n"
 printf "Starting Heavy Load Test...\n"
 printf "####################################################################\n\n"
 printf "${NC}"
-python3 ./server/tests/server/HeavyLoad.py "127.0.0.1" $1 $2 serverlog.ignore
+python3 ./tests/tests_server/server/HeavyLoad.py "127.0.0.1" $1 $2 serverlog.ignore 2> temp.ignore
 printf "${BLUE}"
 printf "####################################################################\n"
 printf "Starting Quick Fire Requests Test...\n"
 printf "####################################################################\n\n"
 printf "${NC}"
-python3 ./server/tests/server/QuickFireRequest.py "127.0.0.1" $1 $2 serverlog.ignore
+python3 ./tests/tests_server/server/QuickFireRequest.py "127.0.0.1" $1 $2 serverlog.ignore 2> temp.ignore
 
-printf "Killing server... "
-kill $server_pid &> temp.ignore
+printf "Killing server... \n"
+kill -INT $server_pid &> temp.ignore
+
+printf "${BLUE}"
+printf "####################################################################\n"
+printf "Starting Memory Management Test...\n"
+printf "####################################################################\n\n"
+printf "${NC}"
+sleep 1
+python3 tests/tests_server/server/MemoryManagement.py valgrindlog.ignore
+
+printf "${BLUE}"
+printf "END OF TESTS\n\n"
 if [ $? -eq 0 ]
 then
     printf "${GREEN}OK${NC}\n"

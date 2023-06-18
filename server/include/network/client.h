@@ -65,6 +65,14 @@
     int connect_client(int fd, struct sockaddr_in info, client_t *client);
 
     /**
+     * @brief remove a client from the linked list and destroy it
+     *
+     * @param client
+     * @return **
+     */
+    void remove_client(client_t *client);
+
+    /**
      * @brief Disconnect a client and free it
      *
      * @param client to disconnect

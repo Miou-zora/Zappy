@@ -15,15 +15,14 @@ static int handle_client_activity(zappy_t *zappy, client_t *client)
     event_t *event_client = create_event(request, client);
 
     if (request == NULL) {
-        close(client->fd);
-        LIST_REMOVE(client, next);
-        free(client);
+        display_log("Client %d disconnected\n", client->fd);
+        client->is_connected = false;
         return (0);
     }
     display_log("Received from client %d: %s\n", client->fd, request);
-    if (event_client)
+    if (event_client) {
         LIST_INSERT_HEAD(&zappy->events, event_client, next);
-    else {
+    } else {
         display_log("Error while creating event\n");
         destroy_event(event_client);
         return (84);
@@ -49,7 +48,8 @@ static int handle_new_connection(zappy_t *zappy)
         display_log("Error while creating client\n");
         return (84);
     }
-    display_log("New connection from %s:%d\n", client->ip, client->port);
+    display_log("New connection from %s:%d fd %d\n", client->ip,
+    client->port, client->fd);
     LIST_INSERT_HEAD(&zappy->clients, client, next);
     return (0);
 }
@@ -61,6 +61,8 @@ int handle_activity(zappy_t *zappy)
     if (FD_ISSET(zappy->socket, &zappy->readfds) && zappy->socket != 0) {
         return (handle_new_connection(zappy));
     }
+    if (zappy->clients.lh_first == NULL)
+        return (0);
     LIST_FOREACH(client, &zappy->clients, next) {
         if (FD_ISSET(client->fd, &zappy->readfds) && client->fd > 0) {
             handle_client_activity(zappy, client);

@@ -22,7 +22,8 @@ Test(add_client_to_response, fail_and_success)
 {
     response_t *response = create_response("test");
     client_t *client = calloc(1, sizeof(client_t));
-
+    client->fd = 1;
+    client->is_connected = true;
     add_client_to_response(response, client);
     cr_assert_eq(response->clients.lh_first, client);
     destroy_response(response);

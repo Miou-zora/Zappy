@@ -17,6 +17,15 @@ static void destroy_args(argv_t *args)
 
 void destroy_zappy(zappy_t *zappy)
 {
+    client_t *client = NULL;
+    event_t *event = NULL;
+    response_t *response = NULL;
     destroy_args(zappy->args);
+    LIST_FOREACH(client, &zappy->clients, next)
+        destroy_client(client);
+    LIST_FOREACH(event, &zappy->events, next)
+        destroy_event(event);
+    LIST_FOREACH(response, &zappy->responses, next)
+        destroy_response(response);
     free(zappy);
 }

@@ -74,6 +74,7 @@ jobs:
           if [ -s coding-style-reports-updated.log ]; then
             mv coding-style-reports-updated.log coding-style-reports.log
             echo "::error::Coding style errors found. Please check the log file."
+            cat coding-style-reports.log
             exit 1
           else
             echo "::notice::No coding style error found."
