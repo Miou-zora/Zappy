@@ -12,7 +12,7 @@ static void bad_command(zappy_t *zappy_s)
 {
     response_t *response = NULL;
 
-    response = create_response("suc\n");
+    response = create_response("ko\n");
     add_client_to_response(response, zappy_s->clients.lh_first);
     add_response_to_list(response, zappy_s);
 }
@@ -25,7 +25,7 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
     void (*list_cmd[1]) (event_t *event, zappy_t *zappy_s) = {
         cmd_forward,
     };
-    char *commands[1] = {
+    char *commands[8] = {
         "Forward\n",
     };
 
@@ -33,6 +33,7 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
         if (strncmp(event->request, commands[i],
         strlen(commands[i])) == 0) {
             list_cmd[i](event, zappy_s);
+            destroy_event(event);
             return (true);
         }
     }
@@ -50,21 +51,25 @@ static bool check_if_player_dead(event_t *event)
     return (false);
 }
 
-static void update_players(zappy_t *zappy)
+static void update_players(event_t *event, zappy_t *zappy)
 {
     client_t *client = NULL;
-    void (*list_cmd[1]) (trantorian_t *trantorian, zappy_t *zappy_s) = {};
 
-    LIST_FOREACH(client, &zappy->clients, next) {
-        if (client->trantorian != NULL) {
-            if (client->trantorian->timer == 0 &&
-            client->trantorian->current_command != NONE) {
-                list_cmd[client->trantorian->current_command]
-                (client->trantorian, zappy);
-            }
-            if (client->trantorian->timer > 0)
-                client->trantorian->timer -= 1;
+    void (*list_cmd[1]) (event_t *event, zappy_t *zappy_s, char *arg) = {
+        move_into_the_good_way,
+    };
+
+    char *param = NULL;
+
+    for (client = LIST_FIRST(&zappy->clients); client != NULL;
+    client = LIST_NEXT(client, next)) {
+        if (client->trantorian->command[0].timer == 0 &&
+        client->trantorian->command[0].command != NONE) {
+            list_cmd[client->trantorian->command[0].command]
+            (event, zappy, param);
         }
+        if (client->trantorian->command[0].timer > 0)
+            client->trantorian->command[0].timer -= 1;
     }
 }
 
@@ -83,5 +88,5 @@ void gameloop(zappy_t *zappy_s)
         tmp = event;
         LIST_REMOVE(event, next);
     }
-    update_players(zappy_s);
+    update_players(event, zappy_s);
 }

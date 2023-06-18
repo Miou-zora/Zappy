@@ -6,12 +6,25 @@
 */
 
 #include "server.h"
+#include "trantorian.h"
+
+void move_into_the_good_way(event_t *event, zappy_t *zappy, char *param)
+{
+    (void) param;
+
+    void (*movement[4]) (event_t *event, zappy_t *zappy_s) = {
+        move_up,
+        move_right,
+        move_down,
+        move_left,
+    };
+
+    movement[event->client->trantorian->direction - 1](event, zappy);
+}
 
 void cmd_forward(event_t *event, zappy_t *zappy_s)
 {
-    response_t *response = NULL;
+    (void) zappy_s;
 
-    response = create_response("ok\n");
-    add_client_to_response(response, event->client);
-    add_response_to_list(response, zappy_s);
+    add_command(event->client, FORWARD, 7, NULL);
 }

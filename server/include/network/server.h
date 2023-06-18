@@ -218,6 +218,13 @@
     void cmd_forward(event_t *event, zappy_t *zappy_s);
 
     /**
+     * @brief move in the right direction
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void move_into_the_good_way(event_t *event, zappy_t *zappy, char *arg);
+    /**
      * @brief determinate what type of client it is
      *
      * @param zappy the server
@@ -257,5 +264,38 @@
      * @param server **zappy_t
      */
     void disconnect_clients(zappy_t *server);
+
+    /**
+     * @brief move up the player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void move_up(event_t *event, zappy_t *zappy);
+
+    /**
+     * @brief move right the player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void move_right(event_t *event, zappy_t *zappy);
+
+    /**
+     * @brief move down the player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+
+    void move_down(event_t *event, zappy_t *zappy);
+
+    /**
+     * @brief move left the player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void move_left(event_t *event, zappy_t *zappy);
 
 #endif /* !SERVER_H_ */

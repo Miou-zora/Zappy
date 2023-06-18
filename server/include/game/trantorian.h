@@ -10,6 +10,8 @@
 #include "egg.h"
 #include "vector.h"
 #include "client.h"
+#include "player_command.h"
+#define MAX_COMMAND 10
 
 typedef struct game_struct_s game_struct_t;
 typedef struct zappy_s zappy_t;
@@ -22,22 +24,6 @@ enum DIRECTION {
     RIGHT,
     DOWN,
     LEFT
-};
-
-enum COMMAND {
-    NONE = 0,
-    FORWARD,
-    TURN_RIGHT,
-    TURN_LEFT,
-    LOOK,
-    INVENTORY,
-    BROADCAST,
-    CONNECT_NBR,
-    FORK,
-    EJECT,
-    TAKE,
-    SET,
-    INCANTATION
 };
 
 /**
@@ -54,8 +40,7 @@ typedef struct trantorian_s {
     bool is_egging;
     object_t *inventory;
     client_t *client;
-    size_t timer;
-    enum COMMAND current_command;
+    command_t command[MAX_COMMAND];
     LIST_ENTRY(trantorian_s) next_trantorian;
 } trantorian_t;
 
