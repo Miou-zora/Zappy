@@ -8,10 +8,9 @@
 #include "server.h"
 #include "gui_protocol.h"
 
-//ptr function with gui_msz only for the moment
-static void (*ptr[])(event_t *event, zappy_t *zappy) = {&gui_msz};
+static void (*ptr[])(event_t *event, zappy_t *zappy) = {&gui_msz, &gui_sgt};
 
-static const char *names[] = {"msz"};
+static const char *names[] = {"msz", "sgt"};
 
 bool handle_gui_event(event_t *event, zappy_t *zappy)
 {
