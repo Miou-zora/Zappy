@@ -22,14 +22,14 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
     if (special_event(event, zappy_s)) {
         return (true);
     }
-    void (*list_cmd[1]) (event_t *event, zappy_t *zappy_s) = {
-        cmd_forward,
+    void (*list_cmd[3]) (event_t *event, zappy_t *zappy_s) = {
+        cmd_forward, cmd_left, cmd_right,
     };
-    char *commands[8] = {
-        "Forward\n",
+    char *commands[3] = {
+        "Forward\n", "LEFT\n", "RIGHT\n",
     };
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 3; i++) {
         if (strncmp(event->request, commands[i],
         strlen(commands[i])) == 0) {
             list_cmd[i](event, zappy_s);
@@ -55,8 +55,8 @@ static void update_players(event_t *event, zappy_t *zappy)
 {
     client_t *client = NULL;
 
-    void (*list_cmd[1]) (event_t *event, zappy_t *zappy_s, char *arg) = {
-        move_into_the_good_way,
+    void (*list_cmd[3]) (event_t *event, zappy_t *zappy_s, char *arg) = {
+        move_into_the_good_way, left, right,
     };
 
     char *param = NULL;
@@ -71,6 +71,7 @@ static void update_players(event_t *event, zappy_t *zappy)
         if (client->trantorian->command[0].timer > 0)
             client->trantorian->command[0].timer -= 1;
     }
+    re_organize_list_command(client);
 }
 
 void gameloop(zappy_t *zappy_s)

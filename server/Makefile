@@ -26,6 +26,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/move_functions.c 			\
 				game/player_command.c 					\
 				game/command/connection.c 				\
+				game/command/turn.c 					\
 
 
 SRC_NETWORK =	network/build/build_server.c			\
@@ -69,7 +70,8 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)server/network/tests_read.c			 		 \
 				$(TESTS_FOLDER)server/network/tests_write.c 			 	 \
 				$(TESTS_FOLDER)server/network/tests_response.c				 \
-				$(TESTS_FOLDER)AI_commands/tests_forward.c
+				$(TESTS_FOLDER)AI_commands/tests_forward.c 					 \
+				$(TESTS_FOLDER)AI_commands/tests_turn.c 					 \
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 

@@ -11,14 +11,17 @@
 
 Test(move_into_the_good_way, test_move_into_the_good_way)
 {
-     char *av[] = {"./zappy_server", "-p", "12347", "-x", "10", "-y", "10", "-n",
+     char *av[] = {"./zappy_server", "-p", "12398", "-x", "10", "-y", "10", "-n",
         "toto", "-c", "10", "-f", "10", NULL};
     zappy_t *zappy = build_server(13, av);
+    (void) zappy;
     zappy->args = malloc(sizeof(argv_t));
     zappy->args->width = 10;
     zappy->args->height = 10;
     trantorian_t *trantorian = calloc(1, sizeof(trantorian_t));
     trantorian->direction = UP;
+    printf(" DIRECTION = %d", trantorian->direction);
+    fflush(stdout);
     trantorian->position.x = 0;
     trantorian->position.y = 0;
     event_t *event = calloc(1, sizeof(event_t));

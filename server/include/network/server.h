@@ -298,4 +298,37 @@
      */
     void move_left(event_t *event, zappy_t *zappy);
 
+    /**
+     * @brief turn left the player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void cmd_left(event_t *event, zappy_t *zappy_s);
+
+    /**
+     * @brief add right function on command array's player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void cmd_right(event_t *event, zappy_t *zappy_s);
+
+    /**
+     * @brief add right function on command array's player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void right(event_t *event, zappy_t *zappy, char *param);
+
+    /**
+     * @brief turn left the player
+     *
+     * @param trantorian
+     * @param zappy
+     */
+    void left(event_t *event, zappy_t *zappy, char *param);
+
+
 #endif /* !SERVER_H_ */
