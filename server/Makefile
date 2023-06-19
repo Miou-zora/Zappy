@@ -28,6 +28,9 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/player_command.c 					\
 				game/command/connection.c 				\
 				game/command/turn.c 					\
+				game/refill_obj/management_stone.c		\
+				game/refill_obj/generation_list_stone.c \
+				game/refill_obj/malloc_tab_array.c		\
 				game/check_functions/check_functions.c  \
 				game/gui_protocol/gui_msz.c				\
 				game/gui_protocol/handle_event.c		\
@@ -56,6 +59,8 @@ OBJ_MAIN	=	$(MAIN:%.c=%.o)
 
 TESTS_FOLDER=	../tests/tests_server/
 
+TESTS_GAME 	=	../tests/game/
+
 TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)parse/tests_get_freq.c 				 		 \
 				$(TESTS_FOLDER)parse/tests_get_height.c 				 	 \
@@ -64,7 +69,6 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)parse/tests_get_names.c 			   	 		 \
 				$(TESTS_FOLDER)parse/tests_parse_args.c 				 	 \
 				$(TESTS_FOLDER)tests_build_server.c					 		 \
-				$(TESTS_FOLDER)server/tests.c						   	     \
 				$(TESTS_FOLDER)event/tests_event.c					 		 \
 				$(TESTS_FOLDER)management_struct/tests_egg_structure.c 		 \
 				$(TESTS_FOLDER)management_struct/tests_trantorian_structure.c\
@@ -76,6 +80,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_pnw.c				 		 \
 				$(TESTS_FOLDER)AI_commands/tests_forward.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_turn.c 					 \
+				$(TESTS_GAME)tests_stone.c 									 \
 				$(TESTS_FOLDER)/event/tests_check_alive.c					 \
 				$(TESTS_FOLDER)gui_protocol/gui_msz.c						 \
 				$(TESTS_FOLDER)gui_protocol/gui_sgt.c					 	 \
