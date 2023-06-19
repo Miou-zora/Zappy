@@ -13,9 +13,9 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void LinemateContainer::load(std::shared_ptr<GUI::Graphic::Program> _program)
+    void LinemateContainer::load()
     {
-        Container::load(_program);
+        Container::load();
     }
 
     void LinemateContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)

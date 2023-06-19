@@ -9,6 +9,13 @@
 #include <glm/vec3.hpp>
 #include "Model.hpp"
 #include "Object.hpp"
+#include "FoodContainer.hpp"
+#include "LinemateContainer.hpp"
+#include "DeraumereContainer.hpp"
+#include "SiburContainer.hpp"
+#include "MendianeContainer.hpp"
+#include "PhirasContainer.hpp"
+#include "ThystameContainer.hpp"
 
 namespace GUI::Game {
     class Tile : virtual public GUI::Graphic::Object::Object {
@@ -49,12 +56,12 @@ namespace GUI::Game {
         private:
             std::shared_ptr<GUI::Graphic::Object::Model> _model;
             std::shared_ptr<GUI::Graphic::Program> _program;
-            size_t _foodQuantity;
-            size_t _linemateQuantity;
-            size_t _deraumereQuantity;
-            size_t _siburQuantity;
-            size_t _mendianeQuantity;
-            size_t _phirasQuantity;
-            size_t _thystameQuantity;
+            std::shared_ptr<GUI::Game::FoodContainer> _foodContainer;
+            std::shared_ptr<GUI::Game::LinemateContainer> _linemateContainer;
+            std::shared_ptr<GUI::Game::DeraumereContainer> _deraumereContainer;
+            std::shared_ptr<GUI::Game::SiburContainer> _siburContainer;
+            std::shared_ptr<GUI::Game::MendianeContainer> _mendianeContainer;
+            std::shared_ptr<GUI::Game::PhirasContainer> _phirasContainer;
+            std::shared_ptr<GUI::Game::ThystameContainer> _thystameContainer;
     };
 }

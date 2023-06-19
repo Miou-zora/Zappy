@@ -41,6 +41,7 @@ namespace GUI::Game {
     void GameState::init(void)
     {
         _program->load();
+        _map->load();
         _map->setProgram(_program);
         _map->loadProgram();
         _scene->getCamera()->setPos(glm::vec3(0, -5, 0));

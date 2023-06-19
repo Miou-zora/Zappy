@@ -13,9 +13,9 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void ThystameContainer::load(std::shared_ptr<GUI::Graphic::Program> _program)
+    void ThystameContainer::load()
     {
-        Container::load(_program);
+        Container::load();
     }
 
     void ThystameContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)

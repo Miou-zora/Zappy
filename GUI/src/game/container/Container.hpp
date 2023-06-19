@@ -15,8 +15,10 @@ namespace GUI::Game {
             virtual ~Container(void) = default;
 
             void update(void);
-            void load(std::shared_ptr<GUI::Graphic::Program> _program);
+            void load();
             void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
+            void setProgram(std::shared_ptr<GUI::Graphic::Program> program);
+            void loadProgram();
 
             void setQuantity(size_t quantity) { _quantity = quantity; };
             size_t getQuantity(void) const { return _quantity; };
@@ -51,6 +53,7 @@ namespace GUI::Game {
 
         private:
             std::shared_ptr<GUI::Graphic::Object::Model> _model;
+            std::shared_ptr<GUI::Graphic::Program> _program;
             size_t _quantity;
             size_t _maxSize;
     };

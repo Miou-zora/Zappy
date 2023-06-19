@@ -7,6 +7,7 @@
 
 #include "Container.hpp"
 #include "Cube.hpp"
+#include <iostream>
 
 namespace GUI::Game {
     Container::Container(size_t quantity, size_t size):
@@ -23,6 +24,21 @@ namespace GUI::Game {
         _model->draw(camera);
     }
 
+    void Container::setProgram(std::shared_ptr<GUI::Graphic::Program> program)
+    {
+        _program = program;
+        if (_model != nullptr) {
+            _model->setProgram(_program);
+        }
+    }
+
+    void Container::loadProgram()
+    {
+        if (_model == nullptr)
+            return;
+        _model->loadProgram();
+    }
+
     void Container::update(void)
     {
         if (_model == nullptr)
@@ -31,14 +47,9 @@ namespace GUI::Game {
         _model->update();
     }
 
-    void Container::load(std::shared_ptr<GUI::Graphic::Program> _program)
+    void Container::load()
     {
-        if (_quantity == 0)
-            return;
         _model = GUI::Graphic::Object::CreateCubeModel();
-        _model->setProgram(_program);
-        _model->update();
-        _model->loadProgram();
     }
 
     Container &Container::operator+=(size_t quantity)

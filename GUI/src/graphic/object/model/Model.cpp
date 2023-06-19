@@ -67,7 +67,6 @@ namespace GUI::Graphic::Object {
 
     void Model::draw(std::shared_ptr<Camera> camera)
     {
-
         glm::mat4 model = getModelMatrix();
         glm::mat4 view = camera->getViewMatrix();
         glm::mat4 projection = camera->getProjectionMatrix();

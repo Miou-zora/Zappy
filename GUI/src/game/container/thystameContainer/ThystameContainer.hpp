@@ -16,7 +16,7 @@ namespace GUI::Game {
             virtual ~ThystameContainer(void) = default;
 
             void update(void);
-            void load(std::shared_ptr<GUI::Graphic::Program> _program);
+            void load();
             void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
     };
 }

@@ -13,9 +13,9 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void FoodContainer::load(std::shared_ptr<GUI::Graphic::Program> _program)
+    void FoodContainer::load()
     {
-        Container::load(_program);
+        Container::load();
     }
 
     void FoodContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)

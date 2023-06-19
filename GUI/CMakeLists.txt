@@ -41,6 +41,9 @@ ${PROJECT_SOURCE_DIR}/src/game/container/thystameContainer/
 ${PROJECT_SOURCE_DIR}/src/game/container/foodContainer/
 ${PROJECT_SOURCE_DIR}/src/game/container/linemateContainer/
 ${PROJECT_SOURCE_DIR}/src/game/container/mendianeContainer/
+${PROJECT_SOURCE_DIR}/src/game/container/deraumereContainer/
+${PROJECT_SOURCE_DIR}/src/game/container/phirasContainer/
+${PROJECT_SOURCE_DIR}/src/game/container/siburContainer/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -75,6 +78,9 @@ ${PROJECT_SOURCE_DIR}/src/game/container/thystameContainer/ThystameContainer.cpp
 ${PROJECT_SOURCE_DIR}/src/game/container/foodContainer/FoodContainer.cpp
 ${PROJECT_SOURCE_DIR}/src/game/container/linemateContainer/LinemateContainer.cpp
 ${PROJECT_SOURCE_DIR}/src/game/container/mendianeContainer/MendianeContainer.cpp
+${PROJECT_SOURCE_DIR}/src/game/container/deraumereContainer/DeraumereContainer.cpp
+${PROJECT_SOURCE_DIR}/src/game/container/phirasContainer/PhirasContainer.cpp
+${PROJECT_SOURCE_DIR}/src/game/container/siburContainer/SiburContainer.cpp
 )
 
 set(MAIN "main.cpp")

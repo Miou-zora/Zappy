@@ -13,9 +13,9 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void PhirasContainer::load(std::shared_ptr<GUI::Graphic::Program> _program)
+    void PhirasContainer::load()
     {
-        Container::load(_program);
+        Container::load();
     }
 
     void PhirasContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)

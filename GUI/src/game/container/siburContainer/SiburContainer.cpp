@@ -13,9 +13,9 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void SiburContainer::load(std::shared_ptr<GUI::Graphic::Program> _program)
+    void SiburContainer::load()
     {
-        Container::load(_program);
+        Container::load();
     }
 
     void SiburContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
