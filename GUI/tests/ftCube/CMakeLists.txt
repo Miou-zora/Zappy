@@ -6,4 +6,5 @@ set(FTCUBE_SRC
 	ftCube.cpp
 )
 
-add_executable(${FTCUBE_BINARY} ${SRC} ${INCLUDE_SRC} ${FTCUBE_SRC})
+add_executable(${FTCUBE_BINARY} ${FTCUBE_SRC})
+target_link_libraries(${FTCUBE_BINARY} src_lib)

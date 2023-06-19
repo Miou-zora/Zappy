@@ -7,8 +7,9 @@ set(TESTS_SRC
 	network/tests_client.cpp
 )
 
-add_executable(${BINARY} ${SRC} ${INCLUDE_SRC} ${TESTS_SRC})
+add_executable(${BINARY} ${TESTS_SRC})
 
+target_link_libraries(${BINARY} src_lib)
 target_link_libraries(${BINARY}
 	criterion
 )

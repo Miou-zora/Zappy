@@ -6,4 +6,5 @@ set(FTSCENE_SRC
 	ftScene.cpp
 )
 
-add_executable(${FTSCENE_BINARY} ${SRC} ${INCLUDE_SRC} ${FTSCENE_SRC})
+add_executable(${FTSCENE_BINARY} ${FTSCENE_SRC})
+target_link_libraries(${FTSCENE_BINARY} src_lib)

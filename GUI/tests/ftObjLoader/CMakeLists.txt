@@ -6,4 +6,5 @@ set(FTOBJLOADER_SRC
 	ftObjLoader.cpp
 )
 
-add_executable(${FTOBJLOADER_BINARY} ${SRC} ${INCLUDE_SRC} ${FTOBJLOADER_SRC})
+add_executable(${FTOBJLOADER_BINARY} ${FTOBJLOADER_SRC})
+target_link_libraries(${FTOBJLOADER_BINARY} src_lib)
