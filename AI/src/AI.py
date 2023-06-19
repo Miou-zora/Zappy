@@ -57,6 +57,37 @@ class AI:
                 self.__dict__[deserialization_map.get(key)] = value
                 data_dict.pop(key)
 
+    def get_item(self, item: str):
+        """get_item function
+            this function get an item
+        Args:
+            item (str): item to get
+        """
+        for i in range(len(self.inventory)):
+            key, value = self.inventory[i].split()
+            if key == item:
+                return (int(value))
+
+    def can_i_level_up(self) -> bool:
+        """can_i_level_up function
+            this function check if the ai can level up
+        """
+        if (self.level == 1 and self.get_item("linemate") == 1):
+            return True
+        if (self.level == 2 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 1 and self.get_item("sibur") == 1):
+            return True
+        if (self.level == 3 and self.get_item("linemate") == 2 and self.get_item("sibur") == 1 and self.get_item("phiras") == 2):
+            return True
+        if (self.level == 4 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 1 and self.get_item("sibur") == 2 and self.get_item("phiras") == 1):
+            return True
+        if (self.level == 5 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 2 and self.get_item("sibur") == 1 and self.get_item("mendiane") == 3):
+            return True
+        if (self.level == 6 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 2 and self.get_item("sibur") == 3 and self.get_item("phiras") == 1):
+            return True
+        if (self.level == 7 and self.get_item("linemate") == 2 and self.get_item("deraumere") == 2 and self.get_item("sibur") == 2 and self.get_item("mendiane") == 2 and self.get_item("phiras") == 2 and self.get_item("thystame") == 1):
+            return True
+        return False
+
     def should_i_focus_food(self):
         """should_i_focus_food function
             this function check if the ai should focus on food
@@ -143,12 +174,13 @@ class AI:
         self.player_pos = 0
         self.do_command("Look")
 
-    def find_item(self, item: str):
+    def find_item(self, item: str, nbr: int = 1):
         """find_item function
             this function find an item
         Args:
             item (str): item to find
         """
+        # TODO add a number of item to search
         if len(self.look) > 15:
             self.look = self.look[:15]
         for i in self.values_map:
@@ -157,6 +189,21 @@ class AI:
             if item in self.look[i].split():
                 self.add_actions_to_go_to_item(i, item)
                 return
+        self.no_item()
+
+    def take_every_stones(self):
+        """take_every_stones function
+            this function take every stones
+        """
+        for i in self.values_map:
+            if (i > len(self.look)):
+                break
+            if (len(self.look[i]) > 0):
+                for j in range(len(self.look[i].split())):
+                    looking_value = self.look[i].split()[j]
+                    if (looking_value != "food" and looking_value != "player"):
+                        self.add_actions_to_go_to_item(i, looking_value)
+                        return
         self.no_item()
 
     def choose_action(self):
@@ -174,4 +221,8 @@ class AI:
         self.should_i_focus_food()
         if (self.focus_food):
             self.find_item("food")
+        elif (self.can_i_level_up()):
+            self.find_item("player", self.level)
+        elif (self.look != []):
+            self.take_every_stones()
         self.count += 1
