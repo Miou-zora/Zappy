@@ -77,25 +77,49 @@ class TestManagementClass(unittest.TestCase):
 
     def test_other_with_response_take_ok(self):
         self.management.need_response.append("TAKE")
-        self.assertEqual(self.management.other("ok"), {"take": True})
+        self.assertEqual(self.management.other("ok"), {})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_test_ko(self):
         self.management.need_response.append("TAKE")
-        self.assertEqual(self.management.other("ko"), {"take": False})
+        self.assertEqual(self.management.other("ko"), {})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_set_ok(self):
         self.management.need_response.append("SET")
-        self.assertEqual(self.management.other("ok"), {"set": True})
+        self.assertEqual(self.management.other("ok"), {})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_set_ko(self):
         self.management.need_response.append("SET")
-        self.assertEqual(self.management.other("ko"), {"set": False})
+        self.assertEqual(self.management.other("ko"), {})
+        self.assertEqual(self.management.need_response, [])
+        self.needs_response = []
+
+    def test_other_with_response_incantation_ko(self):
+        self.management.need_response.append("INCANTATION")
+        self.assertEqual(self.management.other("ko"), {})
+        self.assertEqual(self.management.need_response, [])
+        self.needs_response = []
+
+    def test_other_with_response_incantation_ok(self):
+        self.management.need_response.append("INCANTATION")
+        self.assertEqual(self.management.other("Elevation underway"), {})
+        self.assertEqual(self.management.need_response, ["LEVEL"])
+        self.needs_response = []
+
+    def test_other_with_response_level_ko(self):
+        self.management.need_response.append("LEVEL")
+        self.assertEqual(self.management.other("ko"), {})
+        self.assertEqual(self.management.need_response, [])
+        self.needs_response = []
+
+    def test_other_with_response_level_ok(self):
+        self.management.need_response.append("LEVEL")
+        self.assertEqual(self.management.other("Current level: 1"), {"level": 1})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 

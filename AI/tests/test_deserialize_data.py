@@ -59,3 +59,7 @@ class TestManagementClass(unittest.TestCase):
     def test_deserialize_data_with_look(self):
         self.ai.deserialize_data({"look": ["test", "message"]})
         self.assertEqual(self.ai.look, ["test", "message"])
+
+    def test_deserialize_data_with_level(self):
+        self.ai.deserialize_data({"level": 1})
+        self.assertEqual(self.ai.level, 1)

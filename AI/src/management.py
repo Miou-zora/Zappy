@@ -37,6 +37,8 @@ class Management:
             "LOOK": "\[ ?(([a-zA-Z]*)( ?,?)*)* ?\]",
             "TAKE": "ok|ko",
             "SET": "ok|ko",
+            "INCANTATION": "Elevation underway|ko",
+            "LEVEL": "Current level: [0-9]+|ko",
         }
         self.need_response: list = []
         self.is_received: bool = False
@@ -87,16 +89,12 @@ class Management:
             dict["look"] = message[1:-1].split(",")
         elif ("INVENTORY" == self.need_response[0]):
             dict["inventory"] = message[1:-1].split(", ")
-        elif ("TAKE" == self.need_response[0]):
-            if (words[0] == "ok"):
-                dict["take"] = True
-            else:
-                dict["take"] = False
-        elif ("SET" == self.need_response[0]):
-            if (words[0] == "ok"):
-                dict["set"] = True
-            else:
-                dict["set"] = False
+        elif ("INCANTATION" == self.need_response[0]):
+            if (words[0] == "Elevation"):
+                self.need_response.append("LEVEL")
+        elif ("LEVEL" == self.need_response[0]):
+            if (words[0] == "Current"):
+                dict["level"] = int(words[2])
         self.need_response.pop(0)
         self.is_received = True
         return dict

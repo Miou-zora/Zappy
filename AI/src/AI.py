@@ -26,7 +26,6 @@ class AI:
         self.inventory: list[str] = []
         self.look: list[str] = []
         self.count: int = 0
-        self.take: bool = False
         self.level: int = 1
         self.values_map: list = [0, 2, 1, 3, 8, 6, 4, 5, 7, 14, 12, 10, 9, 11, 13, 15]
         self.player_pos: int = 0
@@ -47,8 +46,7 @@ class AI:
             "connect_nbr": 'connect_nbr',
             "inventory": "inventory",
             "look": 'look',
-            "take": 'take',
-            "set": 'set'
+            "level": 'level'
         }
         if (data_dict.get("WELCOME")):
             self.output.append(data_dict.get("WELCOME"))
