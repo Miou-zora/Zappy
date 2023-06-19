@@ -10,12 +10,14 @@
 
 static void (*ptr[])(event_t *event, zappy_t *zappy) = {
     &handle_gui_msz,
-    &handle_gui_sgt
+    &handle_gui_sgt,
+    &handle_gui_mct
     };
 
 static const char *names[] = {
     "msz",
-    "sgt"
+    "sgt",
+    "mct"
     };
 
 bool handle_gui_event(event_t *event, zappy_t *zappy)
@@ -27,7 +29,7 @@ bool handle_gui_event(event_t *event, zappy_t *zappy)
     if (!event->client->is_graphic || !event->client->is_logged ||
         !event->client->is_connected)
         return (false);
-    for (size_t i = 0; i < 2; i++) {
+    for (size_t i = 0; i < 3; i++) {
         if (strncmp(event->request, names[i], strlen(names[i])) == 0) {
             ptr[i](event, zappy);
             return (true);

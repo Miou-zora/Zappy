@@ -8,7 +8,6 @@
 #include "server.h"
 #include "gui_protocol.h"
 
-//gui_mct(event->client, zappy_s);
 //gui_tna(event->client, zappy_s);
 bool is_graphical(event_t *event, zappy_t *zappy_s)
 {
@@ -20,6 +19,7 @@ bool is_graphical(event_t *event, zappy_t *zappy_s)
     event->client->is_connected = false;
     notifie_gui_msz(event->client, zappy_s);
     notifie_gui_sgt(event->client, zappy_s);
+    handle_gui_mct(event, zappy_s);
     return (false);
 }
 
