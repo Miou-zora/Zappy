@@ -47,6 +47,21 @@ namespace GUI::Game {
 
     void Player::update(void)
     {
+        glm::vec3 rotation = glm::vec3(0, 0, 0);
+        switch (_orientation) {
+            case NORTH:
+                rotation.y = M_PI / 2;
+                break;
+            case EAST:
+                rotation.y = M_PI;
+                break;
+            case SOUTH:
+                rotation.y = - M_PI / 2;
+                break;
+            case WEST:
+                break;
+        }
+        _model->setRot(rotation);
         _model->setPos(glm::vec3(_position.x, -1 + 0.05 * (10 - _level), _position.y));
         _model->setScale(glm::vec3(0.10 + 0.05 * _level, 0.10 + 0.05 * _level, 0.10 + 0.05 * _level));
         _model->update();
