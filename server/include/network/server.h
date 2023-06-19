@@ -332,7 +332,23 @@
     void left(event_t *event, zappy_t *zappy, char *param);
 
     /**
-     * @brief function to handle invalid command
+     * @brief add inventory function on command array's player
+     *
+     * @param event
+     * @param zappy_s
+     */
+    void cmd_inventory(event_t *event, zappy_t *zappy_s);
+
+    /**
+     * @brief display inventory of the player
+     *
+     * @param event
+     * @param zappy
+     * @param param
+     */
+    void inventory(event_t *event, zappy_t *zappy, char *param);
+
+    /** @brief function to handle invalid command
      *
      * @param event the invalid event
      * @param zappy_s the server

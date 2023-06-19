@@ -20,8 +20,6 @@ Test(move_into_the_good_way, test_move_into_the_good_way)
     zappy->args->height = 10;
     trantorian_t *trantorian = calloc(1, sizeof(trantorian_t));
     trantorian->direction = UP;
-    printf(" DIRECTION = %d", trantorian->direction);
-    fflush(stdout);
     trantorian->position.x = 0;
     trantorian->position.y = 0;
     event_t *event = calloc(1, sizeof(event_t));
@@ -30,10 +28,6 @@ Test(move_into_the_good_way, test_move_into_the_good_way)
     event->client->trantorian = trantorian;
 
     move_into_the_good_way(event, zappy, NULL);
-    printf(" DIRECTION = %d", client->trantorian->direction);
-    fflush(stdout);
-    printf("x = %ld\ny = %ld\n", event->client->trantorian->position.x, event->client->trantorian->position.y);
-    fflush(stdout);
     cr_assert_eq(trantorian->position.x, 0);
     cr_assert_eq(trantorian->position.y, 9);
     trantorian->direction = RIGHT;

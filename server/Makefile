@@ -28,6 +28,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/player_command.c 					\
 				game/command/connection.c 				\
 				game/command/turn.c 					\
+				game/command/inventory.c 				\
 				game/refill_obj/management_stone.c		\
 				game/refill_obj/generation_list_stone.c \
 				game/refill_obj/malloc_tab_array.c		\
@@ -80,6 +81,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_pnw.c				 		 \
 				$(TESTS_FOLDER)AI_commands/tests_forward.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_turn.c 					 \
+				$(TESTS_FOLDER)AI_commands/tests_inventory.c 				 \
 				$(TESTS_GAME)tests_stone.c 									 \
 				$(TESTS_FOLDER)/event/tests_check_alive.c					 \
 				$(TESTS_FOLDER)gui_protocol/gui_msz.c						 \
@@ -91,7 +93,7 @@ INCLUDE		=	-I./include/game \
 				-I./include/network \
 				-I../utils/
 
-CFLAGS		=	-Wall -Wextra -Werror -Wshadow
+CFLAGS		=	-Wall -Wextra -Werror -Wshadow -D_GNU_SOURCE
 
 TEST_FLAGS	=	-lcriterion --coverage
 

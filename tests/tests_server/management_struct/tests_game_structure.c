@@ -94,19 +94,11 @@ Test(fill_map, test_fill_map_thystame_small_map)
     game_struct_t *game_struct = init_game_struct(args);
     float nb_of_object = game_struct->map->height * game_struct->map->width * THYSTAME_DENSITY;
     nb_of_object /= 1000;
-    printf("rahhh %f\n", nb_of_object);
-    fflush(stdout);
     int tmp = (int) nb_of_object;
     tmp += (tmp < nb_of_object) ? 1 : 0;
-    printf("rahhh %d\n", tmp);
-    fflush(stdout);
     fill_map(game_struct->map);
     for (int i = 0; i < 50; i++) {
         count_object += game_struct->map->tile[i]->nb_of_objects[THYSTAME];
     }
-    printf("expcted = %d", tmp);
-    fflush(stdout);
-    printf("real = %d", count_object);
-    fflush(stdout);
     cr_assert_eq(count_object, tmp);
 }

@@ -53,8 +53,8 @@ static void update_players(event_t *event, zappy_t *zappy)
 {
     client_t *client = NULL;
 
-    void (*list_cmd[3]) (event_t *event, zappy_t *zappy_s, char *arg) = {
-        move_into_the_good_way, left, right,
+    void (*list_cmd[4]) (event_t *event, zappy_t *zappy_s, char *arg) = {
+        move_into_the_good_way, left, right, inventory,
     };
 
     char *param = NULL;
