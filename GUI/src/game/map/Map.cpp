@@ -93,6 +93,13 @@ namespace GUI::Game {
 
     std::shared_ptr<GUI::Game::Tile> Map::getTile(unsigned int x, unsigned int y) const
     {
-        return _tiles[x][y];
+        for (auto &y_tiles : _tiles) {
+            for (auto &tile : y_tiles) {
+                if (tile->getPos().x == x && tile->getPos().z == y) {
+                    return tile;
+                }
+            }
+        }
+        return nullptr;
     }
 }

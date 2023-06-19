@@ -39,6 +39,7 @@ namespace GUI::Game {
                     }
                 }
                 newPlayer = std::make_shared<GUI::Game::Player>(teamName, id, position, orientation, level);
+                *(newPlayer->getFoodContainer()) = 9;
                 newPlayer->load(_gameState->getProgram());
                 _gameState->getPlayers().push_back(newPlayer);
             }

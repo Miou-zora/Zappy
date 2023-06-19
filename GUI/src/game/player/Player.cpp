@@ -17,7 +17,14 @@ namespace GUI::Game {
         _position(position),
         _level(level),
         _orientation(orientation),
-        _model(GUI::Graphic::Object::CreateCubeModel())
+        _model(GUI::Graphic::Object::CreateCubeModel()),
+        _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
+        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
+        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
+        _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
+        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
+        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
+        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
     {
 
     }

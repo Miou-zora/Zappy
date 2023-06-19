@@ -229,4 +229,39 @@ namespace GUI::Game {
     {
         return _thystameContainer->getQuantity();
     }
+
+    std::shared_ptr<GUI::Game::FoodContainer> Tile::getFoodContainer(void) const
+    {
+        return _foodContainer;
+    }
+
+    std::shared_ptr<GUI::Game::LinemateContainer> Tile::getLinemateContainer(void) const
+    {
+        return _linemateContainer;
+    }
+
+    std::shared_ptr<GUI::Game::DeraumereContainer> Tile::getDeraumereContainer(void) const
+    {
+        return _deraumereContainer;
+    }
+
+    std::shared_ptr<GUI::Game::SiburContainer> Tile::getSiburContainer(void) const
+    {
+        return _siburContainer;
+    }
+
+    std::shared_ptr<GUI::Game::MendianeContainer> Tile::getMendianeContainer(void) const
+    {
+        return _mendianeContainer;
+    }
+
+    std::shared_ptr<GUI::Game::PhirasContainer> Tile::getPhirasContainer(void) const
+    {
+        return _phirasContainer;
+    }
+
+    std::shared_ptr<GUI::Game::ThystameContainer> Tile::getThystameContainer(void) const
+    {
+        return _thystameContainer;
+    }
 }

@@ -17,6 +17,7 @@
 #include "Tna.hpp"
 #include "Pnw.hpp"
 #include "Pdi.hpp"
+#include "Pgt.hpp"
 #include "Ppo.hpp"
 #include "GameState.hpp"
 #include <map>
@@ -91,6 +92,11 @@ namespace GUI::Game {
                                 std::shared_ptr<GUI::Network::IOPooledClient> client,
                                 std::string command) {
                     return std::make_shared<GUI::Game::Pdi>(gameState ,client, command);
+                }},
+                {"pgt", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                                std::shared_ptr<GUI::Network::IOPooledClient> client,
+                                std::string command) {
+                    return std::make_shared<GUI::Game::Pgt>(gameState ,client, command);
                 }},
                 {"ppo", [](std::shared_ptr<GUI::Game::GameState> gameState,
                                 std::shared_ptr<GUI::Network::IOPooledClient> client,

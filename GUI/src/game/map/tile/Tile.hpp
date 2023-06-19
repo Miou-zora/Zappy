@@ -53,6 +53,14 @@ namespace GUI::Game {
             size_t getPhirasQuantity(void) const;
             size_t getThystameQuantity(void) const;
 
+            std::shared_ptr<GUI::Game::FoodContainer> getFoodContainer(void) const;
+            std::shared_ptr<GUI::Game::LinemateContainer> getLinemateContainer(void) const;
+            std::shared_ptr<GUI::Game::DeraumereContainer> getDeraumereContainer(void) const;
+            std::shared_ptr<GUI::Game::SiburContainer> getSiburContainer(void) const;
+            std::shared_ptr<GUI::Game::MendianeContainer> getMendianeContainer(void) const;
+            std::shared_ptr<GUI::Game::PhirasContainer> getPhirasContainer(void) const;
+            std::shared_ptr<GUI::Game::ThystameContainer> getThystameContainer(void) const;
+
         private:
             std::shared_ptr<GUI::Graphic::Object::Model> _model;
             std::shared_ptr<GUI::Graphic::Program> _program;
