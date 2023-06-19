@@ -47,7 +47,8 @@ class AI:
             "connect_nbr": 'connect_nbr',
             "inventory": "inventory",
             "look": 'look',
-            "take": 'take'
+            "take": 'take',
+            "set": 'set'
         }
         if (data_dict.get("WELCOME")):
             self.output.append(data_dict.get("WELCOME"))

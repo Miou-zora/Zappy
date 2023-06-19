@@ -36,6 +36,7 @@ class Management:
             "INVENTORY": "\[ ?(([a-zA-Z]+ [0-9]+(, )){6}[a-zA-Z]+ [0-9]+) ?\]",
             "LOOK": "\[ ?(([a-zA-Z]*)( ?,?)*)* ?\]",
             "TAKE": "ok|ko",
+            "SET": "ok|ko",
         }
         self.need_response: list = []
         self.is_received: bool = False
@@ -91,6 +92,11 @@ class Management:
                 dict["take"] = True
             else:
                 dict["take"] = False
+        elif ("SET" == self.need_response[0]):
+            if (words[0] == "ok"):
+                dict["set"] = True
+            else:
+                dict["set"] = False
         self.need_response.pop(0)
         self.is_received = True
         return dict

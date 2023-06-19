@@ -81,9 +81,21 @@ class TestManagementClass(unittest.TestCase):
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
-    def test_other_with_response__test_ko(self):
+    def test_other_with_response_test_ko(self):
         self.management.need_response.append("TAKE")
         self.assertEqual(self.management.other("ko"), {"take": False})
+        self.assertEqual(self.management.need_response, [])
+        self.needs_response = []
+
+    def test_other_with_response_set_ok(self):
+        self.management.need_response.append("SET")
+        self.assertEqual(self.management.other("ok"), {"set": True})
+        self.assertEqual(self.management.need_response, [])
+        self.needs_response = []
+
+    def test_other_with_response_set_ko(self):
+        self.management.need_response.append("SET")
+        self.assertEqual(self.management.other("ko"), {"set": False})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
