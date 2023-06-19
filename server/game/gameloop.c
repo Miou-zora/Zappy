@@ -7,6 +7,7 @@
 
 #include "server.h"
 #include "trantorian.h"
+#include "check_functions.h"
 #include "gui_protocol.h"
 
 void bad_command(event_t *event, zappy_t *zappy_s)
@@ -76,6 +77,7 @@ void gameloop(zappy_t *zappy_s)
     event_t *event = NULL;
     event_t *tmp = NULL;
 
+    update_all_trantorians_life(&zappy_s->game_struct->all_clans);
     for (event = LIST_FIRST(&zappy_s->events); event != NULL;
     event = LIST_NEXT(event, next)) {
         if (!check_if_player_dead(event)) {
