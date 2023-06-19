@@ -7,13 +7,16 @@
 
 #include "server.h"
 #include "trantorian.h"
+#include "gui_protocol.h"
 
-static void bad_command(zappy_t *zappy_s)
+void bad_command(event_t *event, zappy_t *zappy_s)
 {
     response_t *response = NULL;
 
+    if (!event->client->is_connected)
+        return;
     response = create_response("ko\n");
-    add_client_to_response(response, zappy_s->clients.lh_first);
+    add_client_to_response(response, event->client);
     add_response_to_list(response, zappy_s);
 }
 
@@ -32,8 +35,7 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
             return (true);
         }
     }
-    bad_command(zappy_s);
-    return (false);
+    return (handle_gui_event(event, zappy_s));
 }
 
 static bool check_if_player_dead(event_t *event)

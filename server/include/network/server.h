@@ -86,7 +86,8 @@
     void print_usage(void);
 
     /**
-     * @brief Gets the port from the arguments
+     * @brief Gets the port from th
+     * @brief disconnect all clients wich are not connected anymoree arguments
      *
      * @param av the arguments
      * @return int the port
@@ -330,5 +331,13 @@
      */
     void left(event_t *event, zappy_t *zappy, char *param);
 
+    /**
+     * @brief function to handle invalid command
+     *
+     * @param event the invalid event
+     * @param zappy_s the server
+     * @return ** void
+     */
+    void bad_command(event_t *event, zappy_t *zappy_s);
 
 #endif /* !SERVER_H_ */
