@@ -6,6 +6,23 @@
 */
 
 #include "server.h"
+#include "gui_protocol.h"
+
+//gui_msz(event->client, zappy_s);
+//gui_sgt(event->client, zappy_s);
+//gui_mct(event->client, zappy_s);
+//gui_tna(event->client, zappy_s);
+bool is_graphical(event_t *event, zappy_t *zappy_s)
+{
+    (void)zappy_s;
+    if (strcmp(event->request, "GUI\n") == 0) {
+        event->client->is_graphic = true;
+        event->client->is_logged = true;
+        return (true);
+    }
+    event->client->is_connected = false;
+    return (false);
+}
 
 bool special_event(event_t *event, zappy_t *zappy_s)
 {
@@ -17,10 +34,12 @@ bool special_event(event_t *event, zappy_t *zappy_s)
         if (strncmp(event->request, zappy_s->args->names[i],
         strlen(zappy_s->args->names[i])) == 0) {
             event->client->is_logged = true;
+            event->client->is_graphic = false;
             event->client->trantorian = create_trantorian_from_event(
                 event->request, zappy_s);
+            gui_pnw(event->client, zappy_s);
             return (true);
         }
     }
-    return (false);
+    return (is_graphical(event, zappy_s));
 }

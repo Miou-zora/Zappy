@@ -23,6 +23,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gameloop.c 						\
 				game/gameloop_check_special_event.c 	\
 				game/command/forward.c 					\
+				game/gui_protocol/gui_pnw.c				\
 				game/command/move_functions.c 			\
 				game/player_command.c 					\
 				game/command/connection.c 				\
@@ -70,7 +71,8 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)server/network/tests_read.c			 		 \
 				$(TESTS_FOLDER)server/network/tests_write.c 			 	 \
 				$(TESTS_FOLDER)server/network/tests_response.c				 \
-				$(TESTS_FOLDER)AI_commands/tests_forward.c 					 \
+				$(TESTS_FOLDER)gui_protocol/gui_pnw.c				 		 \
+				$(TESTS_FOLDER)AI_commands/tests_forward.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_turn.c 					 \
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
@@ -122,6 +124,7 @@ fclean:			tclean clean
 tclean:
 		find . -type f -name '*.gcda' -exec $(RM) {} \;
 		find . -type f -name '*.gcno' -exec $(RM) {} \;
+		find . -type f -name '*.gcov' -exec $(RM) {} \;
 		$(RM) $(TEST_BINARY)
 
 re:				fclean all

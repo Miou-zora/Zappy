@@ -19,16 +19,11 @@ static void bad_command(zappy_t *zappy_s)
 
 bool handle_event(event_t *event, zappy_t *zappy_s)
 {
-    if (special_event(event, zappy_s)) {
+    void (*list_cmd[]) (event_t *event, zappy_t *zappy_s) = {
+        cmd_forward, cmd_left, cmd_right,};
+    char *commands[] = {"Forward\n", "LEFT\n", "RIGHT\n",};
+    if (special_event(event, zappy_s))
         return (true);
-    }
-    void (*list_cmd[3]) (event_t *event, zappy_t *zappy_s) = {
-        cmd_forward, cmd_left, cmd_right,
-    };
-    char *commands[3] = {
-        "Forward\n", "LEFT\n", "RIGHT\n",
-    };
-
     for (int i = 0; i < 3; i++) {
         if (strncmp(event->request, commands[i],
         strlen(commands[i])) == 0) {

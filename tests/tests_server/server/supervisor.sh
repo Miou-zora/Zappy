@@ -13,6 +13,7 @@ NC='\033[0m' # No Color
 BLUE='\033[0;34m'
 
 
+
 if [ $# -ne 2 ]
 then
     printf "${RED}KO${NC}\n"
@@ -51,7 +52,7 @@ printf "####################################################################\n"
 printf "Starting Heavy Load Test...\n"
 printf "####################################################################\n\n"
 printf "${NC}"
-python3 ./tests/tests_server/server/HeavyLoad.py "127.0.0.1" $1 $2 serverlog.ignore 2> temp.ignore
+python3 ./server/tests/server/HeavyLoad.py "127.0.0.1" $1 $2 serverlog.ignore
 printf "${BLUE}"
 printf "####################################################################\n"
 printf "Starting Quick Fire Requests Test...\n"
