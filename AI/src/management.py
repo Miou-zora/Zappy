@@ -26,24 +26,26 @@ class Management:
         }
         self.name: str = name
         self.responses: dict[str, str] = {
-            "Forward": "ok",
-            "Right": "ok",
-            "Left": "ok",
+            "FORWARD": "ok",
+            "RIGHT": "ok",
+            "LEFT": "ok",
             "CLIENT_NUM": "[0-9]+",
             "MAP_SIZE": "[0-9]+ [0-9]+",
             "CONNECT_NBR": "[0-9]+",
             "BROADCAST": "ok",
-            "INVENTORY": "\[(([a-zA-Z]+ [0-9]+(, )){6}[a-zA-Z]+ [0-9]+)\]",
-            "LOOK": "\[(([a-zA-Z]*)( ?,?)*)*\]",
+            "INVENTORY": "\[ ?(([a-zA-Z]+ [0-9]+(, )){6}[a-zA-Z]+ [0-9]+) ?\]",
+            "LOOK": "\[ ?(([a-zA-Z]*)( ?,?)*)* ?\]",
             "TAKE": "ok|ko",
         }
-        self.need_response: str = ""
+        self.need_response: list = []
+        self.is_received: bool = False
 
     def welcome(self, message: str) -> dict:
         """welcome function
             this function is called when the server send a welcome message
         """
-        self.need_response = "CLIENT_NUM"
+        self.need_response.append("CLIENT_NUM")
+        self.is_received = True
         return {"WELCOME": f"{self.name}\n"}
 
     def message(self, message: str) -> dict:
@@ -58,6 +60,7 @@ class Management:
         dict = {}
         dict["k"] = int(message[0].split()[1])
         dict["message"] = message[1]
+        self.is_received = True
         return dict
 
     def get_rigtht_response(self, message: str) -> dict:
@@ -68,24 +71,28 @@ class Management:
         """
         words = message.split()
         dict = {}
-        if (self.need_response == "CLIENT_NUM"):
+
+        if (self.need_response[0] == "CLIENT_NUM"):
             dict["client_num"] = int(words[0])
-            self.need_response = "MAP_SIZE"
+            self.need_response.pop(0)
+            self.need_response.append("MAP_SIZE")
+            self.is_received = True
             return dict
-        elif (self.need_response == "MAP_SIZE"):
+        elif ("MAP_SIZE" == self.need_response[0]):
             dict["map_size"] = (int(words[0]), int(words[1]))
-        elif (self.need_response == "CONNECT_NBR"):
+        elif ("CONNECT_NBR" == self.need_response[0]):
             dict["connect_nbr"] = int(words[0])
-        elif (self.need_response == "LOOK"):
+        elif ("LOOK" == self.need_response[0]):
             dict["look"] = message[1:-1].split(",")
-        elif (self.need_response == "INVENTORY"):
+        elif ("INVENTORY" == self.need_response[0]):
             dict["inventory"] = message[1:-1].split(", ")
-        elif (self.need_response == "TAKE"):
+        elif ("TAKE" == self.need_response[0]):
             if (words[0] == "ok"):
-               dict["take"] = True
+                dict["take"] = True
             else:
                 dict["take"] = False
-        self.need_response = ""
+        self.need_response.pop(0)
+        self.is_received = True
         return dict
 
     def other(self, message: str) -> dict:
@@ -94,8 +101,10 @@ class Management:
         Args:
             message (str): message
         """
-        if (self.need_response in self.responses.keys()):
-            pattern = self.responses[self.need_response]
+        if (self.need_response == []):
+            return {}
+        if (self.need_response[0] in self.responses.keys()):
+            pattern = re.compile(self.responses[self.need_response[0]])
             if (re.match(pattern, message)):
                 return self.get_rigtht_response(message)
         return {}

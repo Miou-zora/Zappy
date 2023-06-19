@@ -15,7 +15,7 @@ class TestManagementClass(unittest.TestCase):
 
     def test_deserialize_data(self):
         self.ai.deserialize_data({"WELCOME": "test\n"})
-        self.assertEqual(self.ai.output, "test\n")
+        self.assertEqual(self.ai.output[0], "test\n")
 
     def test_deserialize_data_with_two_words_map_size(self):
         self.ai.deserialize_data({"map_size": (1, 2)})
@@ -29,14 +29,14 @@ class TestManagementClass(unittest.TestCase):
         self.ai.deserialize_data({"other": 1})
         self.assertEqual(self.ai.client_num, 0)
         self.assertEqual(self.ai.map_size, (0, 0))
-        self.assertEqual(self.ai.output, "")
+        self.assertEqual(self.ai.output, [])
 
     def test_deserialize_data_with_two_words_and_one_other(self):
         data = {"other": 1, "WELCOME": "test\n"}
         self.ai.deserialize_data(data)
         self.assertEqual(self.ai.client_num, 0)
         self.assertEqual(self.ai.map_size, (0, 0))
-        self.assertEqual(self.ai.output, "test\n")
+        self.assertEqual(self.ai.output[0], "test\n")
         self.assertEqual(data, {"other": 1})
 
     def test_deserialize_data_with_message(self):

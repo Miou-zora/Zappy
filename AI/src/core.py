@@ -95,10 +95,11 @@ class Core:
         """
         for sock in writable:
             if sock is self.client.server_sock:
-                if self.ai.output:
-                    self.client.send_data(sock, self.ai.output)
+                if self.ai.output and self.management.is_received == True:
+                    self.client.send_data(sock, self.ai.output[0])
                     self.outputs.remove(sock)
-                    self.ai.output = ""
+                    self.ai.output.pop(0)
+                    self.management.is_received = False
 
     def loop(self):
         """loop function
@@ -110,8 +111,9 @@ class Core:
                 return
             if self.data_dict:
                 self.ai.deserialize_data(self.data_dict)
-            self.ai.choose_action()
-            if self.ai.need_response:
-                self.management.need_response = self.ai.need_response
-                self.ai.need_response = ""
+            if self.ai.map_size != (0, 0) and "LOOK" not in self.management.need_response:
+                self.ai.choose_action()
+            if self.ai.need_response != []:
+                self.management.need_response.extend(self.ai.need_response)
+                self.ai.need_response = []
             self.send_data_to_server(writable)
