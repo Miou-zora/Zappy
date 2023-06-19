@@ -37,6 +37,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/handle_event.c		\
 				game/gui_protocol/gui_sgt.c				\
 				game/gui_protocol/gui_mct.c				\
+				game/gui_protocol/gui_bct.c				\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
@@ -88,6 +89,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_msz.c						 \
 				$(TESTS_FOLDER)gui_protocol/gui_sgt.c					 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_mct.c				 	 	 \
+				$(TESTS_FOLDER)gui_protocol/gui_bct.c			 	 	 	 \
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
