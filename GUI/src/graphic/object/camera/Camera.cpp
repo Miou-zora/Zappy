@@ -70,7 +70,7 @@ namespace GUI::Graphic::Object {
 
     void Camera::_updateProjectionMatrix(void)
     {
-        _projectionMatrix = glm::perspective(_fov, _ratio, _near, _far);
+        _projectionMatrix = glm::perspective(glm::radians(_fov), _ratio, _near, _far);
     }
 
     void Camera::setFOV(float fov)

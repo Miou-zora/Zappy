@@ -91,13 +91,13 @@ namespace GUI::Game {
         _phirasContainer->load();
         _thystameContainer->load();
 
-        _foodContainer->getModel()->setPos(getPos() + glm::vec3(0.3, -0.5, 0));
-        _linemateContainer->getModel()->setPos(getPos() + glm::vec3(0.3, -0.5, 0.3));
-        _deraumereContainer->getModel()->setPos(getPos() + glm::vec3(0, -0.5, 0.3));
-        _siburContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, -0.5, 0.3));
-        _mendianeContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, -0.5, 0));
-        _phirasContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, -0.5, -0.3));
-        _thystameContainer->getModel()->setPos(getPos() + glm::vec3(0, -0.5, -0.3));
+        _foodContainer->getModel()->setPos(getPos() + glm::vec3(0.3, 0.5, 0));
+        _linemateContainer->getModel()->setPos(getPos() + glm::vec3(0.3, 0.5, 0.3));
+        _deraumereContainer->getModel()->setPos(getPos() + glm::vec3(0, 0.5, 0.3));
+        _siburContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, 0.5, 0.3));
+        _mendianeContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, 0.5, 0));
+        _phirasContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, 0.5, -0.3));
+        _thystameContainer->getModel()->setPos(getPos() + glm::vec3(0, 0.5, -0.3));
     }
 
     void Tile::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)

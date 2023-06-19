@@ -44,7 +44,7 @@ namespace GUI::Game {
         _map->load();
         _map->setProgram(_program);
         _map->loadProgram();
-        _scene->getCamera()->setPos(glm::vec3(0, -5, 0));
-        _scene->getCamera()->setRot(glm::vec3(-M_PI / 3, - M_PI / 4, 0));
+        _scene->getCamera()->setPos(glm::vec3(-1, 5, -1));
+        _scene->getCamera()->setRot(glm::vec3(M_PI / 4, -M_PI / 4, 0));
     }
 }
