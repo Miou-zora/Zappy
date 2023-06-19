@@ -20,7 +20,7 @@ Test(gui_sgt, valid_case)
     gui_client->is_connected = true;
     gui_client->is_logged = true;
     event_t *event = create_event("sgt\n", gui_client);
-    gui_sgt(event, zappy);
+    handle_gui_sgt(event, zappy);
     cr_assert_str_eq(zappy->responses.lh_first->content, "sgt 10\n");
 }
 
@@ -35,6 +35,6 @@ Test(gui_sgt, invalid_case)
     gui_client->is_connected = true;
     gui_client->is_logged = true;
     event_t *event = create_event("sgt\n", gui_client);
-    gui_sgt(event, zappy);
+    handle_gui_sgt(event, zappy);
     cr_assert_eq(zappy->responses.lh_first, NULL);
 }

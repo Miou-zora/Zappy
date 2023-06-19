@@ -8,9 +8,15 @@
 #include "server.h"
 #include "gui_protocol.h"
 
-static void (*ptr[])(event_t *event, zappy_t *zappy) = {&gui_msz, &gui_sgt};
+static void (*ptr[])(event_t *event, zappy_t *zappy) = {
+    &handle_gui_msz,
+    &handle_gui_sgt
+    };
 
-static const char *names[] = {"msz", "sgt"};
+static const char *names[] = {
+    "msz",
+    "sgt"
+    };
 
 bool handle_gui_event(event_t *event, zappy_t *zappy)
 {
@@ -21,8 +27,7 @@ bool handle_gui_event(event_t *event, zappy_t *zappy)
     if (!event->client->is_graphic || !event->client->is_logged ||
         !event->client->is_connected)
         return (false);
-
-    for (size_t i = 0; i < 1; i++) {
+    for (size_t i = 0; i < 2; i++) {
         if (strncmp(event->request, names[i], strlen(names[i])) == 0) {
             ptr[i](event, zappy);
             return (true);

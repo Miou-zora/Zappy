@@ -18,6 +18,14 @@
  */
 bool handle_gui_event(event_t *event, zappy_t *zappy);
 
+
+/** All GUI notification about player actions
+ *
+ * it's mostly the same as the client protocol
+ * but the message is sent to all GUI clients
+ *
+ * ********************************************/
+
 /**
  * @brief notifie all GUI clients of a new player connection
  *
@@ -25,25 +33,253 @@ bool handle_gui_event(event_t *event, zappy_t *zappy);
  * @param zappy the struct containing all the informations about the server
  * @return ** void
  */
-void gui_pnw(client_t *new_client, zappy_t *zappy);
+void  notifie_gui_pnw(client_t *new_client, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients of the player's position
+ * must be called when the player moves
+ * the message: ppo n X Y O\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_ppo(trantorian_t *player, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients of the player's level
+ * must be called when the player levels up
+ * the message: plv n L\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_plv(trantorian_t *player, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients of the player's inventory
+ * must be called when the player picks up or drops a resource
+ * the message: pin n X Y q0 q1 q2 q3 q4 q5 q6\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_pin(trantorian_t *player, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients of the player's expulsion
+ * out of a tile
+ * must be called when the player is expelled from a tile
+ * the message: pex n\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_pex(trantorian_t *player, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients of the player's broadcast
+ * must be called when the player broadcasts a message
+ * the message: pbc n message\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @param message the message broadcasted
+ * @return ** void
+ */
+void notifie_gui_pbc(trantorian_t *player, zappy_t *zappy, char *message);
+
+/**
+ * @brief notifie all GUI clients when the player start an incantation
+ * must be called when the player starts an incantation,
+ * but only for the one who started it
+ * the message: pic X Y L n1 n2 n3 ... n\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_pic(trantorian_t *player, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients when the incantation is over
+ * must be called when the incantation is over
+ * the message: pie X Y R\n
+ * @param result the result of the incantation
+ * @param x the x position of the incantation
+ * @param y the y position of the incantation
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_pie(int result, int x, int y, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients when the drops an egg
+ * must be called when the player drops an egg
+ * the message: enw e n X Y\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_pfk(trantorian_t *player, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI when a client drops an resource
+ * must be called when the player drops a resource
+ * the message: pdr n i\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @param resource the resource dropped
+ * @return ** void
+ */
+void notifie_gui_pdr(trantorian_t *player, zappy_t *zappy, int resource);
+
+/**
+ * @brief notifie all GUI when a client takes a resource
+ * must be called when the player takes a resource
+ * the message: pgt n i\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @param resource the resource taken
+ * @return ** void
+ */
+void notifie_gui_pgt(trantorian_t *player, zappy_t *zappy, int resource);
+
+/**
+ * @brief notifie all GUI when a player dies
+ * must be called when the player dies
+ * the message: pdi n\n
+ * @param player the player
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_pdi(trantorian_t *player, zappy_t *zappy);
+
+
+/** All GUI notification about egg actions
+ *
+ * it will send a message to all GUI clients
+ * about the egg (connection, death)
+ *
+ **********************************************/
+
+/**
+ * @brief notifie all GUI when a client is connecting for an egg
+ * must be called when the player is connecting for an egg
+ * the message: ebo e\n
+ * @param egg the egg
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_ebo(egg_t *egg, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI when a egg dies
+ * must be called when the egg dies
+ * the message: edi e\n
+ * @param egg the egg
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_edi(egg_t *egg, zappy_t *zappy);
+
+
+/** All GUI notification for utils
+ *
+ * it will send a message to all GUI clients
+ * about the map size, the time unit, the end of the game
+ * it can handle the GUI client request about the different informations
+ *
+ *********************************************/
 
 /**
  * @brief respond to the GUI client with the map size
  * should be called when the GUI client sends "msz\n"
- * or when a new GUI client connects
  *
  * @param event generated by the GUI client
  * @param zappy the struct containing all the informations about the server
  * @return ** void
  */
-void gui_msz(event_t *event, zappy_t *zappy);
+void handle_gui_msz(event_t *event, zappy_t *zappy);
+
+/**
+ * @brief notifie the GUI client with the map size
+ * must be called when the GUI client connects
+ * @param client the GUI client
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_msz(client_t *client, zappy_t *zappy);
 
 /**
  * @brief respond to the GUI client with the time unit
- * should be called when the GUI client sends "sgt\n"
- * or uppon GUI connection
+ * must be called when the GUI client sends "sgt\n"
+ *
  * @param event generated by the GUI client
  * @param zappy the struct containing all the informations about the server
  * @return ** void
  */
-void gui_sgt(event_t *event, zappy_t *zappy);
+void handle_gui_sgt(event_t *event, zappy_t *zappy);
+
+/**
+ * @brief notifie the GUI client with the time unit
+ * must be called when the GUI client connects
+ * @param client the GUI client
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_sgt(client_t *client, zappy_t *zappy);
+
+/**
+ * @brief modify the time unit based on the GUI client request
+ * must be called when the GUI client sends "sst T\n"
+ * @param event generated by the GUI client
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void handle_gui_sst(event_t *event, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients with the new time unit
+ * must be called when the time unit is modified
+ * the message: sst T\n
+ * @param new_unit the new time unit
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_sst(int new_unit, zappy_t *zappy);
+
+/**
+ * @brief notifie all GUI clients of the end of the game
+ * must be called when the game is over
+ * the message: seg N\n
+ * @param zappy the struct containing all the informations about the server
+ * @param team_name the name of the winning team
+ * @return ** void
+ */
+void notifie_gui_seg(zappy_t *zappy, char *team_name);
+
+/**
+ * @brief notifie all GUI clients of a message from the server
+ * must be called when the server sends a message
+ * the message: smg M\n
+ * @param zappy the struct containing all the informations about the server
+ * @param message the message sent
+ * @return ** void
+ */
+void notifie_gui_smg(zappy_t *zappy, char *message);
+
+/**
+ * @brief notifie the GUI client with a unknown command
+ *
+ * @param client who send the command
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_suc(client_t *client, zappy_t *zappy);
+
+/**
+ * @brief notifie the GUI client with a command parameter
+ *
+ * @param client who send the command
+ * @param zappy the struct containing all the informations about the server
+ * @return ** void
+ */
+void notifie_gui_sbp(client_t *client, zappy_t *zappy);

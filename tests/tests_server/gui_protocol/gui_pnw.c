@@ -31,6 +31,6 @@ Test(gui_pnw, test_gui_pnw)
     client.trantorian->level = 1;
     client.trantorian->team_name = strdup("Team1");
     client.is_graphic = true;
-    gui_pnw(&client, zappy);
+    notifie_gui_pnw(&client, zappy);
     cr_assert_str_eq(zappy->responses.lh_first->content, "pnw 1 1 1 1 1 Team1\n");
 }

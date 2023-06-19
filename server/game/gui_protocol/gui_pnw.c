@@ -9,7 +9,7 @@
 #include "gui_protocol.h"
 #include "trantorian.h"
 
-void gui_pnw(client_t *nc, zappy_t *zappy)
+void notifie_gui_pnw(client_t *nc, zappy_t *zappy)
 {
     char buffer[1024];
     response_t *response = NULL;

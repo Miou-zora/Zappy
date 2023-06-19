@@ -18,8 +18,8 @@ bool is_graphical(event_t *event, zappy_t *zappy_s)
         return (true);
     }
     event->client->is_connected = false;
-    gui_msz(event, zappy_s);
-    gui_sgt(event, zappy_s);
+    notifie_gui_msz(event->client, zappy_s);
+    notifie_gui_sgt(event->client, zappy_s);
     return (false);
 }
 
@@ -36,7 +36,7 @@ bool special_event(event_t *event, zappy_t *zappy_s)
             event->client->is_graphic = false;
             event->client->trantorian = create_trantorian_from_event(
                 event->request, zappy_s);
-            gui_pnw(event->client, zappy_s);
+            notifie_gui_pnw(event->client, zappy_s);
             return (true);
         }
     }

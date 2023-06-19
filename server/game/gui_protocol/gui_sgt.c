@@ -8,17 +8,22 @@
 #include "gui_protocol.h"
 #include "server.h"
 
-void gui_sgt(event_t *event, zappy_t *zappy)
+void notifie_gui_sgt(client_t *client, zappy_t *zappy)
 {
-    char buffer[1024] = {0};
+    char buffer[100] = {0};
     response_t *response = NULL;
 
-    if (!event->client->is_graphic || !event->client->is_connected)
+    if (!client->is_graphic || !client->is_logged || !client->is_connected)
         return;
     sprintf(buffer, "sgt %d\n", zappy->args->freq);
     response = create_response(buffer);
     if (response == NULL)
         return;
-    add_client_to_response(response, event->client);
+    add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+}
+
+void handle_gui_sgt(event_t *event, zappy_t *zappy)
+{
+    notifie_gui_sgt(event->client, zappy);
 }
