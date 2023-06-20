@@ -41,6 +41,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_tna.c				\
 				game/gui_protocol/gui_ppo.c				\
 				game/manage_timer/update_players.c 		\
+				game/command/connect_nbr.c				\
 				game/gui_protocol/gui_plv.c 			\
 
 SRC_NETWORK =	network/build/build_server.c			\

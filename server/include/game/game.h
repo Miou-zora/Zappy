@@ -95,3 +95,19 @@ void set_func_inventory(event_t *event, zappy_t *zappy_s);
  * @param zappy_s the struct containing every information about the server
  */
 void send_inventory(client_t *client, zappy_t *zappy, char *param);
+
+/**
+ * @brief connect nbr command function pointer
+ *
+ * @param client the client who is moving
+ * @param zappy_s the struct containing every information about the server
+ */
+void connect_nbr(client_t *client, zappy_t *zappy, char *param);
+
+/**
+ * @brief Set the func connect nbr object (connect_nbr command)
+ *
+ * @param event the event
+ * @param zappy_s the struct containing every information about the server
+ */
+void set_func_connect_nbr(event_t *event, zappy_t *zappy_s);
