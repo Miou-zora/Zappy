@@ -2,6 +2,7 @@ __pycache__
 .vscode
 
 *.o
+
 GUI/build
 
 zappy_server
@@ -12,7 +13,12 @@ unitTests
 */ftCube
 */ftObjLoader
 */ftScene
+*/ftSenpai
+
 .build
-coding-style-*
+GUI/build
 build
 
+coding-style-*
+
+GUI/model/Senpai.obj

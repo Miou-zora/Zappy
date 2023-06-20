@@ -15,6 +15,8 @@ FTSCENE_NAME			=	ftScene
 
 FTOBJLOADER_NAME		=	ftObjLoader
 
+FTSENPAI				=	ftSenpai
+
 all:
 		cmake -S . -B build
 		make -j 10 -C build
@@ -33,6 +35,7 @@ fclean: 		clean
 		rm -f $(FTCUBE_NAME)
 		rm -f $(FTSCENE_NAME)
 		rm -f $(FTOBJLOADER_NAME)
+		rm -f $(FTSENPAI)
 
 re: 			fclean all
 

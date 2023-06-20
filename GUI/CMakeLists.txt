@@ -19,4 +19,5 @@ add_subdirectory(tests)
 add_subdirectory(tests/ftCube)
 add_subdirectory(tests/ftObjLoader)
 add_subdirectory(tests/ftScene)
+add_subdirectory(tests/ftSenpai)
 

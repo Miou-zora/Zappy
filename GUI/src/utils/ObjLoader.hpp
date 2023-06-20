@@ -186,36 +186,33 @@ namespace GUI::Utils {
                 (void)vertices;
                 (void)uvs;
                 (void)normals;
-                unsigned int vertexIndex[4], uvIndex[4];
+                (void)uvIndices;
+                unsigned int vertexIndex[4];
+                unsigned int tmpBuffer;
                 char slash = 0;
                 size_t cursor = 0;
 
+                file.get();
                 while (file.peek() != '\n' && file.peek() != '\r' && file.peek() != EOF) {
-                    file >> vertexIndex[cursor] >> slash >> uvIndex[cursor];
+                    file >> vertexIndex[cursor];
+                    while (file.peek() == '/') {
+                        file >> slash >> tmpBuffer;
+                    }
                     file.get();
                     cursor++;
                 }
 
                 if (cursor == 3) {
                     vertexIndices.push_back(vertexIndex[0]);
-                    uvIndices.push_back(uvIndex[0]);
                     vertexIndices.push_back(vertexIndex[1]);
-                    uvIndices.push_back(uvIndex[1]);
                     vertexIndices.push_back(vertexIndex[2]);
-                    uvIndices.push_back(uvIndex[2]);
                 } else if (cursor == 4) {
                     vertexIndices.push_back(vertexIndex[0]);
-                    uvIndices.push_back(uvIndex[0]);
                     vertexIndices.push_back(vertexIndex[1]);
-                    uvIndices.push_back(uvIndex[1]);
                     vertexIndices.push_back(vertexIndex[2]);
-                    uvIndices.push_back(uvIndex[2]);
                     vertexIndices.push_back(vertexIndex[2]);
-                    uvIndices.push_back(uvIndex[2]);
                     vertexIndices.push_back(vertexIndex[3]);
-                    uvIndices.push_back(uvIndex[3]);
                     vertexIndices.push_back(vertexIndex[0]);
-                    uvIndices.push_back(uvIndex[0]);
                 }
             }
     };
