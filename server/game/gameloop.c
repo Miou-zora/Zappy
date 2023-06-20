@@ -9,6 +9,7 @@
 #include "trantorian.h"
 #include "check_functions.h"
 #include "gui_protocol.h"
+#include "game.h"
 
 void bad_command(event_t *event, zappy_t *zappy_s)
 {
@@ -24,13 +25,13 @@ void bad_command(event_t *event, zappy_t *zappy_s)
 bool handle_event(event_t *event, zappy_t *zappy_s)
 {
     void (*list_cmd[]) (event_t *event, zappy_t *zappy_s) = {
-        cmd_forward, cmd_left, cmd_right,};
-    char *commands[] = {"Forward\n", "LEFT\n", "RIGHT\n",};
+        set_func_forward, set_func_left, set_func_right, set_func_inventory,};
+    char *commands[] = {"Forward\n", "Left\n", "Right\n", "Inventory\n", NULL};
+
     if (special_event(event, zappy_s))
         return (true);
-    for (int i = 0; i < 3; i++) {
-        if (strncmp(event->request, commands[i],
-        strlen(commands[i])) == 0) {
+    for (int i = 0; commands[i] != NULL; i++) {
+        if (strncmp(event->request, commands[i], strlen(commands[i])) == 0) {
             list_cmd[i](event, zappy_s);
             destroy_event(event);
             return (true);
@@ -49,29 +50,6 @@ static bool check_if_player_dead(event_t *event)
     return (false);
 }
 
-static void update_players(event_t *event, zappy_t *zappy)
-{
-    client_t *client = NULL;
-
-    void (*list_cmd[4]) (event_t *event, zappy_t *zappy_s, char *arg) = {
-        move_into_the_good_way, left, right, inventory,
-    };
-
-    char *param = NULL;
-
-    for (client = LIST_FIRST(&zappy->clients); client != NULL;
-    client = LIST_NEXT(client, next)) {
-        if (client->trantorian->command[0].timer == 0 &&
-        client->trantorian->command[0].command != NONE) {
-            list_cmd[client->trantorian->command[0].command]
-            (event, zappy, param);
-        }
-        if (client->trantorian->command[0].timer > 0)
-            client->trantorian->command[0].timer -= 1;
-    }
-    re_organize_list_command(client);
-}
-
 void gameloop(zappy_t *zappy_s)
 {
     event_t *event = NULL;
@@ -88,5 +66,5 @@ void gameloop(zappy_t *zappy_s)
         tmp = event;
         LIST_REMOVE(event, next);
     }
-    update_players(event, zappy_s);
+    update_players(zappy_s);
 }

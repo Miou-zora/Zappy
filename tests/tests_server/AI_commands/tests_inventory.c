@@ -23,7 +23,7 @@ Test(inventory, inventory_without_nothing)
     event->client = client;
     event->client->trantorian = trantorian;
 
-    inventory(event, zappy, NULL);
+    send_inventory(client, zappy, NULL);
     char *expected_resp = "[food 0, linemate 0, deraumere 0, sibur 0, mendiane 0, phiras 0, thystame 0]";
     cr_assert_str_eq(zappy->responses.lh_first->content, expected_resp);
 }
@@ -43,7 +43,7 @@ Test(inventory, inventory_with_food)
     event->client->trantorian = trantorian;
     objects->nb_of_objects[0] = 10;
 
-    inventory(event, zappy, NULL);
+    send_inventory(client, zappy, NULL);
     char *expected_resp = "[food 10, linemate 0, deraumere 0, sibur 0, mendiane 0, phiras 0, thystame 0]";
     cr_assert_str_eq(zappy->responses.lh_first->content, expected_resp);
 }

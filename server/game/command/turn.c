@@ -6,43 +6,44 @@
 */
 
 #include "server.h"
+#include "game.h"
 
-void cmd_left(event_t *event, zappy_t *zappy_s)
+void set_func_left(event_t *event, zappy_t *zappy_s)
 {
     (void) zappy_s;
 
-    add_command(event->client, TURN_LEFT, 7, NULL);
+    add_command(event->client, 7, move_left, NULL);
 }
 
-void cmd_right(event_t *event, zappy_t *zappy_s)
+void set_func_right(event_t *event, zappy_t *zappy_s)
 {
     (void) zappy_s;
 
-    add_command(event->client, TURN_RIGHT, 7, NULL);
+    add_command(event->client, 7, move_right, NULL);
 }
 
-void left(event_t *event, zappy_t *zappy, char *param)
+void move_left(client_t *client, zappy_t *zappy, char *param)
 {
     (void) param;
 
-    if (event->client->trantorian->direction == UP)
-        event->client->trantorian->direction = LEFT;
+    if (client->trantorian->direction == UP)
+        client->trantorian->direction = LEFT;
     else
-        event->client->trantorian->direction -= 1;
+        client->trantorian->direction -= 1;
     response_t *response = create_response("ok\n");
-    add_client_to_response(response, event->client);
+    add_client_to_response(response, client);
     add_response_to_list(response, zappy);
 }
 
-void right(event_t *event, zappy_t *zappy, char *param)
+void move_right(client_t *client, zappy_t *zappy, char *param)
 {
     (void) param;
 
-    if (event->client->trantorian->direction == LEFT)
-        event->client->trantorian->direction = UP;
+    if (client->trantorian->direction == LEFT)
+        client->trantorian->direction = UP;
     else
-        event->client->trantorian->direction += 1;
+        client->trantorian->direction += 1;
     response_t *response = create_response("ok\n");
-    add_client_to_response(response, event->client);
+    add_client_to_response(response, client);
     add_response_to_list(response, zappy);
 }

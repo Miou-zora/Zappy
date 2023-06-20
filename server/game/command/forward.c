@@ -2,29 +2,29 @@
 ** EPITECH PROJECT, 2023
 ** Zappy-Mirror
 ** File description:
-** forward
+** forward command
 */
 
 #include "server.h"
-#include "trantorian.h"
+#include "game.h"
 
-void move_into_the_good_way(event_t *event, zappy_t *zappy, char *param)
+void move_forward(client_t *client, zappy_t *zappy, char *param)
 {
     (void) param;
 
-    void (*movement[4]) (event_t *event, zappy_t *zappy_s) = {
-        move_up,
-        move_right,
-        move_down,
-        move_left,
+    void (*movement[4]) (client_t *client, zappy_t *zappy_s) = {
+        forward_move_up,
+        forward_move_right,
+        forward_move_down,
+        forward_move_left,
     };
 
-    movement[event->client->trantorian->direction - 1](event, zappy);
+    movement[client->trantorian->direction - 1](client, zappy);
 }
 
-void cmd_forward(event_t *event, zappy_t *zappy_s)
+void set_func_forward(event_t *event, zappy_t *zappy_s)
 {
     (void) zappy_s;
 
-    add_command(event->client, FORWARD, 7, NULL);
+    add_command(event->client, 7, move_forward, NULL);
 }

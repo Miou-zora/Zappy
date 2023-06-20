@@ -7,11 +7,12 @@
 
 #include "player_command.h"
 #include "trantorian.h"
+#include "server.h"
 
 void remove_command(client_t *client, int i)
 {
     client->trantorian->command[i].timer = 0;
-    client->trantorian->command[i].command = NONE;
+    client->trantorian->command[i].arg = NULL;
     client->trantorian->command[i].func = NULL;
 }
 
@@ -19,21 +20,21 @@ void copy_command(client_t *client, int dest, int src)
 {
     client->trantorian->command[dest].timer =
         client->trantorian->command[src].timer;
-    client->trantorian->command[dest].command =
-        client->trantorian->command[src].command;
+    client->trantorian->command[dest].arg =
+        client->trantorian->command[src].arg;
     client->trantorian->command[dest].func =
         client->trantorian->command[src].func;
     remove_command(client, src);
 }
 
-int add_command(client_t *client, enum COMMAND command, int timer,
-    void (*func)(client_t *client, zappy_t *zappy, char *arg))
+int add_command(client_t *client, int timer,
+    void (*func)(client_t *client, zappy_t *zappy, char *arg), char *arg)
 {
     for (int i = 0; i < MAX_COMMAND; i++) {
         if (client->trantorian->command[i].timer == 0
-        && client->trantorian->command[i].command == NONE) {
+        && client->trantorian->command[i].func == NULL) {
             client->trantorian->command[i].timer = timer;
-            client->trantorian->command[i].command = command;
+            client->trantorian->command[i].arg = arg;
             client->trantorian->command[i].func = func;
             return (1);
         }
@@ -41,21 +42,25 @@ int add_command(client_t *client, enum COMMAND command, int timer,
     return (0);
 }
 
-void reset_commands(client_t *client)
+void reset_list_command_client(client_t *client)
 {
-    for (int i = 0; i < MAX_COMMAND; i++)
-        remove_command(client, i);
-}
-
-void re_organize_list_command(client_t *client)
-{
-    if (client->trantorian->command[0].command != NONE)
+    if (client->trantorian->command[0].func != NULL
+    && client->trantorian->command[0].timer > 0)
         return;
 
     for (int i = 0; i < MAX_COMMAND - 1; i++) {
         if (client->trantorian->command[i].timer == 0
-        && client->trantorian->command[i].command == NONE) {
+        && client->trantorian->command[i].func == NULL) {
             copy_command(client, i, i + 1);
         }
+    }
+}
+
+void re_organize_list_command(zappy_t *zappy)
+{
+    client_t *client = NULL;
+
+    LIST_FOREACH(client, &zappy->clients, next) {
+        reset_list_command_client(client);
     }
 }

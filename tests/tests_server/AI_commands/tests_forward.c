@@ -9,7 +9,9 @@
 #include "trantorian.h"
 #include <criterion/criterion.h>
 
-Test(move_into_the_good_way, test_move_into_the_good_way)
+void move_forward(client_t *client, zappy_t *zappy, char *param);
+
+Test(move_forward, test_move_forward)
 {
      char *av[] = {"./zappy_server", "-p", "12398", "-x", "10", "-y", "10", "-n",
         "toto", "-c", "10", "-f", "10", NULL};
@@ -27,31 +29,31 @@ Test(move_into_the_good_way, test_move_into_the_good_way)
     event->client = client;
     event->client->trantorian = trantorian;
 
-    move_into_the_good_way(event, zappy, NULL);
+    move_forward(client, zappy, NULL);
     cr_assert_eq(trantorian->position.x, 0);
     cr_assert_eq(trantorian->position.y, 9);
     trantorian->direction = RIGHT;
     trantorian->position.x = 0;
     trantorian->position.y = 0;
-    move_into_the_good_way(event, zappy, NULL);
+    move_forward(client, zappy, NULL);
     cr_assert_eq(trantorian->position.x, 1);
     cr_assert_eq(trantorian->position.y, 0);
     trantorian->direction = DOWN;
     trantorian->position.x = 0;
     trantorian->position.y = 0;
-    move_into_the_good_way(event, zappy, NULL);
+    move_forward(client, zappy, NULL);
     cr_assert_eq(trantorian->position.x, 0);
     cr_assert_eq(trantorian->position.y, 1);
     trantorian->direction = LEFT;
     trantorian->position.x = 0;
     trantorian->position.y = 0;
-    move_into_the_good_way(event, zappy, NULL);
+    move_forward(client, zappy, NULL);
     cr_assert_eq(trantorian->position.x, 9);
     cr_assert_eq(trantorian->position.y, 0);
     trantorian->direction = DOWN;
     trantorian->position.x = 9;
     trantorian->position.y = 9;
-    move_into_the_good_way(event, zappy, NULL);
+    move_forward(client, zappy, NULL);
     cr_assert_eq(trantorian->position.x, 9);
     cr_assert_eq(trantorian->position.y, 0);
 }

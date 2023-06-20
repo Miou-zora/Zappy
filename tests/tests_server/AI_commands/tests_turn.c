@@ -25,9 +25,9 @@ Test(left, turn_left)
     event->client = client;
     event->client->trantorian = trantorian;
 
-    left(event, zappy, NULL);
+    move_left(client, zappy, NULL);
     cr_assert_eq(trantorian->direction, LEFT);
-    left(event, zappy, NULL);
+    move_left(client, zappy, NULL);
     cr_assert_eq(trantorian->direction, DOWN);
 }
 
@@ -48,8 +48,8 @@ Test(right, turn_right)
     event->client = client;
     event->client->trantorian = trantorian;
 
-    right(event, zappy, NULL);
+    move_right(client, zappy, NULL);
     cr_assert_eq(trantorian->direction, RIGHT);
-    right(event, zappy, NULL);
+    move_right(client, zappy, NULL);
     cr_assert_eq(trantorian->direction, DOWN);
 }

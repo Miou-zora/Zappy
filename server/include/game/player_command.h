@@ -36,13 +36,13 @@ enum COMMAND {
  * @param timer The timer of the command
  * @param command The command
  * @param func The function to call when the timer is over
+ * @param arg The argument of the command
  */
 typedef struct command_s {
     int timer;
-    enum COMMAND command;
+    char *arg;
     void (*func)(client_t *client, zappy_t *zappy, char *arg);
 } command_t;
-
 
 /**
  * @brief Try to add a command to the client
@@ -53,9 +53,8 @@ typedef struct command_s {
  * @param func
  * @return ** int ** 1 if the command is added, 0 if the command is not added
  */
-int add_command(client_t *client, enum COMMAND command, int timer,
-    void (*func)(client_t *client, zappy_t *zappy, char *arg));
-
+int add_command(client_t *client, int timer,
+    void (*func)(client_t *client, zappy_t *zappy, char *arg), char *arg);
 
 /**
  * @brief It will check ir the first command is finished, move the commands
@@ -65,15 +64,7 @@ int add_command(client_t *client, enum COMMAND command, int timer,
  * @param zappy
  * @return ** void
  */
-void re_organize_list_command(client_t *client);
-
-/**
- * @brief Reset the commands of the client
- *
- * @param client
- * @return ** void
- */
-void reset_commands(client_t *client);
+void re_organize_list_command(zappy_t *zappy);
 
 /**
  * @brief Remove a command from the client

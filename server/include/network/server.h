@@ -208,24 +208,6 @@
     void destroy_zappy(zappy_t *zappy);
 
     /**
-     * @brief Accepts a new client
-     *
-     * @param zappy the server
-     * @param response the response to send to the client
-     * @param events the list of events
-     * @param clients the list of clients
-     * @return void
-     */
-    void cmd_forward(event_t *event, zappy_t *zappy_s);
-
-    /**
-     * @brief move in the right direction
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void move_into_the_good_way(event_t *event, zappy_t *zappy, char *arg);
-    /**
      * @brief determinate what type of client it is
      *
      * @param zappy the server
@@ -233,7 +215,6 @@
      * @return void
      */
     void connection(event_t *event, zappy_t *zappy_s);
-
 
     /**
      * @brief Add a response to the response list
@@ -266,88 +247,6 @@
      */
     void disconnect_clients(zappy_t *server);
 
-    /**
-     * @brief move up the player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void move_up(event_t *event, zappy_t *zappy);
-
-    /**
-     * @brief move right the player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void move_right(event_t *event, zappy_t *zappy);
-
-    /**
-     * @brief move down the player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-
-    void move_down(event_t *event, zappy_t *zappy);
-
-    /**
-     * @brief move left the player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void move_left(event_t *event, zappy_t *zappy);
-
-    /**
-     * @brief turn left the player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void cmd_left(event_t *event, zappy_t *zappy_s);
-
-    /**
-     * @brief add right function on command array's player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void cmd_right(event_t *event, zappy_t *zappy_s);
-
-    /**
-     * @brief add right function on command array's player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void right(event_t *event, zappy_t *zappy, char *param);
-
-    /**
-     * @brief turn left the player
-     *
-     * @param trantorian
-     * @param zappy
-     */
-    void left(event_t *event, zappy_t *zappy, char *param);
-
-    /**
-     * @brief add inventory function on command array's player
-     *
-     * @param event
-     * @param zappy_s
-     */
-    void cmd_inventory(event_t *event, zappy_t *zappy_s);
-
-    /**
-     * @brief display inventory of the player
-     *
-     * @param event
-     * @param zappy
-     * @param param
-     */
-    void inventory(event_t *event, zappy_t *zappy, char *param);
-
     /** @brief function to handle invalid command
      *
      * @param event the invalid event
@@ -355,5 +254,13 @@
      * @return ** void
      */
     void bad_command(event_t *event, zappy_t *zappy_s);
+
+    /**
+     * @brief add look function on command array's player
+     *
+     * @param event
+     * @param zappy_s
+     */
+    void update_players(zappy_t *zappy);
 
 #endif /* !SERVER_H_ */

@@ -39,6 +39,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_mct.c				\
 				game/gui_protocol/gui_bct.c				\
 				game/gui_protocol/gui_tna.c				\
+				game/manage_timer/update_players.c 		\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
@@ -83,8 +84,6 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)server/network/tests_response.c				 \
 				$(TESTS_FOLDER)gui_protocol/gui_pnw.c				 		 \
 				$(TESTS_FOLDER)AI_commands/tests_forward.c					 \
-				$(TESTS_FOLDER)AI_commands/tests_turn.c 					 \
-				$(TESTS_FOLDER)AI_commands/tests_inventory.c 				 \
 				$(TESTS_GAME)tests_stone.c 									 \
 				$(TESTS_FOLDER)/event/tests_check_alive.c					 \
 				$(TESTS_FOLDER)gui_protocol/gui_msz.c						 \

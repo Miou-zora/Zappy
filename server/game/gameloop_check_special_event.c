@@ -8,7 +8,6 @@
 #include "server.h"
 #include "gui_protocol.h"
 
-//gui_tna(event->client, zappy_s);
 bool is_graphical(event_t *event, zappy_t *zappy_s)
 {
     if (strcmp(event->request, "GUI\n") == 0) {
@@ -20,11 +19,24 @@ bool is_graphical(event_t *event, zappy_t *zappy_s)
     notifie_gui_msz(event->client, zappy_s);
     notifie_gui_sgt(event->client, zappy_s);
     handle_gui_mct(event, zappy_s);
+    handle_gui_tna(event, zappy_s);
     return (false);
+}
+
+static void create_new_trantorian(event_t *event, zappy_t *zappy_s)
+{
+    event->client->is_logged = true;
+    event->client->is_graphic = false;
+    event->client->trantorian = create_trantorian_from_event(
+    event->request, zappy_s);
+    event->client->trantorian->client = event->client;
+    notifie_gui_pnw(event->client, zappy_s);
 }
 
 bool special_event(event_t *event, zappy_t *zappy_s)
 {
+    if (event->client->is_logged == true)
+        return (false);
     if (event->request == NULL) {
         connection(event, zappy_s);
         return (true);
@@ -32,11 +44,7 @@ bool special_event(event_t *event, zappy_t *zappy_s)
     for (size_t i = 0; zappy_s->args->names[i] != NULL; i++) {
         if (strncmp(event->request, zappy_s->args->names[i],
         strlen(zappy_s->args->names[i])) == 0) {
-            event->client->is_logged = true;
-            event->client->is_graphic = false;
-            event->client->trantorian = create_trantorian_from_event(
-                event->request, zappy_s);
-            notifie_gui_pnw(event->client, zappy_s);
+            create_new_trantorian(event, zappy_s);
             return (true);
         }
     }
