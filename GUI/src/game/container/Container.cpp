@@ -43,7 +43,7 @@ namespace GUI::Game {
     {
         if (_model == nullptr)
             return;
-        _model->setScale(glm::vec3(0.05 + 0.01 * _quantity, 0.05 + 0.01 * _quantity, 0.05 + 0.01 * _quantity));
+        _model->setScale(glm::vec3(0.05 + 0.02 * _quantity, 0.05 + 0.02 * _quantity, 0.05 + 0.02 * _quantity));
         _model->update();
     }
 

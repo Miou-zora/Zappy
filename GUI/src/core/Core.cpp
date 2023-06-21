@@ -9,6 +9,7 @@
 #include "ErrorManagement.hpp"
 #include <iostream>
 #include "Request.hpp"
+#include <GL/glut.h>
 
 namespace GUI {
     Core::Core(int ac, char **av):

@@ -11,7 +11,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <GLFW/glfw3.h>
-
+#include "Scene.hpp"
 namespace GUI::Graphic {
     /**
      * @brief Window class that handle a window
@@ -40,7 +40,7 @@ namespace GUI::Graphic {
             /**
              * @brief Poll the event of the window
              */
-            void pollEvent(void);
+            void pollEvent(std::shared_ptr<GUI::Graphic::Scene> scene);
 
             /**
              * @brief Clear the window
@@ -71,12 +71,20 @@ namespace GUI::Graphic {
              */
             void setOpen(bool open);
 
+            void _grab(std::shared_ptr<GUI::Graphic::Scene> scene);
+            void _drop(void);
+            void _cameraMove(std::shared_ptr<GUI::Graphic::Scene> scene);
+
         private:
+
+            void _cursorPosCallback(GLFWwindow *window, double xpos, double ypos);
+
             bool _open;
             float _width;
             float _height;
             std::string _title;
             GLFWwindow *_window;
+            bool _grabbed;
             unsigned int _vertexArrayID;
     };
 }

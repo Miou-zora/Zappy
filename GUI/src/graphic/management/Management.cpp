@@ -22,7 +22,7 @@ namespace GUI::Graphic {
 
     void Management::pollEvent(void)
     {
-        _window->pollEvent();
+        _window->pollEvent(_scene);
     }
 
     void Management::update(void)
