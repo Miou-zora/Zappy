@@ -57,6 +57,7 @@ SRC_NETWORK =	network/build/build_server.c			\
 				network/utils_network/write.c			\
 				network/utils_network/destroy_zappy.c 	\
 				network/response/response.c				\
+				network/response/insert_response.c
 
 OBJ			=	$(SRC:%.c=%.o)
 OBJ			+=	$(SRC_PARSER:%.c=%.o)
@@ -125,7 +126,7 @@ all:			$(NAME)
 $(NAME):		$(OBJ) $(OBJ_MAIN)
 		$(CC) -o $(NAME) $(OBJ) $(OBJ_MAIN) $(CFLAGS) $(INCLUDE)
 
-debug:			CFLAGS += -g
+debug:			CFLAGS += -g -static
 debug:			re
 
 tests_run:		$(TESTS_OBJ)

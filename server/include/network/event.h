@@ -9,6 +9,8 @@
     #define EVENT_H_
     #include "client.h"
 
+    typedef struct zappy_s zappy_t;
+
     /**
      * @brief Event struct
      *
@@ -37,5 +39,13 @@
      * @param event
      */
     void destroy_event(event_t *event);
+
+    /**
+     * @brief Add event to list
+     * the event is added at the end of the list
+     * @param event
+     * @param zappy_s
+     */
+    void add_event_to_list(event_t *event, zappy_t *zappy_s);
 
 #endif /* !EVENT_H_ */

@@ -13,11 +13,12 @@ char *convert_tile_to_str(object_t *tile, int x, int y)
 {
     char buffer[1024] = {0};
 
-    sprintf(buffer, "bct %d %d %ld %ld %ld %ld %ld %ld %ld\n", x, y,
+    if (sprintf(buffer, "bct %d %d %ld %ld %ld %ld %ld %ld %ld\n", x, y,
     tile->nb_of_objects[FOOD], tile->nb_of_objects[LINEMATE],
     tile->nb_of_objects[DERAUMERE], tile->nb_of_objects[SIBUR],
     tile->nb_of_objects[MENDIANE], tile->nb_of_objects[PHIRAS],
-    tile->nb_of_objects[THYSTAME]);
+    tile->nb_of_objects[THYSTAME]) < 0)
+        return (NULL);
     return (strdup(buffer));
 }
 
@@ -39,7 +40,7 @@ int create_line_response(int y, zappy_t *zappy, client_t *client)
             return (84);
         }
         add_client_to_response(response, client);
-        LIST_INSERT_HEAD(&zappy->responses, response, next);
+        add_response_to_list(response, zappy);
         free(buffer);
     }
     return (0);

@@ -24,7 +24,7 @@ static int send_responses(zappy_t *zappy, response_t *response)
     return (0);
 }
 
-static int send_responses_clients(zappy_t *zappy)
+int send_responses_clients(zappy_t *zappy)
 {
     response_t *tmp = NULL;
     response_t *tmp2 = NULL;
@@ -74,7 +74,6 @@ int run(zappy_t *zappy)
         listen_ret = listen_sockets(zappy);
         if (manage_run(zappy, listen_ret) == false)
             return (84);
-        send_responses_clients(zappy);
     }
     return (0);
 }

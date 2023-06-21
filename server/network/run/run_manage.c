@@ -17,6 +17,7 @@ bool manage_run(zappy_t *zappy, int listen_ret)
         handle_activity(zappy);
     } else {
         gameloop(zappy);
+        send_responses_clients(zappy);
         disconnect_clients(zappy);
     }
     return (true);

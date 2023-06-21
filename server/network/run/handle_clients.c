@@ -21,7 +21,7 @@ static int handle_client_activity(zappy_t *zappy, client_t *client)
     }
     display_log("Received from client %d: %s\n", client->fd, request);
     if (event_client) {
-        LIST_INSERT_HEAD(&zappy->events, event_client, next);
+        add_event_to_list(event_client, zappy);
     } else {
         display_log("Error while creating event\n");
         destroy_event(event_client);
@@ -40,7 +40,6 @@ static int handle_new_connection(zappy_t *zappy)
     client_fd = accept(zappy->socket, (struct sockaddr *)&client_addr,
         &client_addr_len);
     if (client_fd < 0) {
-        display_log("Error while accepting new connection\n");
         return (84);
     }
     client = create_client(client_addr, client_fd);
@@ -51,6 +50,7 @@ static int handle_new_connection(zappy_t *zappy)
     display_log("New connection from %s:%d fd %d\n", client->ip,
     client->port, client->fd);
     LIST_INSERT_HEAD(&zappy->clients, client, next);
+    add_event_to_list(create_event(NULL, client), zappy);
     return (0);
 }
 

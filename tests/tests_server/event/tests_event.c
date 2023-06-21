@@ -39,13 +39,13 @@ Test(connection_function, connection_function)
     client->is_connected = false;
     client->is_logged = false;
 
-    connection(event, zappy);
+    event_connection(event, zappy);
     cr_assert_null(zappy->responses.lh_first);
 
     client->is_connected = true;
     client->is_logged = false;
 
-    connection(event, zappy);
+    event_connection(event, zappy);
     cr_assert_not_null(zappy->responses.lh_first);
     cr_assert_str_eq(zappy->responses.lh_first->content, "WELCOME\n");
 }

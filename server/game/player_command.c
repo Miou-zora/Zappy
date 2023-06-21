@@ -44,6 +44,8 @@ int add_command(client_t *client, int timer,
 
 void reset_list_command_client(client_t *client)
 {
+    if (client->trantorian == NULL)
+        return;
     if (client->trantorian->command[0].func != NULL
     && client->trantorian->command[0].timer > 0)
         return;

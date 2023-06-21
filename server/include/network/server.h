@@ -214,7 +214,7 @@
      * @param events one event
      * @return void
      */
-    void connection(event_t *event, zappy_t *zappy_s);
+    void event_connection(event_t *event, zappy_t *zappy_s);
 
     /**
      * @brief Add a response to the response list
@@ -262,5 +262,7 @@
      * @param zappy_s
      */
     void update_players(zappy_t *zappy);
+
+    int send_responses_clients(zappy_t *zappy);
 
 #endif /* !SERVER_H_ */

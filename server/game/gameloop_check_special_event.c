@@ -10,16 +10,17 @@
 
 bool is_graphical(event_t *event, zappy_t *zappy_s)
 {
-    if (strcmp(event->request, "GUI\n") == 0) {
+    if (strncmp(event->request, "GRAPHIC", 7) == 0) {
+        display_log("New graphical client");
         event->client->is_graphic = true;
         event->client->is_logged = true;
+        notifie_gui_msz(event->client, zappy_s);
+        notifie_gui_sgt(event->client, zappy_s);
+        handle_gui_mct(event, zappy_s);
+        handle_gui_tna(event, zappy_s);
         return (true);
     }
     event->client->is_connected = false;
-    notifie_gui_msz(event->client, zappy_s);
-    notifie_gui_sgt(event->client, zappy_s);
-    handle_gui_mct(event, zappy_s);
-    handle_gui_tna(event, zappy_s);
     return (false);
 }
 
@@ -38,12 +39,14 @@ bool special_event(event_t *event, zappy_t *zappy_s)
     if (event->client->is_logged == true)
         return (false);
     if (event->request == NULL) {
-        connection(event, zappy_s);
+        event_connection(event, zappy_s);
         return (true);
     }
+    display_log("Special event: %s", event->request);
     for (size_t i = 0; zappy_s->args->names[i] != NULL; i++) {
         if (strncmp(event->request, zappy_s->args->names[i],
         strlen(zappy_s->args->names[i])) == 0) {
+            display_log("New trantorian client");
             create_new_trantorian(event, zappy_s);
             return (true);
         }

@@ -7,6 +7,7 @@
 
 #include "server.h"
 #include "gui_protocol.h"
+#include "response.h"
 
 void notifie_gui_tna(client_t *client, zappy_t *zappy)
 {
@@ -21,7 +22,7 @@ void notifie_gui_tna(client_t *client, zappy_t *zappy)
             return;
         add_client_to_response(response, client);
         memset(buffer, 0, 1024);
-        LIST_INSERT_HEAD(&zappy->responses, response, next);
+        add_response_to_list(response, zappy);
     }
 }
 

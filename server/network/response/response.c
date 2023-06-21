@@ -16,17 +16,10 @@ response_t *create_response(char *msg)
     if (response == NULL)
         return (NULL);
     response->content = strdup(msg);
-    LIST_INIT(&response->clients);
     if (response->content == NULL)
         return (NULL);
+    LIST_INIT(&response->clients);
     return (response);
-}
-
-void add_response_to_list(response_t *response, zappy_t *zappy_s)
-{
-    if (response == NULL || zappy_s == NULL)
-        return;
-    LIST_INSERT_HEAD(&zappy_s->responses, response, next);
 }
 
 int add_client_to_response(response_t *response, client_t *client)

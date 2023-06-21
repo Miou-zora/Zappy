@@ -35,6 +35,8 @@ zappy_t *build_server(int ac, char **av)
         return (NULL);
     zappy->args = calloc(1, sizeof(argv_t));
     LIST_INIT(&zappy->clients);
+    LIST_INIT(&zappy->events);
+    LIST_INIT(&zappy->responses);
     if (!zappy->args)
         return (NULL);
     if (!parse_args(ac, av, zappy->args) || init_server_socket(zappy) < 0)

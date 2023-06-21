@@ -8,6 +8,7 @@
 #include "server.h"
 #include "gui_protocol.h"
 
+
 void create_response_to_event(int x, int y, zappy_t *zappy, event_t *event)
 {
     map_t *map = zappy->game_struct->map;
@@ -24,7 +25,7 @@ void create_response_to_event(int x, int y, zappy_t *zappy, event_t *event)
     if (response == NULL)
         return;
     add_client_to_response(response, event->client);
-    LIST_INSERT_HEAD(&zappy->responses, response, next);
+    add_response_to_list(response, zappy);
 }
 
 void handle_gui_bct(event_t *event, zappy_t *zappy)

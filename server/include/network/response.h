@@ -13,6 +13,7 @@
     #include <string.h>
 
     typedef struct client_s client_t;
+    typedef struct zappy_s zappy_t;
 
     /**
      * @brief Response object
@@ -59,5 +60,14 @@
      * @return int 0 if success or 84
      */
     int destroy_response(response_t *response);
+
+    /**
+     * @brief Add a response to the list of responses
+     * the response will be added at the end of the list
+     *
+     * @param response **response_t
+     * @param zappy_s **zappy_t
+     */
+    void add_response_to_list(response_t *response, zappy_t *zappy_s);
 
 #endif /* !RESPONSE_H_ */

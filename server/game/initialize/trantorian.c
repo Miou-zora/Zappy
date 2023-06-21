@@ -8,6 +8,7 @@
 #include "trantorian.h"
 #include "server.h"
 #include "game_struct.h"
+#include "player_command.h"
 //TODO when this function will be called increment the nb of trantorian
 //in game struct
 

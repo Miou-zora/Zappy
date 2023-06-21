@@ -44,6 +44,9 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
 
 static bool check_if_player_dead(event_t *event)
 {
+    if (event->client->is_graphic || !event->client->is_logged
+    || !event->client->is_connected || event->client->trantorian == NULL)
+        return (false);
     if (!event->client->is_connected || event->client->trantorian == NULL)
         return (true);
     if (event->client->trantorian->is_dead == true) {
@@ -55,18 +58,13 @@ static bool check_if_player_dead(event_t *event)
 void gameloop(zappy_t *zappy_s)
 {
     event_t *event = NULL;
-    event_t *tmp = NULL;
 
-    update_all_trantorians_life(&zappy_s->game_struct->all_clans);
-    for (event = LIST_FIRST(&zappy_s->events); event != NULL;
-    event = LIST_NEXT(event, next)) {
+    LIST_FOREACH(event, &zappy_s->events, next) {
+        sleep(1);
         if (!check_if_player_dead(event)) {
             handle_event(event, zappy_s);
         }
-        if (tmp)
-            destroy_event(tmp);
-        tmp = event;
-        LIST_REMOVE(event, next);
     }
+    LIST_INIT(&zappy_s->events);
     update_players(zappy_s);
 }
