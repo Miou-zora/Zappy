@@ -53,8 +53,6 @@ Test(update_all_trantorians_life, check_all_trantorians_are_alive)
     update_all_trantorians_life(&game_struct->all_clans);
     LIST_FOREACH(clan, &game_struct->all_clans, next_clan) {
         LIST_FOREACH(member, &clan->all_members, next_clan_member) {
-            printf("inventory = %ld\n", member->trantorian->inventory->nb_of_objects[FOOD]);
-            fflush(stdout);
         }
     }
     cr_assert_eq(LIST_FIRST(&game_struct->all_clans.lh_first->all_members), member2);

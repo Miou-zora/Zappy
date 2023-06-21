@@ -97,6 +97,23 @@ void set_func_inventory(event_t *event, zappy_t *zappy_s);
 void send_inventory(client_t *client, zappy_t *zappy, char *param);
 
 /**
+ * @brief add incantation function on command array's player
+ *
+ * @param event
+ * @param zappy_s
+ */
+void set_func_incantation(event_t *event, zappy_t *zappy_s);
+
+/**
+ * @brief make incantation of the player
+ *
+ * @param event
+ * @param zappy
+ * @param param
+ */
+void do_incantation(client_t *client, zappy_t *zappy, char *param);
+
+/**
  * @brief connect nbr command function pointer
  *
  * @param client the client who is moving
