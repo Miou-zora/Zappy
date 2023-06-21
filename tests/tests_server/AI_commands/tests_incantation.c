@@ -12,7 +12,7 @@
 
 Test(do_incantation, incantation_success)
 {
-    char *av[] = {"./zappy_server", "-p", "12352", "-x", "10", "-y", "10", "-n",
+    char *av[] = {"./zappy_server", "-p", "12326", "-x", "10", "-y", "10", "-n",
         "toto", "-c", "10", "-f", "10", NULL};
     zappy_t *zappy = build_server(13, av);
     egg_t *egg2 = create_egg(1, 1, "test", 1);
@@ -31,7 +31,7 @@ Test(do_incantation, incantation_success)
 
 Test(do_incantation, incancation_failure)
 {
-    char *av[] = {"./zappy_server", "-p", "12353", "-x", "10", "-y", "10", "-n",
+    char *av[] = {"./zappy_server", "-p", "12328", "-x", "10", "-y", "10", "-n",
         "toto", "-c", "10", "-f", "10", NULL};
     zappy_t *zappy = build_server(13, av);
     egg_t *egg2 = create_egg(2, 2, "tes2", 2);
