@@ -26,9 +26,11 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
 {
     void (*list_cmd[]) (event_t *event, zappy_t *zappy_s) = {
         set_func_forward, set_func_left, set_func_right, set_func_inventory,
-            set_func_incantation, set_func_connect_nbr, set_func_set_object};
+            set_func_incantation, set_func_connect_nbr, set_func_take_object,
+                set_func_set_object};
     char *commands[] = {"Forward\n", "Left\n", "Right\n", "Inventory\n",
-        "Incantation\n", "Connect_nbr\n", "Set object\n", NULL};
+        "Incantation\n", "Connect_nbr\n", "Take object\n", "Set object\n",
+            NULL};
 
     if (special_event(event, zappy_s))
         return (true);

@@ -32,6 +32,8 @@ SRC_GAME 	=	game/initialize/trantorian.c    							\
 				game/command/incantation/do_incantation.c  					\
 				game/command/incantation/init_truth_table.c 				\
 				game/command/incantation/check_incantation.c 				\
+				game/command/take_object/take_object.c 						\
+				game/command/take_object/take_object_check_object.c			\
 				game/command/set_object.c 									\
 				game/refill_obj/management_stone.c							\
 				game/refill_obj/generation_list_stone.c 					\
@@ -93,6 +95,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_pnw.c				 		 \
 				$(TESTS_FOLDER)AI_commands/tests_forward.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_incantation.c				 \
+				$(TESTS_FOLDER)AI_commands/tests_take_object.c				 \
 				$(TESTS_FOLDER)AI_commands/tests_set_object.c				 \
 				$(TESTS_GAME)tests_stone.c 									 \
 				$(TESTS_FOLDER)/event/tests_check_alive.c					 \

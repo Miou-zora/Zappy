@@ -130,11 +130,34 @@ void connect_nbr(client_t *client, zappy_t *zappy, char *param);
 void set_func_connect_nbr(event_t *event, zappy_t *zappy_s);
 
 /**
- * @brief the player drop his object
+ * @brief Set the func take_object
+ *
+ * @param event
+ * @param zappy_s
+ */
+void set_func_take_object(event_t *event, zappy_t *zappy_s);
+
+/**
+ * @brief player take object on the tile
  *
  * @param event
  * @param zappy
  * @param param
+ */
+void take_object(client_t *client, zappy_t *zappy, char *param);
+
+/**
+ * @brief check if the player have one of the object
+ *
+ * @param param
+ */
+int get_object_index(const char* param);
+
+/**
+ * @brief Set the func set_object
+ *
+ * @param event
+ * @param zappy_s
  */
 void set_object(client_t *client, zappy_t *zappy, char *param);
 

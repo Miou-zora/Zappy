@@ -26,7 +26,7 @@ Test(set_object, set_object_success)
     event->client->trantorian = trantorian;
     trantorian->inventory->nb_of_objects[LINEMATE] = 1;
 
-    set_object(client, zappy, "LINEMATE");
+    set_object(client, zappy, "linemate");
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
 }
 
@@ -46,6 +46,6 @@ Test(set_object, set_object_fail)
     event->client->trantorian = trantorian;
     trantorian->inventory->nb_of_objects[LINEMATE] = 1;
 
-    set_object(client, zappy, "MENDIANE");
+    set_object(client, zappy, "mendiane");
     cr_assert_str_eq(zappy->responses.lh_first->content, "ko\n");
 }
