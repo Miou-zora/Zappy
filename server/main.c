@@ -16,6 +16,7 @@ void sigint_handler(int sig)
     display_log("SIGINT received, exiting...\n");
     running = false;
     sig++;
+    exit(0);
 }
 
 void print_usage(void)

@@ -62,6 +62,7 @@
         int port;
         struct sockaddr_in interface;
         fd_set readfds;
+        fd_set writefds;
         struct timeval timeout;
         game_struct_t *game_struct;
         LIST_HEAD(response_list, response_s) responses;
@@ -194,7 +195,7 @@
      * @param zappy the server
      * @return ** void
      */
-    void update_fd_set(fd_set *readfds, zappy_t *zappy);
+    void update_fd_set(zappy_t *zappy);
 
     /**
      * @brief Accepts a new client
@@ -245,7 +246,7 @@
      *
      * @param server **zappy_t
      */
-    void disconnect_clients(zappy_t *server);
+    void remove_lost_clients(zappy_t *server);
 
     /** @brief function to handle invalid command
      *

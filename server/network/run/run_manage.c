@@ -18,7 +18,7 @@ bool manage_run(zappy_t *zappy, int listen_ret)
     } else {
         gameloop(zappy);
         send_responses_clients(zappy);
-        disconnect_clients(zappy);
     }
+    remove_lost_clients(zappy);
     return (true);
 }

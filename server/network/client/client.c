@@ -9,18 +9,19 @@
 #include "server.h"
 #include <string.h>
 
-void disconnect_clients(zappy_t *server)
+
+void remove_lost_clients(zappy_t *server)
 {
     client_t *tmp = NULL;
     client_t *tmp2 = NULL;
 
-    LIST_FOREACH(tmp, &server->clients, next) {
-        if (tmp2)
-            destroy_client(tmp2);
-        if (!tmp->is_connected) {
+    tmp = LIST_FIRST(&server->clients);
+    while (tmp != NULL) {
+        tmp2 = LIST_NEXT(tmp, next);
+        if (tmp->is_connected == false) {
             LIST_REMOVE(tmp, next);
-            tmp2 = tmp;
         }
+        tmp = tmp2;
     }
 }
 
@@ -49,6 +50,7 @@ void remove_client(client_t *client)
 
 void destroy_client(client_t *client)
 {
+    display_log("Destroying client %d\n", client->fd);
     if (client->fd != -1)
         close(client->fd);
     client->fd = -1;

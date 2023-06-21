@@ -34,9 +34,10 @@ Test(is_buffer_valid, should_return_0_2)
 
 Test(read_client, should_return_null)
 {
-    int fd = open("/dev/null", O_RDONLY);
-    cr_assert_eq(read_client(fd), NULL);
-    close(fd);
+    client_t *client = calloc(1, sizeof(client_t));
+    client->fd = open("/dev/null", O_RDONLY);
+    cr_assert_eq(read_client(client), NULL);
+    close(client->fd);
 }
 
 // Test(read_client, should_return_hello)

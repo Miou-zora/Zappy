@@ -11,12 +11,10 @@
 
 static int handle_client_activity(zappy_t *zappy, client_t *client)
 {
-    char *request = read_client(client->fd);
+    char *request = read_client(client);
     event_t *event_client = create_event(request, client);
 
     if (request == NULL) {
-        display_log("Client %d disconnected\n", client->fd);
-        client->is_connected = false;
         return (0);
     }
     display_log("Received from client %d: %s\n", client->fd, request);

@@ -38,6 +38,8 @@
         bool is_logged;
         bool is_graphic;
         trantorian_t *trantorian;
+        char buffer[1024];
+        int idx;
         LIST_ENTRY(client_s) next; //this is for the linked list
     } client_t;
 

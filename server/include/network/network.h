@@ -19,12 +19,14 @@
 
     /**
      * @brief it will read the client socket
-     * while using the circular buffer
-     * The message will be malloced
-     * @param fd to read
+     * while using the circular buffer of the client
+     * The message will be dynamically allocated
+     * if the buffer has a '\n' it will return the message
+     * else it will return NULL
+     * @param client to read
      * @return ** char* the message
      */
-    char *read_client(int fd);
+    char *read_client(client_t *client);
 
     /**
      * @brief it will send the message to the client

@@ -41,27 +41,30 @@ int send_responses_clients(zappy_t *zappy)
     return (0);
 }
 
-void update_fd_set(fd_set *readfds, zappy_t *zappy)
+void update_fd_set(zappy_t *zappy)
 {
     client_t *client = NULL;
 
-    FD_ZERO(readfds);
-    FD_SET(zappy->socket, readfds);
+    FD_ZERO(&zappy->readfds);
+    FD_SET(zappy->socket, &zappy->readfds);
+    FD_ZERO(&zappy->writefds);
+    FD_SET(zappy->socket, &zappy->writefds);
+
     LIST_FOREACH(client, &zappy->clients, next) {
-        if (client->fd != -1 && client->is_connected) {
-            FD_SET(client->fd, readfds);
-        }
+        if (client->is_connected)
+            FD_SET(client->fd, &zappy->readfds);
     }
 }
 
 int listen_sockets(zappy_t *zappy)
 {
-    update_fd_set(&zappy->readfds, zappy);
+    update_fd_set(zappy);
     if (zappy->timeout.tv_sec == 0 && zappy->timeout.tv_usec == 0) {
         zappy->timeout.tv_sec = 0;
         zappy->timeout.tv_usec = 1000000 / zappy->args->freq;
     }
-    return (select(FD_SETSIZE, &zappy->readfds, NULL, NULL, &zappy->timeout));
+    return (select(FD_SETSIZE, &zappy->readfds,
+    &zappy->writefds, NULL, &zappy->timeout));
 }
 
 int run(zappy_t *zappy)
