@@ -53,6 +53,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/take_object/take_object.c 						\
 				game/command/take_object/take_object_check_object.c			\
 				game/command/set_object.c 									\
+				game/gui_protocol/gui_pin.c									\
 				game/manage_timer/update_players.c 							\
 				game/command/fork.c											\
 
@@ -112,6 +113,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_bct.c			 	 	 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_tna.c			 	 	 	 \
 				$(TESTS_FOLDER)AI_commands/tests_look.c			 	 	 	 \
+				$(TESTS_FOLDER)gui_protocol/gui_pin.c			 	 	 \
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 

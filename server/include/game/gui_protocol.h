@@ -358,3 +358,7 @@ void handle_gui_tna(event_t *event, zappy_t *zappy);
  * @return ** void
  */
 void notifie_gui_tna(client_t *client, zappy_t *zappy);
+
+void handle_gui_pin(event_t *event, zappy_t *zappy);
+
+void send_gui_pin(trantorian_t *tran, client_t *client, zappy_t *zappy);

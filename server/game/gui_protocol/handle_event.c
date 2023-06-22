@@ -16,6 +16,7 @@ static void (*ptr[])(event_t *event, zappy_t *zappy) = {
     &handle_gui_tna,
     &handle_gui_ppo,
     &handle_gui_plv,
+    &handle_gui_pin,
     NULL
     };
 
@@ -27,6 +28,7 @@ static const char *names[] = {
     "tna",
     "ppo",
     "plv",
+    "pin",
     NULL
     };
 
