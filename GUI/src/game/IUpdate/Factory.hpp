@@ -21,6 +21,7 @@
 #include "Ppo.hpp"
 #include "Pin.hpp"
 #include "Pdr.hpp"
+#include "Pic.hpp"
 #include "Plv.hpp"
 #include "GameState.hpp"
 #include <map>
@@ -115,11 +116,16 @@ namespace GUI::Game {
                                 std::string command) {
                     return std::make_shared<GUI::Game::Pdr>(gameState ,client, command);
                 }},
+                {"pic", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                            std::shared_ptr<GUI::Network::IOPooledClient> client,
+                            std::string command) {
+                    return std::make_shared<GUI::Game::Pic>(gameState ,client, command);
+                }},
                 {"plv", [](std::shared_ptr<GUI::Game::GameState> gameState,
                             std::shared_ptr<GUI::Network::IOPooledClient> client,
                             std::string command) {
                     return std::make_shared<GUI::Game::Plv>(gameState ,client, command);
                 }},
-            };
+           };
     };
 }

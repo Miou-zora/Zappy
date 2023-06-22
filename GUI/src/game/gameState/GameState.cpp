@@ -12,7 +12,8 @@ namespace GUI::Game {
     GameState::GameState(std::shared_ptr<GUI::Graphic::Scene> scene):
         _scene(scene),
         _map(std::make_shared<GUI::Game::Map>(0, 0)),
-        _settings(std::make_shared<GUI::Game::GameSettings>())
+        _settings(std::make_shared<GUI::Game::GameSettings>()),
+        _incantations(std::vector<std::shared_ptr<GUI::Game::Incantation>>())
     {
 
     }

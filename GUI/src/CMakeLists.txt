@@ -32,6 +32,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/IUpdate/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/map/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/map/tile/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/player/
+${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/thystameContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/foodContainer/
@@ -64,6 +65,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/map/Map.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/map/tile/Tile.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/gameState/GameState.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/player/Player.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/Incantation.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/Container.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/thystameContainer/ThystameContainer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/foodContainer/FoodContainer.cpp
