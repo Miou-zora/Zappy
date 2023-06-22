@@ -15,7 +15,7 @@ install:
 		dnf install -y alsa-lib-devel mesa-libGL-devel libX11-devel \
 		libXrandr-devel libXi-devel libXcursor-devel libXinerama-devel \
 		libatomic
-		git clone https://github.com/raysan5/raylib.git raylib
+		git clone --depth 1 https://github.com/raysan5/raylib.git raylib
 		mkdir raylib/build
 		cmake -S raylib -B raylib/build -DBUILD_SHARED_LIBS=ON
 		make -C raylib/build
