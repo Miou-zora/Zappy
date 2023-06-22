@@ -30,7 +30,6 @@ namespace GUI::Game {
 
     /**
      * @brief Factory class is used to create the right update class
-     * 
      */
     class Factory {
         public:
@@ -39,11 +38,11 @@ namespace GUI::Game {
 
             /**
              * @brief create the right update class depending on the command
-             * 
+             *
              * @param settings  GUI::Game::GameState
              * @param client    GUI::Network::IOPooledClient
              * @param command   std::string
-             * @return ** std::shared_ptr<GUI::Game::IUpdate> 
+             * @return ** std::shared_ptr<GUI::Game::IUpdate>
              */
             std::shared_ptr<GUI::Game::IUpdate> create(std::shared_ptr<GUI::Game::GameState> gameState,
                                                         std::shared_ptr<GUI::Network::IOPooledClient> client,

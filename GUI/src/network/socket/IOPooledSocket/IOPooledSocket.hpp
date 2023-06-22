@@ -152,6 +152,9 @@ namespace GUI::Network {
              */
             int getProtocol(void) const;
 
+            std::shared_ptr<GUI::Network::IOPool> getPool(void) const { return _pool; };
+            void setPool(std::shared_ptr<GUI::Network::IOPool> pool) { _pool = pool; }
+
         private:
 
             void _getMessageFromServer(void);

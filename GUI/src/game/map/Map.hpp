@@ -9,7 +9,7 @@
 #include <vector>
 #include <memory>
 #include "Tile.hpp"
-#include "Program.hpp"
+#include "raylib.h"
 
 namespace GUI::Game {
     class Map {
@@ -20,17 +20,14 @@ namespace GUI::Game {
             void resize(unsigned int x, unsigned int y);
 
             void update(void);
-            void load(void);
-            void render(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
+            void render(void);
 
             std::shared_ptr<GUI::Game::Tile> getTile(unsigned int x, unsigned int y) const;
 
-            void setProgram(std::shared_ptr<GUI::Graphic::Program> program);
-            void loadProgram(void);
+            Vector2 getSize(void) const {return _size; };
 
         private:
-            glm::uvec2 _size;
+            Vector2 _size;
             std::vector<std::vector<std::shared_ptr<GUI::Game::Tile>>> _tiles;
-            std::shared_ptr<GUI::Graphic::Program> _program;
     };
 }

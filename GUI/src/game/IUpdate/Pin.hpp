@@ -37,7 +37,7 @@ namespace GUI::Game {
             void _updatePlayer(const std::vector<std::string> &args)
             {
                 int id = std::stoi(args[1]);
-                glm::uvec2 position = {std::stoi(args[2]), std::stoi(args[3])};
+                Vector2 position = {static_cast<float>(std::stoi(args[2])), static_cast<float>(std::stoi(args[3]))};
                 std::vector<int> inventory = {
                     std::stoi(args[4]),
                     std::stoi(args[5]),

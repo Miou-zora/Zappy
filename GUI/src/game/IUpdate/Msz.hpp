@@ -7,15 +7,11 @@
 
 #pragma once
 #include "IUpdate.hpp"
-#include "IOPooledClient.hpp"
-#include "Request.hpp"
-#include <iostream>
 #include <sstream>
 
 namespace GUI::Game {
     /**
      * @brief Msz class is used to update the map size
-     * 
      */
     class Msz : public GUI::Game::IUpdate {
         public:
@@ -39,8 +35,7 @@ namespace GUI::Game {
 
                 ss >> x;
                 ss >> y;
-                _gameState->getSettings()->setMapSize(x, y);
-                _gameState->getMap()->resize(x, y);
+                _gameState->getMap()->resize(x, y);;
             }
 
         private:

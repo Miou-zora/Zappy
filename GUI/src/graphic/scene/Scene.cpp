@@ -9,7 +9,7 @@
 #include <iostream>
 
 namespace GUI::Graphic {
-    Scene::Scene(void) : _models(), _camera(nullptr)
+    Scene::Scene(void) : _models(), _camera(std::make_shared<Graphic::Object::Camera>())
     {
 
     }
@@ -84,12 +84,8 @@ namespace GUI::Graphic {
 
     void Scene::draw(void)
     {
-        if (_camera == nullptr) {
-            std::cerr << "No camera set. Unable to draw" << std::endl;
-            return;
-        }
         for (auto &model : _models) {
-            model.second->draw(_camera);
+            model.second->draw();
         }
     }
 

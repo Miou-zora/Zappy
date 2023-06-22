@@ -9,15 +9,14 @@
 #include <iostream>
 
 namespace GUI::Game {
-    Map::Map(unsigned int x, unsigned int y): _size(x, y)
+    Map::Map(unsigned int x, unsigned int y): _size({static_cast<float>(x), static_cast<float>(y)})
     {
         std::shared_ptr<GUI::Game::Tile> tile;
 
         for (unsigned int i = 0; i < x; i++) {
             std::vector<std::shared_ptr<GUI::Game::Tile>> tmp;
             for (unsigned int j = 0; j < y; j++) {
-                tile = std::make_shared<GUI::Game::Tile>(i, j);
-                tile->setScale(glm::vec3(0.45, 0.45, 0.45));
+                tile = std::make_shared<GUI::Game::Tile>((Vector2){static_cast<float>(i), static_cast<float>(j)}, (Vector3){static_cast<float>(i) - static_cast<float>(x) / 2 + 0.5f, 0, static_cast<float>(j) - static_cast<float>(y) / 2 + 0.5f});
                 tmp.push_back(tile);
             }
             _tiles.push_back(tmp);
@@ -28,29 +27,16 @@ namespace GUI::Game {
     {
         std::shared_ptr<GUI::Game::Tile> tile;
 
-        _size = glm::uvec2(x, y);
+        _size.x = x;
+        _size.y = y;
         _tiles.clear();
         for (unsigned int i = 0; i < x; i++) {
             std::vector<std::shared_ptr<GUI::Game::Tile>> tmp;
             for (unsigned int j = 0; j < y; j++) {
-                tile = std::make_shared<GUI::Game::Tile>(i, j);
-                tile->setScale(glm::vec3(0.45, 0.45, 0.45));
+                tile = std::make_shared<GUI::Game::Tile>((Vector2){static_cast<float>(i), static_cast<float>(j)}, (Vector3){static_cast<float>(i) - static_cast<float>(x) / 2 + 0.5f, 0, static_cast<float>(j) - static_cast<float>(y) / 2 + 0.5f});
                 tmp.push_back(tile);
             }
             _tiles.push_back(tmp);
-        }
-        load();
-        setProgram(_program);
-        loadProgram();
-        update();
-    }
-
-    void Map::load(void)
-    {
-        for (auto &y_tiles : _tiles) {
-            for (auto &tile : y_tiles) {
-                tile->load();
-            }
         }
     }
 
@@ -63,30 +49,11 @@ namespace GUI::Game {
         }
     }
 
-    void Map::render(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
+    void Map::render(void)
     {
         for (auto &y_tiles : _tiles) {
             for (auto &tile : y_tiles) {
-                tile->draw(camera);
-            }
-        }
-    }
-
-    void Map::setProgram(std::shared_ptr<GUI::Graphic::Program> program)
-    {
-        _program = program;
-        for (auto &y_tiles : _tiles) {
-            for (auto &tile : y_tiles) {
-                tile->setProgram(program);
-            }
-        }
-    }
-
-    void Map::loadProgram(void)
-    {
-        for (auto &y_tiles : _tiles) {
-            for (auto &tile : y_tiles) {
-                tile->loadProgram();
+                tile->draw();
             }
         }
     }
@@ -95,7 +62,7 @@ namespace GUI::Game {
     {
         for (auto &y_tiles : _tiles) {
             for (auto &tile : y_tiles) {
-                if (tile->getPos().x == x && tile->getPos().z == y) {
+                if (tile->getTileIndexes().x == x && tile->getTileIndexes().y == y) {
                     return tile;
                 }
             }

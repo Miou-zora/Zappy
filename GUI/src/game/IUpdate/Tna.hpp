@@ -9,6 +9,7 @@
 #include "IUpdate.hpp"
 #include "StringUtils.hpp"
 #include <algorithm>
+#include <iostream>
 
 namespace GUI::Game {
     class Tna : public GUI::Game::IUpdate {
@@ -27,17 +28,17 @@ namespace GUI::Game {
             void update() override
             {
                 std::vector<std::string> args = GUI::Utils::StringUtils::split(_command, " ");
+                std::string teamName = "";
 
                 if (args.size() != 2) {
                     std::cerr << "Error: Tna command has wrong number of arguments" << std::endl;
                     return;
                 }
-
-                std::string teamName = args[1];
-                std::vector<std::string> teams = _gameState->getTeamNames();
-
-                if (std::find(teams.begin(), teams.end(), teamName) == teams.end())
+                teamName = args[1];
+                std::vector<std::string> &teams = _gameState->getTeamNames();
+                if (std::find(teams.begin(), teams.end(), teamName) == teams.end()) {
                     teams.push_back(teamName);
+                }
                 else {
                     std::cerr << "Error: Tna: team name already exists" << std::endl;
                     return;

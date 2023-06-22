@@ -6,65 +6,50 @@
 */
 
 #include "Tile.hpp"
-#include "Cube.hpp"
 #include <iostream>
 
 namespace GUI::Game {
     Tile::Tile(void):
         Object(),
         _model(nullptr),
-        _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
-        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
-        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
-        _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
-        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
-        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
+        _foodContainer(std::make_shared<GUI::Game::FoodContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _siburContainer(std::make_shared<GUI::Game::SiburContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1))))
     {
 
     }
 
-    Tile::Tile(int x, int z):
-        Object(glm::vec3(x, 0, z), glm::vec4(0, 0, 0, 0), glm::vec3(1, 1, 1)),
+    Tile::Tile(Vector2 tileIndexes, Vector3 pos):
+        Object(pos),
         _model(nullptr),
-        _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
-        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
-        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
-        _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
-        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
-        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
+        _foodContainer(std::make_shared<GUI::Game::FoodContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _siburContainer(std::make_shared<GUI::Game::SiburContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _tileIndexes(tileIndexes)
     {
-
+        _foodContainer->getModel()->setPos(getPos().x - 0.4, getPos().y + 0.5, getPos().z);
+        _foodContainer->getModel()->setScale(0.1, 0.1, 0.1);
+        _linemateContainer->getModel()->setPos(getPos().x, getPos().y + 0.5, getPos().z + 0.4);
+        _linemateContainer->getModel()->setScale(0.1, 0.1, 0.1);
+        _deraumereContainer->getModel()->setPos(getPos().x + 0.4, getPos().y + 0.5, getPos().z + 0.4);
+        _deraumereContainer->getModel()->setScale(0.1, 0.1, 0.1);
+        _siburContainer->getModel()->setPos(getPos().x + 0.4, getPos().y + 0.5, getPos().z);
+        _siburContainer->getModel()->setScale(0.1, 0.1, 0.1);
+        _mendianeContainer->getModel()->setPos(getPos().x + 0.4, getPos().y + 0.5, getPos().z - 0.4);
+        _mendianeContainer->getModel()->setScale(0.1, 0.1, 0.1);
+        _phirasContainer->getModel()->setPos(getPos().x, getPos().y + 0.5, getPos().z - 0.4);
+        _phirasContainer->getModel()->setScale(0.1, 0.1, 0.1);
+        _thystameContainer->getModel()->setPos(getPos().x - 0.4, getPos().y + 0.5, getPos().z - 0.4);
+        _thystameContainer->getModel()->setScale(0.1, 0.1, 0.1);
     }
-
-    Tile::Tile(int x, int y, int z):
-        Object(glm::vec3(x, y, z), glm::vec4(0, 0, 0, 0), glm::vec3(1, 1, 1)),
-        _model(nullptr),
-        _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
-        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
-        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
-        _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
-        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
-        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
-    {
-
-    }
-
-    Tile::Tile(const glm::vec3 &pos):
-        Object(pos, glm::vec4(0, 0, 0, 0), glm::vec3(1, 1, 1)), _model(nullptr),
-        _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
-        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
-        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
-        _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
-        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
-        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
-    {
-
-    }
-
 
     void Tile::setModel(std::shared_ptr<GUI::Graphic::Object::Model> model)
     {
@@ -76,55 +61,27 @@ namespace GUI::Game {
         return _model;
     }
 
-    void Tile::load(void)
+    void Tile::draw()
     {
-        _model = GUI::Graphic::Object::CreateCubeModel();
-        _model->setPos(getPos());
-        _model->setScale(getScale());
-        _model->setRot(getRot());
-        _model->update();
-        _foodContainer->load();
-        _linemateContainer->load();
-        _deraumereContainer->load();
-        _siburContainer->load();
-        _mendianeContainer->load();
-        _phirasContainer->load();
-        _thystameContainer->load();
-
-        _foodContainer->getModel()->setPos(getPos() + glm::vec3(0.3, 0.5, 0));
-        _linemateContainer->getModel()->setPos(getPos() + glm::vec3(0.3, 0.5, 0.3));
-        _deraumereContainer->getModel()->setPos(getPos() + glm::vec3(0, 0.5, 0.3));
-        _siburContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, 0.5, 0.3));
-        _mendianeContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, 0.5, 0));
-        _phirasContainer->getModel()->setPos(getPos() + glm::vec3(-0.3, 0.5, -0.3));
-        _thystameContainer->getModel()->setPos(getPos() + glm::vec3(0, 0.5, -0.3));
-    }
-
-    void Tile::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
-    {
-        _model->draw(camera);
+        DrawCube(getPos(), 0.95, 0.95, 0.95, RED);
         if ((*_foodContainer) > 0)
-            _foodContainer->draw(camera);
+            _foodContainer->draw();
         if ((*_linemateContainer) > 0)
-            _linemateContainer->draw(camera);
+            _linemateContainer->draw();
         if ((*_deraumereContainer) > 0)
-            _deraumereContainer->draw(camera);
+            _deraumereContainer->draw();
         if ((*_siburContainer) > 0)
-            _siburContainer->draw(camera);
+            _siburContainer->draw();
         if ((*_mendianeContainer) > 0)
-            _mendianeContainer->draw(camera);
+            _mendianeContainer->draw();
         if ((*_phirasContainer) > 0)
-            _phirasContainer->draw(camera);
+            _phirasContainer->draw();
         if ((*_thystameContainer) > 0)
-            _thystameContainer->draw(camera);
+            _thystameContainer->draw();
     }
 
     void Tile::update(void)
     {
-        Object::update();
-        _model->setPos(getPos());
-        _model->setScale(getScale());
-        _model->setRot(getRot());
         _model->update();
         _foodContainer->update();
         _linemateContainer->update();
@@ -133,31 +90,6 @@ namespace GUI::Game {
         _mendianeContainer->update();
         _phirasContainer->update();
         _thystameContainer->update();
-    }
-
-    void Tile::setProgram(std::shared_ptr<GUI::Graphic::Program> program)
-    {
-        _program = program;
-        _model->setProgram(_program);
-        _foodContainer->setProgram(_program);
-        _linemateContainer->setProgram(_program);
-        _deraumereContainer->setProgram(_program);
-        _siburContainer->setProgram(_program);
-        _mendianeContainer->setProgram(_program);
-        _phirasContainer->setProgram(_program);
-        _thystameContainer->setProgram(_program);
-    }
-
-    void Tile::loadProgram(void)
-    {
-        _model->loadProgram();
-        _foodContainer->loadProgram();
-        _linemateContainer->loadProgram();
-        _deraumereContainer->loadProgram();
-        _siburContainer->loadProgram();
-        _mendianeContainer->loadProgram();
-        _phirasContainer->loadProgram();
-        _thystameContainer->loadProgram();
     }
 
     void Tile::setFoodQuantity(size_t quantity)

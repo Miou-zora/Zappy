@@ -7,24 +7,25 @@
 
 #pragma once
 #include "Model.hpp"
+#include "raylib.h"
 
 namespace GUI::Game {
     class Container {
         public:
-            Container(size_t quantity = 0, size_t maxSize = size_t(-1));
+            Container(size_t quantity = 0, size_t maxSize = size_t(-1), Model model = LoadModelFromMesh(GenMeshCube(1, 1, 1)));
             virtual ~Container(void) = default;
 
             void update(void);
-            void load();
-            void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
-            void setProgram(std::shared_ptr<GUI::Graphic::Program> program);
-            void loadProgram();
+            void draw(void);
 
             void setQuantity(size_t quantity) { _quantity = quantity; };
             size_t getQuantity(void) const { return _quantity; };
 
             void setMaxSize(size_t maxSize) { _maxSize = maxSize; };
             size_t getMaxSize(void) const { return _maxSize; };
+
+            void setModel(std::shared_ptr<GUI::Graphic::Object::Model> model) { _model = model; };
+            std::shared_ptr<GUI::Graphic::Object::Model> getModel(void) const { return _model; };
 
             Container &operator+=(size_t quantity);
             Container &operator-=(size_t quantity);
@@ -47,13 +48,8 @@ namespace GUI::Game {
             bool operator<=(size_t quantity) const;
             bool operator>=(size_t quantity) const;
 
-
-            void setModel(std::shared_ptr<GUI::Graphic::Object::Model> model) { _model = model; };
-            std::shared_ptr<GUI::Graphic::Object::Model> getModel(void) const { return _model; };
-
         private:
             std::shared_ptr<GUI::Graphic::Object::Model> _model;
-            std::shared_ptr<GUI::Graphic::Program> _program;
             size_t _quantity;
             size_t _maxSize;
     };

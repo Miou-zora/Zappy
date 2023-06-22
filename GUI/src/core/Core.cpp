@@ -9,7 +9,7 @@
 #include "ErrorManagement.hpp"
 #include <iostream>
 #include "Request.hpp"
-#include <GL/glut.h>
+#include "raylib.h"
 
 namespace GUI {
     Core::Core(int ac, char **av):
@@ -64,20 +64,19 @@ namespace GUI {
 
     void Core::run(void)
     {
-        std::string msg = "";
-        std::shared_ptr<GUI::Network::Response> response = nullptr;
-
         while (_running) {
             _gui->pollEvent();
             _client->update();
             _game->update(0);
             _gui->update();
-            _gui->getWindow()->clear();
-            _game->render();
-            _gui->render();
+            BeginDrawing();
+                _gui->getWindow()->clear();
+                _game->render();
+            EndDrawing();
             if (!_gui->isRunning())
                 _running = false;
         }
+        CloseWindow();
     }
 
     void Core::unload(void)

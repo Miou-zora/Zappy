@@ -31,13 +31,13 @@ namespace GUI::Game {
                     return;
                 }
                 int id = std::stoi(args[1]);
-                glm::uvec2 position = {std::stoi(args[2]), std::stoi(args[3])};
+                Vector2 position = {static_cast<float>(std::stoi(args[2])), static_cast<float>(std::stoi(args[3]))};
                 Orientation orientation = static_cast<Orientation>(std::stoi(args[4]));
                 _updatePlayer(id, position, orientation);
             }
 
         private:
-            void _updatePlayer(int id, glm::uvec2 position, Orientation orientation)
+            void _updatePlayer(int id, Vector2 position, Orientation orientation)
             {
                 for (auto &player : _gameState->getPlayers()) {
                     if (player->getId() == id) {

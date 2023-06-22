@@ -6,50 +6,27 @@
 */
 
 #include "Container.hpp"
-#include "Cube.hpp"
 #include <iostream>
 
 namespace GUI::Game {
-    Container::Container(size_t quantity, size_t size):
+    Container::Container(size_t quantity, size_t size, ::Model model):
+        _model(std::make_shared<GUI::Graphic::Object::Model>(model)),
         _quantity(quantity),
         _maxSize(size)
     {
 
     }
 
-    void Container::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
+    void Container::draw(void)
     {
         if (_model == nullptr)
             return;
-        _model->draw(camera);
-    }
-
-    void Container::setProgram(std::shared_ptr<GUI::Graphic::Program> program)
-    {
-        _program = program;
-        if (_model != nullptr) {
-            _model->setProgram(_program);
-        }
-    }
-
-    void Container::loadProgram()
-    {
-        if (_model == nullptr)
-            return;
-        _model->loadProgram();
+        _model->draw();
     }
 
     void Container::update(void)
     {
-        if (_model == nullptr)
-            return;
-        _model->setScale(glm::vec3(0.05 + 0.02 * _quantity, 0.05 + 0.02 * _quantity, 0.05 + 0.02 * _quantity));
-        _model->update();
-    }
 
-    void Container::load()
-    {
-        _model = GUI::Graphic::Object::CreateCubeModel();
     }
 
     Container &Container::operator+=(size_t quantity)

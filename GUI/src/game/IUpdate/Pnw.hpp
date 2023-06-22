@@ -27,7 +27,7 @@ namespace GUI::Game {
                 std::vector<std::string> args = GUI::Utils::StringUtils::split(_command, " ");
                 std::shared_ptr<GUI::Game::Player> newPlayer = nullptr;
                 int id = std::stoi(args[1]);
-                glm::uvec2 position = {std::stoi(args[2]), std::stoi(args[3])};
+                Vector2 position = {static_cast<float>(std::stoi(args[2])), static_cast<float>(std::stoi(args[3]))};
                 Orientation orientation = static_cast<Orientation>(std::stoi(args[4]));
                 int level = std::stoi(args[5]);
                 std::string teamName = args[6];
@@ -39,8 +39,8 @@ namespace GUI::Game {
                     }
                 }
                 newPlayer = std::make_shared<GUI::Game::Player>(teamName, id, position, orientation, level);
+                newPlayer->setPositionDiff({- _gameState->getMap()->getSize().x / 2 + 0.5f, - _gameState->getMap()->getSize().y / 2 + 0.5f});
                 *(newPlayer->getFoodContainer()) = 9;
-                newPlayer->load(_gameState->getProgram());
                 _gameState->getPlayers().push_back(newPlayer);
             }
     };

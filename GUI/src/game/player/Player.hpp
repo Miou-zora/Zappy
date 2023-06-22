@@ -6,7 +6,6 @@
 */
 
 #pragma once
-#include <glm/vec2.hpp>
 #include "Model.hpp"
 #include <string>
 #include "Camera.hpp"
@@ -27,23 +26,25 @@ namespace GUI::Game {
     };
     class Player {
         public:
-            Player(const std::string &teamName, int id, glm::ivec2 position, Orientation orientation, size_t level = 1);
+            Player(const std::string &teamName, int id, Vector2 position, Orientation orientation, size_t level = 1);
 
             ~Player(void) = default;
 
-            void load(std::shared_ptr<GUI::Graphic::Program> _program);
+            // void load(std::shared_ptr<GUI::Graphic::Program> _program);
             void update(void);
-            void render(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
+            void render(void);
 
-            void setPosition(glm::ivec2 position) { _position = position; };
+            void setPosition(Vector2 position) { _position = position; };
             void setOrientation(Orientation orientation) { _orientation = orientation; };
             void setLevel(size_t level) { _level = level; };
+            void setPositionDiff(Vector2 positionDiff) { _positionDiff = positionDiff; };
 
             const std::string &getTeamName(void) const { return _teamName; };
             int getId(void) const { return _id; };
-            glm::ivec2 getPosition(void) const { return _position; };
+            Vector2 getPosition(void) const { return _position; };
             Orientation getOrientation(void) const { return _orientation; };
             size_t getLevel(void) const { return _level; };
+            Vector2 getPositionDiff(void) const { return _positionDiff; };
 
             std::shared_ptr<GUI::Game::FoodContainer> getFoodContainer(void) const { return _foodContainer; };
             std::shared_ptr<GUI::Game::LinemateContainer> getLinemateContainer(void) const { return _linemateContainer; };
@@ -56,7 +57,8 @@ namespace GUI::Game {
         private:
             const int _id;
             const std::string _teamName;
-            glm::uvec2 _position;
+            Vector2 _position;
+            Vector2 _positionDiff;
             size_t _level;
             Orientation _orientation;
             std::shared_ptr<GUI::Graphic::Object::Model> _model;

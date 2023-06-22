@@ -26,12 +26,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Checkout glm repository
-        uses: actions/checkout@v3
-        with:
-          repository: g-truc/glm
-          path: glm
-
       - name: Find temp files in all directories
         run: |
           UNWANTED_FILES=$(find . -type f -printf '%P\n' | { grep -P "${{ env.UNWANTED_REGEX }}" || true; })
@@ -93,7 +87,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install dependencies
-        run: sudo make install
+        run: make install
 
       - run: make
         timeout-minutes: 3

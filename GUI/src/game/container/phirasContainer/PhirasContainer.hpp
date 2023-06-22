@@ -11,11 +11,11 @@
 namespace GUI::Game {
     class PhirasContainer : virtual public Container {
         public:
-            PhirasContainer(size_t quantity = 0, size_t maxSize = size_t(-1)): Container(quantity, maxSize) {};
+            PhirasContainer(size_t quantity = 0, size_t maxSize = size_t(-1), ::Model model = LoadModelFromMesh(GenMeshCube(1, 1, 1))): Container(quantity, maxSize, model) {};
+            PhirasContainer(::Model model): Container(0, size_t(-1), model) {};
             virtual ~PhirasContainer(void) = default;
 
             void update(void);
-            void load();
-            void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
+            void draw(void);
     };
 }

@@ -13,13 +13,8 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void FoodContainer::load()
+    void FoodContainer::draw(void)
     {
-        Container::load();
-    }
-
-    void FoodContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
-    {
-        Container::draw(camera);
+        Container::draw();
     }
 }

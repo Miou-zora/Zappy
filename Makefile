@@ -12,7 +12,15 @@ all: 		zappy_gui zappy_server
 install:
 	    @which dnf > /dev/null 2>&1 || \
 		(echo "DNF package manager not found"; exit 1)
-		dnf install -y glew-devel glfw-devel glm-devel
+		dnf install -y alsa-lib-devel mesa-libGL-devel libX11-devel \
+		libXrandr-devel libXi-devel libXcursor-devel libXinerama-devel \
+		libatomic
+		git clone https://github.com/raysan5/raylib.git raylib
+		mkdir raylib/build
+		cmake -S raylib -B raylib/build -DBUILD_SHARED_LIBS=ON
+		make -C raylib/build
+		make -C raylib/build install
+		rm -rf raylib
 
 zappy_server:
 		make -C server/

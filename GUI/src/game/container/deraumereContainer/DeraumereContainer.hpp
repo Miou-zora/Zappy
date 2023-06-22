@@ -11,11 +11,11 @@
 namespace GUI::Game {
     class DeraumereContainer : virtual public Container {
         public:
-            DeraumereContainer(size_t quantity = 0, size_t maxSize = size_t(-1)): Container(quantity, maxSize) {};
+            DeraumereContainer(size_t quantity = 0, size_t maxSize = size_t(-1), ::Model model = LoadModelFromMesh(GenMeshCube(1, 1, 1))): Container(quantity, maxSize, model) {};
+            DeraumereContainer(::Model model): Container(0, size_t(-1), model) {};
             virtual ~DeraumereContainer(void) = default;
 
             void update(void);
-            void load();
-            void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
+            void draw(void);
     };
 }

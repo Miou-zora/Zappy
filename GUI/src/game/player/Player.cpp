@@ -6,18 +6,16 @@
 */
 
 #include "Player.hpp"
-#include "Cube.hpp"
-#include "Program.hpp"
 #include <iostream>
 
 namespace GUI::Game {
-    Player::Player(const std::string &teamName, int id, glm::ivec2 position, Orientation orientation, size_t level):
+    Player::Player(const std::string &teamName, int id, Vector2 position, Orientation orientation, size_t level):
         _id(id),
         _teamName(teamName),
         _position(position),
         _level(level),
         _orientation(orientation),
-        _model(GUI::Graphic::Object::CreateCubeModel()),
+        _model(std::make_shared<GUI::Graphic::Object::Model>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
         _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
         _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
         _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
@@ -29,53 +27,30 @@ namespace GUI::Game {
 
     }
 
-    void Player::load(std::shared_ptr<GUI::Graphic::Program> _program)
-    {
-        _model->setPos(glm::vec3(_position.x, 1, _position.y));
-        glm::vec3 rotation = glm::vec3(0, 0, 0);
-        switch (_orientation) {
-            case NORTH:
-                rotation.y = M_PI / 2;
-                break;
-            case EAST:
-                rotation.y = M_PI;
-                break;
-            case SOUTH:
-                rotation.y = - M_PI / 2;
-                break;
-            case WEST:
-                break;
-        }
-        _model->setRot(rotation);
-        _model->setProgram(_program);
-        _model->update();
-        _model->loadProgram();
-    }
 
     void Player::update(void)
     {
-        glm::vec3 rotation = glm::vec3(0, 0, 0);
+        Vector3 rotation = {0, 0, 0};
         switch (_orientation) {
             case NORTH:
-                rotation.y = M_PI / 2;
+                rotation.y = PI / 2;
                 break;
             case EAST:
-                rotation.y = M_PI;
+                rotation.y = PI;
                 break;
             case SOUTH:
-                rotation.y = - M_PI / 2;
+                rotation.y = -PI / 2;
                 break;
             case WEST:
                 break;
         }
-        _model->setRot(rotation);
-        _model->setPos(glm::vec3(_position.x, 1 - 0.05 * (10 - _level), _position.y));
-        _model->setScale(glm::vec3(0.10 + 0.05 * _level, 0.10 + 0.05 * _level, 0.10 + 0.05 * _level));
-        _model->update();
+        _model->setRot(rotation.x, rotation.y, rotation.z);
+        _model->setPos(_position.x + _positionDiff.x, 0.75f, _position.y + _positionDiff.x);
+        _model->setScale(0.25f + 0.05 * _level, 0.25f + 0.05 * _level, 0.25f + 0.05 * _level);
     }
 
-    void Player::render(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
+    void Player::render(void)
     {
-        _model->draw(camera);
+        _model->draw();
     }
 }

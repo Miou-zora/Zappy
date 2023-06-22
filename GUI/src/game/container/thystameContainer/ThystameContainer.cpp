@@ -13,13 +13,8 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void ThystameContainer::load()
+    void ThystameContainer::draw(void)
     {
-        Container::load();
-    }
-
-    void ThystameContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
-    {
-        Container::draw(camera);
+        Container::draw();
     }
 }

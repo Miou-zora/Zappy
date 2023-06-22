@@ -12,7 +12,7 @@ namespace GUI::Graphic {
         _window(std::make_shared<Window>(width, height, title)),
         _scene(std::make_shared<GUI::Graphic::Scene>())
     {
-        _scene->setCamera(std::make_shared<GUI::Graphic::Object::Camera>(width / height, glm::vec3(0, 0, 5)));
+
     }
 
     void Management::init(void)
@@ -22,7 +22,7 @@ namespace GUI::Graphic {
 
     void Management::pollEvent(void)
     {
-        _window->pollEvent(_scene);
+        _window->pollEvent();
     }
 
     void Management::update(void)
@@ -33,7 +33,6 @@ namespace GUI::Graphic {
     void Management::render(void)
     {
         _scene->draw();
-        _window->display();
     }
 
     void Management::close(void)

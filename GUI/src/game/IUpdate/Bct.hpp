@@ -7,15 +7,12 @@
 
 #pragma once
 #include "IUpdate.hpp"
-#include "IOPooledClient.hpp"
-#include "Request.hpp"
-#include "Cube.hpp"
 #include "StringUtils.hpp"
+#include <iostream>
 
 namespace GUI::Game {
     /**
      * @brief Bct class is used to update the map
-     * 
      */
     class Bct : public IUpdate{
         public:
@@ -31,8 +28,8 @@ namespace GUI::Game {
 
             /**
              * @brief update the map
-             * 
-             * @return ** void 
+             *
+             * @return ** void
              */
             void update()
             {
@@ -47,6 +44,10 @@ namespace GUI::Game {
                     tile = _gameState->getMap()->getTile(std::stoi(args[1]), std::stoi(args[2]));
                 } catch (std::exception &e) {
                     std::cerr << "Error: Bct: " << e.what() << std::endl;
+                    return;
+                }
+                if (tile == nullptr) {
+                    std::cerr << "Error: Bct: tile not found: x: " << std::to_string(std::stoi(args[1])) << " y: " << std::to_string(std::stoi(args[2])) << std::endl;
                     return;
                 }
                 tile->setFoodQuantity(std::stoi(args[3]));

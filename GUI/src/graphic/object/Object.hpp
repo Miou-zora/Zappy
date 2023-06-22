@@ -6,9 +6,7 @@
 */
 
 #pragma once
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
+#include "raylib.h"
 
 namespace GUI::Graphic::Object {
     /**
@@ -24,7 +22,7 @@ namespace GUI::Graphic::Object {
              * @param rot rotation of the object
              * @param scale scale of the object
              */
-            Object(const glm::vec3 &pos = glm::vec3(0, 0, 0), const glm::vec4 &rot = glm::vec4(0, 0, 0, 0), const glm::vec3 &scale = glm::vec3(1, 1, 1));
+            Object(Vector3 pos = Vector3{0, 0, 0});
 
             /**
              * @brief Copy constructor of Object
@@ -44,14 +42,7 @@ namespace GUI::Graphic::Object {
              * @param other object to copy
              * @return Object& reference of the object
              */
-            void setPos(float x, float y, float z);
-
-            /**
-             * @brief Set the Pos object
-             *
-             * @param pos new position
-             */
-            void setPos(const glm::vec3 &pos);
+            void setPos(float x, float y, float z) { _pos = Vector3{x, y, z}; };
 
             /**
              * @brief Set the Rot object
@@ -60,14 +51,7 @@ namespace GUI::Graphic::Object {
              * @param y rotation on y axis
              * @param z rotation on z axis
              */
-            void setRot(float x, float y, float z);
-
-            /**
-             * @brief Set the Rot object
-             *
-             * @param rot new rotation
-             */
-            void setRot(const glm::vec3 &rot);
+            void setRot(float x, float y, float z) { _rot = Vector3{x, y, z}; }
 
             /**
              * @brief Set the Scale object
@@ -76,70 +60,32 @@ namespace GUI::Graphic::Object {
              * @param y scale on y axis
              * @param z scale on z axis
              */
-            void setRot(float x, float y, float z, float w);
-
-            /**
-             * @brief Set the Scale object
-             *
-             * @param scale new scale
-             */
-            void setRot(const glm::vec4 &rot);
-
-            /**
-             * @brief Set the Scale object
-             *
-             * @param x scale on x axis
-             * @param y scale on y axis
-             * @param z scale on z axis
-             */
-            void setScale(float x, float y, float z);
-
-            /**
-             * @brief Set the Scale object
-             *
-             * @param scale new scale
-             */
-            void setScale(const glm::vec3 &scale);
+            void setScale(float x, float y, float z) { _scale = Vector3{x, y, z}; }
 
             /**
              * @brief Get the Pos object
              *
-             * @return const glm::vec3& position of the object
+             * @return Vector3 position of the object
              */
-            const glm::vec3 &getPos(void) const;
+            Vector3 getPos(void) const { return _pos; };
 
             /**
              * @brief Get the Rot object
              *
              * @return const glm::vec3& rotation of the object
              */
-            const glm::vec3 &getRot(void) const;
+            Vector3 getRot(void) const { return _rot; };
 
             /**
              * @brief Get the Scale object
              *
-             * @return const glm::vec3& scale of the object
+             * @return Vector3 scale of the object
              */
-            const glm::vec3 &getScale(void) const;
-
-            /**
-             * @brief Get the Model Matrix object
-             *
-             * @return const glm::mat4& model matrix of the object
-             */
-            const glm::mat4 &getModelMatrix(void) const;
-
-            /**
-             * @brief Update the object, this will update the model matrix
-             */
-            void update(void);
+            Vector3 getScale(void) const { return _scale; };
 
         private:
-            void _updateModelMatrix(void);
-
-            glm::vec3 _pos;
-            glm::vec3 _rot;
-            glm::vec3 _scale;
-            glm::mat4 _model;
+            Vector3 _pos;
+            Vector3 _rot;
+            Vector3 _scale;
     };
 }

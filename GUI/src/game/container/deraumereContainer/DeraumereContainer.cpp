@@ -13,13 +13,8 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void DeraumereContainer::load()
+    void DeraumereContainer::draw(void)
     {
-        Container::load();
-    }
-
-    void DeraumereContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
-    {
-        Container::draw(camera);
+        Container::draw();
     }
 }

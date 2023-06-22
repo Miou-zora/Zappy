@@ -30,11 +30,11 @@ namespace GUI::Game {
         std::shared_ptr<GUI::Network::Response> response = _client->getResponse();
         while (response != nullptr && response->get() != "suc") {
             try {
-                std::cout << "Command: " << response->get() << std::endl;
+                std::cout << "PERSO: INFO: VALID COMMAND: " << response->get() << std::endl;
                 std::shared_ptr<GUI::Game::IUpdate> command = _factory.create(_gameState, _client, response->get());
                 command->update();
             } catch (GUI::GameException &e) {
-                std::cerr << "Invalid command: " << response->get() << std::endl;
+                std::cerr << "PERSO: INFO: INVALID COMMAND:" << response->get() << std::endl;
             }
             response = _client->getResponse();
         }

@@ -13,13 +13,8 @@ namespace GUI::Game {
         Container::update();
     }
 
-    void SiburContainer::load()
+    void SiburContainer::draw(void)
     {
-        Container::load();
-    }
-
-    void SiburContainer::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
-    {
-        Container::draw(camera);
+        Container::draw();
     }
 }
