@@ -7,6 +7,7 @@
 
 #pragma once
 #include "server.h"
+#include "look.h"
 
 /**
  * @brief Set the func forward object

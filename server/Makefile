@@ -15,40 +15,45 @@ SRC_PARSER	=	parser_args/parse_args.c 				\
 
 SRC_DISPLAY = display/display_log.c 					\
 
-SRC_GAME 	=	game/initialize/trantorian.c    							\
-				game/initialize/egg.c 										\
-				game/initialize/map.c			 							\
-				game/initialize/clan.c 										\
-				game/initialize/game_struct.c 								\
-				game/gameloop.c 											\
-				game/gameloop_check_special_event.c 						\
-				game/command/forward.c 										\
-				game/gui_protocol/gui_pnw.c									\
-				game/command/move_functions.c 								\
-				game/player_command.c 										\
-				game/command/connection.c 									\
-				game/command/turn.c 										\
-				game/command/inventory.c 									\
+SRC_GAME 	=	game/initialize/trantorian.c    		\
+				game/initialize/egg.c 					\
+				game/initialize/map.c			 		\
+				game/initialize/clan.c 					\
+				game/initialize/game_struct.c 			\
+				game/gameloop.c 						\
+				game/gameloop_check_special_event.c 	\
+				game/command/forward.c 					\
+				game/gui_protocol/gui_pnw.c				\
+				game/command/move_functions.c 			\
+				game/player_command.c 					\
+				game/command/connection.c 				\
+				game/command/turn.c 					\
+				game/command/inventory.c 				\
+				game/refill_obj/management_stone.c		\
+				game/refill_obj/generation_list_stone.c \
+				game/refill_obj/malloc_tab_array.c		\
+				game/check_functions/check_functions.c  \
+				game/gui_protocol/gui_msz.c				\
+				game/gui_protocol/handle_event.c		\
+				game/gui_protocol/gui_sgt.c				\
+				game/gui_protocol/gui_mct.c				\
+				game/gui_protocol/gui_bct.c				\
+				game/gui_protocol/gui_tna.c				\
+				game/command/utils_look/count_elements.c\
+				game/command/utils_look/utils_look.c	\
+				game/command/utils_look/look.c			\
+				game/command/utils_look/look_functions.c\
+				game/manage_timer/update_players.c 		\
+				game/command/utils_look/look_right_and_left.c \
+		       	game/command/connect_nbr.c              \
+				game/gui_protocol/gui_ppo.c				\
 				game/command/incantation/do_incantation.c  					\
 				game/command/incantation/init_truth_table.c 				\
 				game/command/incantation/check_incantation.c 				\
 				game/command/take_object/take_object.c 						\
 				game/command/take_object/take_object_check_object.c			\
 				game/command/set_object.c 									\
-				game/refill_obj/management_stone.c							\
-				game/refill_obj/generation_list_stone.c 					\
-				game/refill_obj/malloc_tab_array.c							\
-				game/check_functions/check_functions.c  					\
-				game/gui_protocol/gui_msz.c									\
-				game/gui_protocol/handle_event.c							\
 				game/gui_protocol/gui_plv.c									\
-				game/gui_protocol/gui_sgt.c									\
-				game/gui_protocol/gui_mct.c									\
-				game/gui_protocol/gui_bct.c									\
-				game/gui_protocol/gui_tna.c									\
-       			 game/command/connect_nbr.c                					\
-				game/gui_protocol/gui_ppo.c									\
-				game/manage_timer/update_players.c 							\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
@@ -104,6 +109,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_mct.c				 	 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_bct.c			 	 	 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_tna.c			 	 	 	 \
+				$(TESTS_FOLDER)AI_commands/tests_look.c			 	 	 	 \
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 

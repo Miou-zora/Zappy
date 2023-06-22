@@ -45,7 +45,7 @@ Test(gui_bct, negative_coordinates)
 Test(gui_bct, too_big_coordinates)
 {
     client_t *client = calloc(1, sizeof(client_t));
-    char *av[] = {"./zappy_server", "-p", "9876", "-x", "10", "-y", "10", "-n",
+    char *av[] = {"./zappy_server", "-p", "9476", "-x", "10", "-y", "10", "-n",
     "toto", "-c", "10", "-f", "10", NULL};
     zappy_t *zappy = build_server(13, av);
     event_t *event = create_event("bct 11 11\n", client);
