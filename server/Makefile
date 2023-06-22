@@ -39,11 +39,11 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_mct.c				\
 				game/gui_protocol/gui_bct.c				\
 				game/gui_protocol/gui_tna.c				\
+				game/gui_protocol/gui_plv.c				\
 				game/command/utils_look/count_elements.c\
 				game/command/utils_look/utils_look.c	\
 				game/command/utils_look/look.c			\
 				game/command/utils_look/look_functions.c\
-				game/manage_timer/update_players.c 		\
 				game/command/utils_look/look_right_and_left.c \
 		       	game/command/connect_nbr.c              \
 				game/gui_protocol/gui_ppo.c				\
@@ -53,7 +53,8 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/take_object/take_object.c 						\
 				game/command/take_object/take_object_check_object.c			\
 				game/command/set_object.c 									\
-				game/gui_protocol/gui_plv.c									\
+				game/manage_timer/update_players.c 							\
+				game/command/fork.c											\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
@@ -102,6 +103,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)AI_commands/tests_incantation.c				 \
 				$(TESTS_FOLDER)AI_commands/tests_take_object.c				 \
 				$(TESTS_FOLDER)AI_commands/tests_set_object.c				 \
+				$(TESTS_FOLDER)AI_commands/tests_fork.c						 \
 				$(TESTS_GAME)tests_stone.c 									 \
 				$(TESTS_FOLDER)/event/tests_check_alive.c					 \
 				$(TESTS_FOLDER)gui_protocol/gui_msz.c						 \
