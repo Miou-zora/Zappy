@@ -9,7 +9,7 @@
 #include "look.h"
 
 char *add_the_coma(size_t first_size, size_t i, size_t j,
-char *res)
+    char *res)
 {
     if (j != first_size + 2 * i || first_size + 2 * i - 1 == 0) {
         res = realloc(res, sizeof(char) * (strlen(res) + 2));

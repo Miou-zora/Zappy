@@ -20,8 +20,8 @@ static void init_args(argv_t *args)
 static bool check_args(argv_t *args)
 {
     if (args->port >= 1 && args->port <= 65535 && args->width >= 1
-    && args->height >= 1 && args->names[0][0] != '\0' && args->clientsNb >= 1
-    && args->freq >= 1)
+        && args->height >= 1 && args->names[0][0] != '\0'
+        && args->clientsNb >= 1 && args->freq >= 1)
         return (true);
     else
         return (false);
@@ -36,7 +36,6 @@ bool parse_args(int ac, char **av, argv_t *args)
     args->clientsNb = get_nb_client(av);
     args->freq = get_freq(av);
     args->names = get_names(ac, av);
-
     if (check_args(args) == false)
         return (false);
     return (true);

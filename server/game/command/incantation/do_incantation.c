@@ -13,7 +13,7 @@
 #include "incantation.h"
 
 static void send_current_elevation(bool state,
-client_t *client, zappy_t *zappy)
+    client_t *client, zappy_t *zappy)
 {
     char *tmp = NULL;
 
@@ -40,7 +40,7 @@ void do_incantation(client_t *client, zappy_t *zappy, char *param)
     client->trantorian->level, level_values);
 
     if (!check_inventory_trantorian(client, level_values)
-    || !check_players_on_tile(client, zappy, level_values)) {
+        || !check_players_on_tile(client, zappy, level_values)) {
         state = false;
     }
     send_current_elevation(state, client, zappy);

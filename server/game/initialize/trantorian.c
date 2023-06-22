@@ -9,10 +9,9 @@
 #include "server.h"
 #include "game_struct.h"
 #include "player_command.h"
-//TODO when this function will be called increment the nb of trantorian
-//in game struct
 
-static egg_t *find_egg_by_team_name(char *team_name, game_struct_t *game_struct)
+static egg_t *find_egg_by_team_name(char *team_name,
+    game_struct_t *game_struct)
 {
     egg_t *egg = NULL;
 

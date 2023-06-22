@@ -13,10 +13,9 @@ void look_tile(client_t *client, zappy_t *zappy, char *param)
     (void) param;
     response_t *response = NULL;
     char *res = NULL;
-
     char *(*look[4]) (client_t *client, zappy_t *zappy) = {
-        look_up, look_right, look_down, look_left,
-    };
+        look_up, look_right, look_down, look_left};
+
     res = strcat(strdup(
         look[client->trantorian->direction - 1](client, zappy)), "\n");
     response = create_response(res);

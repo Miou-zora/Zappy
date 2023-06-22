@@ -28,8 +28,8 @@ void remove_lost_clients(zappy_t *server)
 client_t *create_client(struct sockaddr_in info, int fd)
 {
     client_t *client = calloc(1, sizeof(client_t));
-    memset(client, 0, sizeof(client_t));
 
+    memset(client, 0, sizeof(client_t));
     if (!client)
         return (NULL);
     client->ip = inet_ntoa(info.sin_addr);

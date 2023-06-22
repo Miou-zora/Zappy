@@ -32,7 +32,6 @@ static char *get_nb_of_clan_members(clan_t *clan)
     LIST_FOREACH(clan_member, &clan->all_members, next_clan_member) {
         nb_of_members++;
     }
-
     if (nb_of_members == 0) {
         free(nb_of_members_str);
         free(clan_member);

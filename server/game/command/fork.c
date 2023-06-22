@@ -37,5 +37,6 @@ void do_fork(client_t *client, zappy_t *zappy, char *param)
 void set_func_fork(event_t *event, zappy_t *zappy_s)
 {
     (void) zappy_s;
+
     add_command(event->client, 42, do_fork, NULL);
 }

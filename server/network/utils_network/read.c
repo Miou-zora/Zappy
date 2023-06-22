@@ -39,6 +39,7 @@ char *read_client(client_t *client)
     int index = 0;
     int buff_idx = 0;
     char *response = NULL;
+
     if (!client->is_connected)
         return (NULL);
     reset_idx(client);

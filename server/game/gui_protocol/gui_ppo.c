@@ -28,7 +28,8 @@ void notifie_gui_ppo(trantorian_t *trantorian, zappy_t *zappy)
     char buffer[1024] = {0};
 
     if (sprintf(buffer, "ppo %d %ld %ld %d\n", trantorian->id,
-    trantorian->position.x, trantorian->position.y, trantorian->direction) < 0)
+        trantorian->position.x,
+        trantorian->position.y, trantorian->direction) < 0)
         return;
 
     response = create_response(buffer);
@@ -47,7 +48,8 @@ client_t *client)
     char buffer[1024] = {0};
 
     if (sprintf(buffer, "ppo %d %ld %ld %d\n", trantorian->id,
-    trantorian->position.x, trantorian->position.y, trantorian->direction) < 0)
+        trantorian->position.x, trantorian->position.y,
+        trantorian->direction) < 0)
         return;
     response = create_response(buffer);
     if (response == NULL)

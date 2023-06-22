@@ -45,7 +45,7 @@ bool special_event(event_t *event, zappy_t *zappy_s)
     display_log("Special event: %s", event->request);
     for (size_t i = 0; zappy_s->args->names[i] != NULL; i++) {
         if (strncmp(event->request, zappy_s->args->names[i],
-        strlen(zappy_s->args->names[i])) == 0) {
+            strlen(zappy_s->args->names[i])) == 0) {
             display_log("New trantorian client");
             create_new_trantorian(event, zappy_s);
             return (true);

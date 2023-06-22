@@ -23,7 +23,7 @@ static bool update_inventory_tile(trantorian_t *trantorian,
     object_t *tile, const char *param)
 {
     const char* objects[] = {"food", "linemate", "deraumere", "sibur",
-    "mendiane", "phiras", "thystame"};
+        "mendiane", "phiras", "thystame"};
     static const size_t num_objects = sizeof(objects) / sizeof(objects[0]);
 
     for (size_t i = 0; i < num_objects; i++) {

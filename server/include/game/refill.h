@@ -18,7 +18,7 @@
  * @param map
  */
 void check_and_add_stones_to_tiles(int pos[2], game_struct_t *game_struct,
-trantorian_t *trantorian);
+    trantorian_t *trantorian);
 
 /**
  * @brief generate a list of stones with their density and number of stones

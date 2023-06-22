@@ -49,7 +49,6 @@ void update_fd_set(zappy_t *zappy)
     FD_SET(zappy->socket, &zappy->readfds);
     FD_ZERO(&zappy->writefds);
     FD_SET(zappy->socket, &zappy->writefds);
-
     LIST_FOREACH(client, &zappy->clients, next) {
         if (client->is_connected)
             FD_SET(client->fd, &zappy->readfds);
@@ -72,7 +71,6 @@ int run(zappy_t *zappy)
     int listen_ret = 0;
     display_log("Server running on port 127.0.0.1:%d\n", zappy->args->port);
     display_log("Waiting for connections...\n");
-
     while (running) {
         listen_ret = listen_sockets(zappy);
         if (manage_run(zappy, listen_ret) == false)

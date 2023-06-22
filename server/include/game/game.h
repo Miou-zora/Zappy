@@ -178,4 +178,10 @@ void set_func_fork(event_t *event, zappy_t *zappy_s);
  */
 void do_fork(client_t *client, zappy_t *zappy, char *param);
 
+/**
+ * @brief Set the func look object
+ *
+ * @param event the event
+ * @param zappy_s the struct containing every information about the server
+ */
 void set_func_set_object(event_t *event, zappy_t *zappy_s);

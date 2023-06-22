@@ -19,6 +19,7 @@ void destroy_zappy(zappy_t *zappy)
 {
     client_t *client = NULL;
     response_t *response = NULL;
+
     destroy_args(zappy->args);
     LIST_FOREACH(client, &zappy->clients, next)
         destroy_client(client);

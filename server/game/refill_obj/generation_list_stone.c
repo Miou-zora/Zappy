@@ -21,7 +21,6 @@ static int **set_stone_density(int x, int y, int **list_stone)
     list_stone[4][1] = (x * y) * 0.08;
     list_stone[5][0] = THYSTAME;
     list_stone[5][1] = (x * y) * 0.05;
-
     return (list_stone);
 }
 
@@ -34,7 +33,6 @@ int **generate_stone_list(int x, int y)
         list_stone[i] = calloc(2, sizeof(int));
     }
     list_stone = set_stone_density(x, y, list_stone);
-
     return (list_stone);
 }
 

@@ -11,7 +11,6 @@
 void move_forward(client_t *client, zappy_t *zappy, char *param)
 {
     (void) param;
-
     void (*movement[4]) (client_t *client, zappy_t *zappy_s) = {
         forward_move_up,
         forward_move_right,

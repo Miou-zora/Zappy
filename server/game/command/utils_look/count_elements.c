@@ -8,7 +8,7 @@
 #include "server.h"
 
 static char *copy_at_tile_in_buffer(char *res, char *tmp,
-size_t count_nb_type_of_elem, char *element)
+    size_t count_nb_type_of_elem, char *element)
 {
     for (size_t j = 0; j < count_nb_type_of_elem; j++) {
         tmp = calloc(1, sizeof(char) * (strlen(element) + 1));
@@ -35,7 +35,7 @@ char *all_elements_at_tile(size_t x, size_t y, zappy_t *zappy)
     for (size_t i = 0; i < NUMBER_OF_DIFFERENT_ELEMENTS; i++) {
         count_nb_type_of_elem = 0;
         if (zappy->game_struct->map->tile[x + y * width]->nb_of_objects[i]
-        != 0) {
+            != 0) {
             count_nb_type_of_elem
             = zappy->game_struct->map->tile[x + y * width]->nb_of_objects[i];
             res =

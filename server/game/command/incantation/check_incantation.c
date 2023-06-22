@@ -28,7 +28,8 @@ static bool check_players_level(client_t *client, zappy_t *zappy,
     LIST_FOREACH(clan, &zappy->game_struct->all_clans, next_clan) {
         LIST_FOREACH(clan_member, &clan->all_members, next_clan_member) {
             if (check_pos_trantorian(client, clan_member)
-            && clan_member->trantorian->level == client->trantorian->level) {
+                && clan_member->trantorian->level
+                == client->trantorian->level) {
                 nb_players++;
             }
         }
@@ -54,8 +55,8 @@ bool check_inventory_trantorian(client_t *client, size_t *level_values)
 
     for (size_t i = 1; i < 7; i++) {
         if (level_trantorian == i
-        && client->trantorian->inventory->nb_of_objects[i]
-        >= level_values[i]) {
+            && client->trantorian->inventory->nb_of_objects[i]
+            >= level_values[i]) {
             return true;
         }
     }

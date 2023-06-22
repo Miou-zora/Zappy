@@ -32,7 +32,7 @@ int add_command(client_t *client, int timer,
 {
     for (int i = 0; i < MAX_COMMAND; i++) {
         if (client->trantorian->command[i].timer == 0
-        && client->trantorian->command[i].func == NULL) {
+            && client->trantorian->command[i].func == NULL) {
             client->trantorian->command[i].timer = timer;
             client->trantorian->command[i].arg = arg;
             client->trantorian->command[i].func = func;
@@ -47,9 +47,8 @@ void reset_list_command_client(client_t *client)
     if (client->trantorian == NULL)
         return;
     if (client->trantorian->command[0].func != NULL
-    && client->trantorian->command[0].timer > 0)
+        && client->trantorian->command[0].timer > 0)
         return;
-
     for (int i = 0; i < MAX_COMMAND - 1; i++) {
         if (client->trantorian->command[i].timer == 0
         && client->trantorian->command[i].func == NULL) {

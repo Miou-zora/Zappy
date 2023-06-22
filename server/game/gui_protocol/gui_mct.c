@@ -14,10 +14,10 @@ char *convert_tile_to_str(object_t *tile, int x, int y)
     char buffer[1024] = {0};
 
     if (sprintf(buffer, "bct %d %d %ld %ld %ld %ld %ld %ld %ld\n", x, y,
-    tile->nb_of_objects[FOOD], tile->nb_of_objects[LINEMATE],
-    tile->nb_of_objects[DERAUMERE], tile->nb_of_objects[SIBUR],
-    tile->nb_of_objects[MENDIANE], tile->nb_of_objects[PHIRAS],
-    tile->nb_of_objects[THYSTAME]) < 0)
+        tile->nb_of_objects[FOOD], tile->nb_of_objects[LINEMATE],
+        tile->nb_of_objects[DERAUMERE], tile->nb_of_objects[SIBUR],
+        tile->nb_of_objects[MENDIANE], tile->nb_of_objects[PHIRAS],
+        tile->nb_of_objects[THYSTAME]) < 0)
         return (NULL);
     return (strdup(buffer));
 }
@@ -51,7 +51,7 @@ void handle_gui_mct(event_t *event, zappy_t *zappy)
     map_t *map = zappy->game_struct->map;
 
     if (!event->client->is_graphic || !event->client->is_logged
-    || !event->client->is_connected)
+        || !event->client->is_connected)
         return;
     for (int y = 0; y < map->height; y++) {
         if (create_line_response(y, zappy, event->client) == 84)

@@ -47,7 +47,7 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
 static bool check_if_player_dead(event_t *event)
 {
     if (event->client->is_graphic || !event->client->is_logged
-    || !event->client->is_connected || event->client->trantorian == NULL)
+        || !event->client->is_connected || event->client->trantorian == NULL)
         return (false);
     if (!event->client->is_connected || event->client->trantorian == NULL)
         return (true);

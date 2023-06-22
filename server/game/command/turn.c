@@ -11,7 +11,6 @@
 void set_func_left(event_t *event, zappy_t *zappy_s)
 {
     (void) zappy_s;
-
     add_command(event->client, 7, move_left, NULL);
 }
 
