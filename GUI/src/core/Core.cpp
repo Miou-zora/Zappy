@@ -42,6 +42,7 @@ namespace GUI {
         _port = av[portFlag + 1];
         _game->setClient(_client);
         _game->getGameState()->setScene(_gui->getScene());
+        SetTraceLogLevel(LOG_WARNING | LOG_ERROR | LOG_FATAL);
     }
 
 
