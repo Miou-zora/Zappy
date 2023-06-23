@@ -78,9 +78,14 @@ namespace GUI::Graphic::Object {
 
             void setCamera(std::shared_ptr<::Camera> camera);
 
+            void lock(void);
+            void unlock(void);
+
         private:
             float _fov;
+            std::shared_ptr<::Camera> _lastCamera;
             std::shared_ptr<::Camera> _camera;
             int _cameraMode;
+            bool _locked;
     };
 }

@@ -23,7 +23,7 @@ namespace GUI::Graphic::Object {
         (*_camera).fovy = 80.0f;
         (*_camera).projection = CAMERA_PERSPECTIVE;
 
-        _cameraMode = CAMERA_ORBITAL;
+        _cameraMode = CAMERA_FIRST_PERSON;
     }
 
     Camera::Camera(const Camera &other): Object(other)
@@ -53,7 +53,19 @@ namespace GUI::Graphic::Object {
 
     void Camera::update(void)
     {
-        UpdateCamera(&(*_camera), _cameraMode);
+        _camera->fovy = _fov;
+        if (IsKeyDown(KEY_LEFT_SHIFT)) {
+            _camera->position.y -= 0.1f;
+            _camera->target.y -= 0.1f;
+        }
+        if (IsKeyDown(KEY_SPACE)) {
+            _camera->position.y += 0.1f;
+            _camera->target.y += 0.1f;
+        }
+        if (!_locked) {
+            UpdateCamera(&(*_camera), _cameraMode);
+            _camera->up = (Vector3){ 0.0f, 1.0f, 0.0f };
+        }
     }
 
     std::shared_ptr<::Camera> Camera::getCamera(void) const
@@ -64,5 +76,17 @@ namespace GUI::Graphic::Object {
     void Camera::setCamera(std::shared_ptr<::Camera> camera)
     {
         _camera = camera;
+    }
+
+    void Camera::lock(void)
+    {
+        if (_locked)
+            return;
+        _lastCamera = _camera;
+        _locked = true;
+    }
+    void Camera::unlock(void)
+    {
+        _locked = false;
     }
 }

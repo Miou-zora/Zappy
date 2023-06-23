@@ -63,8 +63,10 @@ namespace GUI::Graphic {
              */
             void setOpen(bool open);
 
-        private:
+            bool isCursorDisabled(void) const { return _cursorDisabled; };
 
+        private:
+            bool _cursorDisabled;
             bool _open;
             float _width;
             float _height;

@@ -23,6 +23,11 @@ namespace GUI::Graphic {
     void Management::pollEvent(void)
     {
         _window->pollEvent();
+        if (_window->isCursorDisabled()) {
+            _scene->getCamera()->unlock();
+        } else {
+            _scene->getCamera()->lock();
+        }
     }
 
     void Management::update(void)

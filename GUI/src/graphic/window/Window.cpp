@@ -13,7 +13,7 @@
 
 namespace GUI::Graphic {
     Window::Window(float width, float height, const std::string &title):
-        _open(false), _width(width), _height(height), _title(title), _grabbed(false)
+        _cursorDisabled(false), _open(false), _width(width), _height(height), _title(title), _grabbed(false)
     {
 
     }
@@ -34,6 +34,18 @@ namespace GUI::Graphic {
     {
         if (WindowShouldClose()) {
             _open = false;
+        }
+        if (IsKeyDown(KEY_P)) {
+            if (_cursorDisabled) {
+                EnableCursor();
+                _cursorDisabled = false;
+            }
+        }
+        if (IsKeyDown(KEY_SEMICOLON)) {
+            if (!_cursorDisabled) {
+                DisableCursor();
+                _cursorDisabled = true;
+            }
         }
     }
 
