@@ -20,7 +20,7 @@ namespace GUI {
         int portFlag = 0;
         int ipFlag = 0;
 
-        if (ac != 5) {
+        if (ac != 5 && ac != 3) {
             _help();
             throw CoreException("Error: invalid number of arguments");
         }
@@ -31,14 +31,14 @@ namespace GUI {
         portFlag = _findArg(ac, av, "-p");
         if (portFlag == -1) {
             _help();
-            throw CoreException("Error: invalid port");
+            throw CoreException("Error: Port isn't here");
         }
         ipFlag = _findArg(ac, av, "-h");
         if (ipFlag == -1) {
-            _help();
-            throw CoreException("Error: invalid ip");
+            _ip = "localhost";
+        } else {
+            _ip = av[ipFlag + 1];
         }
-        _ip = av[ipFlag + 1];
         _port = av[portFlag + 1];
         _game->setClient(_client);
         _game->getGameState()->setScene(_gui->getScene());
