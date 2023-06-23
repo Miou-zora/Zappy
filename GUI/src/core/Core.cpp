@@ -45,6 +45,14 @@ namespace GUI {
         SetTraceLogLevel(LOG_WARNING | LOG_ERROR | LOG_FATAL);
     }
 
+    void Core::_updateElapsedTime(void)
+    {
+        static double lastTime = 0;
+        double currentTime = GetTime();
+
+        _elapsedTime = currentTime - lastTime;
+        lastTime = currentTime;
+    }
 
     int Core::_findArg(int ac, char **av, const std::string &arg)
     {
@@ -66,9 +74,10 @@ namespace GUI {
     void Core::run(void)
     {
         while (_running) {
+            _updateElapsedTime();
             _gui->pollEvent();
             _client->update();
-            _game->update(0);
+            _game->update(_elapsedTime);
             _gui->update();
             BeginDrawing();
                 _gui->getWindow()->clear();

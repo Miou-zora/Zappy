@@ -63,6 +63,7 @@ namespace GUI {
         private:
             void _help(void);
             int _findArg(int ac, char **av, const std::string &arg);
+            void _updateElapsedTime(void);
 
             std::string _ip;
             std::string _port;
@@ -70,5 +71,6 @@ namespace GUI {
             std::shared_ptr<Network::IOPooledClient> _client;
             std::shared_ptr<GUI::Graphic::Management> _gui;
             std::shared_ptr<GUI::Game::GameCore> _game;
+            double _elapsedTime;
     };
 }
