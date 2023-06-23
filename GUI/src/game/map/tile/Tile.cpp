@@ -11,7 +11,7 @@
 namespace GUI::Game {
     Tile::Tile(void):
         Object(),
-        _model(nullptr),
+        _model(std::make_shared<GUI::Graphic::Object::Model>(LoadModelFromMesh(GenMeshCube(1, 1, 1)), RED)),
         _foodContainer(std::make_shared<GUI::Game::FoodContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
         _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
         _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
@@ -20,12 +20,11 @@ namespace GUI::Game {
         _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
         _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1))))
     {
-
     }
 
     Tile::Tile(Vector2 tileIndexes, Vector3 pos):
         Object(pos),
-        _model(nullptr),
+        _model(std::make_shared<GUI::Graphic::Object::Model>(LoadModelFromMesh(GenMeshCube(1, 1, 1)), RED)),
         _foodContainer(std::make_shared<GUI::Game::FoodContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
         _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
         _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
@@ -35,6 +34,7 @@ namespace GUI::Game {
         _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
         _tileIndexes(tileIndexes)
     {
+        _model->setPos(pos.x, pos.y, pos.z);
         _foodContainer->getModel()->setPos(getPos().x - 0.4, getPos().y + 0.5, getPos().z);
         _foodContainer->getModel()->setScale(0.1, 0.1, 0.1);
         _linemateContainer->getModel()->setPos(getPos().x, getPos().y + 0.5, getPos().z + 0.4);
@@ -63,10 +63,11 @@ namespace GUI::Game {
 
     void Tile::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
     {
-        BeginMode3D(*camera->getCamera());
-            DrawCube(getPos(), 0.95, 0.95, 0.95, RED);
-            DrawCubeWires(getPos(), 0.95, 0.95, 0.95, BLACK);
-        EndMode3D();
+        if (_model != nullptr) {
+            BeginMode3D(*camera->getCamera());
+                _model->draw(camera);
+            EndMode3D();
+        }
         if ((*_foodContainer) > 0)
             _foodContainer->draw(camera);
         if ((*_linemateContainer) > 0)
@@ -93,6 +94,35 @@ namespace GUI::Game {
         _mendianeContainer->update();
         _phirasContainer->update();
         _thystameContainer->update();
+    }
+
+    void Tile::drawInfo(std::shared_ptr<GUI::Graphic::Object::Camera> _camera)
+    {
+        Vector3 scale = _model->getScale();
+        if (_camera != nullptr) {
+            scale.x += 0.01;
+            scale.y += 0.01;
+            scale.z += 0.01;
+            BeginMode3D(*_camera->getCamera());
+                DrawModelWiresEx(*_model->getModel(), _model->getPos(), _model->getRot(), 1, scale, RAYWHITE);
+            EndMode3D();
+        }
+        DrawRectangle(0, 0, 200, 200, BLACK);
+        DrawText(("Tile: x=" + std::to_string(static_cast<int>(_tileIndexes.x)) + " y=" + std::to_string(static_cast<int>(_tileIndexes.y))).c_str(), 10, 10, 20, RAYWHITE);
+        DrawText(("Food: " + std::to_string((_foodContainer->getQuantity()))).c_str(), 10, 30, 20, RAYWHITE);
+        DrawText(("Linemate: " + std::to_string((_linemateContainer->getQuantity()))).c_str(), 10, 50, 20, RAYWHITE);
+        DrawText(("Deraumere: " + std::to_string((_deraumereContainer->getQuantity()))).c_str(), 10, 70, 20, RAYWHITE);
+        DrawText(("Sibur: " + std::to_string((_siburContainer->getQuantity()))).c_str(), 10, 90, 20, RAYWHITE);
+        DrawText(("Mendiane: " + std::to_string((_mendianeContainer->getQuantity()))).c_str(), 10, 110, 20, RAYWHITE);
+        DrawText(("Phiras: " + std::to_string((_phirasContainer->getQuantity()))).c_str(), 10, 130, 20, RAYWHITE);
+        DrawText(("Thystame: " + std::to_string((_thystameContainer->getQuantity()))).c_str(), 10, 150, 20, RAYWHITE);
+    }
+
+    std::shared_ptr<BoundingBox> Tile::getBoundingBox(void)
+    {
+        if (_model == nullptr)
+            return nullptr;
+        return _model->getBoundingBox();
     }
 
     void Tile::setFoodQuantity(size_t quantity)

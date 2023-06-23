@@ -15,9 +15,10 @@
 #include "MendianeContainer.hpp"
 #include "PhirasContainer.hpp"
 #include "ThystameContainer.hpp"
+#include "ICatchable.hpp"
 
 namespace GUI::Game {
-    class Tile : virtual public GUI::Graphic::Object::Object {
+    class Tile : virtual public GUI::Graphic::Object::Object, virtual public GUI::Game::ICatchable {
         public:
             Tile(void);
             Tile(Vector2 tileIndexes, Vector3 pos);
@@ -26,6 +27,9 @@ namespace GUI::Game {
 
             void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
             void update(void);
+
+            void drawInfo(std::shared_ptr<GUI::Graphic::Object::Camera> _camera);
+            std::shared_ptr<BoundingBox> getBoundingBox(void);
 
             void setModel(std::shared_ptr<GUI::Graphic::Object::Model> model);
             std::shared_ptr<GUI::Graphic::Object::Model> getModel(void) const;

@@ -22,7 +22,7 @@ namespace GUI::Graphic::Object {
             /**
              * @brief Construct a new Model object
              */
-            Model(::Model model = { 0 });
+            Model(::Model model = { 0 }, Color color = BLUE);
 
             /**
              * @brief Copy constructor of Model
@@ -54,7 +54,16 @@ namespace GUI::Graphic::Object {
              */
             void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
 
+            std::shared_ptr<BoundingBox> getBoundingBox(void);
+
+            void setModel(std::shared_ptr<::Model> model) { _model = model; };
+            std::shared_ptr<::Model> getModel(void) { return _model; }
+
+            void setColor(Color color) { _color = color; };
+            Color getColor(void) { return _color; }
+
         private:
             std::shared_ptr<::Model> _model;
+            Color _color;
     };
 }

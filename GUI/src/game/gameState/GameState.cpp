@@ -46,10 +46,10 @@ namespace GUI::Game {
         }
         _eventPool->drawEvents(_scene->getCamera());
         _drawTeams();
+        if (_entityCatched != nullptr)
+            _entityCatched->drawInfo(_scene->getCamera());
         DrawFPS(700, 10);
         _displayTimeUnit();
-        if (_entityCatched != nullptr)
-            _entityCatched->drawInfo();
     }
 
     void GameState::init(void)
@@ -77,9 +77,33 @@ namespace GUI::Game {
     void GameState::_catch(void)
     {
         Ray ray = GetMouseRay(GetMousePosition(), *_scene->getCamera()->getCamera());
-        (void) ray;
-        // TODO: check if catchable is in range
-        // if something is catched, set _catchable to the catched object
+        RayCollision collision = { 0, 0, (Vector3){0, 0, 0}, (Vector3){0, 0, 0}};
+        std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::ICatchable>>> catchables = _map->getCatchables();
+        std::vector<std::pair<RayCollision, std::shared_ptr<GUI::Game::ICatchable>>> catched;
+        std::shared_ptr<BoundingBox> boundingBox = nullptr;
+        float rayDistance = 0.0f;
+
+        for (auto &catchable : *catchables) {
+            boundingBox = catchable->getBoundingBox();
+            if (boundingBox == nullptr)
+                continue;
+            collision = GetRayCollisionBox(ray, *boundingBox);
+            if (collision.hit) {
+                catched.push_back(std::make_pair(collision, catchable));
+            }
+        }
+        if (catched.empty()) {
+            _entityCatched = nullptr;
+            return;
+        }
+        _entityCatched = catched[0].second;
+        rayDistance = catched[0].first.distance;
+        for (auto &catchable : catched) {
+            if (catchable.first.distance < rayDistance) {
+                _entityCatched = catchable.second;
+                rayDistance = catchable.first.distance;
+            }
+        }
     }
 
     void GameState::_drop(void)

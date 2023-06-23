@@ -26,6 +26,8 @@ namespace GUI::Game {
 
             Vector2 getSize(void) const {return _size; };
 
+            std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::ICatchable>>> getCatchables(void);
+
         private:
             Vector2 _size;
             std::vector<std::vector<std::shared_ptr<GUI::Game::Tile>>> _tiles;

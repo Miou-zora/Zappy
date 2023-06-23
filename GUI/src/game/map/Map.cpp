@@ -69,4 +69,16 @@ namespace GUI::Game {
         }
         return nullptr;
     }
+
+    std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::ICatchable>>> Map::getCatchables(void)
+    {
+        std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::ICatchable>>> catchables = std::make_shared<std::vector<std::shared_ptr<GUI::Game::ICatchable>>>();
+
+        for (auto &y_tiles : _tiles) {
+            for (auto &tile : y_tiles) {
+                catchables->push_back(tile);
+            }
+        }
+        return catchables;
+    }
 }
