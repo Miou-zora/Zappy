@@ -18,7 +18,10 @@ Test(gui_pnw, test_gui_pnw)
     zappy_t *zappy = build_server(ac, args);
     client_t *gui_client = calloc(1, sizeof(client_t));
     gui_client->is_graphic = true;
-    LIST_INSERT_HEAD(&zappy->clients, gui_client, next);
+    gui_client->is_connected = true;
+    gui_client->is_logged = true;
+    gui_client->fd = 1;
+    add_client_to_list(gui_client, zappy);
     client_t client = {0};
     client.trantorian = calloc(1, sizeof(trantorian_t));
     client.is_connected = true;
@@ -30,7 +33,7 @@ Test(gui_pnw, test_gui_pnw)
     client.trantorian->direction = UP;
     client.trantorian->level = 1;
     client.trantorian->team_name = strdup("Team1");
-    client.is_graphic = true;
+    client.is_graphic = false;
     notifie_gui_pnw(&client, zappy);
     cr_assert_str_eq(zappy->responses.lh_first->content, "pnw 1 1 1 1 1 Team1\n");
 }

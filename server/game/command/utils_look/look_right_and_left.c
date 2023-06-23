@@ -8,50 +8,49 @@
 #include "server.h"
 #include "game.h"
 
+void add_comma_to_buffer(char *buffer)
+{
+    buffer[strlen(buffer)] = ',';
+}
+
 char *look_right(client_t *client, zappy_t *zappy)
 {
-    vector_t vector = {client->trantorian->position.x,
+    vector_t ppos = {client->trantorian->position.x,
     client->trantorian->position.y};
-    size_t look_player_pos = 1; size_t res_length = 0;
     char *res = calloc(1, sizeof(char));
     char *tile = NULL;
 
     for (size_t i = 0; i <= (size_t)client->trantorian->level; i++) {
-        for (size_t j = 0; j < look_player_pos + (2 * i); j++) {
-            vector_t tmp_vector = check_edges((int)(vector.x + (int)i),
-            (int)(vector.y + (int)j), zappy->game_struct->map);
-            tile = strdup(look_at_tile(tmp_vector.x, tmp_vector.y, zappy));
-            res = realloc(res, (res_length + strlen(tile) + 2) * sizeof(char));
+        for (size_t j = 0; j < 1 + (2 * i); j++) {
+            vector_t tmp_vector = check_edges((int)(ppos.x + (int)i),
+            (int)(ppos.y + (int)j), zappy->game_struct->map);
+            tile = look_at_tile(tmp_vector.x, tmp_vector.y, zappy);
+            res = realloc(res, (strlen(res) + strlen(tile) + 2) * sizeof(char));
             strcat(res, tile);
-            res_length += strlen(tile);
-            res = strdup(add_the_coma(look_player_pos, i, j, strdup(res)));
-            free(tile);
+            add_comma_to_buffer(res);
         }
-        vector.y--;
+        ppos.y--;
     }
     return (add_hook(rm_spaces_before_coma(res)));
 }
 
 char *look_left(client_t *client, zappy_t *zappy)
 {
-    vector_t vector = {client->trantorian->position.x,
+    vector_t ppos = {client->trantorian->position.x,
     client->trantorian->position.y};
-    size_t look_player_pos = 1; size_t res_length = 0;
     char *res = calloc(1, sizeof(char));
     char *tile = NULL;
 
     for (size_t i = 0; i <= (size_t)client->trantorian->level; i++) {
-        for (size_t j = 0; j < look_player_pos + (2 * i); j++) {
-            vector_t tmp_vector = check_edges((int)(vector.x - (int)i),
-            (int)(vector.y - (int)j), zappy->game_struct->map);
-            tile = strdup(look_at_tile(tmp_vector.x, tmp_vector.y, zappy));
-            res = realloc(res, (res_length + strlen(tile) + 2) * sizeof(char));
+        for (size_t j = 0; j < 1 + (2 * i); j++) {
+            vector_t tmp_vector = check_edges((int)(ppos.x - (int)i),
+            (int)(ppos.y - (int)j), zappy->game_struct->map);
+            tile = look_at_tile(tmp_vector.x, tmp_vector.y, zappy);
+            res = realloc(res, (strlen(res) + strlen(tile) + 2) * sizeof(char));
             strcat(res, tile);
-            res_length += strlen(tile);
-            res = strdup(add_the_coma(look_player_pos, i, j, strdup(res)));
-            free(tile);
+            add_comma_to_buffer(res);
         }
-        vector.y++;
+        ppos.y++;
     }
     return (add_hook(rm_spaces_before_coma(res)));
 }

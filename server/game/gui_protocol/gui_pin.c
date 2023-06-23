@@ -14,7 +14,7 @@ void send_gui_pin(trantorian_t *tran, client_t *client, zappy_t *zappy)
 
     if (tran == NULL)
         return;
-    if (sprintf(buffer, "pin %d %ld %ld %ld %ld %ld %ld %ld %ld %ld\n",
+    if (sprintf(buffer, "pin %d %d %d %ld %ld %ld %ld %ld %ld %ld\n",
         tran->id, tran->position.x, tran->position.y,
         tran->inventory->nb_of_objects[0], tran->inventory->nb_of_objects[1],
         tran->inventory->nb_of_objects[2], tran->inventory->nb_of_objects[3],

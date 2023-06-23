@@ -9,7 +9,6 @@
 #include "server.h"
 #include <string.h>
 
-
 void remove_lost_clients(zappy_t *server)
 {
     client_t *tmp = NULL;

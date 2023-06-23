@@ -54,6 +54,9 @@ Test(generate_spawn_eggs, test_spawn_egg)
     args->height = 10;
     args->width = 10;
     args->freq = 100;
+    args->names = calloc(3, sizeof(char *));
+    args->names[0] = strdup("team");
+    args->names[1] = strdup("team2");
     game_struct_t *game_struct = init_game_struct(args);
     egg_t *egg = NULL;
     clan_t *clan = create_clan(3, "team");
@@ -61,11 +64,11 @@ Test(generate_spawn_eggs, test_spawn_egg)
 
     int count = 0;
 
-    LIST_INSERT_HEAD(&game_struct->all_clans, clan, next_clan);
-    LIST_INSERT_HEAD(&game_struct->all_clans, clan2, next_clan);
+    add_clan_to_list(game_struct, clan);
+    add_clan_to_list(game_struct, clan2);
     generate_spawn_eggs(game_struct);
 
-    for (size_t i = 0; i < (size_t)game_struct->map->height * game_struct->map->width; i++) {
+    for (int i = 0; i < game_struct->map->height * game_struct->map->width; i++) {
         LIST_FOREACH(egg, &(game_struct->all_eggs), next_egg) {
             if (egg->pos.x == i % game_struct->map->width &&
                 egg->pos.y == i / game_struct->map->width)

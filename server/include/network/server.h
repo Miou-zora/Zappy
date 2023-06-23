@@ -265,5 +265,12 @@
     void update_players(zappy_t *zappy);
 
     int send_responses_clients(zappy_t *zappy);
+    /**
+     * @brief add a client to the client list
+     * it will be added at the end of the list
+     * @param client the client to add
+     * @param zappy_s the server
+     */
+    void add_client_to_list(client_t *client, zappy_t *zappy_s);
 
 #endif /* !SERVER_H_ */

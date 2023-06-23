@@ -187,6 +187,15 @@ void do_fork(client_t *client, zappy_t *zappy, char *param);
 void set_func_set_object(event_t *event, zappy_t *zappy_s);
 
 /**
+ * @brief Create a clans object
+ *
+ * @param game the game struct
+ * @param args the args struct
+ * @return ** int 0 if success 84 if error
+ */
+int create_clans(game_struct_t *game, argv_t *args);
+
+/*
  * @brief eject players on the tile
  *
  * @param event
@@ -222,6 +231,14 @@ bool push_player(client_t *client, zappy_t *zappy);
 vector_t check_edges(int x, int y, map_t *map);
 
 /**
+ * @brief will add a comma at the end of the buffer
+ *
+ * @param buffer the buffer to add the comma
+ * @return ** void
+ */
+void add_comma_to_buffer(char *buffer);
+
+/*
  * @brief update the life of trantorian
  *
  * @param trantorian

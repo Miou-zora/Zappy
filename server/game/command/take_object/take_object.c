@@ -41,10 +41,9 @@ static bool find_object_on_tile(trantorian_t *trantorian, object_t *tile,
 
 void take_object(client_t *client, zappy_t *zappy, char *param)
 {
+    vector_t pos = client->trantorian->position;
     if (find_object_on_tile(client->trantorian,
-        zappy->game_struct->map->tile[client->trantorian->position.x +
-        client->trantorian->position.y * zappy->game_struct->map->width],
-            param)) {
+        &zappy->game_struct->map->tile[pos.y][pos.x],param)) {
         response_t *response = create_response("ok\n");
         add_client_to_response(response, client);
         add_response_to_list(response, zappy);

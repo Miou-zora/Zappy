@@ -47,7 +47,7 @@ static int handle_new_connection(zappy_t *zappy)
     }
     display_log("New connection from %s:%d fd %d\n", client->ip,
     client->port, client->fd);
-    LIST_INSERT_HEAD(&zappy->clients, client, next);
+    add_client_to_list(client, zappy);
     add_event_to_list(create_event(NULL, client), zappy);
     return (0);
 }
@@ -59,8 +59,6 @@ int handle_activity(zappy_t *zappy)
     if (FD_ISSET(zappy->socket, &zappy->readfds) && zappy->socket != 0) {
         return (handle_new_connection(zappy));
     }
-    if (zappy->clients.lh_first == NULL)
-        return (0);
     LIST_FOREACH(client, &zappy->clients, next) {
         if (FD_ISSET(client->fd, &zappy->readfds) && client->fd > 0) {
             handle_client_activity(zappy, client);

@@ -9,6 +9,6 @@
 #include <stdio.h>
 
 typedef struct vector_s {
-    size_t x;
-    size_t y;
+    int x;
+    int y;
 } vector_t;

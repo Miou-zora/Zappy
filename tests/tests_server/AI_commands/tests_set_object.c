@@ -24,6 +24,10 @@ Test(set_object, set_object_success)
     client_t *client = calloc(1, sizeof(client_t));
     event->client = client;
     event->client->trantorian = trantorian;
+    trantorian->client = client;
+    client->is_connected = true;
+    client->is_logged = true;
+    client->is_graphic = false;
     trantorian->inventory->nb_of_objects[LINEMATE] = 1;
 
     set_object(client, zappy, "linemate");

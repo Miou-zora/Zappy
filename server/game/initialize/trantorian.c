@@ -10,13 +10,12 @@
 #include "game_struct.h"
 #include "player_command.h"
 
-static egg_t *find_egg_by_team_name(char *team_name,
-    game_struct_t *game_struct)
+static egg_t *find_egg_by_team_name(char *name, game_struct_t *game_struct)
 {
     egg_t *egg = NULL;
 
     LIST_FOREACH(egg, &game_struct->all_eggs, next_egg) {
-        if (strcmp(egg->team_name, team_name) == 0) {
+        if (strncmp(egg->team_name, name, strlen(egg->team_name)) == 0) {
             LIST_REMOVE(egg, next_egg);
             return (egg);
         }

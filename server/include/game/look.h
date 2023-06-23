@@ -50,7 +50,7 @@ char *look_down(client_t *client, zappy_t *zappy);
  * @param zappy the struct containing every information about the server
  * @return char* the string containing the look
  */
-size_t nb_of_trantorians_at_pos(size_t x, size_t y, zappy_t *zappy);
+size_t nb_of_trantorians_at_pos(int x, int y, zappy_t *zappy);
 
 /**
  * @brief look down
@@ -59,7 +59,7 @@ size_t nb_of_trantorians_at_pos(size_t x, size_t y, zappy_t *zappy);
  * @param zappy the struct containing every information about the server
  * @return char* the string containing the look
  */
-size_t nb_of_eggs_at_pos(size_t x, size_t y, zappy_t *zappy);
+size_t nb_of_eggs_at_pos(int x, int y, zappy_t *zappy);
 
 /**
  * @brief look left

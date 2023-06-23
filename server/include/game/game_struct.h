@@ -67,3 +67,21 @@ bool add_object_at_tile(map_t *map, enum ELEMENTS type, size_t x, size_t y);
  * @param game_struct
  */
 void generate_spawn_eggs(game_struct_t *game_struct);
+
+/**
+ * @brief add clan to list
+ * it will be added at the end of the list
+ * @param game_struct the game_struct
+ * @param clan the clan to add
+ * @return ** void
+ */
+void add_clan_to_list(game_struct_t *game_struct, clan_t *clan);
+
+/**
+ * @brief add clan member to list
+ * it will be added at the end of the list
+ * @param clan the clan
+ * @param clan_member the clan_member to add
+ * @return ** void
+ */
+void add_clan_member_to_list(clan_t *clan, clan_member_t *clan_member);

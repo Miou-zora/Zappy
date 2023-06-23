@@ -1,4 +1,4 @@
-/*
+    /*
 ** EPITECH PROJECT, 2023
 ** Zappy-Mirror
 ** File description:
@@ -25,8 +25,7 @@ Test(take_object, take_object_success)
     event->client = client;
     event->client->trantorian = trantorian;
     map_t *map = zappy->game_struct->map;
-    map->tile[client->trantorian->position.x +
-        client->trantorian->position.y * map->width]->nb_of_objects[FOOD] = 1;
+    map->tile[1][1].nb_of_objects[FOOD] = 1;
 
     take_object(client, zappy, "food");
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
@@ -47,8 +46,7 @@ Test(take_object, take_object_success2)
     event->client = client;
     event->client->trantorian = trantorian;
     map_t *map = zappy->game_struct->map;
-    map->tile[client->trantorian->position.x +
-        client->trantorian->position.y * map->width]->nb_of_objects[LINEMATE] = 3;
+    map->tile[1][1].nb_of_objects[LINEMATE] = 3;
 
     take_object(client, zappy, "linemate");
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
@@ -70,9 +68,8 @@ Test(take_object, take_object_fail)
     event->client = client;
     event->client->trantorian = trantorian;
     map_t *map = zappy->game_struct->map;
-    map->tile[client->trantorian->position.x +
-        client->trantorian->position.y * map->width]->nb_of_objects[FOOD] = 0;
+    map->tile[1][1].nb_of_objects[FOOD] = 0;
 
-    take_object(client, zappy, "prout");
+    take_object(client, zappy, "prout"); //vraiment ??? prout ???
     cr_assert_str_eq(zappy->responses.lh_first->content, "ko\n");
 }

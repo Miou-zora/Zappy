@@ -26,11 +26,18 @@ bool is_graphical(event_t *event, zappy_t *zappy_s)
 
 static void create_new_trantorian(event_t *event, zappy_t *zappy_s)
 {
+    trantorian_t *trantorian = create_trantorian_from_event(
+    event->request, zappy_s);
+    if (!trantorian) {
+        display_log("Error: trantorian not created\n");
+        return;
+    }
+    (void)trantorian;
     event->client->is_logged = true;
     event->client->is_graphic = false;
-    event->client->trantorian = create_trantorian_from_event(
-    event->request, zappy_s);
-    event->client->trantorian->client = event->client;
+    event->client->is_connected = true;
+    trantorian->client = event->client;
+    event->client->trantorian = trantorian;
     notifie_gui_pnw(event->client, zappy_s);
 }
 
@@ -42,7 +49,7 @@ bool special_event(event_t *event, zappy_t *zappy_s)
         event_connection(event, zappy_s);
         return (true);
     }
-    display_log("Special event: %s", event->request);
+
     for (size_t i = 0; zappy_s->args->names[i] != NULL; i++) {
         if (strncmp(event->request, zappy_s->args->names[i],
             strlen(zappy_s->args->names[i])) == 0) {

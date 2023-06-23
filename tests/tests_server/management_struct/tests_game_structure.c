@@ -15,13 +15,14 @@ Test(init_game_struct, test_create_egg)
     args->height = 10;
     args->width = 10;
     args->freq = 100;
+    args->names = calloc(2, sizeof(char *));
+    args->names[0] = strdup("team");
+    args->names[1] = strdup("team2");
     game_struct_t *game_struct = init_game_struct(args);
 
     cr_assert_eq(game_struct->map->width, 10);
     cr_assert_eq(game_struct->map->height, 10);
     cr_assert_eq(game_struct->time_unit, 100);
-    cr_assert_eq(game_struct->all_clans.lh_first, NULL);
-    cr_assert_eq(game_struct->all_eggs.lh_first, NULL);
 }
 
 Test(add_object_at_tile, test_add_object_at_tile)
@@ -30,6 +31,9 @@ Test(add_object_at_tile, test_add_object_at_tile)
     args->height = 10;
     args->width = 10;
     args->freq = 100;
+    args->names = calloc(2, sizeof(char *));
+    args->names[0] = strdup("team");
+    args->names[1] = strdup("team2");
     game_struct_t *game_struct = init_game_struct(args);
 
     add_object_at_tile(game_struct->map, FOOD, 0, 0);
@@ -54,13 +58,16 @@ Test(fill_map, test_fill_map)
     args->height = 10;
     args->width = 10;
     args->freq = 100;
+    args->names = calloc(2, sizeof(char *));
+    args->names[0] = strdup("team");
+    args->names[1] = strdup("team2");
     int count_object = 0;
     game_struct_t *game_struct = init_game_struct(args);
-    int nb_of_object = game_struct->map->height * game_struct->map->width * 0.5; // for food
-
-    fill_map(game_struct->map);
-    for (int i = 0; i < 100; i++) {
-        count_object += game_struct->map->tile[i]->nb_of_objects[FOOD];
+    int nb_of_object = 10 * 10 * FOOD_DENSITY / 1000;
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            count_object += game_struct->map->tile[i][j].nb_of_objects[FOOD];
+        }
     }
     cr_assert_eq(count_object, nb_of_object);
 }
@@ -71,13 +78,17 @@ Test(fill_map, test_fill_map_thystame)
     args->height = 10;
     args->width = 10;
     args->freq = 100;
+    args->names = calloc(2, sizeof(char *));
+    args->names[0] = strdup("team");
+    args->names[1] = strdup("team2");
     int count_object = 0;
     game_struct_t *game_struct = init_game_struct(args);
-    int nb_of_object = game_struct->map->height * game_struct->map->width * 0.05;
+    int nb_of_object = 10 * 10 * THYSTAME_DENSITY / 1000;
 
-    fill_map(game_struct->map);
-    for (int i = 0; i < 100; i++) {
-        count_object += game_struct->map->tile[i]->nb_of_objects[THYSTAME];
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            count_object += game_struct->map->tile[i][j].nb_of_objects[THYSTAME];
+        }
     }
     cr_assert_eq(count_object, nb_of_object);
 }
@@ -89,6 +100,9 @@ Test(fill_map, test_fill_map_thystame_small_map)
     args->height = 10;
     args->width = 5;
     args->freq = 100;
+    args->names = calloc(2, sizeof(char *));
+    args->names[0] = strdup("team");
+    args->names[1] = strdup("team2");
     int count_object = 0;
 
     game_struct_t *game_struct = init_game_struct(args);
@@ -96,9 +110,10 @@ Test(fill_map, test_fill_map_thystame_small_map)
     nb_of_object /= 1000;
     int tmp = (int) nb_of_object;
     tmp += (tmp < nb_of_object) ? 1 : 0;
-    fill_map(game_struct->map);
-    for (int i = 0; i < 50; i++) {
-        count_object += game_struct->map->tile[i]->nb_of_objects[THYSTAME];
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 5; j++) {
+            count_object += game_struct->map->tile[i][j].nb_of_objects[THYSTAME];
+        }
     }
     cr_assert_eq(count_object, tmp);
 }

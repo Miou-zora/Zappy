@@ -37,10 +37,11 @@ static bool update_inventory_tile(trantorian_t *trantorian,
 
 void set_object(client_t *client, zappy_t *zappy, char *param)
 {
+    map_t *map = zappy->game_struct->map;
+    vector_t pos = client->trantorian->position;
+
     if (update_inventory_tile(client->trantorian,
-        zappy->game_struct->map->tile[client->trantorian->position.x +
-        client->trantorian->position.y * zappy->game_struct->map->width],
-            param)) {
+        &map->tile[pos.y][pos.x], param)) {
         response_t *response = create_response("ok\n");
         add_client_to_response(response, client);
         add_response_to_list(response, zappy);

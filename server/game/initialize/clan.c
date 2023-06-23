@@ -48,7 +48,7 @@ clan_t *create_clan(size_t max_members, char *team_name)
         return (NULL);
     clan->name = strdup(team_name);
     clan->max_nb_of_members = max_members;
-    clan->all_members = create_clan_members_chained_list();
+    LIST_INIT(&clan->all_members);
     return (clan);
 }
 

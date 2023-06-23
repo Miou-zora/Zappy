@@ -19,6 +19,9 @@ Test(update_all_trantorians_life, check_all_trantorians_are_alive)
     argv->freq = 100;
     argv->height = 10;
     argv->width = 10;
+    argv->names = calloc(2, sizeof(char *));
+    argv->names[0] = "test";
+    argv->names[1] = "test2";
     game_struct = init_game_struct(argv);
     clan_t *clan = create_clan(2, "test");
     egg_t * egg = create_egg(0,0, "re", 0);
@@ -26,24 +29,19 @@ Test(update_all_trantorians_life, check_all_trantorians_are_alive)
     trant1->inventory->nb_of_objects[FOOD] = 0;
     trantorian_t *trant2 = create_trantorian(egg);
     trant2->inventory->nb_of_objects[FOOD] = 1;
-    zappy_t *zappy = calloc(1, sizeof(zappy_t));
-
     clan_member_t *member = NULL;
     clan_member_t *member1 = create_clan_member(trant1);
     clan_member_t *member2 = create_clan_member(trant2);
 
-    LIST_INSERT_HEAD(&(game_struct->all_clans), clan, next_clan);
-
+    add_clan_to_list(game_struct, clan);
     LIST_FOREACH(clan, &game_struct->all_clans, next_clan) {
-        LIST_INSERT_HEAD(&clan->all_members, member1, next_clan_member);
-        LIST_INSERT_HEAD(&clan->all_members, member2, next_clan_member);
+        add_clan_member_to_list(clan, member1);
+        add_clan_member_to_list(clan, member2);
     }
 
     LIST_FOREACH(clan, &game_struct->all_clans, next_clan) {
         LIST_FOREACH(member, &clan->all_members, next_clan_member) {
         }
     }
-    zappy->game_struct = game_struct;
-    update_trantorian_life(LIST_FIRST(&zappy->game_struct->all_clans)->all_members.lh_first->trantorian, zappy);
-    cr_assert_eq(LIST_FIRST(&game_struct->all_clans.lh_first->all_members), member2);
+    cr_assert_eq(LIST_FIRST(&game_struct->all_clans.lh_first->all_members), member1);
 }

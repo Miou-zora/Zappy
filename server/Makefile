@@ -5,15 +5,15 @@
 ## Makefile
 ##
 
-SRC_PARSER	=	parser_args/parse_args.c 				\
-				parser_args/get_freq.c 					\
-				parser_args/get_port.c 					\
-				parser_args/get_width.c 				\
-				parser_args/get_height.c 				\
-				parser_args/get_names.c 				\
-				parser_args/get_nb_client.c 			\
+SRC_PARSER	=	parser_args/parse_args.c 									\
+				parser_args/get_freq.c 										\
+				parser_args/get_port.c 										\
+				parser_args/get_width.c 									\
+				parser_args/get_height.c 									\
+				parser_args/get_names.c 									\
+				parser_args/get_nb_client.c 								\
 
-SRC_DISPLAY = display/display_log.c 					\
+SRC_DISPLAY = display/display_log.c 										\
 
 SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/initialize/egg.c 					\
@@ -56,6 +56,8 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/eject/move_trantorians.c						\
 				game/gui_protocol/gui_pin.c									\
 				game/manage_timer/update_players.c 							\
+				game/initialize/clans_lists.c								\
+				game/initialize/create_list_clans.c							\
 				game/command/fork.c											\
 				game/gui_protocol/gui_pdi.c 			\
 
@@ -69,7 +71,8 @@ SRC_NETWORK =	network/build/build_server.c			\
 				network/utils_network/write.c			\
 				network/utils_network/destroy_zappy.c 	\
 				network/response/response.c				\
-				network/response/insert_response.c
+				network/response/insert_response.c		\
+				network/client/clients_list.c			\
 
 OBJ			=	$(SRC:%.c=%.o)
 OBJ			+=	$(SRC_PARSER:%.c=%.o)
@@ -145,7 +148,7 @@ all:			$(NAME)
 $(NAME):		$(OBJ) $(OBJ_MAIN)
 		$(CC) -o $(NAME) $(OBJ) $(OBJ_MAIN) $(CFLAGS) $(INCLUDE)
 
-debug:			CFLAGS += -g -static
+debug:			CFLAGS += -g
 debug:			re
 
 tests_run:		$(TESTS_OBJ)

@@ -14,9 +14,9 @@ map_t *create_map(int width, int height)
 
     map->width = width;
     map->height = height;
-    map->tile = calloc(1, sizeof(object_t*) * (width * height));
-    for (int i = 0; i < width * height; i++) {
-        map->tile[i] = calloc(1, sizeof(object_t));
+    map->tile = calloc(height, sizeof(object_t *));
+    for (int i = 0; i < height; i++) {
+        map->tile[i] = calloc(width, sizeof(object_t));
     }
     return (map);
 }
