@@ -31,6 +31,13 @@ namespace GUI::Game {
         for (auto &player : _players) {
             player->update();
         }
+        for (std::size_t index = 0; index < _incantations.size(); index++) {
+            if (_incantations[index]->isFinished()) {
+                std::cout << "PERSO: INFO: INCANTATION FINISHED: at X=" << _incantations[index]->getPosX() << " y=" << _incantations[index]->getPosY() << std::endl;
+                _incantations.erase(_incantations.begin() + index);
+                index--;
+            }
+        }
         _eventPool->updateEvents();
     }
 
