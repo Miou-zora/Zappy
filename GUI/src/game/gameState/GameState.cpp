@@ -20,7 +20,7 @@ namespace GUI::Game {
 
     }
 
-    void GameState::update(void)
+    void GameState::update(const double &deltaTime)
     {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             _catch();
@@ -38,7 +38,7 @@ namespace GUI::Game {
                 index--;
             }
         }
-        _eventPool->updateEvents();
+        _eventPool->updateEvents(deltaTime);
     }
 
     void GameState::render(void)

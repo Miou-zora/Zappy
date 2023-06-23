@@ -15,10 +15,10 @@ namespace GUI::Game {
             event->draw(camera);
     }
 
-    void EventPool::updateEvents(void)
+    void EventPool::updateEvents(const double &deltaTime)
     {
         for (auto &event : _events)
-            event->update();
+            event->update(deltaTime);
         for (std::size_t index = 0; index < _events.size(); index++) {
             if (_events[index]->isEnded()) {
                 _events.erase(_events.begin() + index);

@@ -13,7 +13,8 @@
 namespace GUI::Graphic::Object {
     Camera::Camera(float fov):
         Object(),
-        _fov(fov)
+        _fov(fov),
+        _locked(false)
     {
         _camera = std::make_shared<::Camera>();
 
@@ -24,6 +25,7 @@ namespace GUI::Graphic::Object {
         (*_camera).projection = CAMERA_PERSPECTIVE;
 
         _cameraMode = CAMERA_FIRST_PERSON;
+        lock();
     }
 
     Camera::Camera(const Camera &other): Object(other)

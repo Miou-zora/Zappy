@@ -27,6 +27,8 @@ namespace GUI::Graphic {
     {
         InitWindow(_width, _height, (_title + " Raylib").c_str());
         SetTargetFPS(60);
+        _cursorDisabled = false;
+        EnableCursor();
         _open = true;
     }
 

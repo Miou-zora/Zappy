@@ -16,7 +16,7 @@ namespace GUI::Game {
             ~EventPool(void) = default;
 
             void drawEvents(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
-            void updateEvents(void);
+            void updateEvents(const double &deltaTime);
 
             void addEvent(std::shared_ptr<IEvent> event);
 

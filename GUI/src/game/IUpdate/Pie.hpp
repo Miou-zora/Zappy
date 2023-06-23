@@ -10,6 +10,7 @@
 #include "StringUtils.hpp"
 #include "Tile.hpp"
 #include <map>
+#include "IncantationEvent.hpp"
 
 namespace GUI::Game {
     class Pie : public GUI::Game::IUpdate {
@@ -31,6 +32,9 @@ namespace GUI::Game {
                 std::size_t x = 0;
                 std::size_t y = 0;
                 bool result = false;
+                int incantationLevel = 0;
+                std::shared_ptr<GUI::Game::Tile> tile;
+                Vector3 posOfIncantationBillboard = {0, 0, 0};
 
                 if (args.size() != 4) {
                     std::cerr << "Error: Pie: wrong number of arguments" << std::endl;
@@ -47,9 +51,17 @@ namespace GUI::Game {
                 for (auto &incantation : _gameState->getIncantations()) {
                     if (incantation->getPosX() == x && incantation->getPosY() == y) {
                         incantation->finish(result);
-                        return;
+                        incantationLevel = incantation->getLevel();
                     }
                 }
+                tile = _gameState->getMap()->getTile(x, y);
+                if (tile == nullptr) {
+                    std::cerr << "Error: Pie: tile is nullptr" << std::endl;
+                    return;
+                }
+                posOfIncantationBillboard = tile->getPos();
+                posOfIncantationBillboard.y += 2;
+                _gameState->getEventPool()->addEvent(std::make_shared<GUI::Game::IncantationEvent>(incantationLevel, posOfIncantationBillboard));
             }
     };
 }

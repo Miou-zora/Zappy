@@ -19,8 +19,6 @@ namespace GUI::Game {
 
     void GameCore::update(const double &timeElapsed)
     {
-        (void) timeElapsed;
-
         if (_gameState == nullptr) {
             throw GUI::GameException("Error: no game state set");
         } else if (_client == nullptr) {
@@ -38,7 +36,7 @@ namespace GUI::Game {
             }
             response = _client->getResponse();
         }
-        _gameState->update();
+        _gameState->update(timeElapsed);
     }
 
     void GameCore::render(void) {

@@ -13,7 +13,7 @@ namespace GUI::Game {
     class IEvent {
         public:
             virtual void draw(std::shared_ptr<GUI::Graphic::Object::Camera>) = 0;
-            virtual void update(void) = 0;
+            virtual void update(const double &deltaTime) = 0;
             virtual bool isEnded(void) = 0;
     };
 }

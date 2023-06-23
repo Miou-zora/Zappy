@@ -20,7 +20,7 @@ namespace GUI::Game {
             GameState(std::shared_ptr<GUI::Graphic::Scene> scene = nullptr);
             ~GameState(void) = default;
 
-            void update(void);
+            void update(const double &deltaTime);
             void render(void);
             void init(void);
 
@@ -34,6 +34,7 @@ namespace GUI::Game {
             std::vector<std::shared_ptr<GUI::Game::Player>> &getPlayers() { return _players; };
             std::vector<std::string> &getTeamNames() { return _teamNames; };
             std::vector<std::shared_ptr<GUI::Game::Incantation>> &getIncantations() { return _incantations; };
+            std::shared_ptr<GUI::Game::EventPool> &getEventPool() { return _eventPool; };
 
         private:
             void _drawTeams(void) const;
