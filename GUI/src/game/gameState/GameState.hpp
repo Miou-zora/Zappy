@@ -12,6 +12,7 @@
 #include "Player.hpp"
 #include "Incantation.hpp"
 #include "EventPool.hpp"
+#include "ICatchable.hpp"
 
 namespace GUI::Game {
     class GameState {
@@ -37,6 +38,8 @@ namespace GUI::Game {
         private:
             void _drawTeams(void) const;
             void _displayTimeUnit(void) const;
+            void _catch(void);
+            void _drop(void);
 
             std::shared_ptr<GUI::Graphic::Scene> _scene;
             std::shared_ptr<GUI::Game::Map> _map;
@@ -45,5 +48,6 @@ namespace GUI::Game {
             std::vector<std::shared_ptr<GUI::Game::Player>> _players;
             std::vector<std::shared_ptr<GUI::Game::Incantation>> _incantations;
             std::shared_ptr<GUI::Game::EventPool> _eventPool;
+            std::shared_ptr<GUI::Game::ICatchable> _entityCatched;
     };
 }

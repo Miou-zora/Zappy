@@ -14,13 +14,19 @@ namespace GUI::Game {
         _map(std::make_shared<GUI::Game::Map>(0, 0)),
         _settings(std::make_shared<GUI::Game::GameSettings>()),
         _incantations(std::vector<std::shared_ptr<GUI::Game::Incantation>>()),
-        _eventPool(std::make_shared<GUI::Game::EventPool>())
+        _eventPool(std::make_shared<GUI::Game::EventPool>()),
+        _entityCatched(nullptr)
     {
 
     }
 
     void GameState::update(void)
     {
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            _catch();
+        } else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
+            _drop();
+        }
         _map->update();
         for (auto &player : _players) {
             player->update();
@@ -42,6 +48,8 @@ namespace GUI::Game {
         _drawTeams();
         DrawFPS(700, 10);
         _displayTimeUnit();
+        if (_entityCatched != nullptr)
+            _entityCatched->drawInfo();
     }
 
     void GameState::init(void)
@@ -64,5 +72,20 @@ namespace GUI::Game {
         std::string textToDisplay = "Time Unit: " + std::to_string(_settings->getTimeUnit());
 
         DrawText(textToDisplay.c_str(), 10, 600 - 20, 20, WHITE);
+    }
+
+    void GameState::_catch(void)
+    {
+        Ray ray = GetMouseRay(GetMousePosition(), *_scene->getCamera()->getCamera());
+        (void) ray;
+        // TODO: check if catchable is in range
+        // if something is catched, set _catchable to the catched object
+    }
+
+    void GameState::_drop(void)
+    {
+        if (_entityCatched == nullptr)
+            return;
+        _entityCatched = nullptr;
     }
 }
