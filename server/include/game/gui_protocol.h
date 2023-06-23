@@ -104,17 +104,6 @@ void handle_gui_plv(event_t *event, zappy_t *zappy);
 void notifie_gui_pin(trantorian_t *player, zappy_t *zappy);
 
 /**
- * @brief notifie all GUI clients of the player's expulsion
- * out of a tile
- * must be called when the player is expelled from a tile
- * the message: pex n\n
- * @param player the player
- * @param zappy the struct containing all the informations about the server
- * @return ** void
- */
-void notifie_gui_pex(trantorian_t *player, zappy_t *zappy);
-
-/**
  * @brief notifie all GUI clients of the player's broadcast
  * must be called when the player broadcasts a message
  * the message: pbc n message\n
@@ -385,7 +374,17 @@ void send_death_to_gui(trantorian_t *trantorian, zappy_t *zappy);
 client_t *get_gui_client(struct client_list *clients);
 
 /**
- * @brief send the pgt information to gui
+ * @brief notifie gui pex for explusion
+ *
+ * @param trantorian is struct
+ * @param server is zappy
+ * @param client is client
+ */
+void notifie_gui_pex(trantorian_t *trantorian, zappy_t *server,
+    client_t *client);
+
+/**
+* @brief send the pgt information to gui
  *
  * @param client
  * @param zappy

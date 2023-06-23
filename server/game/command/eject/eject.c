@@ -36,6 +36,7 @@ void do_eject(client_t *client, zappy_t *zappy, char *param)
         response_t *response = create_response("ok\n");
         add_client_to_response(response, client);
         add_response_to_list(response, zappy);
+        notifie_gui_pex(client->trantorian, zappy, client);
     } else {
         response_t *response = create_response("ko\n");
         add_client_to_response(response, client);

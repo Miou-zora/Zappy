@@ -60,6 +60,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/initialize/create_list_clans.c							\
 				game/command/fork.c											\
 				game/gui_protocol/gui_pdi.c 			\
+				game/gui_protocol/gui_pex.c 			\
 				game/gui_protocol/gui_pgt.c 			\
 				game/gui_protocol/gui_pdr.c 			\
 
