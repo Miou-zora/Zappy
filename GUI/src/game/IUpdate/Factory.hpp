@@ -23,6 +23,7 @@
 #include "Pdr.hpp"
 #include "Pic.hpp"
 #include "Plv.hpp"
+#include "Sbp.hpp"
 #include "Suc.hpp"
 #include "Smg.hpp"
 #include "GameState.hpp"
@@ -127,6 +128,11 @@ namespace GUI::Game {
                             std::shared_ptr<GUI::Network::IOPooledClient> client,
                             std::string command) {
                     return std::make_shared<GUI::Game::Plv>(gameState ,client, command);
+                }},
+                {"sbp", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                            std::shared_ptr<GUI::Network::IOPooledClient> client,
+                            std::string command) {
+                    return std::make_shared<GUI::Game::Sbp>(gameState ,client, command);
                 }},
                 {"suc", [](std::shared_ptr<GUI::Game::GameState> gameState,
                             std::shared_ptr<GUI::Network::IOPooledClient> client,
