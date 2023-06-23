@@ -392,3 +392,11 @@ client_t *get_gui_client(struct client_list *clients);
  * @param param
  */
 void send_gui_pgt(client_t *client, zappy_t *zappy, char *param);
+
+/**
+ * @brief send the pdr information to gui
+ * @param client_t client
+ * @param zappy_t zappy
+ * @param char *param
+ */
+void send_gui_pdr(client_t *client, zappy_t *zappy, char *param);

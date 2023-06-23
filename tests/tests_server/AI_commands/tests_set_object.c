@@ -32,6 +32,8 @@ Test(set_object, set_object_success)
 
     set_object(client, zappy, "linemate");
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
+    LIST_REMOVE(zappy->responses.lh_first, next);
+    cr_assert_str_eq(zappy->responses.lh_first->content, "pdr 1 1\n");
 }
 
 Test(set_object, set_object_fail)
@@ -52,4 +54,7 @@ Test(set_object, set_object_fail)
 
     set_object(client, zappy, "mendiane");
     cr_assert_str_eq(zappy->responses.lh_first->content, "ko\n");
+    LIST_REMOVE(zappy->responses.lh_first, next);
+    printf("test %d", LIST_EMPTY(&zappy->responses));
+    cr_assert_eq(LIST_EMPTY(&zappy->responses), true);
 }

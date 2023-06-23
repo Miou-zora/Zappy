@@ -47,9 +47,15 @@ Test(take_object, take_object_success2)
     event->client->trantorian = trantorian;
     map_t *map = zappy->game_struct->map;
     map->tile[1][1].nb_of_objects[LINEMATE] = 3;
+    client_t *gui = calloc(1, sizeof(client_t));
+    gui->is_connected = true;
+    gui->is_logged = true;
+    gui->is_graphic = true;
 
     take_object(client, zappy, "linemate");
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
+    LIST_REMOVE(zappy->responses.lh_first, next);
+    cr_assert_str_eq(zappy->responses.lh_first->content, "pgt 1 1\n");
 }
 
 

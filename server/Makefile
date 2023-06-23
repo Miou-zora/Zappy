@@ -61,6 +61,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/fork.c											\
 				game/gui_protocol/gui_pdi.c 			\
 				game/gui_protocol/gui_pgt.c 			\
+				game/gui_protocol/gui_pdr.c 			\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\

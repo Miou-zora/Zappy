@@ -6,8 +6,9 @@
 */
 
 #include "server.h"
+#include "game.h"
 
-int get_nb_ressource_by_name(char *param)
+int get_id_ressource_by_name(char *param)
 {
     char *all_ressources[] = {"food", "linemate", "deraumere", "sibur",
         "mendiane", "phiras", "thystame", NULL};
@@ -23,7 +24,7 @@ void send_gui_pgt(client_t *client, zappy_t *zappy, char *param)
 {
     char buffer[1024];
     response_t *response = NULL;
-    int ressource_nb = get_nb_ressource_by_name(param);
+    int ressource_nb = get_id_ressource_by_name(param);
 
     if (sprintf(buffer, "pgt %d %d\n", client->trantorian->id,
         ressource_nb) < 0)
@@ -31,6 +32,6 @@ void send_gui_pgt(client_t *client, zappy_t *zappy, char *param)
     response = create_response(buffer);
     if (!response)
         return;
-    add_client_to_response(response, client);
+    add_client_to_response(response, get_gui_client(&zappy->clients));
     add_response_to_list(response, zappy);
 }

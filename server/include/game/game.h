@@ -246,3 +246,11 @@ void add_comma_to_buffer(char *buffer);
  * @param zappy
  */
 void update_trantorian_life(trantorian_t *trantorian, zappy_t *zappy);
+
+/**
+ * @brief return the id of the element. see enum ELEMENTS
+ *
+ * @param char* param
+ * @return int id
+ */
+int get_id_ressource_by_name(char *param);

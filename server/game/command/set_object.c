@@ -45,6 +45,7 @@ void set_object(client_t *client, zappy_t *zappy, char *param)
         response_t *response = create_response("ok\n");
         add_client_to_response(response, client);
         add_response_to_list(response, zappy);
+        send_gui_pdr(client, zappy, param);
     } else {
         response_t *response = create_response("ko\n");
         add_client_to_response(response, client);
