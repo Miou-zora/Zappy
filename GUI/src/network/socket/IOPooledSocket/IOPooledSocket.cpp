@@ -92,6 +92,10 @@ namespace GUI::Network {
         if (::recv(_fd, buffer, 1024, 0) < 0) {
             throw GUI::NetworkException("Error: recv failed: " + std::string(strerror(errno)));
         }
+        if (strlen(buffer) == 0) {
+            _closed = true;
+            return;
+        }
         _pool->addResponse(std::make_shared<GUI::Network::Response>(buffer));
     }
 
@@ -112,11 +116,13 @@ namespace GUI::Network {
         tv.tv_sec = 0;
         tv.tv_usec = 0;
 
+        if (_closed) {
+            return;
+        }
         FD_ZERO(&readfds);
         FD_SET(_fd, &readfds);
         FD_ZERO(&writefds);
         FD_SET(_fd, &writefds);
-
         do {
             activity = select(max_fd, &readfds, &writefds, NULL, &tv);
             if (activity < 0)
@@ -130,7 +136,7 @@ namespace GUI::Network {
                     activity = 0;
                 }
             }
-        } while (activity > 0);
+        } while (activity > 0 && !_closed);
     }
 
     std::shared_ptr<GUI::Network::Response> IOPooledSocket::getResponse(void)
