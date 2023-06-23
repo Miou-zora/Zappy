@@ -220,3 +220,11 @@ bool push_player(client_t *client, zappy_t *zappy);
  * @param map
  */
 vector_t check_edges(int x, int y, map_t *map);
+
+/**
+ * @brief update the life of trantorian
+ *
+ * @param trantorian
+ * @param zappy
+ */
+void update_trantorian_life(trantorian_t *trantorian, zappy_t *zappy);

@@ -32,7 +32,6 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/refill_obj/management_stone.c		\
 				game/refill_obj/generation_list_stone.c \
 				game/refill_obj/malloc_tab_array.c		\
-				game/check_functions/check_functions.c  \
 				game/gui_protocol/gui_msz.c				\
 				game/gui_protocol/handle_event.c		\
 				game/gui_protocol/gui_sgt.c				\
@@ -57,7 +56,8 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/eject/move_trantorians.c						\
 				game/gui_protocol/gui_pin.c									\
 				game/manage_timer/update_players.c 							\
-				game/command/fork.c		 									\
+				game/command/fork.c											\
+				game/gui_protocol/gui_pdi.c 			\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
@@ -117,6 +117,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_tna.c			 	 	 	 \
 				$(TESTS_FOLDER)AI_commands/tests_look.c			 	 	 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_pin.c			 	 	 \
+				$(TESTS_FOLDER)gui_protocol/gui_pdi.c
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 

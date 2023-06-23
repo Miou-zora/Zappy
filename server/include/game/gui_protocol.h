@@ -361,4 +361,25 @@ void notifie_gui_tna(client_t *client, zappy_t *zappy);
 
 void handle_gui_pin(event_t *event, zappy_t *zappy);
 
+/**
+ * @brief send the inventory to the gui
+ *
+ * @param tran
+ * @param zappy
+ */
 void send_gui_pin(trantorian_t *tran, client_t *client, zappy_t *zappy);
+
+/**
+ * @brief send the death of a player to the gui
+ *
+ * @param trantorian
+ * @param zappy
+ */
+void send_death_to_gui(trantorian_t *trantorian, zappy_t *zappy);
+
+/**
+ * @brief return the gui_client
+ *
+ * @param client list
+ */
+client_t *get_gui_client(struct client_list *clients);

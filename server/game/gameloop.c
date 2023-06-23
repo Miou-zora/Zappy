@@ -7,7 +7,6 @@
 
 #include "server.h"
 #include "trantorian.h"
-#include "check_functions.h"
 #include "gui_protocol.h"
 #include "game.h"
 
