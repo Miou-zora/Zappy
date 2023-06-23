@@ -53,4 +53,35 @@ namespace GUI::Game {
     {
         _model->draw(camera);
     }
+
+    void Player::drawInfo(std::shared_ptr<GUI::Graphic::Object::Camera> _camera)
+    {
+        Vector3 scale = _model->getScale();
+        if (_camera != nullptr) {
+            scale.x += 0.01;
+            scale.y += 0.01;
+            scale.z += 0.01;
+            BeginMode3D(*_camera->getCamera());
+                DrawModelWiresEx(*_model->getModel(), _model->getPos(), _model->getRot(), 1, scale, RAYWHITE);
+            EndMode3D();
+        }
+        DrawText(("Player " + std::to_string(_id)).c_str(), 10, 10, 20, WHITE);
+        DrawText(("Team: " + _teamName).c_str(), 10, 30, 20, WHITE);
+        DrawText(("Level: " + std::to_string(_level)).c_str(), 10, 50, 20, WHITE);
+        DrawText(("Orientation: " + _orientationToString(_orientation)).c_str(), 10, 70, 20, WHITE);
+        DrawText(("Food: " + std::to_string(_foodContainer->getQuantity())).c_str(), 10, 90, 20, WHITE);
+        DrawText(("Linemate: " + std::to_string(_linemateContainer->getQuantity())).c_str(), 10, 110, 20, WHITE);
+        DrawText(("Deraumere: " + std::to_string(_deraumereContainer->getQuantity())).c_str(), 10, 130, 20, WHITE);
+        DrawText(("Sibur: " + std::to_string(_siburContainer->getQuantity())).c_str(), 10, 150, 20, WHITE);
+        DrawText(("Mendiane: " + std::to_string(_mendianeContainer->getQuantity())).c_str(), 10, 170, 20, WHITE);
+        DrawText(("Phiras: " + std::to_string(_phirasContainer->getQuantity())).c_str(), 10, 190, 20, WHITE);
+        DrawText(("Thystame: " + std::to_string(_thystameContainer->getQuantity())).c_str(), 10, 210, 20, WHITE);
+    }
+
+    std::shared_ptr<BoundingBox> Player::getBoundingBox(void)
+    {
+        if (_model == nullptr)
+            return nullptr;
+        return _model->getBoundingBox();
+    }
 }

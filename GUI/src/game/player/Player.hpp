@@ -16,6 +16,7 @@
 #include "MendianeContainer.hpp"
 #include "PhirasContainer.hpp"
 #include "ThystameContainer.hpp"
+#include "ICatchable.hpp"
 
 namespace GUI::Game {
     enum Orientation {
@@ -24,7 +25,7 @@ namespace GUI::Game {
         SOUTH,
         WEST
     };
-    class Player {
+    class Player : virtual public ICatchable{
         public:
             Player(const std::string &teamName, int id, Vector2 position, Orientation orientation, size_t level = 1);
 
@@ -32,6 +33,9 @@ namespace GUI::Game {
 
             void update(void);
             void render(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
+
+            void drawInfo(std::shared_ptr<GUI::Graphic::Object::Camera> _camera);
+            std::shared_ptr<BoundingBox> getBoundingBox(void);
 
             void setPosition(Vector2 position) { _position = position; };
             void setOrientation(Orientation orientation) { _orientation = orientation; };
@@ -69,5 +73,20 @@ namespace GUI::Game {
             std::shared_ptr<GUI::Game::MendianeContainer> _mendianeContainer;
             std::shared_ptr<GUI::Game::PhirasContainer> _phirasContainer;
             std::shared_ptr<GUI::Game::ThystameContainer> _thystameContainer;
+
+            static std::string _orientationToString(Orientation orientation) {
+                switch (orientation) {
+                    case NORTH:
+                        return "NORTH";
+                    case EAST:
+                        return "EAST";
+                    case SOUTH:
+                        return "SOUTH";
+                    case WEST:
+                        return "WEST";
+                }
+                return "NORTH";
+            };
+
     };
 }

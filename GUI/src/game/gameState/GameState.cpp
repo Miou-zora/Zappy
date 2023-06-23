@@ -52,9 +52,10 @@ namespace GUI::Game {
             player->render(_scene->getCamera());
         }
         _eventPool->drawEvents(_scene->getCamera());
-        _drawTeams();
         if (_entityCatched != nullptr)
             _entityCatched->drawInfo(_scene->getCamera());
+        else
+            _drawTeams();
         DrawFPS(700, 10);
         _displayTimeUnit();
     }
@@ -90,6 +91,7 @@ namespace GUI::Game {
         std::shared_ptr<BoundingBox> boundingBox = nullptr;
         float rayDistance = 0.0f;
 
+        catchables->insert(catchables->end(), _players.begin(), _players.end());
         for (auto &catchable : *catchables) {
             boundingBox = catchable->getBoundingBox();
             if (boundingBox == nullptr)

@@ -107,7 +107,6 @@ namespace GUI::Game {
                 DrawModelWiresEx(*_model->getModel(), _model->getPos(), _model->getRot(), 1, scale, RAYWHITE);
             EndMode3D();
         }
-        DrawRectangle(0, 0, 200, 200, BLACK);
         DrawText(("Tile: x=" + std::to_string(static_cast<int>(_tileIndexes.x)) + " y=" + std::to_string(static_cast<int>(_tileIndexes.y))).c_str(), 10, 10, 20, RAYWHITE);
         DrawText(("Food: " + std::to_string((_foodContainer->getQuantity()))).c_str(), 10, 30, 20, RAYWHITE);
         DrawText(("Linemate: " + std::to_string((_linemateContainer->getQuantity()))).c_str(), 10, 50, 20, RAYWHITE);
