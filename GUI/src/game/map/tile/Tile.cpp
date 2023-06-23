@@ -12,26 +12,26 @@ namespace GUI::Game {
     Tile::Tile(void):
         Object(),
         _model(std::make_shared<GUI::Graphic::Object::Model>(LoadModelFromMesh(GenMeshCube(1, 1, 1)), RED)),
-        _foodContainer(std::make_shared<GUI::Game::FoodContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _siburContainer(std::make_shared<GUI::Game::SiburContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1))))
+        _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
+        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
+        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
+        _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
+        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
+        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
+        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
     {
     }
 
     Tile::Tile(Vector2 tileIndexes, Vector3 pos):
         Object(pos),
         _model(std::make_shared<GUI::Graphic::Object::Model>(LoadModelFromMesh(GenMeshCube(1, 1, 1)), RED)),
-        _foodContainer(std::make_shared<GUI::Game::FoodContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _siburContainer(std::make_shared<GUI::Game::SiburContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>(LoadModelFromMesh(GenMeshCube(1, 1, 1)))),
+        _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
+        _linemateContainer(std::make_shared<GUI::Game::LinemateContainer>()),
+        _deraumereContainer(std::make_shared<GUI::Game::DeraumereContainer>()),
+        _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
+        _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
+        _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
+        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>()),
         _tileIndexes(tileIndexes)
     {
         _model->setPos(pos.x, pos.y, pos.z);

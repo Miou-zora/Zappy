@@ -9,8 +9,8 @@
 #include <iostream>
 
 namespace GUI::Game {
-    Container::Container(size_t quantity, size_t size, ::Model model):
-        _model(std::make_shared<GUI::Graphic::Object::Model>(model)),
+    Container::Container(size_t quantity, size_t size, std::shared_ptr<GUI::Graphic::Object::Model> model):
+        _model(model),
         _quantity(quantity),
         _maxSize(size)
     {
