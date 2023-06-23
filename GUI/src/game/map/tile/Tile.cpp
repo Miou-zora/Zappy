@@ -7,6 +7,7 @@
 
 #include "Tile.hpp"
 #include <iostream>
+#include <utility>
 
 namespace GUI::Game {
     Tile::Tile(void):
@@ -34,20 +35,21 @@ namespace GUI::Game {
         _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>()),
         _tileIndexes(tileIndexes)
     {
+        srand(time(NULL));
         _model->setPos(pos.x, pos.y, pos.z);
-        _foodContainer->getModel()->setPos(getPos().x - 0.4, getPos().y + 0.5, getPos().z);
+        _foodContainer->getModel()->setPos(getPos().x - 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))), getPos().y + 0.5, getPos().z);
         _foodContainer->getModel()->setScale(0.1, 0.1, 0.1);
-        _linemateContainer->getModel()->setPos(getPos().x, getPos().y + 0.5, getPos().z + 0.4);
+        _linemateContainer->getModel()->setPos(getPos().x, getPos().y + 0.5, getPos().z + 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))));
         _linemateContainer->getModel()->setScale(0.1, 0.1, 0.1);
-        _deraumereContainer->getModel()->setPos(getPos().x + 0.4, getPos().y + 0.5, getPos().z + 0.4);
+        _deraumereContainer->getModel()->setPos(getPos().x + 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))), getPos().y + 0.5, getPos().z + 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))));
         _deraumereContainer->getModel()->setScale(0.1, 0.1, 0.1);
-        _siburContainer->getModel()->setPos(getPos().x + 0.4, getPos().y + 0.5, getPos().z);
+        _siburContainer->getModel()->setPos(getPos().x + 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))), getPos().y + 0.5, getPos().z);
         _siburContainer->getModel()->setScale(0.1, 0.1, 0.1);
-        _mendianeContainer->getModel()->setPos(getPos().x + 0.4, getPos().y + 0.5, getPos().z - 0.4);
+        _mendianeContainer->getModel()->setPos(getPos().x + 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))), getPos().y + 0.5, getPos().z - 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))));
         _mendianeContainer->getModel()->setScale(0.1, 0.1, 0.1);
-        _phirasContainer->getModel()->setPos(getPos().x, getPos().y + 0.5, getPos().z - 0.4);
+        _phirasContainer->getModel()->setPos(getPos().x, getPos().y + 0.5, getPos().z - 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))));
         _phirasContainer->getModel()->setScale(0.1, 0.1, 0.1);
-        _thystameContainer->getModel()->setPos(getPos().x - 0.4, getPos().y + 0.5, getPos().z - 0.4);
+        _thystameContainer->getModel()->setPos(getPos().x - 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))), getPos().y + 0.5, getPos().z - 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX))));
         _thystameContainer->getModel()->setScale(0.1, 0.1, 0.1);
     }
 
