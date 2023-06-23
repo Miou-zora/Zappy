@@ -52,7 +52,7 @@ namespace GUI::Graphic::Object {
             /**
              * @brief draw the model
              */
-            void draw(void);
+            void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
 
         private:
             std::shared_ptr<::Model> _model;

@@ -20,7 +20,7 @@ namespace GUI::Game {
             void resize(unsigned int x, unsigned int y);
 
             void update(void);
-            void render(void);
+            void render(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
 
             std::shared_ptr<GUI::Game::Tile> getTile(unsigned int x, unsigned int y) const;
 

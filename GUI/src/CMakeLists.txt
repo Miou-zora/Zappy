@@ -41,6 +41,8 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/container/mendianeContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/deraumereContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/phirasContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/siburContainer/
+${CMAKE_CURRENT_SOURCE_DIR}/game/event/
+${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -67,13 +69,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/gameState/GameState.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/player/Player.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/Incantation.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/Container.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/game/container/thystameContainer/ThystameContainer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/game/container/foodContainer/FoodContainer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/game/container/linemateContainer/LinemateContainer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/game/container/mendianeContainer/MendianeContainer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/game/container/deraumereContainer/DeraumereContainer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/game/container/phirasContainer/PhirasContainer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/game/container/siburContainer/SiburContainer.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/EventPool.cpp
 )
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

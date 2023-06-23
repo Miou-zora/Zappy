@@ -32,8 +32,11 @@ namespace GUI::Graphic::Object {
 
     }
 
-    void Model::draw(void)
+    void Model::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
     {
-        DrawModelEx(*_model, getPos(), (Vector3){0, 0, 0}, 0, getScale(), BLUE);
+        BeginMode3D(*camera->getCamera());
+            DrawModelEx(*_model, getPos(), getRot(), 0, getScale(), BLUE);
+            DrawModelWiresEx(*_model, getPos(), getRot(), 0, getScale(), BLACK);
+        EndMode3D();
     }
 }

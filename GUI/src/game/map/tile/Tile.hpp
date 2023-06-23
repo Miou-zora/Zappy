@@ -24,7 +24,7 @@ namespace GUI::Game {
             Tile(const Tile &tile) = default;
             ~Tile(void) = default;
 
-            void draw();
+            void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
             void update(void);
 
             void setModel(std::shared_ptr<GUI::Graphic::Object::Model> model);

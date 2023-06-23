@@ -11,6 +11,7 @@
 #include "GameSettings.hpp"
 #include "Player.hpp"
 #include "Incantation.hpp"
+#include "EventPool.hpp"
 
 namespace GUI::Game {
     class GameState {
@@ -43,5 +44,6 @@ namespace GUI::Game {
             std::vector<std::string> _teamNames;
             std::vector<std::shared_ptr<GUI::Game::Player>> _players;
             std::vector<std::shared_ptr<GUI::Game::Incantation>> _incantations;
+            std::shared_ptr<GUI::Game::EventPool> _eventPool;
     };
 }

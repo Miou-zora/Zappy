@@ -61,24 +61,26 @@ namespace GUI::Game {
         return _model;
     }
 
-    void Tile::draw()
+    void Tile::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
     {
-        DrawCube(getPos(), 0.95, 0.95, 0.95, RED);
-        DrawCubeWires(getPos(), 0.95, 0.95, 0.95, BLACK);
+        BeginMode3D(*camera->getCamera());
+            DrawCube(getPos(), 0.95, 0.95, 0.95, RED);
+            DrawCubeWires(getPos(), 0.95, 0.95, 0.95, BLACK);
+        EndMode3D();
         if ((*_foodContainer) > 0)
-            _foodContainer->draw();
+            _foodContainer->draw(camera);
         if ((*_linemateContainer) > 0)
-            _linemateContainer->draw();
+            _linemateContainer->draw(camera);
         if ((*_deraumereContainer) > 0)
-            _deraumereContainer->draw();
+            _deraumereContainer->draw(camera);
         if ((*_siburContainer) > 0)
-            _siburContainer->draw();
+            _siburContainer->draw(camera);
         if ((*_mendianeContainer) > 0)
-            _mendianeContainer->draw();
+            _mendianeContainer->draw(camera);
         if ((*_phirasContainer) > 0)
-            _phirasContainer->draw();
+            _phirasContainer->draw(camera);
         if ((*_thystameContainer) > 0)
-            _thystameContainer->draw();
+            _thystameContainer->draw(camera);
     }
 
     void Tile::update(void)

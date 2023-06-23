@@ -82,10 +82,10 @@ namespace GUI::Graphic {
         return _camera;
     }
 
-    void Scene::draw(void)
+    void Scene::draw()
     {
         for (auto &model : _models) {
-            model.second->draw();
+            model.second->draw(_camera);
         }
     }
 

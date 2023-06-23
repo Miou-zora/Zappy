@@ -13,7 +13,8 @@ namespace GUI::Game {
         _scene(scene),
         _map(std::make_shared<GUI::Game::Map>(0, 0)),
         _settings(std::make_shared<GUI::Game::GameSettings>()),
-        _incantations(std::vector<std::shared_ptr<GUI::Game::Incantation>>())
+        _incantations(std::vector<std::shared_ptr<GUI::Game::Incantation>>()),
+        _eventPool(std::make_shared<GUI::Game::EventPool>())
     {
 
     }
@@ -24,6 +25,7 @@ namespace GUI::Game {
         for (auto &player : _players) {
             player->update();
         }
+        _eventPool->updateEvents();
     }
 
     void GameState::render(void)
@@ -32,14 +34,13 @@ namespace GUI::Game {
             std::cerr << "No camera set. Unable to draw" << std::endl;
             return;
         }
+        _map->render(_scene->getCamera());
+        for (auto &player : _players) {
+            player->render(_scene->getCamera());
+        }
+        _eventPool->drawEvents(_scene->getCamera());
         _drawTeams();
         DrawFPS(700, 10);
-        BeginMode3D(*_scene->getCamera()->getCamera());
-            _map->render();
-            for (auto &player : _players) {
-                player->render();
-            }
-        EndMode3D();
         _displayTimeUnit();
     }
 

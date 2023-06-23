@@ -30,9 +30,8 @@ namespace GUI::Game {
 
             ~Player(void) = default;
 
-            // void load(std::shared_ptr<GUI::Graphic::Program> _program);
             void update(void);
-            void render(void);
+            void render(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
 
             void setPosition(Vector2 position) { _position = position; };
             void setOrientation(Orientation orientation) { _orientation = orientation; };

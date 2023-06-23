@@ -49,8 +49,8 @@ namespace GUI::Game {
         _model->setScale(0.25f + 0.05 * _level, 0.25f + 0.05 * _level, 0.25f + 0.05 * _level);
     }
 
-    void Player::render(void)
+    void Player::render(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
     {
-        _model->draw();
+        _model->draw(camera);
     }
 }

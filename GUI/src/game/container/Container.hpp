@@ -16,7 +16,7 @@ namespace GUI::Game {
             virtual ~Container(void) = default;
 
             void update(void);
-            void draw(void);
+            void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
 
             void setQuantity(size_t quantity) { _quantity = quantity; };
             size_t getQuantity(void) const { return _quantity; };

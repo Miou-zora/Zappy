@@ -49,11 +49,11 @@ namespace GUI::Game {
         }
     }
 
-    void Map::render(void)
+    void Map::render(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
     {
         for (auto &y_tiles : _tiles) {
             for (auto &tile : y_tiles) {
-                tile->draw();
+                tile->draw(camera);
             }
         }
     }

@@ -17,11 +17,11 @@ namespace GUI::Game {
 
     }
 
-    void Container::draw(void)
+    void Container::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
     {
         if (_model == nullptr)
             return;
-        _model->draw();
+        _model->draw(camera);
     }
 
     void Container::update(void)
