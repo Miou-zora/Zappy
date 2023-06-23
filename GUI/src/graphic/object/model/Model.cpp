@@ -34,7 +34,6 @@ namespace GUI::Graphic::Object {
 
     void Model::draw(void)
     {
-        DrawCube(getPos(), getScale().x, getScale().y, getScale().z, BLUE);
         DrawModelEx(*_model, getPos(), (Vector3){0, 0, 0}, 0, getScale(), BLUE);
     }
 }

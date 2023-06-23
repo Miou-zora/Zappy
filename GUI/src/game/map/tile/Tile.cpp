@@ -64,6 +64,7 @@ namespace GUI::Game {
     void Tile::draw()
     {
         DrawCube(getPos(), 0.95, 0.95, 0.95, RED);
+        DrawCubeWires(getPos(), 0.95, 0.95, 0.95, BLACK);
         if ((*_foodContainer) > 0)
             _foodContainer->draw();
         if ((*_linemateContainer) > 0)
