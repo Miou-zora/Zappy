@@ -35,6 +35,7 @@ namespace GUI::Game {
 
         private:
             void _drawTeams(void) const;
+            void _displayTimeUnit(void) const;
 
             std::shared_ptr<GUI::Graphic::Scene> _scene;
             std::shared_ptr<GUI::Game::Map> _map;

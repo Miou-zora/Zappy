@@ -40,6 +40,7 @@ namespace GUI::Game {
                 player->render();
             }
         EndMode3D();
+        _displayTimeUnit();
     }
 
     void GameState::init(void)
@@ -55,5 +56,12 @@ namespace GUI::Game {
             textToDisplay += "\t" + team + "\n";
         }
         DrawText(textToDisplay.c_str(), 10, 10, 20, WHITE);
+    }
+
+    void GameState::_displayTimeUnit(void) const
+    {
+        std::string textToDisplay = "Time Unit: " + std::to_string(_settings->getTimeUnit());
+
+        DrawText(textToDisplay.c_str(), 10, 600 - 20, 20, WHITE);
     }
 }
