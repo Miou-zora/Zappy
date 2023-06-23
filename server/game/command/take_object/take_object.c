@@ -58,6 +58,21 @@ void take_object(client_t *client, zappy_t *zappy, char *param)
 void set_func_take_object(event_t *event, zappy_t *zappy_s)
 {
     (void) zappy_s;
+    char *param = NULL;
+    char* objects[] = {"food", "linemate", "deraumere", "sibur",
+        "mendiane", "phiras", "thystame", NULL};
 
-    add_command(event->client, 7, take_object, event->request);
+    for (int i = 0; event->request[i] != '\0'; i++) {
+        if (event->request[i] == ' ' && event->request[i + 1] != '\0')
+            param = &event->request[i + 1];
+    }
+    if (param[strlen(param) - 2] == '\n')
+        param[strlen(param) - 2] = '\0';
+    for (int i = 0; i < NUMBER_OF_DIFFERENT_ELEMENTS; i++) {
+        if (strncmp(param, objects[i], strlen(objects[i])) == 0) {
+            param = objects[i];
+            break;
+        }
+    }
+    add_command(event->client, 7, take_object, param);
 }

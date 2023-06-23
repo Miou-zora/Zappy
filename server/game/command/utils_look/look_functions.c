@@ -6,7 +6,7 @@
 */
 
 #include "server.h"
-#include "look.h"
+#include "game.h"
 
 char *add_the_coma(size_t first_size, size_t i, size_t j,
     char *res)
@@ -18,21 +18,21 @@ char *add_the_coma(size_t first_size, size_t i, size_t j,
     return (res);
 }
 
-vector_t check_edges(int x, int y, game_struct_t *game)
+vector_t check_edges(int x, int y, map_t *map)
 {
     vector_t res = {0, 0};
 
-    if (x >= game->map->width)
-        x %= game->map->width;
+    if (x >= map->width)
+        x %= map->width;
     if (x < 0) {
-        x %= game->map->width;
-        x += game->map->width;
+        x %= map->width;
+        x += map->width;
     }
-    if (y >= game->map->height)
-        y %= game->map->height;
+    if (y >= map->height)
+        y %= map->height;
     if (y < 0) {
-        y %= game->map->height;
-        y += game->map->height;
+        y %= map->height;
+        y += map->height;
     }
     res.x = (size_t)x;
     res.y = (size_t)y;
@@ -60,7 +60,7 @@ char *look_up(client_t *client, zappy_t *zappy)
     for (size_t i = 0; i <= (size_t)client->trantorian->level; i++) {
         for (size_t j = 0; j < look_player_pos + (2 * i); j++) {
             vector_t tmp_vector = check_edges((int)(vector.x + (int)j),
-            (int)(vector.y - (int)i), zappy->game_struct);
+            (int)(vector.y - (int)i), zappy->game_struct->map);
             tile = strdup(look_at_tile(tmp_vector.x, tmp_vector.y, zappy));
             res = realloc(res, (res_length + strlen(tile) + 2) * sizeof(char));
             strcat(res, tile);
@@ -84,7 +84,7 @@ char *look_down(client_t *client, zappy_t *zappy)
     for (size_t i = 0; i <= (size_t)client->trantorian->level; i++) {
         for (size_t j = 0; j < look_player_pos + (2 * i); j++) {
             vector_t tmp_vector = check_edges((int)(vector.x - (int)j),
-            (int)(vector.y + (int)i), zappy->game_struct);
+            (int)(vector.y + (int)i), zappy->game_struct->map);
             tile = strdup(look_at_tile(tmp_vector.x, tmp_vector.y, zappy));
             res = realloc(res, (res_length + strlen(tile) + 2) * sizeof(char));
             strcat(res, tile);

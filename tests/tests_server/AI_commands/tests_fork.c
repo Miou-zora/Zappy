@@ -31,6 +31,5 @@ Test(do_fork, test_do_fork)
     LIST_INSERT_HEAD(&clan->all_members, clan_member, next_clan_member);
     LIST_INSERT_HEAD(&zappy->game_struct->all_clans, clan, next_clan);
     do_fork(client, zappy, NULL);
-    printf("nb of members: %ld\n", clan->max_nb_of_members);
     cr_assert_eq(clan->max_nb_of_members, 11);
 }

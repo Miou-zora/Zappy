@@ -106,15 +106,6 @@ char *add_the_coma(size_t first_size, size_t i, size_t j, char *res);
 char *add_hook(char *str);
 
 /**
- * @brief check if the position is out of the map
- *
- * @param x the x
- * @param y the y
- * @param game the struct containing every information about the server
- */
-vector_t check_edges(int x, int y, game_struct_t *game);
-
-/**
  * @brief look at the tile in front of the player
  *
  * @param event the event

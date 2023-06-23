@@ -6,7 +6,7 @@
 */
 
 #include "server.h"
-#include "look.h"
+#include "game.h"
 
 char *look_right(client_t *client, zappy_t *zappy)
 {
@@ -19,7 +19,7 @@ char *look_right(client_t *client, zappy_t *zappy)
     for (size_t i = 0; i <= (size_t)client->trantorian->level; i++) {
         for (size_t j = 0; j < look_player_pos + (2 * i); j++) {
             vector_t tmp_vector = check_edges((int)(vector.x + (int)i),
-            (int)(vector.y + (int)j), zappy->game_struct);
+            (int)(vector.y + (int)j), zappy->game_struct->map);
             tile = strdup(look_at_tile(tmp_vector.x, tmp_vector.y, zappy));
             res = realloc(res, (res_length + strlen(tile) + 2) * sizeof(char));
             strcat(res, tile);
@@ -43,7 +43,7 @@ char *look_left(client_t *client, zappy_t *zappy)
     for (size_t i = 0; i <= (size_t)client->trantorian->level; i++) {
         for (size_t j = 0; j < look_player_pos + (2 * i); j++) {
             vector_t tmp_vector = check_edges((int)(vector.x - (int)i),
-            (int)(vector.y - (int)j), zappy->game_struct);
+            (int)(vector.y - (int)j), zappy->game_struct->map);
             tile = strdup(look_at_tile(tmp_vector.x, tmp_vector.y, zappy));
             res = realloc(res, (res_length + strlen(tile) + 2) * sizeof(char));
             strcat(res, tile);

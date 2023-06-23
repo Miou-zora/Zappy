@@ -53,9 +53,11 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/take_object/take_object.c 						\
 				game/command/take_object/take_object_check_object.c			\
 				game/command/set_object.c 									\
+				game/command/eject/eject.c 									\
+				game/command/eject/move_trantorians.c						\
 				game/gui_protocol/gui_pin.c									\
 				game/manage_timer/update_players.c 							\
-				game/command/fork.c											\
+				game/command/fork.c		 									\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
@@ -103,6 +105,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)AI_commands/tests_forward.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_incantation.c				 \
 				$(TESTS_FOLDER)AI_commands/tests_take_object.c				 \
+				$(TESTS_FOLDER)AI_commands/tests_eject.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_set_object.c				 \
 				$(TESTS_FOLDER)AI_commands/tests_fork.c						 \
 				$(TESTS_GAME)tests_stone.c 									 \

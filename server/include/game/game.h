@@ -185,3 +185,38 @@ void do_fork(client_t *client, zappy_t *zappy, char *param);
  * @param zappy_s the struct containing every information about the server
  */
 void set_func_set_object(event_t *event, zappy_t *zappy_s);
+
+/**
+ * @brief eject players on the tile
+ *
+ * @param event
+ * @param zappy
+ * @param param
+ */
+void do_eject(client_t *client, zappy_t *zappy, char *param);
+
+/**
+ * @brief Set the func eject
+ *
+ * @param event the event
+ * @param zappy_s the struct containing every information about the server
+ */
+void set_func_eject(event_t *event, zappy_t *zappy_s);
+
+/**
+ * @brief move trantorians on the opposite tile of player
+ *
+ * @param trantorian
+ * @param tile
+ * @param game
+ */
+bool push_player(client_t *client, zappy_t *zappy);
+
+/**
+ * @brief check if the tile is on the edge of the map
+ *
+ * @param x
+ * @param y
+ * @param map
+ */
+vector_t check_edges(int x, int y, map_t *map);
