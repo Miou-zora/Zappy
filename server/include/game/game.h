@@ -8,6 +8,7 @@
 #pragma once
 #include "server.h"
 #include "look.h"
+#include "gui_protocol.h"
 
 /**
  * @brief Set the func forward object

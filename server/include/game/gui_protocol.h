@@ -383,3 +383,12 @@ void send_death_to_gui(trantorian_t *trantorian, zappy_t *zappy);
  * @param client list
  */
 client_t *get_gui_client(struct client_list *clients);
+
+/**
+ * @brief send the pgt information to gui
+ *
+ * @param client
+ * @param zappy
+ * @param param
+ */
+void send_gui_pgt(client_t *client, zappy_t *zappy, char *param);
