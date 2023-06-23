@@ -13,5 +13,5 @@ int get_port(char **av)
         if (strcmp(av[i], "-p") == 0)
             return (atoi(av[i + 1]));
     }
-    return (0);
+    return (4242);
 }

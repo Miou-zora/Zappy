@@ -13,5 +13,5 @@ int get_width(char **av)
         if (strcmp(av[i], "-x") == 0)
             return (atoi(av[i + 1]));
     }
-    return (0);
+    return (10);
 }

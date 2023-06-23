@@ -13,5 +13,5 @@ int get_nb_client(char **av)
         if (strcmp(av[i], "-c") == 0)
             return (atoi(av[i + 1]));
     }
-    return (0);
+    return (3);
 }

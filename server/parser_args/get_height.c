@@ -13,5 +13,5 @@ int get_height(char **av)
         if (strcmp(av[i], "-y") == 0)
             return (atoi(av[i + 1]));
     }
-    return (0);
+    return (10);
 }

@@ -84,7 +84,7 @@
     /**
       * @brief Prints the usage of the program
     **/
-    void print_usage(void);
+    void display_usage(void);
 
     /**
      * @brief Gets the port from th
@@ -118,6 +118,23 @@
      * @return int the number of clients per team
      */
     int get_nb_client(char **av);
+
+    /**
+     * @brief parse the names of the teams from the arguments
+     *
+     * @param argc the number of arguments
+     * @param argv the arguments
+     * @param optind the index of the first name
+     * @param args the structure to fill
+     */
+    void parse_names(int argc, char** argv, int optind, argv_t* args);
+
+    /**
+     * @brief Frees the names of the teams
+     *
+     * @param names the names of the teams
+     */
+    void free_names(char **names);
 
     /**
      * @brief Gets the frequency from the arguments
@@ -264,6 +281,12 @@
      */
     void update_players(zappy_t *zappy);
 
+    /**
+     * @brief add look function on command array's player
+     *
+     * @param event
+     * @param zappy_s
+     */
     int send_responses_clients(zappy_t *zappy);
     /**
      * @brief add a client to the client list
@@ -272,5 +295,13 @@
      * @param zappy_s the server
      */
     void add_client_to_list(client_t *client, zappy_t *zappy_s);
+
+    /**
+     * @brief add look function on command array's player
+     *
+     * @param event
+     * @param zappy_s
+     */
+    char **send_names_by_default(char **names);
 
 #endif /* !SERVER_H_ */

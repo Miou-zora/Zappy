@@ -19,7 +19,7 @@ void sigint_handler(int sig)
     exit(0);
 }
 
-void print_usage(void)
+void display_usage(void)
 {
     printf("USAGE: ./zappy_server -p port -x width -y height -n name1 name2 ");
     printf("... -c clientsNb -f freq\n");
@@ -37,9 +37,9 @@ int main(int ac, char **av)
     zappy_t *zappy = NULL;
     setbuf(stdout, NULL);
 
-    if (ac < 12) {
-        print_usage();
-        return (84);
+    if (ac == 2 && strncmp(av[1], "-help", 5) == 0) {
+        display_usage();
+        return (0);
     }
     display_log("Building server...\n");
     zappy = build_server(ac, av);
