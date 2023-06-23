@@ -104,7 +104,7 @@ namespace GUI::Game {
             scale.y += 0.01;
             scale.z += 0.01;
             BeginMode3D(*_camera->getCamera());
-                DrawModelWiresEx(*_model->getModel(), _model->getPos(), _model->getRot(), 1, scale, RAYWHITE);
+                DrawModelEx(*_model->getModel(), _model->getPos(), _model->getRot(), 1, scale, RAYWHITE);
             EndMode3D();
         }
         DrawText(("Tile: x=" + std::to_string(static_cast<int>(_tileIndexes.x)) + " y=" + std::to_string(static_cast<int>(_tileIndexes.y))).c_str(), 10, 10, 20, RAYWHITE);
