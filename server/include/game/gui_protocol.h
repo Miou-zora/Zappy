@@ -393,6 +393,14 @@ void notifie_gui_pex(trantorian_t *trantorian, zappy_t *server,
 void send_gui_pgt(client_t *client, zappy_t *zappy, char *param);
 
 /**
+ * @brief send the pgt information to gui
+ *
+ * @param client_t
+ * @param zappy_t
+ */
+void send_gui_pfk(client_t *client, zappy_t *zappy);
+
+/**
  * @brief send the pdr information to gui
  * @param client_t client
  * @param zappy_t zappy

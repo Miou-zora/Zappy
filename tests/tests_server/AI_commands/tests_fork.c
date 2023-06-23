@@ -32,4 +32,6 @@ Test(do_fork, test_do_fork)
     LIST_INSERT_HEAD(&zappy->game_struct->all_clans, clan, next_clan);
     do_fork(client, zappy, NULL);
     cr_assert_eq(clan->max_nb_of_members, 11);
+    LIST_REMOVE(zappy->responses.lh_first, next);
+    cr_assert_str_eq(zappy->responses.lh_first->content, "pfk 1\n");
 }

@@ -32,6 +32,7 @@ void do_fork(client_t *client, zappy_t *zappy, char *param)
     client->trantorian->team_name, client->trantorian->id + 1);
     LIST_INSERT_HEAD(&zappy->game_struct->all_eggs, egg, next_egg);
     send_do_fork(client, zappy);
+    send_gui_pfk(client, zappy);
 }
 
 void set_func_fork(event_t *event, zappy_t *zappy_s)

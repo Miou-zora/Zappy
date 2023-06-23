@@ -62,6 +62,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_pdi.c 			\
 				game/gui_protocol/gui_pex.c 			\
 				game/gui_protocol/gui_pgt.c 			\
+				game/gui_protocol/gui_pfk.c 			\
 				game/gui_protocol/gui_pdr.c 			\
 
 SRC_NETWORK =	network/build/build_server.c			\
