@@ -9,14 +9,14 @@
 #include <iostream>
 
 namespace GUI::Game {
-    Map::Map(unsigned int x, unsigned int y): _size({static_cast<float>(x), static_cast<float>(y)})
+    Map::Map(unsigned int x, unsigned int y, const std::vector<std::shared_ptr<GUI::Game::Player>> &players): _size({static_cast<float>(x), static_cast<float>(y)}), _players(players)
     {
         std::shared_ptr<GUI::Game::Tile> tile;
 
         for (unsigned int i = 0; i < x; i++) {
             std::vector<std::shared_ptr<GUI::Game::Tile>> tmp;
             for (unsigned int j = 0; j < y; j++) {
-                tile = std::make_shared<GUI::Game::Tile>((Vector2){static_cast<float>(i), static_cast<float>(j)}, (Vector3){static_cast<float>(i) - static_cast<float>(x) / 2 + 0.5f, 0, static_cast<float>(j) - static_cast<float>(y) / 2 + 0.5f});
+                tile = std::make_shared<GUI::Game::Tile>((Vector2){static_cast<float>(i), static_cast<float>(j)}, (Vector3){static_cast<float>(i) - static_cast<float>(x) / 2 + 0.5f, 0, static_cast<float>(j) - static_cast<float>(y) / 2 + 0.5f}, _players);
                 tmp.push_back(tile);
             }
             _tiles.push_back(tmp);
@@ -33,7 +33,7 @@ namespace GUI::Game {
         for (unsigned int i = 0; i < x; i++) {
             std::vector<std::shared_ptr<GUI::Game::Tile>> tmp;
             for (unsigned int j = 0; j < y; j++) {
-                tile = std::make_shared<GUI::Game::Tile>((Vector2){static_cast<float>(i), static_cast<float>(j)}, (Vector3){static_cast<float>(i) - static_cast<float>(x) / 2 + 0.5f, 0, static_cast<float>(j) - static_cast<float>(y) / 2 + 0.5f});
+                tile = std::make_shared<GUI::Game::Tile>((Vector2){static_cast<float>(i), static_cast<float>(j)}, (Vector3){static_cast<float>(i) - static_cast<float>(x) / 2 + 0.5f, 0, static_cast<float>(j) - static_cast<float>(y) / 2 + 0.5f}, _players);
                 tmp.push_back(tile);
             }
             _tiles.push_back(tmp);

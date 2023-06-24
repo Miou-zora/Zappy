@@ -51,11 +51,11 @@ namespace GUI::Game {
             void _catch(void);
             void _drop(void);
 
+            std::vector<std::shared_ptr<GUI::Game::Player>> _players;
             std::shared_ptr<GUI::Graphic::Scene> _scene;
             std::shared_ptr<GUI::Game::Map> _map;
             std::shared_ptr<GUI::Game::GameSettings> _settings;
             std::vector<std::shared_ptr<GUI::Game::Team>> _teams;
-            std::vector<std::shared_ptr<GUI::Game::Player>> _players;
             std::vector<std::shared_ptr<GUI::Game::Incantation>> _incantations;
             std::shared_ptr<GUI::Game::EventPool> _eventPool;
             std::shared_ptr<GUI::Game::ICatchable> _entityCatched;

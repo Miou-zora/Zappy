@@ -10,11 +10,12 @@
 #include <memory>
 #include "Tile.hpp"
 #include "raylib.h"
+#include "Player.hpp"
 
 namespace GUI::Game {
     class Map {
         public:
-            Map(unsigned int x, unsigned int y);
+            Map(unsigned int x, unsigned int y, const std::vector<std::shared_ptr<GUI::Game::Player>> &players);
             ~Map(void) = default;
 
             void resize(unsigned int x, unsigned int y);
@@ -31,5 +32,6 @@ namespace GUI::Game {
         private:
             Vector2 _size;
             std::vector<std::vector<std::shared_ptr<GUI::Game::Tile>>> _tiles;
+            const std::vector<std::shared_ptr<GUI::Game::Player>> &_players;
     };
 }

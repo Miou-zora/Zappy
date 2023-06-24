@@ -16,19 +16,19 @@
 #include "PhirasContainer.hpp"
 #include "ThystameContainer.hpp"
 #include "ICatchable.hpp"
+#include "Player.hpp"
 
 namespace GUI::Game {
     class Tile : virtual public GUI::Graphic::Object::Object, virtual public GUI::Game::ICatchable {
         public:
-            Tile(void);
-            Tile(Vector2 tileIndexes, Vector3 pos);
-            Tile(const Tile &tile) = default;
+            Tile(const std::vector<std::shared_ptr<GUI::Game::Player>> &players);
+            Tile(Vector2 tileIndexes, Vector3 pos, const std::vector<std::shared_ptr<GUI::Game::Player>> &players);
             ~Tile(void) = default;
 
             void draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
             void update(void);
 
-            void drawInfo(std::shared_ptr<GUI::Graphic::Object::Camera> _camera);
+            void drawInfo(std::shared_ptr<GUI::Graphic::Object::Camera> camera);
             std::shared_ptr<BoundingBox> getBoundingBox(void);
 
             void setModel(std::shared_ptr<GUI::Graphic::Object::Model> model);
@@ -61,6 +61,8 @@ namespace GUI::Game {
             void setTileIndexes(const Vector2 &tileIndexes) { _tileIndexes = tileIndexes; };
             Vector2 getTileIndexes(void) const { return _tileIndexes; };
 
+            std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::Player>>> getPlayerOnTile(void) const;
+
         private:
             std::shared_ptr<GUI::Graphic::Object::Model> _model;
             std::shared_ptr<GUI::Game::FoodContainer> _foodContainer;
@@ -71,5 +73,6 @@ namespace GUI::Game {
             std::shared_ptr<GUI::Game::PhirasContainer> _phirasContainer;
             std::shared_ptr<GUI::Game::ThystameContainer> _thystameContainer;
             Vector2 _tileIndexes;
+            const std::vector<std::shared_ptr<GUI::Game::Player>> &_players;
     };
 }

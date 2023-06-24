@@ -9,7 +9,7 @@
 #include <iostream>
 
 namespace GUI::Game {
-    Tile::Tile(void):
+    Tile::Tile(const std::vector<std::shared_ptr<GUI::Game::Player>> &players):
         Object(),
         _model(std::make_shared<GUI::Graphic::Object::Model>(LoadModelFromMesh(GenMeshCube(1, 1, 1)), RED)),
         _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
@@ -18,11 +18,12 @@ namespace GUI::Game {
         _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
         _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
         _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
+        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>()),
+        _players(players)
     {
     }
 
-    Tile::Tile(Vector2 tileIndexes, Vector3 pos):
+    Tile::Tile(Vector2 tileIndexes, Vector3 pos, const std::vector<std::shared_ptr<GUI::Game::Player>> &players):
         Object(pos),
         _model(std::make_shared<GUI::Graphic::Object::Model>(LoadModelFromMesh(GenMeshCube(1, 1, 1)), RED)),
         _foodContainer(std::make_shared<GUI::Game::FoodContainer>()),
@@ -32,7 +33,8 @@ namespace GUI::Game {
         _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
         _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
         _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>()),
-        _tileIndexes(tileIndexes)
+        _tileIndexes(tileIndexes),
+        _players(players)
     {
         _model->setPos(pos.x, pos.y, pos.z);
         _foodContainer->getModel()->setPos(getPos().x + 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX)) * 2 - 1), getPos().y + 0.5, getPos().z + 0.4 * (static_cast<float>(rand()) / static_cast<float>((RAND_MAX)) * 2 - 1));
@@ -99,6 +101,8 @@ namespace GUI::Game {
     void Tile::drawInfo(std::shared_ptr<GUI::Graphic::Object::Camera> _camera)
     {
         Vector3 scale = _model->getScale();
+        std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::Player>>> playersOnTile = getPlayerOnTile();
+
         if (_camera != nullptr) {
             scale.x += 0.01;
             scale.y += 0.01;
@@ -115,6 +119,19 @@ namespace GUI::Game {
         DrawText(("Mendiane: " + std::to_string((_mendianeContainer->getQuantity()))).c_str(), 10, 110, 20, RAYWHITE);
         DrawText(("Phiras: " + std::to_string((_phirasContainer->getQuantity()))).c_str(), 10, 130, 20, RAYWHITE);
         DrawText(("Thystame: " + std::to_string((_thystameContainer->getQuantity()))).c_str(), 10, 150, 20, RAYWHITE);
+        if (playersOnTile != nullptr)
+            DrawText(("Number of player on the tile: " + std::to_string(playersOnTile->size())).c_str(), 10, 170, 20, RAYWHITE);
+    }
+
+    std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::Player>>> Tile::getPlayerOnTile(void) const
+    {
+        std::shared_ptr<std::vector<std::shared_ptr<GUI::Game::Player>>> playersOnTile = std::make_shared<std::vector<std::shared_ptr<GUI::Game::Player>>>();
+
+        for (auto player : _players) {
+            if (player->getPosition().x == _tileIndexes.x && player->getPosition().y == _tileIndexes.y)
+                playersOnTile->push_back(player);
+        }
+        return playersOnTile;
     }
 
     std::shared_ptr<BoundingBox> Tile::getBoundingBox(void)
