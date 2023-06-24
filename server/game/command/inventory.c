@@ -11,25 +11,19 @@
 void send_inventory(client_t *client, zappy_t *zappy, char *param)
 {
     (void) param;
-    const char *objects[] = {"food", "linemate", "deraumere", "sibur",
-        "mendiane", "phiras", "thystame"};
-    char *resp = NULL;
+    char res[1024] = {0};
+    object_t *obj = client->trantorian->inventory;
 
-    asprintf(&resp, "[");
-    for (int i = 0; i < 7; i++) {
-        char *tmp = NULL;
-        asprintf(&tmp, "%s %ld, ", objects[i],
-        client->trantorian->inventory->nb_of_objects[i]);
-        resp = realloc(resp, strlen(resp) + strlen(tmp) + 1);
-        strcat(resp, tmp);
-        free(tmp);
-    }
-    resp[strlen(resp) - 2] = ']';
-    resp[strlen(resp) - 1] = '\0';
-    response_t *response = create_response(resp);
+    if (sprintf(res, "[food %ld, linemate %ld, deraumere %ld, sibur %ld, "
+        "mendiane %ld, phiras %ld, thystame %ld]\n", obj->nb_of_objects[FOOD],
+        obj->nb_of_objects[LINEMATE], obj->nb_of_objects[DERAUMERE],
+        obj->nb_of_objects[SIBUR], obj->nb_of_objects[MENDIANE],
+        obj->nb_of_objects[PHIRAS],obj->nb_of_objects[THYSTAME]) < 0)
+        return;
+    display_log("inventory: %s", res);
+    response_t *response = create_response(res);
     add_client_to_response(response,client);
     add_response_to_list(response, zappy);
-    free(resp);
 }
 
 void set_func_inventory(event_t *event, zappy_t *zappy_s)
