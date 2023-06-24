@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2023
 ** Zappy-Mirror
 ** File description:
-** gui_enw
+** gui_smg
 */
 
 #include <criterion/criterion.h>
 #include "gui_protocol.h"
 
-Test(gui_enw, test_gui_enw_true)
+Test(gui_smg, test_gui_smg_true)
 {
-    /*
-    char *args[] = {"./zappy_server -p 8699", NULL};
+    char *args[] = {"./zappy_server -p 7789", NULL};
     int ac = 1;
     zappy_t *zappy = build_server(ac, args);
+
     client_t *gui_client = calloc(1, sizeof(client_t));
     gui_client->is_graphic = true;
     gui_client->is_connected = true;
@@ -32,7 +32,6 @@ Test(gui_enw, test_gui_enw_true)
     client.trantorian->level = 1;
     client.trantorian->team_name = strdup("Team1");
     client.is_graphic = false;
-    notifie_gui_enw(client.trantorian, zappy);
-    cr_assert_str_eq((zappy->responses.lh_first->content), "enw 0 1 1 1\n");
-    */
+    notifie_gui_smg("Team1", zappy);
+    cr_assert_str_eq((zappy->responses.lh_first->content), "smg Team1\n");
 }

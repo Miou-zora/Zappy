@@ -10,7 +10,7 @@
 
 Test(gui_suc, test_gui_suc_true)
 {
-    char *args[] = {"./zappy_server", NULL};
+    char *args[] = {"./zappy_server -0", NULL};
     int ac = 1;
     zappy_t *zappy = build_server(ac, args);
     client_t *gui_client = calloc(1, sizeof(client_t));

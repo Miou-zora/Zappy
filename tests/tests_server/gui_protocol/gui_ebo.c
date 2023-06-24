@@ -19,6 +19,8 @@ Test(gui_ebo, test_gui_ebo_true)
     gui_client->is_logged = true;
     gui_client->fd = 1;
     add_client_to_list(gui_client, zappy);
+    egg_t *egg = create_egg(1, 1, "Team1", 1);
+    LIST_INSERT_HEAD(&zappy->game_struct->all_eggs, egg, next_egg);
     client_t client = {0};
     client.trantorian = calloc(1, sizeof(trantorian_t));
     client.is_connected = true;

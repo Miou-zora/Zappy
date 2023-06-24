@@ -64,6 +64,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_pgt.c 			\
 				game/gui_protocol/gui_pfk.c 			\
 				game/gui_protocol/gui_pdr.c 			\
+				game/gui_protocol/gui_smg.c 			\
 				game/gui_protocol/gui_ebo.c 			\
 				game/gui_protocol/gui_enw.c 			\
 				game/gui_protocol/gui_seg.c 			\
@@ -131,6 +132,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_pin.c			 	 	 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_pdi.c 						 \
 				$(TESTS_FOLDER)gui_protocol/gui_pgt.c 						 \
+				$(TESTS_FOLDER)gui_protocol/gui_smg.c 						 \
 				$(TESTS_FOLDER)gui_protocol/gui_ebo.c 						 \
 				$(TESTS_FOLDER)gui_protocol/gui_enw.c 						 \
 				$(TESTS_FOLDER)gui_protocol/gui_seg.c 						 \

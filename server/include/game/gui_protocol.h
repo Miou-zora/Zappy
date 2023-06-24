@@ -306,9 +306,10 @@ void notifie_gui_seg(zappy_t *zappy, char *team_name);
  * the message: smg M\n
  * @param zappy the struct containing all the informations about the server
  * @param message the message sent
+ * @param client the GUI client
  * @return ** void
  */
-void notifie_gui_smg(zappy_t *zappy, char *message);
+void notifie_gui_smg(char *message, zappy_t *zappy);
 
 /**
  * @brief notifie the GUI client with a unknown command
@@ -427,6 +428,14 @@ void send_gui_bct(int x, int y, zappy_t *zappy);
  * @param zappy_t
  */
 void send_gui_ppo(trantorian_t *trantorian, zappy_t *zappy);
+
+/**
+ * @brief get egg id base to a trantorian
+ *
+ * @param trantorian_t
+ * @param zappy_t
+ */
+int get_egg_by_trantorian(zappy_t *server, trantorian_t *trantorian);
 
 /**
  * @brief check if the game is ending. 6 trantorians of a team must be

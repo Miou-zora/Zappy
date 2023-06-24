@@ -8,7 +8,7 @@
 #include "gui_protocol.h"
 #include "server.h"
 
-static int get_egg_by_trantorian(zappy_t *server, trantorian_t *trantorian)
+int get_egg_by_trantorian(zappy_t *server, trantorian_t *trantorian)
 {
     egg_t *egg = NULL;
 
