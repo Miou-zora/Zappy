@@ -65,13 +65,18 @@ char *look_at_tile(size_t x, size_t y, zappy_t *zappy)
 {
     char *elements = all_elements_at_tile(x, y, zappy);
     int nb_of_trantorians = nb_of_trantorians_at_pos(x, y, zappy);
-    size_t size_alloc = strlen(elements) + 1 + (nb_of_trantorians * 7 + 1);
+    size_t size_alloc = strlen(elements) + 4 + (nb_of_trantorians * 7 + 4);
+    char *res = calloc(size_alloc, sizeof(char));
 
-    if (nb_of_trantorians >= 1)
-        elements = realloc(elements, sizeof(char) * size_alloc);
+    if (res == NULL || elements == NULL)
+        return (NULL);
+    res = strcat(res, elements);
     for (int i = 0; i < nb_of_trantorians; i++) {
-        strcat(elements, "player ");
+        res = strcat(res, "player");
+        if (i != nb_of_trantorians - 1)
+            res = strcat(res, " ");
     }
-    elements = rm_spaces_before_coma(elements);
-    return (elements);
+    res = strcat(res, ", ");
+    free(elements);
+    return (res);
 }

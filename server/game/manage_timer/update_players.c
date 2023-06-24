@@ -47,6 +47,7 @@ void update_players_by_clans(zappy_t *zappy, clan_t *clan)
         update_trantorian_life(tmp_clan->trantorian, zappy);
         if (tmp->command[0].timer == 0 && tmp->command[0].func != NULL) {
             tmp->command[0].func(tmp->client, zappy, tmp->command[0].arg);
+            tmp->command[0].func = NULL;
         }
         if (tmp->command[0].timer > 0) {
             tmp->command[0].timer -= 1;

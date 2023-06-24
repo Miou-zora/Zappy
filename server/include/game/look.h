@@ -9,6 +9,26 @@
 #include "server.h"
 
 /**
+ * @brief struct containing every information about the look
+ * allowing the code to be more readable
+ *
+ * @param res the string containing the look
+ * @param ppos the player position
+ * @param cpos the corrected position
+ * @param correction the correction vector
+ * @param tile the tile
+ * @param direction the direction
+ */
+typedef struct look_s {
+    char *res;
+    vector_t ppos;
+    vector_t cpos;
+    vector_t correction;
+    char *tile;
+    enum DIRECTION direction;
+} look_t;
+
+/**
  * @brief look at the tile in front of the player
  *
  * @param event the event
@@ -122,3 +142,38 @@ char *look_left(client_t *client, zappy_t *zappy);
  * @param param the param
  */
 char *look_right(client_t *client, zappy_t *zappy);
+
+/**
+* @brief look a the tile in x and y
+then send back the size to alloc for the string
+*/
+size_t size_to_alloc_tile(map_t *map, size_t x, size_t y);
+
+/**
+ * @brief check if the position is in the map
+ * if not, it will reset the position
+ *
+ * @param x the x
+ * @param y the y
+ * @param map the map
+ * @return vector_t the vector
+ */
+vector_t check_edges(int x, int y, map_t *map);
+
+/**
+ * @brief fetch the size needed to store the data from the look
+ *
+ * @param client the client
+ * @param zappy the struct containing every information about the server
+ * @param cpos the math vector to calculate the pos
+ * @return size_t* the size to alloc
+ */
+size_t size_to_alloc_look(client_t *client, zappy_t *zappy, vector_t cpos);
+
+/**
+ * @brief create the string containing the look
+ * @param client the client
+ * @param zappy the struct containing every information about the server
+ * @param cpos the math vector to calculate the pos
+ */
+char *send_look(client_t *client, zappy_t *zappy, vector_t cpos);

@@ -10,6 +10,15 @@
 #include "gui_protocol.h"
 #include "game.h"
 
+static void (*list_cmd[]) (event_t *event, zappy_t *zappy_s) = {
+        set_func_forward, set_func_left, set_func_right, set_func_inventory,
+        set_func_incantation, set_func_connect_nbr, set_func_set_object,
+        set_func_look, set_func_fork, set_func_take_object, set_func_eject};
+
+static const char *commands[] = {"Forward", "Left", "Right", "Inventory",
+        "Incantation", "Connect_nbr", "Set", "Look",
+        "Fork", "Take", "Eject", NULL};
+
 void bad_command(event_t *event, zappy_t *zappy_s)
 {
     response_t *response = NULL;
@@ -23,20 +32,12 @@ void bad_command(event_t *event, zappy_t *zappy_s)
 
 bool handle_event(event_t *event, zappy_t *zappy_s)
 {
-    void (*list_cmd[]) (event_t *event, zappy_t *zappy_s) = {
-        set_func_forward, set_func_left, set_func_right, set_func_inventory,
-        set_func_incantation, set_func_connect_nbr, set_func_set_object,
-        set_func_look, set_func_fork, set_func_take_object, set_func_eject};
-    char *commands[] = {"Forward\n", "Left\n", "Right\n", "Inventory\n",
-        "Incantation\n", "Connect_nbr\n", "Set", "Look\n",
-        "Fork\n", "Take", "Eject\n", NULL};
-
     if (special_event(event, zappy_s))
         return (true);
     for (int i = 0; commands[i] != NULL; i++) {
         if (strncmp(event->request, commands[i], strlen(commands[i])) == 0) {
             list_cmd[i](event, zappy_s);
-            destroy_event(event);
+            display_log("Calling the setter for %s\n", commands[i]);
             return (true);
         }
     }
@@ -61,7 +62,6 @@ void gameloop(zappy_t *zappy_s)
     event_t *event = NULL;
 
     LIST_FOREACH(event, &zappy_s->events, next) {
-        sleep(1);
         if (!check_if_player_dead(event)) {
             handle_event(event, zappy_s);
         }

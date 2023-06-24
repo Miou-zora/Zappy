@@ -27,6 +27,7 @@ trantorian_t *create_trantorian_from_event(char *team_name, zappy_t *server)
 {
     trantorian_t *trantorian = NULL;
     egg_t *egg = find_egg_by_team_name(team_name, server->game_struct);
+    clan_t *clan = NULL;
 
     if (!egg)
         return (NULL);
@@ -34,6 +35,11 @@ trantorian_t *create_trantorian_from_event(char *team_name, zappy_t *server)
     if (!trantorian)
         return (NULL);
     trantorian->team_name = strdup(team_name);
+    LIST_FOREACH(clan, &server->game_struct->all_clans, next_clan) {
+        if (strcmp(clan->name, team_name) == 0) {
+            add_clan_member_to_list(clan, create_clan_member(trantorian));
+        }
+    }
     return (trantorian);
 }
 
