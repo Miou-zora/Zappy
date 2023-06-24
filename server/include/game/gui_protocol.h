@@ -406,6 +406,15 @@ void send_gui_pfk(client_t *client, zappy_t *zappy);
 void send_gui_pdr(client_t *client, zappy_t *zappy, char *param);
 
 /**
+ * @brief notifie gui enw laid egg
+ *
+ * @param trantorian
+ * @param server
+ * @param client
+ */
+void notifie_gui_enw(trantorian_t *trantorian, zappy_t *server);
+
+/**
  * @brief send the btc information to gui
  *
  */

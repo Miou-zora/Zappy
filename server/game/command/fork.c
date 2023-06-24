@@ -15,6 +15,7 @@ static void send_do_fork(client_t *client, zappy_t *zappy)
     response = create_response("ok\n");
     add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+    notifie_gui_enw(client->trantorian, zappy);
 }
 
 void do_fork(client_t *client, zappy_t *zappy, char *param)
