@@ -8,7 +8,7 @@
 from typing import Any
 from random import randint
 from uuid import uuid4
-from src.utils import clamp
+from .utils import clamp
 
 class AI:
     """AI class
