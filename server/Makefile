@@ -113,7 +113,6 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)AI_commands/tests_forward.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_incantation.c				 \
 				$(TESTS_FOLDER)AI_commands/tests_take_object.c				 \
-				$(TESTS_FOLDER)AI_commands/tests_eject.c					 \
 				$(TESTS_FOLDER)AI_commands/tests_set_object.c				 \
 				$(TESTS_FOLDER)AI_commands/tests_fork.c						 \
 				$(TESTS_GAME)tests_stone.c 									 \
@@ -127,6 +126,8 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_pin.c			 	 	 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_pdi.c 						 \
 				$(TESTS_FOLDER)gui_protocol/gui_pgt.c 						 \
+				$(TESTS_FOLDER)gui_protocol/gui_pex.c 					 \
+				$(TESTS_FOLDER)AI_commands/tests_eject.c					 \
 				$(TESTS_FOLDER)gui_protocol/gui_suc.c 						 \
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)

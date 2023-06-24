@@ -79,10 +79,9 @@ void handle_gui_ppo(event_t *event, zappy_t *zappy);
  * the message: plv n L\n
  * @param player the player
  * @param zappy the struct containing all the informations about the server
- * @param client the GUI client
  * @return ** void
  */
-void notifie_gui_plv(trantorian_t *player, zappy_t *zappy, client_t *client);
+void notifie_gui_plv(trantorian_t *player, zappy_t *zappy);
 
 /**
  * @brief handle the GUI client request about the player's level
@@ -346,7 +345,7 @@ void handle_gui_tna(event_t *event, zappy_t *zappy);
  * @param zappy the struct containing all the informations about the server
  * @return ** void
  */
-void notifie_gui_tna(client_t *client, zappy_t *zappy);
+void notifie_gui_tna(zappy_t *zappy);
 
 void handle_gui_pin(event_t *event, zappy_t *zappy);
 
@@ -356,7 +355,7 @@ void handle_gui_pin(event_t *event, zappy_t *zappy);
  * @param tran
  * @param zappy
  */
-void send_gui_pin(trantorian_t *tran, client_t *client, zappy_t *zappy);
+void send_gui_pin(trantorian_t *tran, zappy_t *zappy);
 
 /**
  * @brief send the death of a player to the gui
@@ -380,8 +379,7 @@ client_t *get_gui_client(struct client_list *clients);
  * @param server is zappy
  * @param client is client
  */
-void notifie_gui_pex(trantorian_t *trantorian, zappy_t *server,
-    client_t *client);
+void notifie_gui_pex(trantorian_t *trantorian, zappy_t *server);
 
 /**
 * @brief send the pgt information to gui
@@ -407,3 +405,17 @@ void send_gui_pfk(client_t *client, zappy_t *zappy);
  * @param char *param
  */
 void send_gui_pdr(client_t *client, zappy_t *zappy, char *param);
+
+/**
+ * @brief send the btc information to gui
+ *
+ */
+void send_gui_bct(int x, int y, zappy_t *zappy);
+
+/**
+ * @brief send the ppo information to gui
+ *
+ * @param trantorian_t
+ * @param zappy_t
+ */
+void send_gui_ppo(trantorian_t *trantorian, zappy_t *zappy);

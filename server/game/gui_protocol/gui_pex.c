@@ -8,8 +8,7 @@
 #include "gui_protocol.h"
 #include "server.h"
 
-void notifie_gui_pex(trantorian_t *trantorian, zappy_t *server,
-    client_t *client)
+void notifie_gui_pex(trantorian_t *trantorian, zappy_t *server)
 {
     char buffer[1024];
     response_t *response = NULL;
@@ -19,6 +18,5 @@ void notifie_gui_pex(trantorian_t *trantorian, zappy_t *server,
     response = create_response(buffer);
     if (!response)
         return;
-    add_client_to_response(response, client);
-    add_response_to_list(response, server);
+    send_response_to_all_gui_clients(response, server);
 }

@@ -32,6 +32,7 @@ void move_left(client_t *client, zappy_t *zappy, char *param)
     response_t *response = create_response("ok\n");
     add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+    send_gui_ppo(client->trantorian, zappy);
 }
 
 void move_right(client_t *client, zappy_t *zappy, char *param)
@@ -45,4 +46,5 @@ void move_right(client_t *client, zappy_t *zappy, char *param)
     response_t *response = create_response("ok\n");
     add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+    send_gui_ppo(client->trantorian, zappy);
 }

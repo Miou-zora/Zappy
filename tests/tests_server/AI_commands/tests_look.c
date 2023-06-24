@@ -48,8 +48,6 @@ Test(look_up, test_look_up_level_3)
     LIST_INSERT_HEAD(&zappy->game_struct->all_clans, clan, next_clan);
     char *expected_resp = "[player, food, linemate, deraumere, sibur, sibur, phiras, thystame, mendiane, mendiane, deraumere, linemate, sibur, phiras, thystame, mendiane]\n";
     char *res = send_look(client, zappy, cpos);
-    printf("|%s|\n", res);
-    printf("|%s|\n", expected_resp);
     cr_assert_str_eq(res, expected_resp);
 }
 

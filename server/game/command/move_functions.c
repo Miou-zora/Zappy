@@ -7,6 +7,7 @@
 
 #include "server.h"
 #include "trantorian.h"
+#include "gui_protocol.h"
 
 void forward_move_up(client_t *client, zappy_t *zappy)
 {
@@ -19,6 +20,7 @@ void forward_move_up(client_t *client, zappy_t *zappy)
     response = create_response("ok\n");
     add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+    send_gui_ppo(client->trantorian, zappy);
 }
 
 void forward_move_down(client_t *client, zappy_t *zappy)
@@ -32,6 +34,7 @@ void forward_move_down(client_t *client, zappy_t *zappy)
     response = create_response("ok\n");
     add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+    send_gui_ppo(client->trantorian, zappy);
 }
 
 void forward_move_left(client_t *client, zappy_t *zappy)
@@ -45,6 +48,7 @@ void forward_move_left(client_t *client, zappy_t *zappy)
     response = create_response("ok\n");
     add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+    send_gui_ppo(client->trantorian, zappy);
 }
 
 void forward_move_right(client_t *client, zappy_t *zappy)
@@ -58,4 +62,5 @@ void forward_move_right(client_t *client, zappy_t *zappy)
     response = create_response("ok\n");
     add_client_to_response(response, client);
     add_response_to_list(response, zappy);
+    send_gui_ppo(client->trantorian, zappy);
 }

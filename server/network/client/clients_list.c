@@ -30,3 +30,17 @@ void add_client_to_list(client_t *client, zappy_t *zappy_s)
     }
     LIST_INSERT_AFTER(get_last_client(zappy_s), client, next);
 }
+
+void send_response_to_all_gui_clients(response_t *response, zappy_t *zappy)
+{
+    client_t *client = NULL;
+
+    if (!response)
+        return;
+    LIST_FOREACH(client, &zappy->clients, next) {
+        if (client->is_graphic == true) {
+            add_client_to_response(response, client);
+        }
+    }
+    add_response_to_list(response, zappy);
+}

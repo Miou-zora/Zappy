@@ -24,7 +24,7 @@ void send_gui_pgt(client_t *client, zappy_t *zappy, char *param)
 {
     char buffer[1024];
     response_t *response = NULL;
-    client_t *gui_client = NULL;
+
     int ressource_nb = get_id_ressource_by_name(param);
 
     if (sprintf(buffer, "pgt %d %d\n", client->trantorian->id,
@@ -33,9 +33,5 @@ void send_gui_pgt(client_t *client, zappy_t *zappy, char *param)
     response = create_response(buffer);
     if (!response)
         return;
-    LIST_FOREACH(gui_client, &zappy->clients, next) {
-        if (gui_client->is_graphic)
-            add_client_to_response(response, gui_client);
-    }
-    add_response_to_list(response, zappy);
+    send_response_to_all_gui_clients(response, zappy);
 }

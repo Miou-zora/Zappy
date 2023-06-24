@@ -8,7 +8,7 @@
 #include "gui_protocol.h"
 #include "server.h"
 
-void notifie_gui_plv(trantorian_t *player, zappy_t *server, client_t *client)
+void notifie_gui_plv(trantorian_t *player, zappy_t *server)
 {
     char buffer[1024];
     response_t *response = NULL;
@@ -18,8 +18,7 @@ void notifie_gui_plv(trantorian_t *player, zappy_t *server, client_t *client)
     response = create_response(buffer);
     if (!response)
         return;
-    add_client_to_response(response, client);
-    LIST_INSERT_HEAD(&server->responses, response, next);
+    send_response_to_all_gui_clients(response, server);
 }
 
 void handle_gui_plv(event_t *event, zappy_t *server)
@@ -37,5 +36,5 @@ void handle_gui_plv(event_t *event, zappy_t *server)
     trantorian = get_trantorian_by_id(server, id);
     if (!trantorian)
         return;
-    notifie_gui_plv(trantorian, server, event->client);
+    notifie_gui_plv(trantorian, server);
 }

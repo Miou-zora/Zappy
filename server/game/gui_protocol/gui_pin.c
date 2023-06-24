@@ -7,7 +7,7 @@
 
 #include "gui_protocol.h"
 
-void send_gui_pin(trantorian_t *tran, client_t *client, zappy_t *zappy)
+void send_gui_pin(trantorian_t *tran, zappy_t *zappy)
 {
     char buffer[1024] = {0};
     response_t *response;
@@ -24,8 +24,7 @@ void send_gui_pin(trantorian_t *tran, client_t *client, zappy_t *zappy)
     response = create_response(buffer);
     if (response == NULL)
         return;
-    add_client_to_response(response, client);
-    add_response_to_list(response, zappy);
+    send_response_to_all_gui_clients(response, zappy);
 }
 
 void handle_gui_pin(event_t *event, zappy_t *zappy)
@@ -39,5 +38,5 @@ void handle_gui_pin(event_t *event, zappy_t *zappy)
     if (sscanf(event->request, "pin %d\n", &id) != 1)
         return;
     trantorian = get_trantorian_by_id(zappy, id);
-    send_gui_pin(trantorian, event->client, zappy);
+    send_gui_pin(trantorian, zappy);
 }

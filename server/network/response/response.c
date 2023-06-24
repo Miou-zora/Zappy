@@ -24,11 +24,21 @@ response_t *create_response(char *msg)
 
 int add_client_to_response(response_t *response, client_t *client)
 {
+    client_t *tmp = NULL;
+    client_t *tmp2 = NULL;
+
     if (response == NULL || client == NULL)
         return (84);
     if (client->fd == -1 || !client->is_connected)
         return (84);
-    LIST_INSERT_HEAD(&response->clients, client, next);
+    if (response->clients.lh_first == NULL) {
+        LIST_INSERT_HEAD(&response->clients, client, next);
+        return (0);
+    }
+    LIST_FOREACH(tmp, &response->clients, next) {
+        tmp2 = tmp;
+    }
+    LIST_INSERT_AFTER(tmp2, client, next);
     return (0);
 }
 

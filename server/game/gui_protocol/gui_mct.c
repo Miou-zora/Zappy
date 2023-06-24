@@ -22,7 +22,7 @@ char *convert_tile_to_str(object_t *tile, int x, int y)
     return (strdup(buffer));
 }
 
-int create_line_response(int y, zappy_t *zappy, client_t *client)
+int create_line_response(int y, zappy_t *zappy)
 {
     char *buffer = NULL;
     response_t *response = NULL;
@@ -39,8 +39,7 @@ int create_line_response(int y, zappy_t *zappy, client_t *client)
             printf("Error: malloc failed for create_response\n");
             return (84);
         }
-        add_client_to_response(response, client);
-        add_response_to_list(response, zappy);
+        send_response_to_all_gui_clients(response, zappy);
         free(buffer);
     }
     return (0);
@@ -54,7 +53,7 @@ void handle_gui_mct(event_t *event, zappy_t *zappy)
         || !event->client->is_connected)
         return;
     for (int y = 0; y < map->height; y++) {
-        if (create_line_response(y, zappy, event->client) == 84)
+        if (create_line_response(y, zappy) == 84)
             return;
     }
 }

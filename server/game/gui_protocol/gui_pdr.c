@@ -20,6 +20,5 @@ void send_gui_pdr(client_t *client, zappy_t *zappy, char *param)
     response = create_response(buffer);
     if (!response)
         return;
-    add_client_to_response(response, get_gui_client(&zappy->clients));
-    add_response_to_list(response, zappy);
+    send_response_to_all_gui_clients(response, zappy);
 }

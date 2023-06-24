@@ -304,4 +304,12 @@
      */
     char **send_names_by_default(char **names);
 
+/**
+ * @brief send response to all gui_clients
+ *
+ * @param response
+ * @param zappy
+ */
+void send_response_to_all_gui_clients(response_t *response, zappy_t *zappy);
+
 #endif /* !SERVER_H_ */

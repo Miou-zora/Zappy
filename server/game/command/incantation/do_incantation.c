@@ -21,6 +21,7 @@ static void send_current_elevation(bool state,
         response_t *response = create_response(tmp);
         add_client_to_response(response, client);
         add_response_to_list(response, zappy);
+        notifie_gui_plv(client->trantorian, zappy);
     } else {
         response_t *response = create_response("ko\n");
         add_client_to_response(response, client);

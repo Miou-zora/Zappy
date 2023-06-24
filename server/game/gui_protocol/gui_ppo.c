@@ -41,8 +41,20 @@ void notifie_gui_ppo(trantorian_t *trantorian, zappy_t *zappy)
     add_response_to_list(response, zappy);
 }
 
-static void notifie_one_gui_ppo(trantorian_t *trantorian, zappy_t *zappy,
-client_t *client)
+void send_gui_ppo(trantorian_t *trantorian, zappy_t *zappy)
+{
+    response_t *response = NULL;
+    char buffer[1024] = {0};
+
+    if (sprintf(buffer, "ppo %d %d %d %d\n", trantorian->id,
+        trantorian->position.x,
+        trantorian->position.y, trantorian->direction) < 0)
+        return;
+    response = create_response(buffer);
+    send_response_to_all_gui_clients(response, zappy);
+}
+
+static void notifie_one_gui_ppo(trantorian_t *trantorian, zappy_t *zappy)
 {
     response_t *response = NULL;
     char buffer[1024] = {0};
@@ -54,8 +66,7 @@ client_t *client)
     response = create_response(buffer);
     if (response == NULL)
         return;
-    add_client_to_response(response, client);
-    add_response_to_list(response, zappy);
+    send_response_to_all_gui_clients(response, zappy);
 }
 
 void handle_gui_ppo(event_t *event, zappy_t *zappy)
@@ -70,5 +81,5 @@ void handle_gui_ppo(event_t *event, zappy_t *zappy)
     trantorian = get_trantorian_by_id(zappy, id);
     if (trantorian == NULL)
         return;
-    notifie_one_gui_ppo(trantorian, zappy, event->client);
+    notifie_one_gui_ppo(trantorian, zappy);
 }

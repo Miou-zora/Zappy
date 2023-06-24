@@ -13,7 +13,7 @@ void notifie_gui_suc(client_t *client, zappy_t *zappy)
     char buffer[1024];
     response_t *response = NULL;
 
-    if (sprintf(buffer, "suc\n") < 0)
+    if (sprintf(buffer, "%s\n", "suc") < 0)
         return;
     response = create_response(buffer);
     if (!response)

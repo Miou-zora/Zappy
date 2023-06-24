@@ -19,8 +19,7 @@ void notifie_gui_sgt(client_t *client, zappy_t *zappy)
     response = create_response(buffer);
     if (response == NULL)
         return;
-    add_client_to_response(response, client);
-    add_response_to_list(response, zappy);
+    send_response_to_all_gui_clients(response, zappy);
 }
 
 void handle_gui_sgt(event_t *event, zappy_t *zappy)
