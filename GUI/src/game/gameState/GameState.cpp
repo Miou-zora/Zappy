@@ -7,6 +7,8 @@
 
 #include "GameState.hpp"
 #include <iostream>
+#include "QuitButton.hpp"
+#include "Window.hpp"
 
 namespace GUI::Game {
     GameState::GameState(std::shared_ptr<GUI::Graphic::Scene> scene):
@@ -23,6 +25,8 @@ namespace GUI::Game {
     void GameState::update(const double &deltaTime)
     {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            if (_clickOnButton(GetMousePosition()))
+                return;
             _catch();
         } else if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
             _drop();
@@ -57,11 +61,13 @@ namespace GUI::Game {
         else
             _drawTeams();
         DrawFPS(700, 10);
+        _drawButtons();
         _displayTimeUnit();
     }
 
-    void GameState::init(void)
+    void GameState::init(std::shared_ptr<GUI::Graphic::Window> window)
     {
+        _buttons.push_back(std::make_shared<Button::QuitButton>(Button::QuitButton(window, {300, 10}, {50, 50})));
         // TODO: init camera here
     }
 
@@ -73,6 +79,24 @@ namespace GUI::Game {
             textToDisplay += "\t" + team + "\n";
         }
         DrawText(textToDisplay.c_str(), 10, 10, 20, WHITE);
+    }
+
+    bool GameState::_clickOnButton(Vector2 mousePos)
+    {
+        for (auto &button : _buttons) {
+            if (CheckCollisionPointRec(mousePos, button->getRect())) {
+                button->click();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void GameState::_drawButtons(void) const
+    {
+        for (auto &button : _buttons) {
+            button->draw();
+        }
     }
 
     void GameState::_displayTimeUnit(void) const

@@ -13,6 +13,8 @@
 #include "Incantation.hpp"
 #include "EventPool.hpp"
 #include "ICatchable.hpp"
+#include "AButton.hpp"
+#include "Window.hpp"
 
 namespace GUI::Game {
     class GameState {
@@ -22,11 +24,12 @@ namespace GUI::Game {
 
             void update(const double &deltaTime);
             void render(void);
-            void init(void);
+            void init(std::shared_ptr<GUI::Graphic::Window> window);
 
             void setScene(std::shared_ptr<GUI::Graphic::Scene> scene) { _scene = scene; };
             void setMap(std::shared_ptr<GUI::Game::Map> map) { _map = map; };
             void setSettings(std::shared_ptr<GUI::Game::GameSettings> settings) { _settings = settings; };
+
 
             std::shared_ptr<GUI::Graphic::Scene> getScene() { return _scene; };
             std::shared_ptr<GUI::Game::Map> getMap() { return _map; };
@@ -37,6 +40,8 @@ namespace GUI::Game {
             std::shared_ptr<GUI::Game::EventPool> &getEventPool() { return _eventPool; };
 
         private:
+            bool _clickOnButton(Vector2 mousePos);
+            void _drawButtons(void) const;
             void _drawTeams(void) const;
             void _displayTimeUnit(void) const;
             void _catch(void);
@@ -50,5 +55,6 @@ namespace GUI::Game {
             std::vector<std::shared_ptr<GUI::Game::Incantation>> _incantations;
             std::shared_ptr<GUI::Game::EventPool> _eventPool;
             std::shared_ptr<GUI::Game::ICatchable> _entityCatched;
+            std::vector<std::shared_ptr<GUI::Graphic::AButton>> _buttons;
     };
 }

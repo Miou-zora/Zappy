@@ -67,7 +67,7 @@ namespace GUI {
     {
         _client->connect(_ip, _port);
         _gui->init();
-        _game->init();
+        _game->init(_gui->getWindow());
         _running = true;
     }
 
@@ -75,7 +75,6 @@ namespace GUI {
     {
         while (_running) {
             _updateElapsedTime();
-            _gui->pollEvent();
             _client->update();
             _game->update(_elapsedTime);
             _gui->update();
@@ -85,8 +84,13 @@ namespace GUI {
             EndDrawing();
             if (!_gui->isRunning())
                 _running = false;
+            _gui->pollEvent();
+            if (!IsWindowReady()) {
+                _running = false;
+            }
         }
-        CloseWindow();
+        if (IsWindowReady())
+            CloseWindow();
     }
 
     void Core::unload(void)

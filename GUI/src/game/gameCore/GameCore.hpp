@@ -37,7 +37,7 @@ namespace GUI::Game {
              */
             void render(void);
 
-            void init(void);
+            void init(std::shared_ptr<GUI::Graphic::Window> window);
 
             /**
              * @brief Set the Client object

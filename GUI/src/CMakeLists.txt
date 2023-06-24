@@ -26,6 +26,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/graphic/object/camera/
 ${CMAKE_CURRENT_SOURCE_DIR}/graphic/object/model/
 ${CMAKE_CURRENT_SOURCE_DIR}/graphic/window/
 ${CMAKE_CURRENT_SOURCE_DIR}/graphic/scene/
+${CMAKE_CURRENT_SOURCE_DIR}/graphic/button/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/gameCore/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/gameState/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/IUpdate/
@@ -45,6 +46,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/container/siburContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/catchable/
+${CMAKE_CURRENT_SOURCE_DIR}/game/button/quitButton/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -64,6 +66,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/graphic/object/model/Model.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/graphic/window/Window.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/graphic/management/Management.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/graphic/scene/Scene.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/graphic/button/AButton.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/gameCore/GameCore.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/map/Map.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/map/tile/Tile.cpp
@@ -73,6 +76,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/Incantation.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/incantationEvent/IncantationEvent.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/Container.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/EventPool.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/game/button/quitButton/QuitButton.cpp
 )
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
