@@ -17,9 +17,9 @@ namespace GUI::Game {
         _settings(std::make_shared<GUI::Game::GameSettings>()),
         _incantations(std::vector<std::shared_ptr<GUI::Game::Incantation>>()),
         _eventPool(std::make_shared<GUI::Game::EventPool>()),
-        _entityCatched(nullptr)
+        _entityCatched(nullptr),
+        _atlas(nullptr)
     {
-
     }
 
     void GameState::update(const double &deltaTime)
@@ -52,6 +52,7 @@ namespace GUI::Game {
             return;
         }
         _map->render(_scene->getCamera());
+        _atlas->draw(_scene->getCamera());
         for (auto &player : _players) {
             player->render(_scene->getCamera());
         }
@@ -67,6 +68,14 @@ namespace GUI::Game {
 
     void GameState::init(std::shared_ptr<GUI::Graphic::Window> window)
     {
+        Model atlas = LoadModel("assets/makima/scene.gltf");
+        if (IsModelReady(atlas) == false) {
+            std::cout << "PERSO: ERROR: Unable to load atlas" << std::endl;
+            return;
+        }
+        _atlas = std::make_shared<GUI::Graphic::Object::Model>(atlas, WHITE);
+        _atlas->setPos(0, -255, -35);
+        _atlas->setScale(2, 2, 2);
         _buttons.push_back(std::make_shared<Button::QuitButton>(Button::QuitButton(window, {300, 10}, {50, 50})));
         // TODO: init camera here
     }

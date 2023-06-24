@@ -1,0 +1,11 @@
+Model Information:
+* title:	CHAINSAWMAN - MAKIMA
+* source:	https://sketchfab.com/3d-models/chainsawman-makima-a0fdfa91fee143898a80958362ba052c
+* author:	xinren (https://sketchfab.com/xinren)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "CHAINSAWMAN - MAKIMA" (https://sketchfab.com/3d-models/chainsawman-makima-a0fdfa91fee143898a80958362ba052c) by xinren (https://sketchfab.com/xinren) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

@@ -55,6 +55,7 @@ namespace GUI::Game {
             std::vector<std::shared_ptr<GUI::Game::Incantation>> _incantations;
             std::shared_ptr<GUI::Game::EventPool> _eventPool;
             std::shared_ptr<GUI::Game::ICatchable> _entityCatched;
+            std::shared_ptr<GUI::Graphic::Object::Model> _atlas;
             std::vector<std::shared_ptr<GUI::Graphic::AButton>> _buttons;
     };
 }
