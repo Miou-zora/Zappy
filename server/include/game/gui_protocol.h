@@ -194,7 +194,7 @@ void notifie_gui_pdi(trantorian_t *player, zappy_t *zappy);
  * @param zappy the struct containing all the informations about the server
  * @return ** void
  */
-void notifie_gui_ebo(egg_t *egg, zappy_t *zappy);
+void notifie_gui_ebo(client_t *client, zappy_t *zappy);
 
 /**
  * @brief notifie all GUI when a egg dies

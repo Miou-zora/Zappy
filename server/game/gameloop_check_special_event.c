@@ -89,6 +89,7 @@ bool special_event(event_t *event, zappy_t *zappy_s)
             strlen(zappy_s->args->names[i])) == 0) {
             display_log("New trantorian client\n");
             create_new_trantorian(event, zappy_s);
+            notifie_gui_ebo(event->client, zappy_s);
             return (true);
         }
     }
