@@ -46,7 +46,6 @@ class TestManagementClass(unittest.TestCase):
     def test_deserialize_data_with_message_and_one_pos(self):
         self.ai.deserialize_data({"message": "test message", "k": 1})
         self.assertEqual(self.ai.message, "test message")
-        self.assertEqual(self.ai.k, 1)
 
     def test_deserialize_data_with_client_nbr(self):
         self.ai.deserialize_data({"connect_nbr": 1})

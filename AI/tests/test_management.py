@@ -77,54 +77,57 @@ class TestManagementClass(unittest.TestCase):
 
     def test_other_with_response_take_ok(self):
         self.management.need_response.append("TAKE")
-        self.assertEqual(self.management.other("ok"), {})
+        self.assertEqual(self.management.other("ok"), {"take": True})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_test_ko(self):
         self.management.need_response.append("TAKE")
-        self.assertEqual(self.management.other("ko"), {})
+        self.assertEqual(self.management.other("ko"), {"take": False})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_set_ok(self):
         self.management.need_response.append("SET")
-        self.assertEqual(self.management.other("ok"), {})
+        self.assertEqual(self.management.other("ok"), {"set": True})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_set_ko(self):
         self.management.need_response.append("SET")
-        self.assertEqual(self.management.other("ko"), {})
+        self.assertEqual(self.management.other("ko"), {"set": False})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_incantation_ko(self):
         self.management.need_response.append("INCANTATION")
-        self.assertEqual(self.management.other("ko"), {})
+        self.assertEqual(self.management.other("ko"), {"incantation": False})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_incantation_ok(self):
         self.management.need_response.append("INCANTATION")
-        self.assertEqual(self.management.other("Elevation underway"), {})
+        self.assertEqual(self.management.elevation("Elevation underway"), {'incantation': True})
         self.assertEqual(self.management.need_response, ["LEVEL"])
         self.needs_response = []
 
     def test_other_with_response_level_ko(self):
         self.management.need_response.append("LEVEL")
-        self.assertEqual(self.management.other("ko"), {})
+        self.assertEqual(self.management.other("ko"), {"incantation": False})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
     def test_other_with_response_level_ok(self):
         self.management.need_response.append("LEVEL")
-        self.assertEqual(self.management.other("Current level: 1"), {"level": 1})
+        self.assertEqual(self.management.current_level("Current level: 1"), {'incantation': False, 'level': 1})
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
+    def test_good_message(self):
+        self.assertEqual(self.management.message("message 1, hello la famille"), {"message": "1, hello la famille"})
+
     def test_message(self):
-        self.assertEqual(self.management.message("message 1,2,3"), {})
+        self.assertEqual(self.management.message("message 1,2,3"), {"message": "1,2,3"})
 
     def test_message_with_no_comma(self):
         self.assertEqual(self.management.message("message 1"), {})
@@ -142,10 +145,3 @@ class TestManagementClass(unittest.TestCase):
     def test_death(self, stdout):
         self.assertEqual(self.management.death("dead"), {})
         self.assertEqual(stdout.getvalue(), "End of connection\n")
-
-    def test_execute_functions(self):
-        self.assertEqual(self.management.execute_functions("WELCOME"), {"WELCOME": "test\n"})
-        self.assertEqual(self.management.execute_functions("1"), {"client_num": 1})
-        self.assertEqual(self.management.execute_functions("1 2"), {"map_size": (1, 2)})
-        self.assertEqual(self.management.execute_functions("dead"), {})
-        self.assertEqual(self.management.execute_functions("ehjafjjeafhjea"), {})

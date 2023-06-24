@@ -7,6 +7,8 @@
 
 from typing import Any
 from random import randint
+from uuid import uuid4
+from src.utils import clamp
 
 class AI:
     """AI class
@@ -20,8 +22,7 @@ class AI:
         self.need_response: list = []
         self.map_size: tuple[int, int] = (0, 0)
         self.client_num: int = 0
-        self.k: int = 0
-        self.message: str = ""
+        self.message: list = []
         self.connect_nbr: int = 0
         self.inventory: list[str] = []
         self.look: list[str] = []
@@ -30,6 +31,12 @@ class AI:
         self.values_map: list = [0, 2, 1, 3, 8, 6, 4, 5, 7, 14, 12, 10, 9, 11, 13, 15]
         self.player_pos: int = 0
         self.focus_food: bool = False
+        self.incantation: bool = False
+        self.name: str = str(uuid4())
+        self.user_to_join: tuple[str, int] = ("", 0)
+        self.user_ready_to_level_up: list[str] = []
+        self.previous_level: int = 1
+        self.is_ko: bool = False
 
     def deserialize_data(self, data_dict: dict[str, Any]):
         """save_data function
@@ -41,12 +48,12 @@ class AI:
             "WELCOME": 'output',
             "map_size": 'map_size',
             "client_num": 'client_num',
-            "k": 'k',
             "message": 'message',
             "connect_nbr": 'connect_nbr',
             "inventory": "inventory",
             "look": 'look',
-            "level": 'level'
+            "level": 'level',
+            "incantation": 'incantation',
         }
         if (data_dict.get("WELCOME")):
             self.output.append(data_dict.get("WELCOME"))
@@ -54,9 +61,11 @@ class AI:
         for key, value in list(data_dict.items()):
             if (deserialization_map.get(key)):
                 self.__dict__[deserialization_map.get(key)] = value
+                if not value:
+                    self.is_ko = True
                 data_dict.pop(key)
 
-    def get_item(self, item: str):
+    def get_item(self, item: str) -> int:
         """get_item function
             this function get an item
         Args:
@@ -66,24 +75,25 @@ class AI:
             key, value = self.inventory[i].split()
             if key == item:
                 return (int(value))
+        return 0
 
     def can_i_level_up(self) -> bool:
         """can_i_level_up function
             this function check if the ai can level up
         """
-        if (self.level == 1 and self.get_item("linemate") == 1):
+        if (self.level == 1 and self.get_item("linemate") >= 1):
             return True
-        if (self.level == 2 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 1 and self.get_item("sibur") == 1):
+        if (self.level == 2 and self.get_item("linemate") >= 1 and self.get_item("deraumere") >= 1 and self.get_item("sibur") >= 1):
             return True
-        if (self.level == 3 and self.get_item("linemate") == 2 and self.get_item("sibur") == 1 and self.get_item("phiras") == 2):
+        if (self.level == 3 and self.get_item("linemate") >= 2 and self.get_item("sibur") >= 1 and self.get_item("phiras") >= 2):
             return True
-        if (self.level == 4 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 1 and self.get_item("sibur") == 2 and self.get_item("phiras") == 1):
+        if (self.level == 4 and self.get_item("linemate") >= 1 and self.get_item("deraumere") >= 1 and self.get_item("sibur") >= 2 and self.get_item("phiras") >= 1):
             return True
-        if (self.level == 5 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 2 and self.get_item("sibur") == 1 and self.get_item("mendiane") == 3):
+        if (self.level == 5 and self.get_item("linemate") >= 1 and self.get_item("deraumere") >= 2 and self.get_item("sibur") >= 1 and self.get_item("mendiane") >= 3):
             return True
-        if (self.level == 6 and self.get_item("linemate") == 1 and self.get_item("deraumere") == 2 and self.get_item("sibur") == 3 and self.get_item("phiras") == 1):
+        if (self.level == 6 and self.get_item("linemate") >= 1 and self.get_item("deraumere") >= 2 and self.get_item("sibur") >= 3 and self.get_item("phiras") >= 1):
             return True
-        if (self.level == 7 and self.get_item("linemate") == 2 and self.get_item("deraumere") == 2 and self.get_item("sibur") == 2 and self.get_item("mendiane") == 2 and self.get_item("phiras") == 2 and self.get_item("thystame") == 1):
+        if (self.level == 7 and self.get_item("linemate") >= 2 and self.get_item("deraumere") >= 2 and self.get_item("sibur") >= 2 and self.get_item("mendiane") >= 2 and self.get_item("phiras") >= 2 and self.get_item("thystame") >= 1):
             return True
         return False
 
@@ -93,10 +103,19 @@ class AI:
         """
         if (len(self.inventory) == 0):
             return
-        if (int(self.inventory[0].split()[1]) < 5):
+        if (int(self.inventory[0].split()[1]) < 12):
             self.focus_food = True
-        if (int(self.inventory[0].split()[1]) > 9):
+        if (int(self.inventory[0].split()[1]) > 60):
             self.focus_food = False
+
+    def remove_from_look(self, item: str, idx: int = 0):
+        """remove_from_look function
+            this function remove an item from look
+        Args:
+            item (str): item to remove
+        """
+        self.look[idx] = self.look[idx].replace(item, "", 1)
+        self.look[idx] = self.look[idx].replace("  ", " ")
 
     def take_object(self, object: str, idx: int):
         """take_object function
@@ -106,11 +125,22 @@ class AI:
         """
         self.output.append(f"Take {object}\n")
         self.need_response.append("TAKE")
-        self.look[idx] = self.look[idx].replace(object, "", 1)
-        self.look[idx] = self.look[idx].replace("  ", " ")
+        self.remove_from_look(object, idx)
         self.update_inventory(object)
 
-    def update_inventory(self, item: str):
+    def set_object(self, object: str, nbr: int):
+        """set_object function
+            this function set an object
+        Args:
+            object (str): object to set
+        """
+        for nbr in range(nbr, 0, -1):
+            self.output.append(f"Set {object}\n")
+            self.need_response.append("SET")
+            self.look[0] = self.look[0].replace(" ", f" {object} ", 1)
+            self.update_inventory(object, False)
+
+    def update_inventory(self, item: str, add: bool = True):
         """ update_inventory function
             this function update the inventory
         Args:
@@ -119,7 +149,7 @@ class AI:
         for i in range(len(self.inventory)):
             key, value = self.inventory[i].split()
             if key == item:
-                value = str(int(value) + 1)
+                value = str(int(value) + (1 if add else -1))
                 self.inventory[i] = key + ' ' + value
                 return
 
@@ -141,18 +171,18 @@ class AI:
         if idx == self.player_pos:
             self.take_object(item, idx)
             return
-        if idx >= 9 and idx <= 15 and self.player_pos == 6:
-            self.do_command("Forward")
-            self.player_pos = 12
-            return
-        elif idx >= 4 and idx <= 8 and self.player_pos == 2:
-            self.do_command("Forward")
-            self.player_pos = 6
-            return
-        elif idx >= 1 and idx <= 3 and self.player_pos == 0:
+        if  1 <= idx <= 3:
             self.do_command("Forward")
             self.player_pos = 2
-            return
+        elif 4 <= idx <= 8:
+            self.do_command("Forward")
+            self.do_command("Forward")
+            self.player_pos = 6
+        elif 9 <= idx <= 15:
+            self.do_command("Forward")
+            self.do_command("Forward")
+            self.do_command("Forward")
+            self.player_pos = 12
         if idx < self.player_pos:
             self.do_command("Left")
         elif idx > self.player_pos:
@@ -173,15 +203,12 @@ class AI:
         self.player_pos = 0
         self.do_command("Look")
 
-    def find_item(self, item: str, nbr: int = 1):
+    def find_item(self, item: str):
         """find_item function
             this function find an item
         Args:
             item (str): item to find
         """
-        # TODO add a number of item to search
-        if len(self.look) > 15:
-            self.look = self.look[:15]
         for i in self.values_map:
             if (i > len(self.look)):
                 break
@@ -205,23 +232,166 @@ class AI:
                         return
         self.no_item()
 
+    def check_if_there_is_enough_player(self) -> bool:
+        """check_if_there_is_enough_player function
+            this function check if there is enough player
+        """
+        number_of_player = len(self.user_ready_to_level_up) + 1
+        if (self.level == 8):
+            return False
+        return (number_of_player >= clamp((self.level - self.level % 2), 1, 8))
+
+    def do_action_for_level(self, action):
+        if (self.level == 1):
+            action("linemate", 1)
+        elif (self.level == 2):
+            action("linemate", 1)
+            action("deraumere", 1)
+            action("sibur", 1)
+        elif (self.level == 3):
+            action("linemate", 2)
+            action("sibur", 1)
+            action("phiras", 2)
+        elif (self.level == 4):
+            action("linemate", 1)
+            action("deraumere", 1)
+            action("sibur", 2)
+            action("phiras", 1)
+        elif (self.level == 5):
+            action("linemate", 1)
+            action("deraumere", 2)
+            action("sibur", 1)
+            action("mendiane", 3)
+        elif (self.level == 6):
+            action("linemate", 1)
+            action("deraumere", 2)
+            action("sibur", 3)
+            action("phiras", 1)
+        elif (self.level == 7):
+            action("linemate", 2)
+            action("deraumere", 2)
+            action("sibur", 2)
+            action("mendiane", 2)
+            action("phiras", 2)
+            action("thystame", 1)
+
+    def check_someone_is_ready_to_level_up(self) -> bool:
+        """ check_someone_is_ready_to_level_up function
+            this function check if someone is ready to level up
+        """
+        if not self.user_to_join:
+            return False
+        if self.user_to_join[0]:
+            return True
+        return False
+
+    def join_someone_ready_to_level_up(self):
+        """ join_someone_ready_to_level_up function
+            this function join someone ready to level up
+        """
+        if (self.user_to_join[1] == 1):
+            self.do_command("Forward")
+            self.do_command("Look")
+        if (self.user_to_join[1] == 5):
+            self.do_command("Left")
+            self.do_command("Left")
+            self.do_command("Forward")
+        if (self.user_to_join[1] in [6, 7, 8]):
+            self.do_command("Right")
+            self.do_command("Forward")
+        if (self.user_to_join[1] in [2, 3, 4]):
+            self.do_command("Left")
+            self.do_command("Forward")
+        if (self.user_to_join[1] == 0):
+            self.output.append(f"Broadcast {self.name} ready with {self.user_to_join[0]}\n")
+            self.need_response.append("BROADCAST")
+            return
+        self.output.append(f"Broadcast {self.name} comming to {self.user_to_join[0]}\n")
+        self.need_response.append("BROADCAST")
+
+    def parse_received_messages(self):
+        """parse_received_messages function
+            this function parse the received messages from broadcast
+        """
+        if (self.message == []):
+            return
+        for words in self.message:
+            words = words.split()
+            if (len(words) >= 5 and words[2] == "ready" and words[3] == "level" and int(words[4]) == self.level):
+                self.user_to_join = (words[1], int(words[0][0]))
+            if (len(words) >= 5 and words[2] == "ready" and words[3] == "with" and words[4] == self.name and words[0][0] == "0"):
+                if (words[1] not in self.user_ready_to_level_up):
+                    self.user_ready_to_level_up.append(words[1])
+            if (len(words) >= 4 and words[2] == "incantation" and words[3] == "starts" and words[1] == self.user_to_join[0]):
+                self.user_to_join = ("", 0)
+        self.message = []
+
+    def ko_received(self) -> bool:
+        """ko_received function
+            this function is called when the ai is ko
+        """
+        if (self.is_ko):
+            self.output = []
+            self.need_response = []
+            self.count = 0
+            self.is_ko = False
+            return True
+        return False
+
+    def block_vision(self):
+        """block_vision function
+            this function block the vision for 15 cases (3 lines)
+        """
+        if self.look and len(self.look) >= 17:
+            self.look = self.look[:16]
+
+    def level_up_actions(self):
+        """level_up_actions function
+            this function is called when the ai level up
+        """
+        if (self.level != self.previous_level):
+            self.previous_level = self.level
+            self.focus_food = True
+            self.count = 0
+            self.user_to_join = ("", 0)
+
+    def do_incantation(self):
+        """do_incantation function
+            this function do the incantation
+        """
+        self.output.append(f"Broadcast {self.name} incantation starts\n")
+        self.need_response.append("BROADCAST")
+        self.do_action_for_level(self.set_object)
+        self.do_command("Incantation")
+
     def choose_action(self):
         """choose_action function
             this function choose the action to do
         """
+        self.level_up_actions()
         if (self.count == 0):
             self.do_command("Look")
-            self.player_pos = 0
-            self.count += 1
-        if (self.count % 10 == 0):
-            self.do_command("Inventory")
-            self.count += 1
+        if (self.incantation):
+            self.output = []
+            self.user_ready_to_level_up = []
             return
+        if (self.ko_received()):
+            return
+        if (self.count % 5 == 0):
+            self.do_command("Inventory")
+        self.block_vision()
         self.should_i_focus_food()
+        self.parse_received_messages()
         if (self.focus_food):
             self.find_item("food")
+        elif (self.check_someone_is_ready_to_level_up()):
+            self.user_ready_to_level_up = []
+            self.join_someone_ready_to_level_up()
+        elif self.can_i_level_up() and self.check_if_there_is_enough_player():
+            self.do_incantation()
         elif (self.can_i_level_up()):
-            self.find_item("player", self.level)
+            self.output.append(f"Broadcast {self.name} ready level {str(self.level)}\n")
+            self.need_response.append("BROADCAST")
         elif (self.look != []):
             self.take_every_stones()
         self.count += 1

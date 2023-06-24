@@ -6,6 +6,7 @@
 ##
 
 import re
+import asyncio
 
 class Management:
     """Management class
@@ -22,7 +23,9 @@ class Management:
             "message": self.message,
             "WELCOME": self.welcome,
             "other": self.other,
-            "dead": self.death
+            "dead": self.death,
+            "Elevation": self.elevation,
+            "Current": self.current_level,
         }
         self.name: str = name
         self.responses: dict[str, str] = {
@@ -57,13 +60,39 @@ class Management:
         Args:
             message (str): message
         """
-        message = message.split(",")
-        if (len(message) < 2 or len(message[0]) > 2):
+        check = message.split(",")
+        if (len(check) < 2 or len(check[0].split()) < 2 or int(check[0].split()[1]) < 0):
             return {}
         dict = {}
-        dict["k"] = int(message[0].split()[1])
-        dict["message"] = message[1]
-        self.is_received = True
+        dict["message"] = message.replace("message", "").strip()
+        return dict
+
+    def elevation(self, message: str) -> dict:
+        """elevation function
+            this function is called when the server send a message with incantation
+        Args:
+            message (str): message
+        """
+        dict = {}
+        if (self.need_response != [] and self.need_response[0] == "INCANTATION"):
+            self.need_response.pop(0)
+            self.is_received = True
+            self.need_response.append("LEVEL")
+        dict["incantation"] = True
+        return dict
+
+    def current_level(self, message: str) -> dict:
+        """current function
+            this function is called when the server send a message with current level
+        Args:
+            message (str): message
+        """
+        dict = {}
+        dict["level"] = int(message.split()[2])
+        dict["incantation"] = False
+        if (self.need_response != [] and self.need_response[0] == "LEVEL"):
+            self.need_response.pop(0)
+            self.is_received = True
         return dict
 
     def get_rigtht_response(self, message: str) -> dict:
@@ -74,7 +103,6 @@ class Management:
         """
         words = message.split()
         dict = {}
-
         if (self.need_response[0] == "CLIENT_NUM"):
             dict["client_num"] = int(words[0])
             self.need_response.pop(0)
@@ -83,19 +111,38 @@ class Management:
             return dict
         elif ("MAP_SIZE" == self.need_response[0]):
             dict["map_size"] = (int(words[0]), int(words[1]))
+            self.need_response.pop(0)
         elif ("CONNECT_NBR" == self.need_response[0]):
             dict["connect_nbr"] = int(words[0])
+            self.need_response.pop(0)
         elif ("LOOK" == self.need_response[0]):
             dict["look"] = message[1:-1].split(",")
+            self.need_response.pop(0)
         elif ("INVENTORY" == self.need_response[0]):
             dict["inventory"] = message[1:-1].split(", ")
+            self.need_response.pop(0)
+        elif ("TAKE" == self.need_response[0]):
+            if (words[0] == "ok"):
+                dict["take"] = True
+            else:
+                dict["take"] = False
+            self.need_response.pop(0)
+        elif ("SET" == self.need_response[0]):
+            if (words[0] == "ok"):
+                dict["set"] = True
+            else:
+                dict["set"] = False
+            self.need_response.pop(0)
+        elif ("FORWARD" == self.need_response[0] or "RIGHT" == self.need_response[0] or "LEFT" == self.need_response[0] or "BROADCAST" == self.need_response[0]):
+            self.need_response.pop(0)
         elif ("INCANTATION" == self.need_response[0]):
-            if (words[0] == "Elevation"):
-                self.need_response.append("LEVEL")
+            if (words[0] == "ko"):
+                dict["incantation"] = False
+            self.need_response.pop(0)
         elif ("LEVEL" == self.need_response[0]):
-            if (words[0] == "Current"):
-                dict["level"] = int(words[2])
-        self.need_response.pop(0)
+            if (words[0] == "ko"):
+                dict["incantation"] = False
+            self.need_response.pop(0)
         self.is_received = True
         return dict
 
@@ -122,7 +169,7 @@ class Management:
         print("End of connection")
         return {}
 
-    def execute_functions(self, message: str) -> dict:
+    async def execute_functions(self, message: str) -> dict:
         """execute_functions function
             this function execute the functions in the fonctions dict
         Args:
@@ -130,5 +177,7 @@ class Management:
         """
         for key in self.fonctions.keys():
             if key == message.split()[0]:
+                await asyncio.sleep(0)
                 return (self.fonctions[key](message))
+        await asyncio.sleep(0)
         return self.fonctions["other"](message)
