@@ -54,14 +54,16 @@ namespace GUI::Game {
                         incantationLevel = incantation->getLevel();
                     }
                 }
-                tile = _gameState->getMap()->getTile(x, y);
-                if (tile == nullptr) {
-                    std::cerr << "Error: Pie: tile is nullptr" << std::endl;
-                    return;
+                if (result) {
+                    tile = _gameState->getMap()->getTile(x, y);
+                    if (tile == nullptr) {
+                        std::cerr << "Error: Pie: tile is nullptr" << std::endl;
+                        return;
+                    }
+                    posOfIncantationBillboard = tile->getPos();
+                    posOfIncantationBillboard.y += 2;
+                    _gameState->getEventPool()->addEvent(std::make_shared<GUI::Game::IncantationEvent>(incantationLevel, posOfIncantationBillboard));
                 }
-                posOfIncantationBillboard = tile->getPos();
-                posOfIncantationBillboard.y += 2;
-                _gameState->getEventPool()->addEvent(std::make_shared<GUI::Game::IncantationEvent>(incantationLevel, posOfIncantationBillboard));
             }
     };
 }

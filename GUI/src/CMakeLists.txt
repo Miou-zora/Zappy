@@ -44,6 +44,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/container/deraumereContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/phirasContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/siburContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/
+${CMAKE_CURRENT_SOURCE_DIR}/game/event/broadcastEvent/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/catchable/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/team/
@@ -77,6 +78,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/Incantation.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/incantationEvent/IncantationEvent.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/Container.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/EventPool.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/game/event/broadcastEvent/BroadcastEvent.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/quitButton/QuitButton.cpp
 )
 

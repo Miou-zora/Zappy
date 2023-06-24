@@ -2,18 +2,19 @@
 ** EPITECH PROJECT, 2023
 ** Zappy-Mirror
 ** File description:
-** IncantationEvent
+** BroadcastEvent
 */
 
+#include "BroadcastEvent.hpp"
 #include "IncantationEvent.hpp"
 #include <string>
 #include <iostream>
 #include "raymath.h"
 
 namespace GUI::Game {
-    IncantationEvent::IncantationEvent(int level, Vector3 pos): _pos(pos), _timer(_duration)
+    BroadcastEvent::BroadcastEvent(Vector3 pos, const std::string &message): _pos(pos), _timer(0.3), _message(message)
     {
-        std::string path = "assets/incantation/incantation" + std::to_string(level + 1) + ".png";
+        std::string path = "assets/broadcastEvent/broadcastEvent.png";
         _texture = LoadTexture(path.c_str());
         if (!IsTextureReady(_texture)) {
             path = "../" + path;
@@ -24,30 +25,29 @@ namespace GUI::Game {
         _size = 1;
     }
 
-    IncantationEvent::~IncantationEvent()
+    BroadcastEvent::~BroadcastEvent()
     {
         if (IsTextureReady(_texture))
             UnloadTexture(_texture);
     }
 
-    void IncantationEvent::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
+    void BroadcastEvent::draw(std::shared_ptr<GUI::Graphic::Object::Camera> camera)
     {
-        if (IsTextureReady(_texture) ) {
+        if (IsTextureReady(_texture)) {
             BeginMode3D(*camera->getCamera());
                 DrawBillboard(*camera->getCamera(), _texture, _pos, _size, WHITE);
             EndMode3D();
         }
     }
 
-    void IncantationEvent::update(const double &deltaTime)
+    void BroadcastEvent::update(const double &deltaTime)
     {
         if (_timer > 0) {
             _timer -= deltaTime;
-            _size = Lerp(_minSize, _maxSize, _timer/_duration);
         }
     }
 
-    bool IncantationEvent::isEnded(void)
+    bool BroadcastEvent::isEnded(void)
     {
         return _timer <= 0;
     }
