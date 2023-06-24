@@ -295,6 +295,7 @@ void notifie_gui_sst(int new_unit, zappy_t *zappy);
  * the message: seg N\n
  * @param zappy the struct containing all the informations about the server
  * @param team_name the name of the winning team
+ * @param client the GUI client
  * @return ** void
  */
 void notifie_gui_seg(zappy_t *zappy, char *team_name);
@@ -417,3 +418,11 @@ void send_gui_bct(int x, int y, zappy_t *zappy);
  * @param zappy_t
  */
 void send_gui_ppo(trantorian_t *trantorian, zappy_t *zappy);
+
+/**
+ * @brief check if the game is ending. 6 trantorians of a team must be
+ * at level 6
+ *
+ * @param zappy
+ */
+bool check_win_game(zappy_t *zappy);
