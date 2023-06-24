@@ -123,6 +123,12 @@ class TestManagementClass(unittest.TestCase):
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
+    def test_other_with_response_fork(self):
+        self.management.need_response.append("FORK")
+        self.assertEqual(self.management.other("ok"), {})
+        self.assertEqual(self.management.need_response, [])
+        self.needs_response = []
+
     def test_good_message(self):
         self.assertEqual(self.management.message("message 1, hello la famille"), {"message": "1, hello la famille"})
 

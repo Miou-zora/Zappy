@@ -42,6 +42,7 @@ class Management:
             "SET": "ok|ko",
             "INCANTATION": "Elevation underway|ko",
             "LEVEL": "Current level: [0-9]+|ko",
+            "FORK": "ok",
         }
         self.need_response: list = []
         self.is_received: bool = False
@@ -133,7 +134,7 @@ class Management:
             else:
                 dict["set"] = False
             self.need_response.pop(0)
-        elif ("FORWARD" == self.need_response[0] or "RIGHT" == self.need_response[0] or "LEFT" == self.need_response[0] or "BROADCAST" == self.need_response[0]):
+        elif (self.need_response[0] in ["FORWARD", "RIGHT", "LEFT", "BROADCAST", "FORK"]):
             self.need_response.pop(0)
         elif ("INCANTATION" == self.need_response[0]):
             if (words[0] == "ko"):
