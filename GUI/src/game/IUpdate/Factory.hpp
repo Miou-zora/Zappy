@@ -28,6 +28,7 @@
 #include "Suc.hpp"
 #include "Smg.hpp"
 #include "Pbc.hpp"
+#include "Seg.hpp"
 #include "GameState.hpp"
 #include <map>
 #include <functional>
@@ -155,6 +156,11 @@ namespace GUI::Game {
                             std::shared_ptr<GUI::Network::IOPooledClient> client,
                             std::string command) {
                     return std::make_shared<GUI::Game::Pbc>(gameState ,client, command);
+                }},
+                {"seg", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                            std::shared_ptr<GUI::Network::IOPooledClient> client,
+                            std::string command) {
+                    return std::make_shared<GUI::Game::Seg>(gameState ,client, command);
                 }},
            };
     };
