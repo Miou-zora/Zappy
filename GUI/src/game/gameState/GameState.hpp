@@ -13,8 +13,11 @@
 #include "Incantation.hpp"
 #include "EventPool.hpp"
 #include "ICatchable.hpp"
+#include "Team.hpp"
 #include "AButton.hpp"
 #include "Window.hpp"
+
+bool operator==(const Color &c1, const Color &c2);
 
 namespace GUI::Game {
     class GameState {
@@ -35,7 +38,7 @@ namespace GUI::Game {
             std::shared_ptr<GUI::Game::Map> getMap() { return _map; };
             std::shared_ptr<GUI::Game::GameSettings> getSettings() { return _settings; };
             std::vector<std::shared_ptr<GUI::Game::Player>> &getPlayers() { return _players; };
-            std::vector<std::string> &getTeamNames() { return _teamNames; };
+            std::vector<std::shared_ptr<GUI::Game::Team>> &getTeams() { return _teams; };
             std::vector<std::shared_ptr<GUI::Game::Incantation>> &getIncantations() { return _incantations; };
             std::shared_ptr<GUI::Game::EventPool> &getEventPool() { return _eventPool; };
 
@@ -50,7 +53,7 @@ namespace GUI::Game {
             std::shared_ptr<GUI::Graphic::Scene> _scene;
             std::shared_ptr<GUI::Game::Map> _map;
             std::shared_ptr<GUI::Game::GameSettings> _settings;
-            std::vector<std::string> _teamNames;
+            std::vector<std::shared_ptr<GUI::Game::Team>> _teams;
             std::vector<std::shared_ptr<GUI::Game::Player>> _players;
             std::vector<std::shared_ptr<GUI::Game::Incantation>> _incantations;
             std::shared_ptr<GUI::Game::EventPool> _eventPool;
@@ -59,3 +62,4 @@ namespace GUI::Game {
             std::vector<std::shared_ptr<GUI::Graphic::AButton>> _buttons;
     };
 }
+

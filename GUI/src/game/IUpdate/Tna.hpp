@@ -35,14 +35,43 @@ namespace GUI::Game {
                     return;
                 }
                 teamName = args[1];
-                std::vector<std::string> &teams = _gameState->getTeamNames();
-                if (std::find(teams.begin(), teams.end(), teamName) == teams.end()) {
-                    teams.push_back(teamName);
+                std::vector<std::shared_ptr<GUI::Game::Team>> &teams = _gameState->getTeams();
+                for (auto &team : teams) {
+                    if (*team == teamName) {
+                        std::cerr << "Error: Tna: team name already exists" << std::endl;
+                        return;
+                    }
                 }
-                else {
-                    std::cerr << "Error: Tna: team name already exists" << std::endl;
-                    return;
+                std::shared_ptr<GUI::Game::Team> newTeam = std::make_shared<GUI::Game::Team>(teamName, _findNotAlreadyTakenColor(teams));
+                _gameState->getTeams().push_back(newTeam);
+            }
+        private:
+            Color _findNotAlreadyTakenColor(std::vector<std::shared_ptr<GUI::Game::Team>> &teams)
+            {
+                std::vector<Color> colors = {BLUE, VIOLET, BROWN, GRAY, GOLD, LIME, LIGHTGRAY,
+                    PINK, YELLOW, GREEN, SKYBLUE, PURPLE, BEIGE, DARKGRAY, MAROON, ORANGE, DARKGREEN,
+                    DARKBLUE, DARKPURPLE, DARKBROWN};
+                std::vector<Color> takenColors;
+
+                for (auto &team : teams) {
+                    takenColors.push_back(team->getColor());
                 }
+                for (auto &color : colors) {
+                    if (!_isColorInArray(color, takenColors)) {
+                        return color;
+                    }
+                }
+                return BLUE;
+            }
+
+            bool _isColorInArray(Color color, std::vector<Color> &colors)
+            {
+                for (auto &colorInArray : colors) {
+                    if (color == colorInArray) {
+                        return true;
+                    }
+                }
+                return false;
             }
     };
 }

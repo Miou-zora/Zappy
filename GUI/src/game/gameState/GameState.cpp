@@ -10,6 +10,12 @@
 #include "QuitButton.hpp"
 #include "Window.hpp"
 
+
+bool operator==(const Color &c1, const Color &c2)
+{
+    return (c1.r == c2.r && c1.g == c2.g && c1.b == c2.b && c1.a == c2.a);
+}
+
 namespace GUI::Game {
     GameState::GameState(std::shared_ptr<GUI::Graphic::Scene> scene):
         _scene(scene),
@@ -84,10 +90,11 @@ namespace GUI::Game {
     {
         std::string textToDisplay = "Teams Name:\n";
 
-        for (auto &team: _teamNames) {
-            textToDisplay += "\t" + team + "\n";
-        }
         DrawText(textToDisplay.c_str(), 10, 10, 20, WHITE);
+        for (size_t index = 0; index < _teams.size(); index++) {
+            textToDisplay = _teams[index]->getName() + "\n";
+            DrawText(textToDisplay.c_str(), 10, 10 + (index + 1) * 20, 20, _teams[index]->getColor());
+        }
     }
 
     bool GameState::_clickOnButton(Vector2 mousePos)

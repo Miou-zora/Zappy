@@ -17,6 +17,7 @@
 #include "PhirasContainer.hpp"
 #include "ThystameContainer.hpp"
 #include "ICatchable.hpp"
+#include "Team.hpp"
 
 namespace GUI::Game {
     enum Orientation {
@@ -27,7 +28,7 @@ namespace GUI::Game {
     };
     class Player : virtual public ICatchable{
         public:
-            Player(const std::string &teamName, int id, Vector2 position, Orientation orientation, size_t level = 1);
+            Player(std::shared_ptr<GUI::Game::Team> teamName, int id, Vector2 position, Orientation orientation, size_t level = 1);
 
             ~Player(void) = default;
 
@@ -42,12 +43,14 @@ namespace GUI::Game {
             void setLevel(size_t level) { _level = level; };
             void setPositionDiff(Vector2 positionDiff) { _positionDiff = positionDiff; };
 
-            const std::string &getTeamName(void) const { return _teamName; };
+            std::shared_ptr<GUI::Game::Team> &getTeam(void) { return _team; };
+            const std::shared_ptr<GUI::Game::Team> &getTeam(void) const { return _team; };
             int getId(void) const { return _id; };
             Vector2 getPosition(void) const { return _position; };
             Orientation getOrientation(void) const { return _orientation; };
             size_t getLevel(void) const { return _level; };
             Vector2 getPositionDiff(void) const { return _positionDiff; };
+            std::shared_ptr<GUI::Graphic::Object::Model> getModel(void) const { return _model; };
 
             std::shared_ptr<GUI::Game::FoodContainer> getFoodContainer(void) const { return _foodContainer; };
             std::shared_ptr<GUI::Game::LinemateContainer> getLinemateContainer(void) const { return _linemateContainer; };
@@ -59,7 +62,7 @@ namespace GUI::Game {
 
         private:
             const int _id;
-            const std::string _teamName;
+            std::shared_ptr<GUI::Game::Team> _team;
             Vector2 _position;
             Vector2 _positionDiff;
             size_t _level;

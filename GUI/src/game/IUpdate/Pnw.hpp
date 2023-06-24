@@ -29,6 +29,7 @@ namespace GUI::Game {
                 int id = std::stoi(args[1]);
                 Vector2 position = {static_cast<float>(std::stoi(args[2])), static_cast<float>(std::stoi(args[3]))};
                 Orientation orientation = static_cast<Orientation>(std::stoi(args[4]));
+                std::shared_ptr<GUI::Game::Team> team = nullptr;
                 int level = std::stoi(args[5]);
                 std::string teamName = args[6];
 
@@ -38,10 +39,25 @@ namespace GUI::Game {
                         return;
                     }
                 }
-                newPlayer = std::make_shared<GUI::Game::Player>(teamName, id, position, orientation, level);
+                team = _getTeam(teamName);
+                if (team == nullptr) {
+                    std::cerr << "Error: Pnw: team does not exist" << std::endl;
+                    return;
+                }
+                newPlayer = std::make_shared<GUI::Game::Player>(team, id, position, orientation, level);
+                newPlayer->getModel()->setColor(team->getColor());
                 newPlayer->setPositionDiff({- _gameState->getMap()->getSize().x / 2 + 0.5f, - _gameState->getMap()->getSize().y / 2 + 0.5f});
                 *(newPlayer->getFoodContainer()) = 9;
                 _gameState->getPlayers().push_back(newPlayer);
+            }
+        private:
+            std::shared_ptr<GUI::Game::Team> _getTeam(std::string teamName)
+            {
+                for (auto &team : _gameState->getTeams()) {
+                    if (*team == teamName)
+                        return team;
+                }
+                return nullptr;
             }
     };
 }

@@ -46,6 +46,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/container/siburContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/catchable/
+${CMAKE_CURRENT_SOURCE_DIR}/game/team/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/quitButton/
 )
 

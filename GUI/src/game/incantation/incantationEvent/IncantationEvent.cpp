@@ -13,7 +13,7 @@
 namespace GUI::Game {
     IncantationEvent::IncantationEvent(int level, Vector3 pos): _pos(pos), _timer(_duration)
     {
-        std::string path = "assets/incantation/incantation" + std::to_string(level) + ".png";
+        std::string path = "assets/incantation/incantation" + std::to_string(level + 1) + ".png";
         _texture = LoadTexture(path.c_str());
         if (!IsTextureReady(_texture)) {
             path = "../" + path;

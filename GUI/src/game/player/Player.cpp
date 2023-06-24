@@ -7,11 +7,12 @@
 
 #include "Player.hpp"
 #include <iostream>
+#include "Team.hpp"
 
 namespace GUI::Game {
-    Player::Player(const std::string &teamName, int id, Vector2 position, Orientation orientation, size_t level):
+    Player::Player(std::shared_ptr<GUI::Game::Team> teamName, int id, Vector2 position, Orientation orientation, size_t level):
         _id(id),
-        _teamName(teamName),
+        _team(teamName),
         _position(position),
         _level(level),
         _orientation(orientation),
@@ -66,7 +67,7 @@ namespace GUI::Game {
             EndMode3D();
         }
         DrawText(("Player " + std::to_string(_id)).c_str(), 10, 10, 20, WHITE);
-        DrawText(("Team: " + _teamName).c_str(), 10, 30, 20, WHITE);
+        DrawText(("Team: " + _team->getName()).c_str(), 10, 30, 20, _team->getColor());
         DrawText(("Level: " + std::to_string(_level)).c_str(), 10, 50, 20, WHITE);
         DrawText(("Orientation: " + _orientationToString(_orientation)).c_str(), 10, 70, 20, WHITE);
         DrawText(("Food: " + std::to_string(_foodContainer->getQuantity())).c_str(), 10, 90, 20, WHITE);
