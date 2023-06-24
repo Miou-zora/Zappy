@@ -43,8 +43,8 @@ namespace GUI::Game {
         _gameState->render();
     }
 
-    void GameCore::init(std::shared_ptr<GUI::Graphic::Window> window)
+    void GameCore::init(std::shared_ptr<GUI::Graphic::Window> window, std::shared_ptr<GUI::Network::IOPooledClient> client)
     {
-        _gameState->init(window);
+        _gameState->init(window, client);
     }
 }

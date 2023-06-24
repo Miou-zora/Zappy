@@ -37,7 +37,7 @@ namespace GUI::Game {
              */
             void render(void);
 
-            void init(std::shared_ptr<GUI::Graphic::Window> window);
+            void init(std::shared_ptr<GUI::Graphic::Window> window, std::shared_ptr<GUI::Network::IOPooledClient> client);
 
             /**
              * @brief Set the Client object

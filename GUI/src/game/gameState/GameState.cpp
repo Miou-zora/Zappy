@@ -9,6 +9,7 @@
 #include <iostream>
 #include "QuitButton.hpp"
 #include "Window.hpp"
+#include "SwitchTimeunitButton.hpp"
 
 
 bool operator==(const Color &c1, const Color &c2)
@@ -72,7 +73,7 @@ namespace GUI::Game {
         _displayTimeUnit();
     }
 
-    void GameState::init(std::shared_ptr<GUI::Graphic::Window> window)
+    void GameState::init(std::shared_ptr<GUI::Graphic::Window> window, std::shared_ptr<GUI::Network::IOPooledClient> client)
     {
         Model atlas = LoadModel("assets/makima/scene.gltf");
         if (IsModelReady(atlas) == false) {
@@ -83,6 +84,9 @@ namespace GUI::Game {
         _atlas->setPos(0, -255, -35);
         _atlas->setScale(2, 2, 2);
         _buttons.push_back(std::make_shared<Button::QuitButton>(Button::QuitButton(window, {300, 10}, {50, 50})));
+        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 10, {360, 10}, {100, 25}, "assets/button/switchTimeunit/1.png")));
+        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 100, {360, 40}, {100, 25}, "assets/button/switchTimeunit/2.png")));
+        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 1000, {360, 70}, {100, 25}, "assets/button/switchTimeunit/3.png")));
         // TODO: init camera here
     }
 

@@ -16,6 +16,7 @@
 #include "Team.hpp"
 #include "AButton.hpp"
 #include "Window.hpp"
+#include "IOPooledClient.hpp"
 
 bool operator==(const Color &c1, const Color &c2);
 
@@ -27,7 +28,7 @@ namespace GUI::Game {
 
             void update(const double &deltaTime);
             void render(void);
-            void init(std::shared_ptr<GUI::Graphic::Window> window);
+            void init(std::shared_ptr<GUI::Graphic::Window> window, std::shared_ptr<GUI::Network::IOPooledClient> client);
 
             void setScene(std::shared_ptr<GUI::Graphic::Scene> scene) { _scene = scene; };
             void setMap(std::shared_ptr<GUI::Game::Map> map) { _map = map; };

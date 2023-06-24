@@ -63,11 +63,11 @@ namespace GUI {
         return -1;
     }
 
-    void Core::load(void)
+    void Core::load()
     {
         _client->connect(_ip, _port);
         _gui->init();
-        _game->init(_gui->getWindow());
+        _game->init(_gui->getWindow(), _client);
         _running = true;
     }
 
