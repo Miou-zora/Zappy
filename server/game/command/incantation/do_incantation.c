@@ -5,8 +5,6 @@
 ** incantation
 */
 
-// x + y * width
-
 #include "server.h"
 #include "trantorian.h"
 #include "game.h"
@@ -39,10 +37,8 @@ void do_incantation(client_t *client, zappy_t *zappy, char *param)
     level_values = copy_inventory_level(inventory_lvl,
     client->trantorian->level, level_values);
 
-    if (!check_inventory_trantorian(client, level_values)
-        || !check_players_on_tile(client, zappy, level_values)) {
+    if (!check_inventory_trantorian(client, level_values, zappy))
         state = false;
-    }
     send_current_elevation(state, client, zappy);
 }
 

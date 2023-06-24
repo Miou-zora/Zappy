@@ -7,6 +7,21 @@
 
 #include "server.h"
 #include "trantorian.h"
+#include "game.h"
+
+static void trantorians_concerned_incante(trantorian_t *trantorian,
+    client_t *trantorian2)
+{
+    if (trantorian->command[0].func == NULL) {
+        trantorian->command[0].timer = 300;
+        trantorian->command[0].func = &do_incantation;
+    } else {
+        for (int i = 0; i < MAX_COMMAND - 1; i++)
+            copy_command(trantorian2, i, i + 1);
+        trantorian->command[0].func = &do_incantation;
+        trantorian->command[0].timer = 300;
+    }
+}
 
 static bool check_pos_trantorian(client_t *client, clan_member_t *clan_member)
 {
@@ -31,6 +46,8 @@ static bool check_players_level(client_t *client, zappy_t *zappy,
                 && clan_member->trantorian->level
                 == client->trantorian->level) {
                 nb_players++;
+                trantorians_concerned_incante(clan_member->trantorian,
+                    clan_member->trantorian->client);
             }
         }
     }
@@ -49,16 +66,18 @@ bool check_players_on_tile(client_t *client, zappy_t *zappy,
     return false;
 }
 
-bool check_inventory_trantorian(client_t *client, size_t *level_values)
+bool check_inventory_trantorian(client_t *client, size_t *level_values,
+    zappy_t *zappy)
 {
     size_t level_trantorian = client->trantorian->level;
+    bool return_value = false;
 
     for (size_t i = 1; i < 7; i++) {
         if (level_trantorian == i
             && client->trantorian->inventory->nb_of_objects[i]
             >= level_values[i]) {
-            return true;
+            return_value = check_players_on_tile(client, zappy, level_values);
         }
     }
-    return false;
+    return return_value;
 }

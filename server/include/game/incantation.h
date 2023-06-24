@@ -25,7 +25,8 @@ size_t *copy_inventory_level(size_t **inventory_lvl, int level,
  * @param level the level of the player
  * @param player the player who send the command
  */
-bool check_inventory_trantorian(client_t *client, size_t *level_values);
+bool check_inventory_trantorian(client_t *client, size_t *level_values,
+    zappy_t *zappy);
 
 /**
  * @brief initialize the inventory_lvl
