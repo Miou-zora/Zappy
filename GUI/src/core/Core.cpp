@@ -43,6 +43,7 @@ namespace GUI {
         _game->setClient(_client);
         _game->getGameState()->setScene(_gui->getScene());
         SetTraceLogLevel(LOG_WARNING | LOG_ERROR | LOG_FATAL);
+        srand(time(NULL));
     }
 
     void Core::_updateElapsedTime(void)
