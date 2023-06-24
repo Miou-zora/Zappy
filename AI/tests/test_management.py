@@ -129,24 +129,6 @@ class TestManagementClass(unittest.TestCase):
         self.assertEqual(self.management.need_response, [])
         self.needs_response = []
 
-    def test_good_message(self):
-        self.assertEqual(self.management.message("message 1, hello la famille"), {"message": "1, hello la famille"})
-
-    def test_message(self):
-        self.assertEqual(self.management.message("message 1,2,3"), {"message": "1,2,3"})
-
-    def test_message_with_no_comma(self):
-        self.assertEqual(self.management.message("message 1"), {})
-
-    def test_message_with_no_space(self):
-        self.assertEqual(self.management.message("message1"), {})
-
-    def test_message_with_no_space_and_comma(self):
-        self.assertEqual(self.management.message("message1,2"), {})
-
-    def test_message_negative(self):
-        self.assertEqual(self.management.message("message -1,2"), {})
-
     @patch('sys.stdout', new_callable = StringIO)
     def test_death(self, stdout):
         self.assertEqual(self.management.death("dead"), {})

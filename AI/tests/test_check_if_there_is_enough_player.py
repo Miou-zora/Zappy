@@ -11,7 +11,7 @@ from src.AI import AI
 class TestManagementClass(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
         super().__init__(methodName)
-        self.ai = AI()
+        self.ai = AI("Team1")
 
     def test_check_if_there_is_enough_player_1(self):
         self.ai.user_ready_to_level_up = ["player1", "player2", "player3"]

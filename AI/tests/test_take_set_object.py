@@ -11,7 +11,7 @@ import unittest
 class TestStringMethods(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
         super().__init__(methodName)
-        self.ai = AI()
+        self.ai = AI("Team1")
 
     def test_take_object(self):
         self.ai.inventory = ["food 1", "linemate 2"]

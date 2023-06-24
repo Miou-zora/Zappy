@@ -11,7 +11,7 @@ from src.AI import AI
 class TestManagementClass(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
         super().__init__(methodName)
-        self.ai = AI()
+        self.ai = AI("Team1")
 
     def test_do_actions_for_level_1(self):
         self.ai.level = 1

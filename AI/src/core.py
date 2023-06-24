@@ -31,7 +31,7 @@ class Core:
             name (str): name
         """
         self.client: Client = Client(machine, port)
-        self.ai: AI = AI()
+        self.ai: AI = AI(name)
         self.management: Management = Management(name)
         self._is_running: bool = True
         self.inputs: list = [self.client.server_sock]

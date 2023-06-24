@@ -7,17 +7,18 @@
 
 import re
 import asyncio
+from .utils import decrypt_string
 
 class Management:
     """Management class
     Attributes:
         fonctions (dict): fonctions
-        name (str): name
+        team_name (str): team_name
     """
-    def __init__(self, name: str):
+    def __init__(self, team_name: str):
         """__init__ function
         Args:
-            name (str): name
+            team_name (str): team_name
         """
         self.fonctions: dict[str, function] = {
             "message": self.message,
@@ -27,7 +28,7 @@ class Management:
             "Elevation": self.elevation,
             "Current": self.current_level,
         }
-        self.name: str = name
+        self.team_name: str = team_name
         self.responses: dict[str, str] = {
             "FORWARD": "ok",
             "RIGHT": "ok",
@@ -53,7 +54,7 @@ class Management:
         """
         self.need_response.append("CLIENT_NUM")
         self.is_received = True
-        return {"WELCOME": f"{self.name}\n"}
+        return {"WELCOME": f"{self.team_name}\n"}
 
     def message(self, message: str) -> dict:
         """message function
@@ -65,7 +66,7 @@ class Management:
         if (len(check) < 2 or len(check[0].split()) < 2 or int(check[0].split()[1]) < 0):
             return {}
         dict = {}
-        dict["message"] = message.replace("message", "").strip()
+        dict["message"] = f"{int(check[0].split()[1])}, {decrypt_string(check[1][1:], self.team_name)}"
         return dict
 
     def elevation(self, message: str) -> dict:

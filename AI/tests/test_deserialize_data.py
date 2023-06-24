@@ -11,7 +11,7 @@ from src.AI import AI
 class TestManagementClass(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
         super().__init__(methodName)
-        self.ai = AI()
+        self.ai = AI("Team1")
 
     def test_deserialize_data(self):
         self.ai.deserialize_data({"WELCOME": "test\n"})

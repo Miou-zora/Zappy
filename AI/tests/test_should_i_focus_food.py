@@ -11,7 +11,7 @@ from src.AI import AI
 class TestManagementClass(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
         super().__init__(methodName)
-        self.ai = AI()
+        self.ai = AI("Team1")
 
     def test_should_i_focus_food_no_inventory(self):
         self.ai.inventory = []

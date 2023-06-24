@@ -8,7 +8,7 @@
 from typing import Any
 from random import randint
 from uuid import uuid4
-from .utils import clamp
+from .utils import clamp, encrypt_string
 import sys
 import os
 
@@ -17,7 +17,7 @@ class AI:
     Attributes:
         data_dict (dict): data dict
     """
-    def __init__(self):
+    def __init__(self, team_name: str):
         """__init__ function
         """
         self.output: list = []
@@ -39,6 +39,7 @@ class AI:
         self.user_ready_to_level_up: list[str] = []
         self.previous_level: int = 1
         self.is_ko: bool = False
+        self.team_name: str = team_name
 
     def deserialize_data(self, data_dict: dict[str, Any]):
         """save_data function
@@ -66,6 +67,16 @@ class AI:
                 if not value:
                     self.is_ko = True
                 data_dict.pop(key)
+
+    def broadcast_message(self, message: str):
+        """broadcast_message function
+            this function is called when the server send a message with broadcast
+        Args:
+            message (str): message
+        """
+        encrypted_message =  encrypt_string(message, self.team_name)
+        self.output.append(f"Broadcast {encrypted_message}\n")
+        self.need_response.append("BROADCAST")
 
     def get_item(self, item: str) -> int:
         """get_item function
@@ -107,8 +118,7 @@ class AI:
             return
         if (int(self.inventory[0].split()[1]) < 12):
             self.focus_food = True
-            self.output.append(f"Broadcast {self.name} foods\n")
-            self.need_response.append("BROADCAST")
+            self.broadcast_message(f"{self.name} foods")
         if (int(self.inventory[0].split()[1]) > 60):
             self.focus_food = False
 
@@ -307,11 +317,9 @@ class AI:
             self.do_command("Left")
             self.do_command("Forward")
         if (self.user_to_join[1] == 0):
-            self.output.append(f"Broadcast {self.name} ready with {self.user_to_join[0]}\n")
-            self.need_response.append("BROADCAST")
+            self.broadcast_message(f"{self.name} ready with {self.user_to_join[0]}")
             return
-        self.output.append(f"Broadcast {self.name} comming to {self.user_to_join[0]}\n")
-        self.need_response.append("BROADCAST")
+        self.broadcast_message(f"{self.name} comming to {self.user_to_join[0]}")
 
     def parse_received_messages(self):
         """parse_received_messages function
@@ -375,8 +383,7 @@ class AI:
         """do_incantation function
             this function do the incantation
         """
-        self.output.append(f"Broadcast {self.name} incantation starts\n")
-        self.need_response.append("BROADCAST")
+        self.broadcast_message(f"{self.name} incantation starts")
         self.do_action_for_level(self.set_object)
         self.do_command("Incantation")
 
@@ -405,8 +412,7 @@ class AI:
         elif self.can_i_level_up() and self.check_if_there_is_enough_player():
             self.do_incantation()
         elif (self.can_i_level_up()):
-            self.output.append(f"Broadcast {self.name} ready level {str(self.level)}\n")
-            self.need_response.append("BROADCAST")
+            self.broadcast_message(f"{self.name} ready level {str(self.level)}")
         elif (self.look != []):
             self.take_every_stones()
         self.count += 1
