@@ -101,7 +101,6 @@ class Core:
         for sock in readable:
             if sock == self.client.server_sock:
                 receive = self.client.receive_data(sock)
-                print("receive data:", receive)
                 if not receive:
                     print("Server disconnected")
                     self.stop()
@@ -120,7 +119,6 @@ class Core:
         for sock in writable:
             if sock is self.client.server_sock:
                 if self.ai.output and self.management.is_received == True:
-                    print("send data:", self.ai.output[0])
                     self.client.send_data(sock, self.ai.output[0])
                     self.management.is_received = False
                     self.ai.output.pop(0)

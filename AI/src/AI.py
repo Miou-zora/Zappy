@@ -9,6 +9,8 @@ from typing import Any
 from random import randint
 from uuid import uuid4
 from .utils import clamp
+import sys
+import os
 
 class AI:
     """AI class
@@ -105,6 +107,8 @@ class AI:
             return
         if (int(self.inventory[0].split()[1]) < 12):
             self.focus_food = True
+            self.output.append(f"Broadcast {self.name} foods\n")
+            self.need_response.append("BROADCAST")
         if (int(self.inventory[0].split()[1]) > 60):
             self.focus_food = False
 
@@ -324,6 +328,10 @@ class AI:
                     self.user_ready_to_level_up.append(words[1])
             if (len(words) >= 4 and words[2] == "incantation" and words[3] == "starts" and words[1] == self.user_to_join[0]):
                 self.user_to_join = ("", 0)
+            if (len(words) >= 3 and words[2] == "foods" and words[1] == self.user_to_join[0]):
+                self.user_to_join = ("", 0)
+            if (len(words) >= 3 and words[2] == "foods" and words[1] in self.user_ready_to_level_up):
+                self.user_ready_to_level_up.remove(words[1])
         self.message = []
 
     def ko_received(self) -> bool:
@@ -354,6 +362,14 @@ class AI:
             self.focus_food = True
             self.count = 0
             self.user_to_join = ("", 0)
+            if (self.connect_nbr > 0 and (self.level == 2 or self.level == 6)):
+                pid = os.fork()
+                if pid == 0:
+                    from AI.main import main
+                    main()
+                    sys.exit(0)
+                else:
+                    self.connect_nbr -= 1
 
     def do_incantation(self):
         """do_incantation function
@@ -368,13 +384,12 @@ class AI:
         """choose_action function
             this function choose the action to do
         """
+        print("name:", self.name, "level", self.level)
         self.level_up_actions()
         if (self.count == 0):
+            self.do_command("Connect_nbr")
+            self.do_command("Fork")
             self.do_command("Look")
-        if (self.incantation):
-            self.output = []
-            self.user_ready_to_level_up = []
-            return
         if (self.ko_received()):
             return
         if (self.count % 5 == 0):

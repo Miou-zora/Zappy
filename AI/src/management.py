@@ -32,7 +32,7 @@ class Management:
             "FORWARD": "ok",
             "RIGHT": "ok",
             "LEFT": "ok",
-            "CLIENT_NUM": "[0-9]+",
+            "CLIENT_NUM": "[0-9]+|ko",
             "MAP_SIZE": "[0-9]+ [0-9]+",
             "CONNECT_NBR": "[0-9]+",
             "BROADCAST": "ok",
@@ -105,6 +105,9 @@ class Management:
         words = message.split()
         dict = {}
         if (self.need_response[0] == "CLIENT_NUM"):
+            if (words[0] == "ko"):
+                print("Error: bad team name")
+                exit(84)
             dict["client_num"] = int(words[0])
             self.need_response.pop(0)
             self.need_response.append("MAP_SIZE")
