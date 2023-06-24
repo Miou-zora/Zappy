@@ -206,7 +206,6 @@ void notifie_gui_ebo(egg_t *egg, zappy_t *zappy);
  */
 void notifie_gui_edi(egg_t *egg, zappy_t *zappy);
 
-
 /** All GUI notification for utils
  *
  * it will send a message to all GUI clients
@@ -214,7 +213,6 @@ void notifie_gui_edi(egg_t *egg, zappy_t *zappy);
  * it can handle the GUI client request about the different informations
  *
  *********************************************/
-
 /**
  * @brief respond to the GUI client with the wanted tile
  * should be called when the GUI client sends "bct X Y\n"

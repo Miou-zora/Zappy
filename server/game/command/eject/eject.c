@@ -9,16 +9,17 @@
 #include "trantorian.h"
 #include "game.h"
 
-static bool destroy_eggs(trantorian_t *trantorian, game_struct_t *game)
+static bool destroy_eggs(trantorian_t *trantorian, zappy_t *zappy)
 {
     egg_t *egg = NULL;
     int nb_eggs_destroyed = 0;
 
-    LIST_FOREACH(egg, &game->all_eggs, next_egg) {
+    LIST_FOREACH(egg, &zappy->game_struct->all_eggs, next_egg) {
         if (egg->pos.x == trantorian->position.x
             && egg->pos.y == trantorian->position.y) {
             LIST_REMOVE(egg, next_egg);
             nb_eggs_destroyed++;
+            notifie_gui_edi(egg, zappy);
         }
     }
     if (nb_eggs_destroyed > 0)
@@ -32,7 +33,7 @@ void do_eject(client_t *client, zappy_t *zappy, char *param)
 
     if (push_player(client,
         zappy) || destroy_eggs(client->trantorian,
-            zappy->game_struct)) {
+            zappy)) {
         response_t *response = create_response("ok\n");
         add_client_to_response(response, client);
         add_response_to_list(response, zappy);
