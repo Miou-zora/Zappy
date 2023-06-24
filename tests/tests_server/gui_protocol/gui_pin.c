@@ -8,47 +8,32 @@
 #include <criterion/criterion.h>
 #include "gui_protocol.h"
 
-// Test(send_gui_pin, valid_id)
-// {
-//     client_t *client = calloc(1, sizeof(client_t));
-//     char *av[] = {"./zappy_server", "-p", "6395", "-x", "10", "-y", "10", "-n",
-//     "toto", "-c", "10", "-f", "10", NULL};
-//     zappy_t *zappy = build_server(14, av);
-//     client_t *gui_client = calloc(1, sizeof(client_t));
-//     gui_client->is_graphic = true;
-//     LIST_INSERT_HEAD(&zappy->clients, gui_client, next);
-//     client->is_connected = true;
-//     client->is_logged = true;
-//     client->is_graphic = false;
-//     trantorian_t *trantorian = calloc(1, sizeof(trantorian_t));
-//     trantorian->id = 1;
-//     trantorian->position.x = 4;
-//     trantorian->position.y = 4;
-//     trantorian->inventory = calloc(1, sizeof(object_t));
-//     client->trantorian = trantorian;
-//     send_gui_pin(trantorian, client, zappy);
-//     cr_assert_str_eq((zappy->responses.lh_first->content), "pin 1 4 4 0 0 0 0 0 0 0\n");
-// }
-
-// Test(send_gui_pin, valid_id2)
-// {
-//     client_t *client = calloc(1, sizeof(client_t));
-//     char *av[] = {"./zappy_server", "-p", "6495", "-x", "10", "-y", "10", "-n",
-//     "toto", "-c", "10", "-f", "10", NULL};
-//     zappy_t *zappy = build_server(14, av);
-//     client_t *gui_client = calloc(1, sizeof(client_t));
-//     gui_client->is_graphic = true;
-//     LIST_INSERT_HEAD(&zappy->clients, gui_client, next);
-//     client->is_connected = true;
-//     client->is_logged = true;
-//     client->is_graphic = false;
-//     trantorian_t *trantorian = calloc(1, sizeof(trantorian_t));
-//     trantorian->id = 1;
-//     trantorian->position.x = 4;
-//     trantorian->position.y = 4;
-//     trantorian->inventory = calloc(1, sizeof(object_t));
-//     trantorian->inventory->nb_of_objects[LINEMATE] = 3;
-//     client->trantorian = trantorian;
-//     send_gui_pin(trantorian, client, zappy);
-//     cr_assert_str_eq((zappy->responses.lh_first->content), "pin 1 4 4 0 3 0 0 0 0 0\n");
-// }
+Test(gui_pin, test_gui_pin_true)
+{
+    char *args[] = {"./zappy_server", NULL};
+    int ac = 1;
+    zappy_t *zappy = build_server(ac, args);
+    client_t *gui_client = calloc(1, sizeof(client_t));
+    gui_client->is_graphic = true;
+    gui_client->is_connected = true;
+    gui_client->is_logged = true;
+    gui_client->fd = 1;
+    add_client_to_list(gui_client, zappy);
+    client_t client = {0};
+    client.trantorian = calloc(1, sizeof(trantorian_t));
+    client.is_connected = true;
+    client.is_graphic = false;
+    client.is_logged = true;
+    client.trantorian->id = 1;
+    client.trantorian->position.x = 1;
+    client.trantorian->position.y = 1;
+    client.trantorian->inventory = calloc(1, sizeof(object_t));
+    client.trantorian->inventory->nb_of_objects[LINEMATE] = 3;
+    client.trantorian->inventory->nb_of_objects[DERAUMERE] = 2;
+    client.trantorian->inventory->nb_of_objects[SIBUR] = 1;
+    client.trantorian->direction = UP;
+    client.trantorian->level = 1;
+    client.trantorian->team_name = strdup("Team1");
+    send_gui_pin(client.trantorian, &client, zappy);
+    cr_assert_str_eq((zappy->responses.lh_first->content), "pin 1 1 1 0 3 2 1 0 0 0\n");
+}
