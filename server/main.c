@@ -7,6 +7,7 @@
 
 #include "server.h"
 #include <signal.h>
+#include <time.h>
 
 bool running = true;
 
@@ -37,6 +38,7 @@ int main(int ac, char **av)
     zappy_t *zappy = NULL;
     setbuf(stdout, NULL);
 
+    srand(time(NULL));
     if (ac == 2 && strncmp(av[1], "-help", 5) == 0) {
         display_usage();
         return (0);
