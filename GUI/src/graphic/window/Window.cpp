@@ -25,6 +25,8 @@ namespace GUI::Graphic {
 
     void Window::create(void)
     {
+        SetConfigFlags(FLAG_MSAA_4X_HINT);
+        SetConfigFlags(FLAG_WINDOW_RESIZABLE);
         InitWindow(_width, _height, (_title + " Raylib").c_str());
         SetTargetFPS(60);
         _cursorDisabled = false;
