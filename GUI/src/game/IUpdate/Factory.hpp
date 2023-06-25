@@ -33,6 +33,7 @@
 #include "Pex.hpp"
 #include "Enw.hpp"
 #include "Pfk.hpp"
+#include "Ebo.hpp"
 #include "GameState.hpp"
 #include <map>
 #include <functional>
@@ -185,6 +186,11 @@ namespace GUI::Game {
                             std::shared_ptr<GUI::Network::IOPooledClient> client,
                             std::string command) {
                     return std::make_shared<GUI::Game::Pfk>(gameState ,client, command);
+                }},
+                {"ebo", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                            std::shared_ptr<GUI::Network::IOPooledClient> client,
+                            std::string command) {
+                    return std::make_shared<GUI::Game::Ebo>(gameState ,client, command);
                 }},
            };
     };
