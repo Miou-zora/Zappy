@@ -19,7 +19,7 @@ namespace GUI::Graphic {
             }
             ~AButton(void) = default;
 
-            void draw(void);
+            virtual void draw(void);
             virtual void click(void) = 0;
             Rectangle getRect(void) const { return {_pos.x, _pos.y, _size.x, _size.y}; };
 

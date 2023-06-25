@@ -50,6 +50,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/catchable/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/team/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/quitButton/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/switchTimeunitButton/
+${CMAKE_CURRENT_SOURCE_DIR}/game/button/killButton/
 )
 
 include_directories(${INCLUDE_SRC})
@@ -82,6 +83,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/EventPool.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/broadcastEvent/BroadcastEvent.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/quitButton/QuitButton.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/switchTimeunitButton/SwitchTimeunitButton.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/game/button/killButton/KillButton.cpp
 )
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

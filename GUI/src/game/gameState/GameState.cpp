@@ -10,6 +10,7 @@
 #include "QuitButton.hpp"
 #include "Window.hpp"
 #include "SwitchTimeunitButton.hpp"
+#include "KillButton.hpp"
 
 
 bool operator==(const Color &c1, const Color &c2)
@@ -81,6 +82,7 @@ namespace GUI::Game {
         _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 10, {360, 10}, {100, 25}, "assets/button/switchTimeunit/1.png")));
         _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 100, {360, 40}, {100, 25}, "assets/button/switchTimeunit/2.png")));
         _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 1000, {360, 70}, {100, 25}, "assets/button/switchTimeunit/3.png")));
+        _buttons.push_back(std::make_shared<Button::KillButton>(Button::KillButton(client, _entityCatched, {10, 240}, {25, 25})));
         Model atlas = LoadModel("assets/makima/scene.gltf");
         if (IsModelReady(atlas) == false) {
             std::cout << "PERSO: ERROR: Unable to load atlas" << std::endl;
