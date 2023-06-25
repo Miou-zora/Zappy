@@ -114,17 +114,6 @@ void notifie_gui_pin(trantorian_t *player, zappy_t *zappy);
 void notifie_gui_pbc(trantorian_t *player, zappy_t *zappy, char *message);
 
 /**
- * @brief notifie all GUI clients when the player start an incantation
- * must be called when the player starts an incantation,
- * but only for the one who started it
- * the message: pic X Y L n1 n2 n3 ... n\n
- * @param player the player
- * @param zappy the struct containing all the informations about the server
- * @return ** void
- */
-void notifie_gui_pic(trantorian_t *player, zappy_t *zappy);
-
-/**
  * @brief notifie all GUI clients when the incantation is over
  * must be called when the incantation is over
  * the message: pie X Y R\n
@@ -407,11 +396,23 @@ void send_gui_pfk(client_t *client, zappy_t *zappy);
 void send_gui_pdr(client_t *client, zappy_t *zappy, char *param);
 
 /**
- * @brief notifie gui enw laid egg
+ * @brief notifie gui for succes or not incantation
+
  *
  * @param trantorian
  * @param server
  * @param client
+ * @param state_incantation
+ */
+void notifie_gui_pic(trantorian_t *trantorian, zappy_t *server,
+    bool state_incantation);
+
+/**
+ * @brief notifie gui for succes or not incantation
+ *
+ * @param trantorian the trantorian
+ * @param server the struct containing all the informations about the server
+ * @return ** void
  */
 void notifie_gui_enw(trantorian_t *trantorian, zappy_t *server);
 
