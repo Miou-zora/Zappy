@@ -49,7 +49,7 @@ namespace GUI::Game {
                 break;
         }
         _model->setRot(rotation.x, rotation.y, rotation.z);
-        _model->setPos(_position.x + _positionDiff.x, 0.75f, _position.y + _positionDiff.x);
+        _model->setPos(_position.x + _positionDiff.x, 0.75f, _position.y + _positionDiff.y);
         _model->setScale(0.25f + 0.05 * _level, 0.25f + 0.05 * _level, 0.25f + 0.05 * _level);
     }
 
@@ -69,7 +69,7 @@ namespace GUI::Game {
                 DrawModelWiresEx(*_model->getModel(), _model->getPos(), _model->getRot(), 1, scale, RAYWHITE);
             EndMode3D();
         }
-        DrawText(("Player " + std::to_string(_id)).c_str(), 10, 10, 20, WHITE);
+        DrawText(("Player " + std::to_string(_id) + " x=" + std::to_string(static_cast<int>(_position.x)) + " y=" + std::to_string(static_cast<int>(_position.y))).c_str(), 10, 10, 20, WHITE);
         DrawText(("Team: " + _team->getName()).c_str(), 10, 30, 20, _team->getColor());
         DrawText(("Level: " + std::to_string(_level)).c_str(), 10, 50, 20, WHITE);
         DrawText(("Orientation: " + _orientationToString(_orientation)).c_str(), 10, 70, 20, WHITE);

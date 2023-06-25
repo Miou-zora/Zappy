@@ -46,7 +46,7 @@ namespace GUI::Game {
                 }
                 newPlayer = std::make_shared<GUI::Game::Player>(team, id, position, orientation, _client, level);
                 newPlayer->getModel()->setColor(team->getColor());
-                newPlayer->setPositionDiff({- _gameState->getMap()->getSize().x / 2 + 0.5f, - _gameState->getMap()->getSize().y / 2 + 0.5f});
+                newPlayer->setPositionDiff({-_gameState->getMap()->getSize().x / 2 + 0.5f, -_gameState->getMap()->getSize().y / 2 + 0.5f});
                 *(newPlayer->getFoodContainer()) = 9;
                 _gameState->getPlayers().push_back(newPlayer);
             }
