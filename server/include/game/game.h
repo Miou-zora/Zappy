@@ -281,83 +281,66 @@ void do_broadcast(client_t *client, zappy_t *zappy, char *param);
 void set_func_broadcast(event_t *event, zappy_t *zappy_s);
 
 /**
- * @brief get the position of the trantorian
+ * @brief compute the difference between two vector
  *
- * @param pos the position of the player
- * @param trantorian the trantorian
- * @return vector_t the position of the trantorian
+ * @param pos_origin
+ * @param pos_target
+ * @return ** vector_t
  */
-vector_t select_increment_pos(vector_t pos_origin, vector_t pos_trantorian);
+vector_t compute_difference(vector_t *pos_origin, vector_t *pos_target);
 
 /**
- * @brief get the position of the trantorian
- *
- * @param pos the position of the player
- * @param trantorian the trantorian
- * @return vector_t the position of the trantorian
+ * @brief compute the compensation for the message
+ * travelling in the map
+ * @param pos_origin
+ * @param pos_target
+ * @return ** vector_t
  */
-vector_t get_pos_trantorian(vector_t pos, trantorian_t *trantorian);
+vector_t comptute_compensation(vector_t *pos_origin, vector_t *pos_target);
 
 /**
- * @brief check if the position is on the border of the map
+ * @brief check if the pos is not near the dest
  *
- * @param increment_pos the increment position
- * @param pos_trantorian the position of the trantorian
- * @param map the map
- * @return vector_t the increment position
- */
-bool check_adjacent_position(vector_t pos_trantorian, vector_t pos_origin);
-
-/**
- * @brief check if the position is on the border of the map
- *
- * @param increment_pos the increment position
- * @param pos_trantorian the position of the trantorian
- * @param map the map
- * @return vector_t the increment position
- */
-int get_direction_broadcast(vector_t pos_trantorian, vector_t pos_origin);
-
-/**
- * @brief check if the position is on the border of the map
- *
- * @param increment_pos the increment position
- * @param pos_trantorian the position of the trantorian
- * @param map the map
- * @return vector_t the increment position
- */
-void check_border_in_map(vector_t *increment_pos, vector_t *pos_trantorian,
-    map_t *map);
-
-/**
- * @brief find the adjacent position of the trantorian
- *
- * @param pos_trantorian the position of the trantorian receiver
- * @param increment_pos the increment position
- * @param map the map
- * @param trantorian the trantorian emetteur
- */
-vector_t find_adjacent_pos_loop(vector_t pos_trantorian,
-    vector_t increment_pos, map_t *map, trantorian_t *trantorian);
-
-/**
- * @brief check if the vector is adjacent in x
- *
- * @param pos_trantorian the vector of the trantorian
- * @param pos_origin the vector of the origin
- * @param x the x
+ * @param dest  the dest
+ * @param pos   the pos
+ * @param map   the map
  * @return true
  * @return false
  */
-bool is_adjacent_x(vector_t pos_trantorian, vector_t pos_origin, int x);
+bool is_not_near(trantorian_t *dest, vector_t *pos);
 
 /**
- * @brief check if the vector is adjacent in y
+ * @brief compute the message transmission
  *
- * @param pos_trantorian the vector of the trantorian
- * @param pos_origin the vector of the origin
- * @param y the y
- * @return true
- * @return false
+ * @param zappy the struct containing every information about the server
+ * @param src the src
+ * @param msg the message
+ * @return ** void
  */
-bool is_adjacent_y(vector_t pos_trantorian, vector_t pos_origin, int y);
+void compute_message_movement(zappy_t *zappy, trantorian_t *src, char *msg);
+
+/**
+ * @brief send the broadcast response
+ * the message is the message of the broadcast
+ * @param zappy     the struct containing every information about the server
+ * @param dest      the dest
+ * @param pos       the pos
+ * @param message   the message
+ * @return ** void
+ */
+void send_broadcast_response(zappy_t *zappy, trantorian_t *dest,
+    vector_t *pos, char *message);
+
+int safe_x(int x, int max_x);
+
+int safe_y(int y, int max_y);
+
+/**
+ * @brief Set the func look object
+ *
+ * @param zappy     the struct containing every information about the server
+ * @param message   the message
+ * @param src       the src
+ * @return ** void
+ */
+void send_response_emetter(zappy_t *zappy, char *message, trantorian_t *src);

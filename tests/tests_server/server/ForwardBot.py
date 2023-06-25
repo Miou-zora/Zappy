@@ -24,10 +24,10 @@ class Bot:
         self.sock.send(("Forward\n").encode())
         sleep(0.5)
         print("Received: " + self.sock.recv(1024).decode())
-        self.sock.send("Take food\n".encode())
+        self.sock.send("Left\n".encode())
         sleep(0.5)
         print("Received: " + self.sock.recv(1024).decode())
-        self.sock.send("Left\n".encode())
+
     def run(self):
         while True:
             self.forward()

@@ -7,48 +7,63 @@
 
 #include "game.h"
 
-bool is_adjacent_x(vector_t pos_trantorian, vector_t pos_origin, int incr)
-{
-    int adjacent_x[] = {0, 1, -1};
+static const vector_t near_player[] = {
+    {0, -1},
+    {-1, -1},
+    {-1, 0},
+    {-1, 1},
+    {0, 1},
+    {1, 1},
+    {1, 0},
+    {1, -1}
+};
 
-    for (size_t i = 0; i < 3; i++) {
-        if (pos_trantorian.x + incr == pos_origin.x + adjacent_x[i])
-            return (true);
+bool is_not_near(trantorian_t *dest, vector_t *pos)
+{
+    for (int i = 0; i < 8; i++) {
+        if (dest->position.x + near_player[i].x == pos->x
+        && dest->position.y + near_player[i].y == pos->y)
+            return (false);
     }
-    return (false);
+    return (true);
 }
 
-bool is_adjacent_y(vector_t pos_trantorian, vector_t pos_origin, int incr)
+int get_index_direction(trantorian_t *dest, vector_t *pos)
 {
-    int adjacent_y[] = {0, 1, -1};
-
-    for (size_t i = 0; i < 3; i++) {
-        if (pos_trantorian.y + incr == pos_origin.y + adjacent_y[i])
-            return (true);
+    for (int i = 0; i < 8; i++) {
+        if (dest->position.x + near_player[i].x == pos->x
+            && dest->position.y + near_player[i].y == pos->y)
+            return (i);
     }
-    return (false);
+    return (0);
 }
 
-bool check_adjacent_position(vector_t pos_trantorian, vector_t pos_origin)
+int get_direction(trantorian_t *dest, vector_t *pos)
 {
-    vector_t adjacent_pos = {0, 0};
-    vector_t tab_pos[] = {
-        {.x = 0, .y = 1},
-        {.x = 0, .y = -1},
-        {.x = 1, .y = 0},
-        {.x = -1, .y = 0},
-        {.x = 1, .y = 1},
-        {.x = -1, .y = -1},
-        {.x = 1, .y = -1},
-        {.x = -1, .y = 1}
-    };
+    int up[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int down[] = {5, 6, 7, 8, 1, 2, 3, 4};
+    int left[] = {7, 8, 1, 2, 3, 4, 5, 6};
+    int right[] = {3, 4, 5, 6, 7, 8, 1, 2};
+    int idx = get_index_direction(dest, pos);
 
-    for (size_t i = 0; i < 8; i++) {
-        adjacent_pos.x = pos_origin.x + tab_pos[i].x;
-        adjacent_pos.y = pos_origin.y + tab_pos[i].y;
-        if (pos_trantorian.x == adjacent_pos.x
-            && pos_trantorian.y == adjacent_pos.y)
-            return (true);
-    }
-    return (false);
+    if (dest->direction == UP)
+        return (up[idx]);
+    if (dest->direction == DOWN)
+        return (down[idx]);
+    if (dest->direction == LEFT)
+        return (left[idx]);
+    return (right[idx]);
+
+}
+
+void send_broadcast_response(zappy_t *zappy, trantorian_t *dest,
+    vector_t *pos, char *message)
+{
+    char buffer[1024] = {0};
+    response_t *response = NULL;
+
+    sprintf(buffer, "message %d, %s\n", get_direction(dest, pos), message);
+    response = create_response(buffer);
+    add_client_to_response(response, dest->client);
+    add_response_to_list(response, zappy);
 }
