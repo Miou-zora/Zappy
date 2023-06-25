@@ -60,7 +60,8 @@ namespace GUI::Game {
             return;
         }
         _map->render(_scene->getCamera());
-        _atlas->draw(_scene->getCamera());
+        if (_map->getSize().x == 10 && _map->getSize().y == 10)
+            _atlas->draw(_scene->getCamera());
         for (auto &player : _players) {
             player->render(_scene->getCamera());
         }
@@ -76,6 +77,10 @@ namespace GUI::Game {
 
     void GameState::init(std::shared_ptr<GUI::Graphic::Window> window, std::shared_ptr<GUI::Network::IOPooledClient> client)
     {
+        _buttons.push_back(std::make_shared<Button::QuitButton>(Button::QuitButton(window, {300, 10}, {50, 50})));
+        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 10, {360, 10}, {100, 25}, "assets/button/switchTimeunit/1.png")));
+        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 100, {360, 40}, {100, 25}, "assets/button/switchTimeunit/2.png")));
+        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 1000, {360, 70}, {100, 25}, "assets/button/switchTimeunit/3.png")));
         Model atlas = LoadModel("assets/makima/scene.gltf");
         if (IsModelReady(atlas) == false) {
             std::cout << "PERSO: ERROR: Unable to load atlas" << std::endl;
@@ -84,10 +89,6 @@ namespace GUI::Game {
         _atlas = std::make_shared<GUI::Graphic::Object::Model>(atlas, WHITE);
         _atlas->setPos(0, -255, -35);
         _atlas->setScale(2, 2, 2);
-        _buttons.push_back(std::make_shared<Button::QuitButton>(Button::QuitButton(window, {300, 10}, {50, 50})));
-        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 10, {360, 10}, {100, 25}, "assets/button/switchTimeunit/1.png")));
-        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 100, {360, 40}, {100, 25}, "assets/button/switchTimeunit/2.png")));
-        _buttons.push_back(std::make_shared<Button::SwitchTimeunitButton>(Button::SwitchTimeunitButton(client, 1000, {360, 70}, {100, 25}, "assets/button/switchTimeunit/3.png")));
         // TODO: init camera here
     }
 
