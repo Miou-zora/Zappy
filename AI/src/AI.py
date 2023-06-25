@@ -40,6 +40,10 @@ class AI:
         self.previous_level: int = 1
         self.is_ko: bool = False
         self.team_name: str = team_name
+        self.team_size: int = 0
+        self.do_nothing: bool = False
+        self.max_team_level: int = 1
+        self.dead_players: list[str] = []
 
     def deserialize_data(self, data_dict: dict[str, Any]):
         """save_data function
@@ -90,10 +94,12 @@ class AI:
                 return (int(value))
         return 0
 
-    def can_i_level_up(self) -> bool:
+    def can_i_level_up(self, is_dad: bool) -> bool:
         """can_i_level_up function
             this function check if the ai can level up
         """
+        if (is_dad):
+            return False
         if (self.level == 1 and self.get_item("linemate") >= 1):
             return True
         if (self.level == 2 and self.get_item("linemate") >= 1 and self.get_item("deraumere") >= 1 and self.get_item("sibur") >= 1):
@@ -110,17 +116,27 @@ class AI:
             return True
         return False
 
-    def should_i_focus_food(self):
+    def should_i_focus_food(self, is_dad: bool):
         """should_i_focus_food function
             this function check if the ai should focus on food
         """
         if (len(self.inventory) == 0):
             return
-        if (int(self.inventory[0].split()[1]) < 12):
-            self.focus_food = True
-            self.broadcast_message(f"{self.name} foods")
-        if (int(self.inventory[0].split()[1]) > 60):
-            self.focus_food = False
+        if (is_dad):
+            if (int(self.inventory[0].split()[1]) < 30):
+                self.focus_food = True
+            if (int(self.inventory[0].split()[1]) > 40):
+                self.focus_food = False
+        else:
+            if (int(self.inventory[0].split()[1]) < 5):
+                self.broadcast_message(f"{self.name} {self.team_name} dead")
+                if (self.connect_nbr < 17):
+                    self.do_command("Fork")
+            if (int(self.inventory[0].split()[1]) < 5 + 5 * self.level):
+                self.focus_food = True
+                self.broadcast_message(f"{self.name} foods")
+            if (int(self.inventory[0].split()[1]) > 5 + 10 * self.level):
+                self.focus_food = False
 
     def remove_from_look(self, item: str, idx: int = 0):
         """remove_from_look function
@@ -289,11 +305,11 @@ class AI:
             action("phiras", 2)
             action("thystame", 1)
 
-    def check_someone_is_ready_to_level_up(self) -> bool:
+    def check_someone_is_ready_to_level_up(self, is_dad: bool) -> bool:
         """ check_someone_is_ready_to_level_up function
             this function check if someone is ready to level up
         """
-        if not self.user_to_join:
+        if not self.user_to_join or is_dad:
             return False
         if self.user_to_join[0]:
             return True
@@ -321,25 +337,30 @@ class AI:
             return
         self.broadcast_message(f"{self.name} comming to {self.user_to_join[0]}")
 
-    def parse_received_messages(self):
+    def parse_received_messages(self, is_dad: bool):
         """parse_received_messages function
             this function parse the received messages from broadcast
         """
         if (self.message == []):
             return
         for words in self.message:
-            words = words.split()
-            if (len(words) >= 5 and words[2] == "ready" and words[3] == "level" and int(words[4]) == self.level):
-                self.user_to_join = (words[1], int(words[0][0]))
-            if (len(words) >= 5 and words[2] == "ready" and words[3] == "with" and words[4] == self.name and words[0][0] == "0"):
-                if (words[1] not in self.user_ready_to_level_up):
-                    self.user_ready_to_level_up.append(words[1])
-            if (len(words) >= 4 and words[2] == "incantation" and words[3] == "starts" and words[1] == self.user_to_join[0]):
+            split_words = words.split()
+            if (len(split_words) >= 4 and split_words[1] not in self.dead_players and split_words[2] == self.team_name and split_words[3] == "dead" and is_dad):
+                self.dead_players.append(split_words[1])
+                self.team_size -= 1
+            if (len(split_words) >= 5 and split_words[2] == "ready" and split_words[3] == "level" and is_dad):
+                self.max_team_level = max(self.max_team_level, int(split_words[4]))
+            if (len(split_words) >= 5 and split_words[2] == "ready" and split_words[3] == "level" and int(split_words[4]) == self.level and not is_dad):
+                self.user_to_join = (split_words[1], int(split_words[0][0]))
+            if (len(split_words) >= 5 and split_words[2] == "ready" and split_words[3] == "with" and split_words[4] == self.name and split_words[0][0] == "0" and not is_dad):
+                if (split_words[1] not in self.user_ready_to_level_up):
+                    self.user_ready_to_level_up.append(split_words[1])
+            if (len(split_words) >= 4 and split_words[2] == "incantation" and split_words[3] == "starts" and split_words[1] == self.user_to_join[0] and not is_dad):
                 self.user_to_join = ("", 0)
-            if (len(words) >= 3 and words[2] == "foods" and words[1] == self.user_to_join[0]):
+            if (len(split_words) >= 3 and split_words[2] == "foods" and split_words[1] == self.user_to_join[0] and not is_dad):
                 self.user_to_join = ("", 0)
-            if (len(words) >= 3 and words[2] == "foods" and words[1] in self.user_ready_to_level_up):
-                self.user_ready_to_level_up.remove(words[1])
+            if (len(split_words) >= 3 and split_words[2] == "foods" and split_words[1] in self.user_ready_to_level_up and not is_dad):
+                self.user_ready_to_level_up.remove(split_words[1])
         self.message = []
 
     def ko_received(self) -> bool:
@@ -367,17 +388,8 @@ class AI:
         """
         if (self.level != self.previous_level):
             self.previous_level = self.level
-            self.focus_food = True
             self.count = 0
             self.user_to_join = ("", 0)
-            if (self.connect_nbr > 0 and self.level % 2 == 0):
-                pid = os.fork()
-                if pid == 0:
-                    from AI.main import main
-                    main(False)
-                    sys.exit(0)
-                else:
-                    self.connect_nbr -= 1
 
     def do_incantation(self):
         """do_incantation function
@@ -402,34 +414,66 @@ class AI:
                     sys.exit(0)
                 else:
                     self.client_num -= 1
+                    self.team_size += 1
+
+    def should_i_fork(self, is_dad: bool):
+        """should_i_fork function
+            this function check if the ai should fork
+        """
+        if (self.connect_nbr > 0 and self.team_size < self.max_team_level * 2 and is_dad):
+            return True
+        return False
+
+    def fork_actions(self):
+        """fork_actions function
+            this function do the fork actions
+        """
+        self.do_command("Fork")
+        pid = os.fork()
+        if pid == 0:
+            from AI.main import main
+            main(False)
+            sys.exit(0)
+        else:
+            self.connect_nbr -= 1
+            self.team_size += 1
 
     def choose_action(self, is_dad: bool):
         """choose_action function
             this function choose the action to do
         """
-        print("name:", self.name, "level", self.level)
+        if (self.do_nothing):
+            self.broadcast_message(f"{self.name} {self.team_name} dead")
+            return
+        # print("name:", self.name, "level", self.level)
+        if (is_dad):
+            print("team size:", self.team_size, "max team level:", self.max_team_level)
         self.level_up_actions()
         self.create_first_family(is_dad)
         if (self.count == 0):
             self.do_command("Connect_nbr")
-            self.do_command("Fork")
             self.do_command("Look")
         if (self.ko_received()):
             return
         if (self.count % 5 == 0):
             self.do_command("Inventory")
+            self.do_command("Connect_nbr")
+            if (is_dad and self.connect_nbr < 17):
+                self.do_command("Fork")
         self.block_vision()
-        self.should_i_focus_food()
-        self.parse_received_messages()
+        self.should_i_focus_food(is_dad)
+        self.parse_received_messages(is_dad)
         if (self.focus_food):
             self.find_item("food")
-        elif (self.check_someone_is_ready_to_level_up()):
+        elif (self.should_i_fork(is_dad)):
+            self.fork_actions()
+        elif (self.check_someone_is_ready_to_level_up(is_dad)):
             self.user_ready_to_level_up = []
             self.join_someone_ready_to_level_up()
-        elif self.can_i_level_up() and self.check_if_there_is_enough_player():
+        elif self.can_i_level_up(is_dad) and self.check_if_there_is_enough_player():
             self.do_incantation()
-        elif (self.can_i_level_up()):
+        elif (self.can_i_level_up(is_dad)):
             self.broadcast_message(f"{self.name} ready level {str(self.level)}")
-        elif (self.look != []):
+        elif (self.look != [] and not is_dad):
             self.take_every_stones()
         self.count += 1
