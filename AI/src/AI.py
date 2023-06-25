@@ -370,11 +370,11 @@ class AI:
             self.focus_food = True
             self.count = 0
             self.user_to_join = ("", 0)
-            if (self.connect_nbr > 0 and (self.level == 2 or self.level == 6)):
+            if (self.connect_nbr > 0 and self.level % 2 == 0):
                 pid = os.fork()
                 if pid == 0:
                     from AI.main import main
-                    main()
+                    main(False)
                     sys.exit(0)
                 else:
                     self.connect_nbr -= 1
@@ -387,12 +387,29 @@ class AI:
         self.do_action_for_level(self.set_object)
         self.do_command("Incantation")
 
-    def choose_action(self):
+    def create_first_family(self, is_dad: bool):
+        """create_first_family function
+            this function create the first family
+        """
+        if (self.client_num > 6):
+            self.client_num = 6
+        if (self.client_num > 0):
+            if (is_dad):
+                pid = os.fork()
+                if pid == 0:
+                    from AI.main import main
+                    main(False)
+                    sys.exit(0)
+                else:
+                    self.client_num -= 1
+
+    def choose_action(self, is_dad: bool):
         """choose_action function
             this function choose the action to do
         """
         print("name:", self.name, "level", self.level)
         self.level_up_actions()
+        self.create_first_family(is_dad)
         if (self.count == 0):
             self.do_command("Connect_nbr")
             self.do_command("Fork")

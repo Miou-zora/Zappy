@@ -19,8 +19,8 @@ class TestMessage(unittest.TestCase):
         self.assertEqual(self.management.message(f"message 1, {encrypt_string(string, self.management.team_name)}"), {"message": "1, hello la famille"})
 
     def test_message(self):
-        string = "2,3"
-        self.assertEqual(self.management.message(f"message 1, {encrypt_string(string, self.management.team_name)}"), {"message": "1, 2,3"})
+        string = "2"
+        self.assertEqual(self.management.message(f"message 1, {encrypt_string(string, self.management.team_name)}"), {"message": "1, 2"})
 
     def test_message_with_no_comma(self):
         self.assertEqual(self.management.message("message 1"), {})

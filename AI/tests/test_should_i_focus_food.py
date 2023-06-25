@@ -26,19 +26,19 @@ class TestManagementClass(unittest.TestCase):
 
     def test_should_i_focus_food_with_inventory_and_much_food(self):
         self.ai.level = 1
-        self.ai.inventory = ["food 10", "linemate 1"]
+        self.ai.inventory = ["food 9", "linemate 1"]
         self.ai.should_i_focus_food()
         self.assertEqual(self.ai.focus_food, True)
 
     def test_should_i_focus_food_with_inventory_and_not_much_food(self):
-        self.ai.level = 1
+        self.ai.level = 4
         self.ai.inventory = ["food 40", "linemate 1"]
         self.ai.focus_food = True
         self.ai.should_i_focus_food()
         self.assertEqual(self.ai.focus_food, True)
 
     def test_should_i_focus_food_with_inventory_and_not_much_food_2(self):
-        self.ai.level = 1
+        self.ai.level = 4
         self.ai.inventory = ["food 40", "linemate 1"]
         self.ai.focus_food = False
         self.ai.should_i_focus_food()

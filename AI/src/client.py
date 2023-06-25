@@ -45,7 +45,7 @@ class Client:
         Returns:
             tuple: readable, writable
         """
-        readable, writable, _ = select.select(inputs, outputs, [])
+        readable, writable, _ = select.select(inputs, outputs, [], 0)
         return readable, writable
 
     def receive_data(self, sock: socket) -> str:

@@ -15,7 +15,7 @@ def help():
           "\tname\t is the name of the team\n"
           "\tmachine\t is the name of the machine; localhost by default")
 
-def main():
+def main(is_dad: bool = True):
     if (sys.argv[1] == "-help" and len(sys.argv) == 2):
         help()
         return 0
@@ -27,4 +27,4 @@ def main():
     args = parser.parse_args()
 
     core = Core(args.machine, args.port, args.name)
-    core.run()
+    core.run(is_dad)

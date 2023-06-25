@@ -11,6 +11,7 @@ from .client import Client
 from .AI import AI
 from .management import Management
 import asyncio
+import threading
 
 class Core:
     """ Core class
@@ -39,12 +40,12 @@ class Core:
         self.received_data: str = ""
         self.data_dict: dict[str, Any] = {}
 
-    def run(self):
+    def run(self, is_dad: bool = True):
         """run function
             this function run the client
         """
         self.client.connect()
-        self.loop()
+        self.loop(is_dad)
 
     def stop(self):
         """stop function
@@ -123,18 +124,26 @@ class Core:
                     self.management.is_received = False
                     self.ai.output.pop(0)
 
-    def loop(self):
+    def select_in_thread(self):
+        readable, writable = self.client.select(self.inputs, self.outputs)
+        self.receive_data_from_server(readable)
+        self.send_data_to_server(writable)
+
+    def loop(self, is_dad: bool):
         """loop function
             this function is the main loop of the AI
         """
         while self._is_running:
-            readable, writable = self.client.select(self.inputs, self.outputs)
-            if (self.receive_data_from_server(readable) == False):
-                return
+            select_thread = threading.Thread(target=self.select_in_thread)
+            select_thread.start()
+
             if self.data_dict:
                 self.ai.deserialize_data(self.data_dict)
                 self.data_dict = {}
+
             if self.ai.map_size != (0, 0) and not self.management.need_response and self.management.is_received:
-                self.ai.choose_action()
+                self.ai.choose_action(is_dad)
+
             self.response_management()
-            self.send_data_to_server(writable)
+
+            select_thread.join()
