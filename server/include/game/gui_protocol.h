@@ -111,7 +111,7 @@ void notifie_gui_pin(trantorian_t *player, zappy_t *zappy);
  * @param message the message broadcasted
  * @return ** void
  */
-void notifie_gui_pbc(trantorian_t *player, zappy_t *zappy, char *message);
+void notifie_gui_pbc(char *message, trantorian_t *trantorian, zappy_t *zappy);
 
 /**
  * @brief notifie all GUI clients when the incantation is over

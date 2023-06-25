@@ -64,6 +64,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_pgt.c 			\
 				game/gui_protocol/gui_pfk.c 			\
 				game/gui_protocol/gui_pdr.c 			\
+				game/gui_protocol/gui_pbc.c 			\
 				game/gui_protocol/gui_sbp.c				\
 				game/gui_protocol/gui_suc.c 			\
 				game/gui_protocol/gui_ebo.c 			\
@@ -73,7 +74,6 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_seg.c 			\
 				game/gui_protocol/gui_sst.c 			\
 				game/check_function/check_win.c			\
-
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
@@ -135,6 +135,7 @@ TESTS		=	$(TESTS_FOLDER)parse/tests_get_port.c 				 		 \
 				$(TESTS_FOLDER)gui_protocol/gui_pin.c			 	 	 	 \
 				$(TESTS_FOLDER)gui_protocol/gui_pdi.c 						 \
 				$(TESTS_FOLDER)gui_protocol/gui_pgt.c 						 \
+				$(TESTS_FOLDER)gui_protocol/gui_pbc.c 						 \
 
 TESTS_OBJ	=	$(TESTS:%.c=%.o)
 
