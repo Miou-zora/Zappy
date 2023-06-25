@@ -23,6 +23,9 @@ Test(gui_msz, gui_msz_valid_case)
 
     handle_gui_msz(event, zappy);
     cr_assert_not_null(zappy->responses.lh_first);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "msz 10 10\n");
 }
 
@@ -39,5 +42,8 @@ Test(gui_msz, gui_msz_invalid_case)
     client->is_graphic = false;
 
     handle_gui_msz(event, zappy);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_null(zappy->responses.lh_first);
 }

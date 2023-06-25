@@ -39,6 +39,9 @@ Test(gui_bct, negative_coordinates)
     zappy->game_struct = init_game_struct(zappy->args);
     fill_map(zappy->game_struct->map);
     handle_gui_bct(event, zappy);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_null(zappy->responses.lh_first);
 }
 
@@ -55,6 +58,9 @@ Test(gui_bct, too_big_coordinates)
     zappy->game_struct = init_game_struct(zappy->args);
     fill_map(zappy->game_struct->map);
     handle_gui_bct(event, zappy);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_null(zappy->responses.lh_first);
 }
 
@@ -71,6 +77,9 @@ Test(gui_bct, no_arguments)
     zappy->game_struct = init_game_struct(zappy->args);
     fill_map(zappy->game_struct->map);
     handle_gui_bct(event, zappy);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_null(zappy->responses.lh_first);
 }
 
@@ -87,5 +96,8 @@ Test(gui_bct, on_limits)
     zappy->game_struct = init_game_struct(zappy->args);
     fill_map(zappy->game_struct->map);
     handle_gui_bct(event, zappy);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_null(zappy->responses.lh_first);
 }

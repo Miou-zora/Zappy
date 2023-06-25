@@ -26,6 +26,9 @@ Test(do_incantation, incantation_success)
     event2->client->trantorian = trantorian2;
     client2->trantorian->inventory->nb_of_objects[LINEMATE] = 1;
     do_incantation(client2, zappy, NULL);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "Elevation underway Current level: 1\n");
 }
 
@@ -46,5 +49,8 @@ Test(do_incantation, incancation_failure)
     client2->trantorian->inventory->nb_of_objects[LINEMATE] = 1;
     client2->trantorian->level = 2;
     do_incantation(client2, zappy, NULL);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "ko\n");
 }

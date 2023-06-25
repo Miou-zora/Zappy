@@ -50,30 +50,23 @@ Test(create_egg_structure, test_remove_egg_from_chained_list)
 
 Test(generate_spawn_eggs, test_spawn_egg)
 {
-    argv_t *args = calloc(1, sizeof(argv_t));
-    args->height = 10;
-    args->width = 10;
-    args->freq = 100;
-    args->names = calloc(3, sizeof(char *));
-    args->names[0] = strdup("team");
-    args->names[1] = strdup("team2");
-    game_struct_t *game_struct = init_game_struct(args);
+    char *av[] = {"./zappy_server", "-p", "3433", "-x", "10", "-y", "10", "-n",
+    "team", "team2", "-c", "10", "-f", "100", NULL};
+    zappy_t *zappy = build_server(14, av);
     egg_t *egg = NULL;
-    clan_t *clan = create_clan(3, "team");
-    clan_t *clan2 = create_clan(3, "team2");
 
     int count = 0;
 
-    add_clan_to_list(game_struct, clan);
-    add_clan_to_list(game_struct, clan2);
-    generate_spawn_eggs(game_struct);
 
-    for (int i = 0; i < game_struct->map->height * game_struct->map->width; i++) {
-        LIST_FOREACH(egg, &(game_struct->all_eggs), next_egg) {
-            if (egg->pos.x == i % game_struct->map->width &&
-                egg->pos.y == i / game_struct->map->width)
+    generate_spawn_eggs(zappy);
+
+    for (int i = 0; i < zappy->game_struct->map->height * zappy->game_struct->map->width; i++) {
+        LIST_FOREACH(egg, &(zappy->game_struct->all_eggs), next_egg) {
+            if (egg->pos.x == i % zappy->game_struct->map->width &&
+                egg->pos.y == i / zappy->game_struct->map->width)
                 count++;
         }
     }
-    cr_assert_eq(count, 6);
+    printf("count = %d", count);
+    cr_assert_eq(count, 40);
 }

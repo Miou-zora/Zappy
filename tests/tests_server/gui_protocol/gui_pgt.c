@@ -28,6 +28,9 @@ Test(take_object, gui_pgt_success)
         [client->trantorian->position.x].nb_of_objects[FOOD] = 1;
 
     take_object(client, zappy, "food");
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
     response_t * response = LIST_FIRST(&zappy->responses);
     LIST_REMOVE(response, next);

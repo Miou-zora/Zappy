@@ -35,5 +35,8 @@ Test(gui_pnw, test_gui_pnw)
     client.trantorian->team_name = strdup("Team1");
     client.is_graphic = false;
     notifie_gui_pnw(&client, zappy);
+    for (int i = 0; i < 20; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "pnw 1 1 1 1 1 Team1\n");
 }

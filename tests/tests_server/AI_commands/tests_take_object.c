@@ -28,6 +28,9 @@ Test(take_object, take_object_success)
     map->tile[1][1].nb_of_objects[FOOD] = 1;
 
     take_object(client, zappy, "food");
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
 }
 
@@ -53,6 +56,9 @@ Test(take_object, take_object_success2)
     gui->is_graphic = true;
 
     take_object(client, zappy, "linemate");
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
     LIST_REMOVE(zappy->responses.lh_first, next);
     cr_assert_str_eq(zappy->responses.lh_first->content, "pgt 1 1\n");
@@ -77,5 +83,8 @@ Test(take_object, take_object_fail)
     map->tile[1][1].nb_of_objects[FOOD] = 0;
 
     take_object(client, zappy, "prout"); //vraiment ??? prout ???
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "ko\n");
 }

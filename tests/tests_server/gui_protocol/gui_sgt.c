@@ -19,6 +19,9 @@ Test(gui_sgt, valid_case)
     gui_client->is_graphic = true;
     gui_client->is_connected = true;
     gui_client->is_logged = true;
+    for (int i = 0; i < 20; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     event_t *event = create_event("sgt\n", gui_client);
     handle_gui_sgt(event, zappy);
     cr_assert_str_eq(zappy->responses.lh_first->content, "sgt 10\n");
@@ -34,6 +37,9 @@ Test(gui_sgt, invalid_case)
     gui_client->is_graphic = false;
     gui_client->is_connected = true;
     gui_client->is_logged = true;
+    for (int i = 0; i < 20; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     event_t *event = create_event("sgt\n", gui_client);
     handle_gui_sgt(event, zappy);
     cr_assert_eq(zappy->responses.lh_first, NULL);

@@ -64,9 +64,9 @@ bool add_object_at_tile(map_t *map, enum ELEMENTS type, size_t x, size_t y);
 /**
  * @brief generate eggs on map
  *
- * @param game_struct
+ * @param zappy_t
  */
-void generate_spawn_eggs(game_struct_t *game_struct);
+void generate_spawn_eggs(zappy_t *zappy);
 
 /**
  * @brief add clan to list

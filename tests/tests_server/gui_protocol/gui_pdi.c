@@ -25,5 +25,8 @@ Test(send_death_to_gui, testPdiCommand)
     trantorian->inventory = calloc(1, sizeof(object_t));
 
     send_death_to_gui(trantorian, zappy);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "pdi 23\n");
 }

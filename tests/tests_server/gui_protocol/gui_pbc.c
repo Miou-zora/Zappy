@@ -32,5 +32,8 @@ Test(gui_pbc, test_gui_pbc_true)
     client.trantorian->team_name = strdup("Team1");
     client.is_graphic = false;
     notifie_gui_pbc("Coucou", client.trantorian, zappy);
+    for (int i = 0; i < 12; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "pbc 1 Coucou\n");
 }

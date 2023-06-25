@@ -30,7 +30,6 @@ static int init_server_socket(zappy_t *server)
 zappy_t *build_server(int ac, char **av)
 {
     zappy_t *zappy = calloc(1, sizeof(zappy_t));
-
     if (!zappy)
         return (NULL);
     zappy->args = calloc(1, sizeof(argv_t));
@@ -46,6 +45,7 @@ zappy_t *build_server(int ac, char **av)
     zappy->timeout.tv_sec = 0;
     zappy->timeout.tv_usec = 1000000 / zappy->args->freq;
     zappy->game_struct = init_game_struct(zappy->args);
+    generate_spawn_eggs(zappy);
     if (!zappy->game_struct)
         return (NULL);
     return (zappy);

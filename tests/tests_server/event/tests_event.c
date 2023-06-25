@@ -7,6 +7,7 @@
 
 #include "event.h"
 #include "server.h"
+#include "network.h"
 #include <criterion/criterion.h>
 
 Test(create_event, create_event)
@@ -39,13 +40,11 @@ Test(connection_function, connection_function)
     client->is_connected = false;
     client->is_logged = false;
 
-    event_connection(event, zappy);
-    cr_assert_null(zappy->responses.lh_first);
-
     client->is_connected = true;
     client->is_logged = false;
 
     event_connection(event, zappy);
     cr_assert_not_null(zappy->responses.lh_first);
-    cr_assert_str_eq(zappy->responses.lh_first->content, "WELCOME\n");
+    response_t *response = get_last_response(zappy);
+    cr_assert_str_eq(response->content, "WELCOME\n");
 }

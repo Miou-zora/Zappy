@@ -31,6 +31,9 @@ Test(set_object, set_object_success)
     trantorian->inventory->nb_of_objects[LINEMATE] = 1;
 
     set_object(client, zappy, "linemate");
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "ok\n");
     LIST_REMOVE(zappy->responses.lh_first, next);
     cr_assert_str_eq(zappy->responses.lh_first->content, "pdr 1 1\n");
@@ -53,6 +56,9 @@ Test(set_object, set_object_fail)
     trantorian->inventory->nb_of_objects[LINEMATE] = 1;
 
     set_object(client, zappy, "mendiane");
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_str_eq(zappy->responses.lh_first->content, "ko\n");
     LIST_REMOVE(zappy->responses.lh_first, next);
     printf("test %d", LIST_EMPTY(&zappy->responses));

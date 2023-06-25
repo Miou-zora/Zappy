@@ -25,7 +25,7 @@ Test(gui_mct, number_of_responses)
     handle_gui_mct(event, zappy);
     for (response_t *response = zappy->responses.lh_first; response; response = response->next.le_next)
         nb_responses++;
-    cr_assert_eq(nb_responses, 100);
+    cr_assert_eq(nb_responses, 110);
 }
 
 Test(gui_mct, response_content)
@@ -41,5 +41,8 @@ Test(gui_mct, response_content)
     zappy->game_struct = init_game_struct(zappy->args);
     fill_map(zappy->game_struct->map);
     handle_gui_mct(event, zappy);
+    for (int i = 0; i < 10; i++) {
+        LIST_REMOVE(zappy->responses.lh_first, next);
+    }
     cr_assert_null(zappy->responses.lh_first);
 }

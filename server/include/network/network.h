@@ -67,4 +67,11 @@
      */
     bool manage_run(zappy_t *zappy, int listen_ret);
 
+    /**
+     * @brief it will create the socket and bind it
+     * @param port to bind
+     * @return int the socket fd
+     */
+    response_t *get_last_response(zappy_t *zappy);
+
 #endif /* !NETWORK_H_ */
