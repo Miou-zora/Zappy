@@ -165,7 +165,7 @@ void notifie_gui_pgt(trantorian_t *player, zappy_t *zappy, int resource);
  * @param zappy the struct containing all the informations about the server
  * @return ** void
  */
-void notifie_gui_pdi(trantorian_t *player, zappy_t *zappy);
+void send_death_to_gui(trantorian_t *trantorian, zappy_t *zappy);
 
 
 /** All GUI notification about egg actions
@@ -347,14 +347,6 @@ void handle_gui_pin(event_t *event, zappy_t *zappy);
 void send_gui_pin(trantorian_t *tran, zappy_t *zappy);
 
 /**
- * @brief send the death of a player to the gui
- *
- * @param trantorian
- * @param zappy
- */
-void send_death_to_gui(trantorian_t *trantorian, zappy_t *zappy);
-
-/**
  * @brief return the gui_client
  *
  * @param client list
@@ -445,3 +437,11 @@ int get_egg_by_trantorian(zappy_t *server, trantorian_t *trantorian);
  * @param zappy
  */
 bool check_win_game(zappy_t *zappy);
+
+/**
+ * @brief if a trantorian is killed by the gui kill it in game loop
+ *
+ * @param event
+ * @param zappy
+ */
+void handle_gui_kil(event_t *event, zappy_t *zappy);

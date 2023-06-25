@@ -80,6 +80,7 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_seg.c 			\
 				game/gui_protocol/gui_sst.c 			\
 				game/check_function/check_win.c			\
+				game/gui_protocol/gui_kil.c 			\
 
 SRC_NETWORK =	network/build/build_server.c			\
 				network/run/run.c 						\
