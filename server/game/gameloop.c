@@ -28,6 +28,7 @@ void bad_command(event_t *event, zappy_t *zappy_s)
     response = create_response("ko\n");
     add_client_to_response(response, event->client);
     add_response_to_list(response, zappy_s);
+    notifie_gui_sbp(event->client, zappy_s);
     notifie_gui_suc(event->client, zappy_s);
 }
 

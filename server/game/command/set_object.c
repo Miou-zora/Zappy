@@ -9,6 +9,15 @@
 #include "trantorian.h"
 #include "game.h"
 
+static void set_response(char *param, client_t *client, zappy_t *zappy)
+{
+    if (param == NULL) {
+        notifie_gui_sbp(client, zappy);
+        return;
+    }
+    add_command(client, 7, set_object, param);
+}
+
 static bool drop_object(trantorian_t *trantorian, object_t *tile, int i)
 {
     if (trantorian->inventory->nb_of_objects[i] > 0) {
@@ -59,8 +68,8 @@ void set_func_set_object(event_t *event, zappy_t *zappy_s)
 {
     (void) zappy_s;
     char *param = NULL;
-    char* objects[] = {"food", "linemate", "deraumere", "sibur",
-        "mendiane", "phiras", "thystame", NULL};
+    char *objects[] = {"food", "linemate", "deraumere", "sibur",
+    "mendiane", "phiras", "thystame", NULL};
 
     for (int i = 0; event->request[i] != '\0'; i++) {
         if (event->request[i] == ' ' && event->request[i + 1] != '\0')
@@ -74,5 +83,5 @@ void set_func_set_object(event_t *event, zappy_t *zappy_s)
             break;
         }
     }
-    add_command(event->client, 7, set_object, param);
+    set_response(param, event->client, zappy_s);
 }
