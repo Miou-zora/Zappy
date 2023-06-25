@@ -17,6 +17,7 @@
 #include "AButton.hpp"
 #include "Window.hpp"
 #include "IOPooledClient.hpp"
+#include "Egg.hpp"
 
 bool operator==(const Color &c1, const Color &c2);
 
@@ -34,7 +35,6 @@ namespace GUI::Game {
             void setMap(std::shared_ptr<GUI::Game::Map> map) { _map = map; };
             void setSettings(std::shared_ptr<GUI::Game::GameSettings> settings) { _settings = settings; };
 
-
             std::shared_ptr<GUI::Graphic::Scene> getScene() { return _scene; };
             std::shared_ptr<GUI::Game::Map> getMap() { return _map; };
             std::shared_ptr<GUI::Game::GameSettings> getSettings() { return _settings; };
@@ -42,6 +42,7 @@ namespace GUI::Game {
             std::vector<std::shared_ptr<GUI::Game::Team>> &getTeams() { return _teams; };
             std::vector<std::shared_ptr<GUI::Game::Incantation>> &getIncantations() { return _incantations; };
             std::shared_ptr<GUI::Game::EventPool> &getEventPool() { return _eventPool; };
+            std::vector<std::shared_ptr<GUI::Game::Egg>> &getEggs() { return _eggs; };
 
         private:
             bool _clickOnButton(Vector2 mousePos);
@@ -52,6 +53,7 @@ namespace GUI::Game {
             void _drop(void);
 
             std::vector<std::shared_ptr<GUI::Game::Player>> _players;
+            std::vector<std::shared_ptr<GUI::Game::Egg>> _eggs;
             std::shared_ptr<GUI::Graphic::Scene> _scene;
             std::shared_ptr<GUI::Game::Map> _map;
             std::shared_ptr<GUI::Game::GameSettings> _settings;

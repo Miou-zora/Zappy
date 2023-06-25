@@ -21,6 +21,7 @@ bool operator==(const Color &c1, const Color &c2)
 namespace GUI::Game {
     GameState::GameState(std::shared_ptr<GUI::Graphic::Scene> scene):
         _players(std::vector<std::shared_ptr<GUI::Game::Player>>()),
+        _eggs(std::vector<std::shared_ptr<GUI::Game::Egg>>()),
         _scene(scene),
         _map(std::make_shared<GUI::Game::Map>(0, 0, _players)),
         _settings(std::make_shared<GUI::Game::GameSettings>()),
@@ -44,6 +45,9 @@ namespace GUI::Game {
         for (auto &player : _players) {
             player->update();
         }
+        for (auto &egg: _eggs) {
+            egg->update();
+        }
         for (std::size_t index = 0; index < _incantations.size(); index++) {
             if (_incantations[index]->isFinished()) {
                 std::cout << "PERSO: INFO: INCANTATION FINISHED: at X=" << _incantations[index]->getPosX() << " y=" << _incantations[index]->getPosY() << std::endl;
@@ -65,6 +69,9 @@ namespace GUI::Game {
             _atlas->draw(_scene->getCamera());
         for (auto &player : _players) {
             player->render(_scene->getCamera());
+        }
+        for (auto &egg: _eggs) {
+            egg->render(_scene->getCamera());
         }
         _eventPool->drawEvents(_scene->getCamera());
         if (_entityCatched != nullptr)
