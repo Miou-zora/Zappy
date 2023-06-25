@@ -37,5 +37,7 @@ namespace GUI::Game {
             Vector2 _position;
             Vector2 _positionDiff;
             std::shared_ptr<GUI::Graphic::Object::Model> _model;
+            float _randomValueX;
+            float _randomValueY;
     };
 }
