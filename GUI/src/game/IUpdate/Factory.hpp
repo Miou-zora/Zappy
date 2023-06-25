@@ -30,6 +30,7 @@
 #include "Pbc.hpp"
 #include "Sst.hpp"
 #include "Seg.hpp"
+#include "Pex.hpp"
 #include "Enw.hpp"
 #include "Pfk.hpp"
 #include "GameState.hpp"
@@ -169,6 +170,11 @@ namespace GUI::Game {
                             std::shared_ptr<GUI::Network::IOPooledClient> client,
                             std::string command) {
                     return std::make_shared<GUI::Game::Seg>(gameState ,client, command);
+                }},
+                {"pex", [](std::shared_ptr<GUI::Game::GameState> gameState,
+                            std::shared_ptr<GUI::Network::IOPooledClient> client,
+                            std::string command) {
+                    return std::make_shared<GUI::Game::Pex>(gameState ,client, command);
                 }},
                 {"enw", [](std::shared_ptr<GUI::Game::GameState> gameState,
                             std::shared_ptr<GUI::Network::IOPooledClient> client,

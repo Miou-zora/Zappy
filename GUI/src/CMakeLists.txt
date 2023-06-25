@@ -45,6 +45,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/container/phirasContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/siburContainer/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/broadcastEvent/
+${CMAKE_CURRENT_SOURCE_DIR}/game/event/expulsionEvent/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/catchable/
 ${CMAKE_CURRENT_SOURCE_DIR}/game/team/
@@ -82,6 +83,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/game/incantation/incantationEvent/IncantationEvent.c
 ${CMAKE_CURRENT_SOURCE_DIR}/game/container/Container.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/eventPool/EventPool.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/event/broadcastEvent/BroadcastEvent.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/game/event/expulsionEvent/ExpulsionEvent.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/quitButton/QuitButton.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/button/switchTimeunitButton/SwitchTimeunitButton.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/game/egg/Egg.cpp
