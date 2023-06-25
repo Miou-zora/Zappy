@@ -102,6 +102,7 @@ namespace GUI::Network {
     void IOPooledSocket::_sendMessageToServer(void)
     {
         std::string request = _pool->popRequest()->get() + "\n";
+        std::cout << "Sending request: " << request;
         if (::send(_fd, request.c_str(), request.size(), 0) < 0)
             throw GUI::NetworkException("Error: send failed: " + std::string(strerror(errno)));
     }

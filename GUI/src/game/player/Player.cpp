@@ -80,7 +80,7 @@ namespace GUI::Game {
         DrawText(("Mendiane: " + std::to_string(_mendianeContainer->getQuantity())).c_str(), 10, 170, 20, WHITE);
         DrawText(("Phiras: " + std::to_string(_phirasContainer->getQuantity())).c_str(), 10, 190, 20, WHITE);
         DrawText(("Thystame: " + std::to_string(_thystameContainer->getQuantity())).c_str(), 10, 210, 20, WHITE);
-        _client->addRequest(std::make_shared<GUI::Network::Request>("pin " + _id));
+        _client->addRequest(std::make_shared<GUI::Network::Request>("pin " + std::to_string(_id)));
     }
 
     std::shared_ptr<BoundingBox> Player::getBoundingBox(void)
