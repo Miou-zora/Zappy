@@ -7,16 +7,27 @@
 
 #include "gui_protocol.h"
 
+static int convert_food_number(int food)
+{
+    if (food / 126 > 0)
+        return (food / 126);
+    else if (food % 126 > 0)
+        return (1);
+    return (0);
+}
+
 void send_gui_pin(trantorian_t *tran, zappy_t *zappy)
 {
     char buffer[1024] = {0};
     response_t *response;
+    size_t nb_food = (size_t)convert_food_number(
+        tran->inventory->nb_of_objects[FOOD]);
 
     if (tran == NULL)
         return;
     if (sprintf(buffer, "pin %d %d %d %ld %ld %ld %ld %ld %ld %ld\n",
         tran->id, tran->position.x, tran->position.y,
-        tran->inventory->nb_of_objects[0], tran->inventory->nb_of_objects[1],
+        nb_food, tran->inventory->nb_of_objects[1],
         tran->inventory->nb_of_objects[2], tran->inventory->nb_of_objects[3],
         tran->inventory->nb_of_objects[4], tran->inventory->nb_of_objects[5],
         tran->inventory->nb_of_objects[6]) < 0)
