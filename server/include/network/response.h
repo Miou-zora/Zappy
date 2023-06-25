@@ -15,6 +15,11 @@
     typedef struct client_s client_t;
     typedef struct zappy_s zappy_t;
 
+    typedef struct container_s {
+        client_t *client;
+        LIST_ENTRY(container_s) next;
+    } container_t;
+
     /**
      * @brief Response object
      * @param content char* content of the response
@@ -23,7 +28,7 @@
      */
     typedef struct response_s {
         char *content;
-        LIST_HEAD(, client_s) clients;
+        LIST_HEAD(, container_s) clients;
         LIST_ENTRY(response_s) next;
     } response_t;
 

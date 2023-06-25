@@ -33,7 +33,7 @@ static char *look_at_line(look_t *look, int i, zappy_t *zappy)
     for (int j = 0; j < 1 + (2 * i); j++) {
         correction = recalculate_vector(look, i, j, zappy->game_struct->map);
         tile = look_at_tile(correction.x, correction.y, zappy);
-        look->res = strcat(look->res, tile);
+        strcat(look->res, tile);
         free(tile);
     }
     return (look->res);

@@ -24,31 +24,30 @@ response_t *create_response(char *msg)
 
 int add_client_to_response(response_t *response, client_t *client)
 {
-    client_t *tmp = NULL;
-    client_t *tmp2 = NULL;
+    container_t *container = calloc(1, sizeof(container_t));
+    container_t *tmp = NULL;
+    container_t *tmp2 = NULL;
 
-    if (response == NULL || client == NULL)
+    if (response == NULL || client == NULL || container == NULL)
         return (84);
-    if (client->fd == -1 || !client->is_connected)
-        return (84);
+    container->client = client;
     if (response->clients.lh_first == NULL) {
-        LIST_INSERT_HEAD(&response->clients, client, next);
+        LIST_INSERT_HEAD(&response->clients, container, next);
         return (0);
     }
-    LIST_FOREACH(tmp, &response->clients, next) {
+    LIST_FOREACH(tmp, &response->clients, next)
         tmp2 = tmp;
-    }
-    LIST_INSERT_AFTER(tmp2, client, next);
+    LIST_INSERT_AFTER(tmp2, container, next);
     return (0);
 }
 
 int remove_client_from_response(response_t *response, client_t *client)
 {
-    client_t *tmp = NULL;
+    container_t *tmp = NULL;
     if (response == NULL || client == NULL)
         return (84);
     LIST_FOREACH(tmp, &response->clients, next) {
-        if (tmp == client) {
+        if (tmp->client == client) {
             LIST_REMOVE(tmp, next);
             return (0);
         }

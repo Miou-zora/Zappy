@@ -54,6 +54,8 @@ trantorian_t *create_trantorian(egg_t* egg)
     trantorian->position.y = egg->pos.y;
     trantorian->id = egg->id;
     trantorian->direction = rand() % 4;
+    if (trantorian->direction == 0)
+        trantorian->direction = 1;
     return (trantorian);
 }
 

@@ -12,12 +12,12 @@ extern bool running;
 
 static int send_responses(zappy_t *zappy, response_t *response)
 {
-    client_t *tmp = NULL;
+    container_t *tmp = NULL;
 
     LIST_FOREACH(tmp, &response->clients, next) {
-        if (send_client(zappy, tmp, response->content) == 84) {
+        if (send_client(zappy, tmp->client, response->content) == 84) {
             display_log("Error while sending response to client %d\n",
-            tmp->fd);
+            tmp->client);
             return (84);
         }
     }
@@ -27,16 +27,13 @@ static int send_responses(zappy_t *zappy, response_t *response)
 int send_responses_clients(zappy_t *zappy)
 {
     response_t *tmp = NULL;
-    response_t *tmp2 = NULL;
 
     LIST_FOREACH(tmp, &zappy->responses, next) {
         if (tmp->clients.lh_first != NULL) {
             send_responses(zappy, tmp);
         }
-        if (tmp2)
-            destroy_response(tmp2);
-        tmp2 = tmp;
         LIST_REMOVE(tmp, next);
+        destroy_response(tmp);
     }
     return (0);
 }
@@ -47,11 +44,10 @@ void update_fd_set(zappy_t *zappy)
 
     FD_ZERO(&zappy->readfds);
     FD_SET(zappy->socket, &zappy->readfds);
-    FD_ZERO(&zappy->writefds);
-    FD_SET(zappy->socket, &zappy->writefds);
     LIST_FOREACH(client, &zappy->clients, next) {
-        if (client->is_connected)
+        if (client->is_connected) {
             FD_SET(client->fd, &zappy->readfds);
+        }
     }
 }
 

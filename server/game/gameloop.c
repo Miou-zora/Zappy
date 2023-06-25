@@ -29,8 +29,6 @@ void bad_command(event_t *event, zappy_t *zappy_s)
     response = create_response("ko\n");
     add_client_to_response(response, event->client);
     add_response_to_list(response, zappy_s);
-    notifie_gui_sbp(event->client, zappy_s);
-    notifie_gui_suc(event->client, zappy_s);
 }
 
 bool handle_event(event_t *event, zappy_t *zappy_s)
@@ -40,7 +38,6 @@ bool handle_event(event_t *event, zappy_t *zappy_s)
     for (int i = 0; commands[i] != NULL; i++) {
         if (strncmp(event->request, commands[i], strlen(commands[i])) == 0) {
             list_cmd[i](event, zappy_s);
-            display_log("Calling the setter for %s\n", commands[i]);
             return (true);
         }
     }

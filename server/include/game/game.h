@@ -328,3 +328,36 @@ int get_direction_broadcast(vector_t pos_trantorian, vector_t pos_origin);
  */
 void check_border_in_map(vector_t *increment_pos, vector_t *pos_trantorian,
     map_t *map);
+
+/**
+ * @brief find the adjacent position of the trantorian
+ *
+ * @param pos_trantorian the position of the trantorian receiver
+ * @param increment_pos the increment position
+ * @param map the map
+ * @param trantorian the trantorian emetteur
+ */
+vector_t find_adjacent_pos_loop(vector_t pos_trantorian,
+    vector_t increment_pos, map_t *map, trantorian_t *trantorian);
+
+/**
+ * @brief check if the vector is adjacent in x
+ *
+ * @param pos_trantorian the vector of the trantorian
+ * @param pos_origin the vector of the origin
+ * @param x the x
+ * @return true
+ * @return false
+ */
+bool is_adjacent_x(vector_t pos_trantorian, vector_t pos_origin, int x);
+
+/**
+ * @brief check if the vector is adjacent in y
+ *
+ * @param pos_trantorian the vector of the trantorian
+ * @param pos_origin the vector of the origin
+ * @param y the y
+ * @return true
+ * @return false
+ */
+bool is_adjacent_y(vector_t pos_trantorian, vector_t pos_origin, int y);

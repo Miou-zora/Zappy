@@ -10,7 +10,7 @@
 
 void send_gui_pfk(client_t *client, zappy_t *zappy)
 {
-    char buffer[1024];
+    char buffer[1024] = {0};
     response_t *response = NULL;
 
     if (sprintf(buffer, "pfk %d\n", client->trantorian->id) < 0)

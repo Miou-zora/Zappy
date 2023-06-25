@@ -72,6 +72,8 @@ char *look_at_tile(size_t x, size_t y, zappy_t *zappy)
         return (NULL);
     res = strcat(res, elements);
     for (int i = 0; i < nb_of_trantorians; i++) {
+        if (strlen(res) != 0)
+            res = strcat(res, " ");
         res = strcat(res, "player");
         if (i != nb_of_trantorians - 1)
             res = strcat(res, " ");

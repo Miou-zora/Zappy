@@ -12,6 +12,16 @@ static const char *elem_names[7] = {
     "food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"
     };
 
+static int count_elements(int idx, object_t *tile)
+{
+    int count = 0;
+
+    for (int i = idx; i < NUMBER_OF_DIFFERENT_ELEMENTS; i++) {
+        count += tile->nb_of_objects[i];
+    }
+    return (count);
+}
+
 static char *fill_with_element(char *res, object_t *tile, int i)
 {
     for (size_t j = 0; j < tile->nb_of_objects[i]; j++) {
@@ -20,6 +30,9 @@ static char *fill_with_element(char *res, object_t *tile, int i)
             || tile->nb_of_objects[i + 1] != 0) {
             res = strcat(res, " ");
         }
+        if (j == 0 && tile->nb_of_objects[i] == 1
+        && count_elements(i, tile) > 1)
+            res = strcat(res, " ");
     }
     return (res);
 }
@@ -35,7 +48,7 @@ size_t size_to_alloc_look(client_t *client, zappy_t *zappy, vector_t cpos)
             vector_t tmp_vector = check_edges((int)(ppos.x - (int)i),
             (int)(ppos.y - (int)j), zappy->game_struct->map);
             size_to_alloc += size_to_alloc_tile(zappy->game_struct->map,
-            tmp_vector.x, tmp_vector.y) + 2;
+            tmp_vector.x, tmp_vector.y) + 10;
         }
         ppos.y += cpos.y;
         ppos.x += cpos.x;
@@ -50,7 +63,7 @@ size_t size_to_alloc_tile(map_t *map, size_t x, size_t y)
     for (size_t i = 0; i < NUMBER_OF_DIFFERENT_ELEMENTS; i++) {
         if (map->tile[y][x].nb_of_objects[i] != 0) {
             size_to_alloc += strlen(elem_names[i]) *
-                map->tile[y][x].nb_of_objects[i] + 1;
+                (map->tile[y][x].nb_of_objects[i] + 1);
         }
     }
     return (size_to_alloc);

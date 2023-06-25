@@ -25,7 +25,7 @@ Test(add_client_to_response, fail_and_success)
     client->fd = 1;
     client->is_connected = true;
     cr_assert_eq(add_client_to_response(response, client), 0);
-    cr_assert_eq(response->clients.lh_first, client);
+    cr_assert_eq(response->clients.lh_first->client, client);
     cr_assert_eq(add_client_to_response(NULL, NULL), 84);
 }
 

@@ -51,6 +51,8 @@ void send_gui_ppo(trantorian_t *trantorian, zappy_t *zappy)
         trantorian->position.y, trantorian->direction) < 0)
         return;
     response = create_response(buffer);
+    if (response == NULL)
+        return;
     send_response_to_all_gui_clients(response, zappy);
 }
 
@@ -73,10 +75,11 @@ void handle_gui_ppo(event_t *event, zappy_t *zappy)
 {
     trantorian_t *trantorian = NULL;
     int id = 0;
+    char buffer[1024] = {0};
 
     if (strlen(event->request) < 7)
         return;
-    if (sscanf(event->request, "ppo %d\n", &id) != 1)
+    if (sscanf(buffer, "ppo %d\n", &id) != 1)
         return;
     trantorian = get_trantorian_by_id(zappy, id);
     if (trantorian == NULL)
