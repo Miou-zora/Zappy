@@ -276,7 +276,7 @@ void handle_gui_sst(event_t *event, zappy_t *zappy);
  * @param zappy the struct containing all the informations about the server
  * @return ** void
  */
-void notifie_gui_sst(int new_unit, zappy_t *zappy);
+void notifie_gui_sst(zappy_t *zappy);
 
 /**
  * @brief notifie all GUI clients of the end of the game
