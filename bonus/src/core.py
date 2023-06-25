@@ -8,7 +8,7 @@
 from typing import Any
 
 from .client import Client
-from .AI import AI
+from .Destructor import AI
 from .management import Management
 import asyncio
 import threading
@@ -32,7 +32,7 @@ class Core:
             name (str): name
         """
         self.client: Client = Client(machine, port)
-        self.ai: AI = AI(name)
+        self.ai: AI = AI()
         self.management: Management = Management(name)
         self._is_running: bool = True
         self.inputs: list = [self.client.server_sock]
@@ -40,12 +40,12 @@ class Core:
         self.received_data: str = ""
         self.data_dict: dict[str, Any] = {}
 
-    def run(self, is_dad: bool = True):
+    def run(self):
         """run function
             this function run the client
         """
         self.client.connect()
-        self.loop(is_dad)
+        self.loop()
 
     def stop(self):
         """stop function
@@ -67,17 +67,7 @@ class Core:
 
     async def use_data(self, message):
         tmp_dict = await self.management.execute_functions(message)
-        if "message" in tmp_dict:
-            if "message" not in self.data_dict:
-                self.data_dict.update(tmp_dict)
-                if not isinstance(self.data_dict["message"], list):
-                    self.data_dict["message"] = [self.data_dict["message"]]
-            else:
-                if not isinstance(self.data_dict["message"], list):
-                    self.data_dict["message"] = [self.data_dict["message"]]
-                self.data_dict["message"].append(tmp_dict["message"])
-        else:
-            self.data_dict.update(tmp_dict)
+        self.data_dict.update(tmp_dict)
 
     async def parse_received_data(self):
         """parse_received_data function
@@ -119,18 +109,18 @@ class Core:
         """
         for sock in writable:
             if sock is self.client.server_sock:
-                if self.ai.output and self.management.is_received == True:
+                if self.ai.output and self.management.is_received:
                     self.client.send_data(sock, self.ai.output[0])
                     self.management.is_received = False
                     self.ai.output.pop(0)
 
     def select_in_thread(self):
         readable, writable = self.client.select(self.inputs, self.outputs)
-        if (self.receive_data_from_server(readable) == False):
+        if self.receive_data_from_server(readable) == False:
             return
         self.send_data_to_server(writable)
 
-    def loop(self, is_dad: bool):
+    def loop(self):
         """loop function
             this function is the main loop of the AI
         """
@@ -143,7 +133,7 @@ class Core:
                 self.data_dict = {}
 
             if self.ai.map_size != (0, 0) and not self.management.need_response and self.management.is_received:
-                self.ai.choose_action(is_dad)
+                self.ai.choose_action()
 
             self.response_management()
 
