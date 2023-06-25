@@ -15,37 +15,26 @@ SRC_PARSER	=	parser_args/parse_args.c 									\
 
 SRC_DISPLAY = display/display_log.c 										\
 
-SRC_GAME 	=	game/initialize/trantorian.c    		\
-				game/initialize/egg.c 					\
-				game/initialize/map.c			 		\
-				game/initialize/clan.c 					\
-				game/initialize/game_struct.c 			\
-				game/gameloop.c 						\
-				game/gameloop_check_special_event.c 	\
-				game/command/forward.c 					\
-				game/gui_protocol/gui_pnw.c				\
-				game/command/move_functions.c 			\
-				game/player_command.c 					\
-				game/command/connection.c 				\
-				game/command/turn.c 					\
-				game/command/inventory.c 				\
-				game/refill_obj/management_stone.c		\
-				game/refill_obj/generation_list_stone.c \
-				game/refill_obj/malloc_tab_array.c		\
-				game/gui_protocol/gui_msz.c				\
-				game/gui_protocol/handle_event.c		\
-				game/gui_protocol/gui_sgt.c				\
-				game/gui_protocol/gui_mct.c				\
-				game/gui_protocol/gui_bct.c				\
-				game/gui_protocol/gui_tna.c				\
-				game/gui_protocol/gui_plv.c				\
-				game/command/utils_look/count_elements.c\
-				game/command/utils_look/utils_look.c	\
-				game/command/utils_look/look.c			\
-				game/command/utils_look/look_functions.c\
-				game/command/utils_look/look_right_and_left.c \
-		       	game/command/connect_nbr.c              \
-				game/gui_protocol/gui_ppo.c				\
+SRC_GAME 	=	game/initialize/trantorian.c    							\
+				game/initialize/egg.c 										\
+				game/initialize/map.c			 							\
+				game/initialize/clan.c 										\
+				game/initialize/game_struct.c 								\
+				game/initialize/clans_lists.c								\
+				game/initialize/create_list_clans.c							\
+				game/gameloop.c 											\
+				game/gameloop_check_special_event.c 						\
+				game/command/forward.c 										\
+				game/command/move_functions.c 								\
+				game/command/connection.c 									\
+				game/command/turn.c 										\
+				game/command/inventory.c 									\
+				game/command/utils_look/count_elements.c					\
+				game/command/utils_look/utils_look.c						\
+				game/command/utils_look/look.c								\
+				game/command/utils_look/look_functions.c					\
+				game/command/utils_look/look_right_and_left.c 				\
+		       	game/command/connect_nbr.c              					\
 				game/command/incantation/do_incantation.c  					\
 				game/command/incantation/init_truth_table.c 				\
 				game/command/incantation/check_incantation.c 				\
@@ -54,46 +43,58 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/command/set_object.c 									\
 				game/command/eject/eject.c 									\
 				game/command/eject/move_trantorians.c						\
-				game/gui_protocol/gui_pin.c									\
-				game/manage_timer/update_players.c 							\
-				game/initialize/clans_lists.c								\
-				game/initialize/create_list_clans.c							\
 				game/command/fork.c											\
-				game/gui_protocol/gui_pdi.c 			\
-				game/gui_protocol/gui_pex.c 			\
-				game/gui_protocol/gui_pgt.c 			\
-				game/gui_protocol/gui_pfk.c 			\
-				game/gui_protocol/gui_pdr.c 			\
-				game/gui_protocol/gui_pbc.c 			\
-				game/gui_protocol/gui_sbp.c				\
-				game/gui_protocol/gui_suc.c 			\
-				game/command/broadcast/do_broadcast.c				\
+				game/command/broadcast/do_broadcast.c						\
 				game/command/broadcast/update_distance_for_all_clients.c 	\
-				game/command/broadcast/utils_position.c		\
-				game/command/broadcast/check_adjacent_position.c		\
-				game/command/broadcast/get_direction_broadcast.c		\
-				game/command/broadcast/check_border_in_map.c		\
-				game/gui_protocol/gui_ebo.c 			\
-				game/gui_protocol/gui_pic.c 			\
-				game/gui_protocol/gui_edi.c 			\
-				game/gui_protocol/gui_enw.c 			\
-				game/gui_protocol/gui_seg.c 			\
-				game/gui_protocol/gui_sst.c 			\
-				game/check_function/check_win.c			\
-				game/gui_protocol/gui_kil.c 			\
+				game/command/broadcast/utils_position.c						\
+				game/command/broadcast/check_adjacent_position.c			\
+				game/command/broadcast/get_direction_broadcast.c			\
+				game/command/broadcast/check_border_in_map.c				\
+				game/refill_food.c 											\
+				game/refill_obj/management_stone.c							\
+				game/refill_obj/generation_list_stone.c 					\
+				game/refill_obj/malloc_tab_array.c							\
+				game/gui_protocol/handle_event.c							\
+				game/gui_protocol/gui_pnw.c									\
+				game/gui_protocol/gui_pin.c									\
+				game/gui_protocol/gui_plv.c									\
+				game/gui_protocol/gui_sgt.c									\
+				game/gui_protocol/gui_mct.c									\
+				game/gui_protocol/gui_bct.c									\
+				game/gui_protocol/gui_tna.c									\
+				game/gui_protocol/gui_ppo.c									\
+				game/gui_protocol/gui_pdi.c 								\
+				game/gui_protocol/gui_pex.c 								\
+				game/gui_protocol/gui_pgt.c 								\
+				game/gui_protocol/gui_pfk.c 								\
+				game/gui_protocol/gui_pdr.c 								\
+				game/gui_protocol/gui_pbc.c 								\
+				game/gui_protocol/gui_sbp.c									\
+				game/gui_protocol/gui_suc.c 								\
+				game/gui_protocol/gui_ebo.c 								\
+				game/gui_protocol/gui_pic.c 								\
+				game/gui_protocol/gui_edi.c 								\
+				game/gui_protocol/gui_enw.c 								\
+				game/gui_protocol/gui_seg.c 								\
+				game/gui_protocol/gui_sst.c 								\
+				game/gui_protocol/gui_msz.c									\
+				game/manage_timer/update_players.c 							\
+				game/player_command.c 										\
+				game/check_function/check_win.c								\
+        game/gui_protocol/gui_kil.c 			\
 
-SRC_NETWORK =	network/build/build_server.c			\
-				network/run/run.c 						\
-				network/run/handle_clients.c 			\
-				network/run/run_manage.c				\
-				network/client/client.c		 			\
-				network/event/event.c 					\
-				network/utils_network/read.c			\
-				network/utils_network/write.c			\
-				network/utils_network/destroy_zappy.c 	\
-				network/response/response.c				\
-				network/response/insert_response.c		\
-				network/client/clients_list.c			\
+SRC_NETWORK =	network/build/build_server.c								\
+				network/run/run.c 											\
+				network/run/handle_clients.c 								\
+				network/run/run_manage.c									\
+				network/client/client.c		 								\
+				network/event/event.c 										\
+				network/utils_network/read.c								\
+				network/utils_network/write.c								\
+				network/utils_network/destroy_zappy.c 						\
+				network/response/response.c									\
+				network/response/insert_response.c							\
+				network/client/clients_list.c								\
 
 OBJ			=	$(SRC:%.c=%.o)
 OBJ			+=	$(SRC_PARSER:%.c=%.o)

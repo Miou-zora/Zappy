@@ -71,6 +71,7 @@ void gameloop(zappy_t *zappy_s)
     }
     LIST_INIT(&zappy_s->events);
     update_players(zappy_s);
+    update_spawn_food(zappy_s);
     if (check_win_game(zappy_s))
         exit(0);
 }

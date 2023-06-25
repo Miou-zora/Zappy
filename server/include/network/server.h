@@ -312,4 +312,11 @@
  */
 void send_response_to_all_gui_clients(response_t *response, zappy_t *zappy);
 
+/**
+ * @brief check if there isn't enough food on the map
+ *
+ * @param zappy
+ */
+void update_spawn_food(zappy_t *zappy);
+
 #endif /* !SERVER_H_ */
