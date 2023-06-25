@@ -8,9 +8,11 @@
 #include "Player.hpp"
 #include <iostream>
 #include "Team.hpp"
+#include "IOPooledClient.hpp"
+#include "Request.hpp"
 
 namespace GUI::Game {
-    Player::Player(std::shared_ptr<GUI::Game::Team> teamName, int id, Vector2 position, Orientation orientation, size_t level):
+    Player::Player(std::shared_ptr<GUI::Game::Team> teamName, int id, Vector2 position, Orientation orientation, std::shared_ptr<GUI::Network::IOPooledClient> client, size_t level):
         _id(id),
         _team(teamName),
         _position(position),
@@ -23,7 +25,8 @@ namespace GUI::Game {
         _siburContainer(std::make_shared<GUI::Game::SiburContainer>()),
         _mendianeContainer(std::make_shared<GUI::Game::MendianeContainer>()),
         _phirasContainer(std::make_shared<GUI::Game::PhirasContainer>()),
-        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>())
+        _thystameContainer(std::make_shared<GUI::Game::ThystameContainer>()),
+        _client(client)
     {
 
     }
@@ -77,6 +80,7 @@ namespace GUI::Game {
         DrawText(("Mendiane: " + std::to_string(_mendianeContainer->getQuantity())).c_str(), 10, 170, 20, WHITE);
         DrawText(("Phiras: " + std::to_string(_phirasContainer->getQuantity())).c_str(), 10, 190, 20, WHITE);
         DrawText(("Thystame: " + std::to_string(_thystameContainer->getQuantity())).c_str(), 10, 210, 20, WHITE);
+        _client->addRequest(std::make_shared<GUI::Network::Request>("pin " + _id));
     }
 
     std::shared_ptr<BoundingBox> Player::getBoundingBox(void)

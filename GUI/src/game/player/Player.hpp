@@ -18,6 +18,7 @@
 #include "ThystameContainer.hpp"
 #include "ICatchable.hpp"
 #include "Team.hpp"
+#include "IOPooledClient.hpp"
 
 namespace GUI::Game {
     enum Orientation {
@@ -28,7 +29,7 @@ namespace GUI::Game {
     };
     class Player : virtual public ICatchable{
         public:
-            Player(std::shared_ptr<GUI::Game::Team> teamName, int id, Vector2 position, Orientation orientation, size_t level = 1);
+            Player(std::shared_ptr<GUI::Game::Team> teamName, int id, Vector2 position, Orientation orientation, std::shared_ptr<GUI::Network::IOPooledClient> client, size_t level = 1);
 
             ~Player(void) = default;
 
@@ -76,6 +77,7 @@ namespace GUI::Game {
             std::shared_ptr<GUI::Game::MendianeContainer> _mendianeContainer;
             std::shared_ptr<GUI::Game::PhirasContainer> _phirasContainer;
             std::shared_ptr<GUI::Game::ThystameContainer> _thystameContainer;
+            std::shared_ptr<GUI::Network::IOPooledClient> _client;
 
             static std::string _orientationToString(Orientation orientation) {
                 switch (orientation) {
