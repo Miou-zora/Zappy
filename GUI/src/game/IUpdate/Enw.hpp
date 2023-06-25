@@ -49,10 +49,6 @@ namespace GUI::Game {
                 }
                 if (playerId != -1) {
                     player = _findPlayerById(_gameState->getPlayers(), playerId);
-                    if (player == nullptr) {
-                        std::cerr << "Error: Enw: player not found: " << std::to_string(playerId) << std::endl;
-                        return;
-                    }
                 }
                 for (auto &egg: eggs) {
                     if (egg->getId() == eggId) {
@@ -61,7 +57,10 @@ namespace GUI::Game {
                     }
                 }
                 if (playerId != -1)
-                    newEgg = std::make_shared<GUI::Game::Egg>(player->getTeam(), eggId, (Vector2){static_cast<float>(posX), static_cast<float>(posY)});
+                    if (player)
+                        newEgg = std::make_shared<GUI::Game::Egg>(player->getTeam(), eggId, (Vector2){static_cast<float>(posX), static_cast<float>(posY)});
+                    else
+                        newEgg = std::make_shared<GUI::Game::Egg>(nullptr, eggId, (Vector2){static_cast<float>(posX), static_cast<float>(posY)});
                 else
                     newEgg = std::make_shared<GUI::Game::Egg>(nullptr, eggId, (Vector2){static_cast<float>(posX), static_cast<float>(posY)});
                 newEgg->setPositionDiff({-_gameState->getMap()->getSize().x / 2 + 0.5f, -_gameState->getMap()->getSize().y / 2 + 0.5f});

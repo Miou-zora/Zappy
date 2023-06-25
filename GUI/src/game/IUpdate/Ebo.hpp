@@ -28,28 +28,23 @@ namespace GUI::Game {
                 int id = 0;
 
                 if (args.size() != 2 && args[0] != "ebo") {
-                    std::cerr << "Error: Ebo: wrong command sended" << std::endl;
+                    std::cerr << "Error: Ebo: wrong command" << std::endl;
                     return;
                 }
                 try {
                     id = std::stoi(args[1]);
                 } catch (std::exception &e) {
-                    std::cerr << "Error: Ebo: " << e.what() << std::endl;
+                    std::cerr << "Error: Ebo: stoi: " << e.what() << std::endl;
                     return;
                 }
-                if (_findEggById(id) == nullptr) {
-                    std::cerr << "Error: Ebo: egg not found" << std::endl;
-                    return;
+
+                for (auto it = _gameState->getEggs().begin(); it != _gameState->getEggs().end(); it++) {
+                    if ((*it)->getId() == id) {
+                        _gameState->getEggs().erase(it);
+                        return;
+                    }
                 }
-            }
-        private:
-            std::shared_ptr<GUI::Game::Egg> _findEggById(int id)
-            {
-                for (auto &egg : _gameState->getEggs()) {
-                    if (egg->getId() == id)
-                        return egg;
-                }
-                return nullptr;
+                std::cerr << "Error: Ebo: egg not found: " << id << std::endl;
             }
     };
 }
