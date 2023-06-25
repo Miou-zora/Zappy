@@ -254,3 +254,77 @@ void update_trantorian_life(trantorian_t *trantorian, zappy_t *zappy);
  * @return int id
  */
 int get_id_ressource_by_name(char *param);
+
+/**
+ * @brief update the distance of the trantorian for all clients
+ *
+ * @param zappy_s the struct containing every information about the server
+ */
+void update_distance_for_all_clients(zappy_t *server, client_t *client,
+    char *send_message);
+
+/**
+ * @brief do the broadcast
+ *
+ * @param client the client who is moving
+ * @param zappy_s the struct containing every information about the server
+ * @param param the param of the command
+ */
+void do_broadcast(client_t *client, zappy_t *zappy, char *param);
+
+/**
+ * @brief Set the func broadcast object
+ *
+ * @param event the event
+ * @param zappy_s the struct containing every information about the server
+ */
+void set_func_broadcast(event_t *event, zappy_t *zappy_s);
+
+/**
+ * @brief get the position of the trantorian
+ *
+ * @param pos the position of the player
+ * @param trantorian the trantorian
+ * @return vector_t the position of the trantorian
+ */
+vector_t select_increment_pos(vector_t pos_origin, vector_t pos_trantorian);
+
+/**
+ * @brief get the position of the trantorian
+ *
+ * @param pos the position of the player
+ * @param trantorian the trantorian
+ * @return vector_t the position of the trantorian
+ */
+vector_t get_pos_trantorian(vector_t pos, trantorian_t *trantorian);
+
+/**
+ * @brief check if the position is on the border of the map
+ *
+ * @param increment_pos the increment position
+ * @param pos_trantorian the position of the trantorian
+ * @param map the map
+ * @return vector_t the increment position
+ */
+bool check_adjacent_position(vector_t pos_trantorian, vector_t pos_origin);
+
+/**
+ * @brief check if the position is on the border of the map
+ *
+ * @param increment_pos the increment position
+ * @param pos_trantorian the position of the trantorian
+ * @param map the map
+ * @return vector_t the increment position
+ */
+int get_direction_broadcast(vector_t pos_trantorian, vector_t pos_origin);
+
+/**
+ * @brief check if the position is on the border of the map
+ *
+ * @param increment_pos the increment position
+ * @param pos_trantorian the position of the trantorian
+ * @param map the map
+ * @return vector_t the increment position
+ */
+void check_border_in_map(vector_t *increment_pos, vector_t *pos_trantorian,
+    map_t *map);

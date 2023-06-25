@@ -13,11 +13,12 @@
 static void (*list_cmd[]) (event_t *event, zappy_t *zappy_s) = {
         set_func_forward, set_func_left, set_func_right, set_func_inventory,
         set_func_incantation, set_func_connect_nbr, set_func_set_object,
-        set_func_look, set_func_fork, set_func_take_object, set_func_eject};
+        set_func_look, set_func_fork, set_func_take_object, set_func_eject,
+        set_func_broadcast};
 
 static const char *commands[] = {"Forward", "Left", "Right", "Inventory",
         "Incantation", "Connect_nbr", "Set", "Look",
-        "Fork", "Take", "Eject", NULL};
+        "Fork", "Take", "Eject", "Broadcast", NULL};
 
 void bad_command(event_t *event, zappy_t *zappy_s)
 {

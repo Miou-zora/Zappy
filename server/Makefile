@@ -67,6 +67,12 @@ SRC_GAME 	=	game/initialize/trantorian.c    		\
 				game/gui_protocol/gui_pbc.c 			\
 				game/gui_protocol/gui_sbp.c				\
 				game/gui_protocol/gui_suc.c 			\
+				game/command/broadcast/do_broadcast.c				\
+				game/command/broadcast/update_distance_for_all_clients.c 	\
+				game/command/broadcast/utils_position.c		\
+				game/command/broadcast/check_adjacent_position.c		\
+				game/command/broadcast/get_direction_broadcast.c		\
+				game/command/broadcast/check_border_in_map.c		\
 				game/gui_protocol/gui_ebo.c 			\
 				game/gui_protocol/gui_pic.c 			\
 				game/gui_protocol/gui_edi.c 			\
